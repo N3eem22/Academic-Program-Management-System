@@ -10,3 +10,16 @@ C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\refint\Generic.Domian.dll
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.pdb
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\ref\Generic.Domian.dll
+D:\Education\Level 04\Grad Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.deps.json
+D:\Education\Level 04\Grad Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.dll
+D:\Education\Level 04\Grad Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.pdb
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.AssemblyReference.cache
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.GeneratedMSBuildEditorConfig.editorconfig
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfoInputs.cache
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfo.cs
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.CoreCompileInputs.cache
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.sourcelink.json
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.dll
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\refint\Generic.Domian.dll
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.pdb
+D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\ref\Generic.Domian.dll
