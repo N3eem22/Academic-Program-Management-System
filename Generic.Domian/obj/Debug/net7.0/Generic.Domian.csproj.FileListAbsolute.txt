@@ -1,0 +1,12 @@
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\bin\Debug\net7.0\Generic.Domian.deps.json
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\bin\Debug\net7.0\Generic.Domian.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\bin\Debug\net7.0\Generic.Domian.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.AssemblyReference.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfoInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfo.cs
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.CoreCompileInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\refint\Generic.Domian.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\Generic.Domian.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Domian\obj\Debug\net7.0\ref\Generic.Domian.dll

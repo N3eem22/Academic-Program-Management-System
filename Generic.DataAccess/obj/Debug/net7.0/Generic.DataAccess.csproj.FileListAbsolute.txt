@@ -1,0 +1,17 @@
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.deps.json
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.runtimeconfig.json
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfo.cs
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CopyComplete
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\refint\Generic.DataAccess.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.genruntimeconfig.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\ref\Generic.DataAccess.dll

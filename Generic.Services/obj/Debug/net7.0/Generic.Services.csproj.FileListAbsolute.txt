@@ -1,0 +1,17 @@
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.Services.deps.json
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.Services.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.Services.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.DataAccess.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.Domian.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.DataAccess.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\bin\Debug\net7.0\Generic.Domian.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.AssemblyReference.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.AssemblyInfoInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.AssemblyInfo.cs
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.CoreCompileInputs.cache
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.CopyComplete
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\refint\Generic.Services.dll
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\Generic.Services.pdb
+C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.Services\obj\Debug\net7.0\ref\Generic.Services.dll
