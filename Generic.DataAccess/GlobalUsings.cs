@@ -10,3 +10,5 @@ global using Generic.Domian.Extensions;
 global using Generic.Domian.Extensions.Auth;
 global using Microsoft.AspNetCore.Identity;
 global using Generic.Domian.Models.Shared;
+global using Generic.Domian.Models.Entities;
+global using Generic.Domian.Models.Lockups;

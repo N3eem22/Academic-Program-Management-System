@@ -15,3 +15,21 @@ C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\De
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.pdb
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.genruntimeconfig.cache
 C:\Users\Mohamed.Kamal.OTVENTURES\Source\Repos\Generic\Generic.DataAccess\obj\Debug\net7.0\ref\Generic.DataAccess.dll
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.deps.json
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.runtimeconfig.json
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.dll
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.pdb
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.dll
+D:\Education\Level 04\Grad Project\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.pdb
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.AssemblyReference.cache
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfoInputs.cache
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfo.cs
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CoreCompileInputs.cache
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.sourcelink.json
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CopyComplete
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.dll
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\refint\Generic.DataAccess.dll
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.pdb
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.genruntimeconfig.cache
+D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\ref\Generic.DataAccess.dll

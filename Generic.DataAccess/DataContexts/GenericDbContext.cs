@@ -1,4 +1,5 @@
-﻿using Generic.Domian.Models.Logs;
+﻿
+using Generic.Domian.Models.Logs;
 
 namespace Generic.DataAccess.DataContexts
 {
@@ -33,6 +34,11 @@ namespace Generic.DataAccess.DataContexts
 
         //logs
         public DbSet<ApplicationLog> ApplicationLogs { get; set; }
+
+        //Entities 
+        public DbSet<University> Universities { get; set; }
+        //Lockups
+        public DbSet<SystemType> SystemTypes { get; set; }
 
         #endregion
 

@@ -4518,19 +4518,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mohamed.Kamal.OTVENTURES\\.nuget\\packages\\": {}
+    "C:\\Users\\ahmed\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohamed.Kamal.OTVENTURES\\source\\repos\\Generic\\Generic.Api\\Generic.Api.csproj",
+      "projectUniqueName": "D:\\Education\\Level 04\\Grad Project\\Generic.Api\\Generic.Api.csproj",
       "projectName": "Generic.Api",
-      "projectPath": "C:\\Users\\Mohamed.Kamal.OTVENTURES\\source\\repos\\Generic\\Generic.Api\\Generic.Api.csproj",
-      "packagesPath": "C:\\Users\\Mohamed.Kamal.OTVENTURES\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohamed.Kamal.OTVENTURES\\source\\repos\\Generic\\Generic.Api\\obj\\",
+      "projectPath": "D:\\Education\\Level 04\\Grad Project\\Generic.Api\\Generic.Api.csproj",
+      "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+      "outputPath": "D:\\Education\\Level 04\\Grad Project\\Generic.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mohamed.Kamal.OTVENTURES\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4544,8 +4544,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Mohamed.Kamal.OTVENTURES\\source\\repos\\Generic\\Generic.Services\\Generic.Services.csproj": {
-              "projectPath": "C:\\Users\\Mohamed.Kamal.OTVENTURES\\source\\repos\\Generic\\Generic.Services\\Generic.Services.csproj"
+            "D:\\Education\\Level 04\\Grad Project\\Generic.Services\\Generic.Services.csproj": {
+              "projectPath": "D:\\Education\\Level 04\\Grad Project\\Generic.Services\\Generic.Services.csproj"
             }
           }
         }
@@ -4614,7 +4614,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
