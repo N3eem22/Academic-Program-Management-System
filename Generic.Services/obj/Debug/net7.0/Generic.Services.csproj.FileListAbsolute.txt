@@ -33,3 +33,20 @@ D:\Education\Level 04\Grad Project\Generic.Services\obj\Debug\net7.0\Generic.Ser
 D:\Education\Level 04\Grad Project\Generic.Services\obj\Debug\net7.0\refint\Generic.Services.dll
 D:\Education\Level 04\Grad Project\Generic.Services\obj\Debug\net7.0\Generic.Services.pdb
 D:\Education\Level 04\Grad Project\Generic.Services\obj\Debug\net7.0\ref\Generic.Services.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.Services.deps.json
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.Services.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.Services.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.DataAccess.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.DataAccess.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Services\bin\Debug\net7.0\Generic.Domian.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.AssemblyReference.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.AssemblyInfoInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.AssemblyInfo.cs
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.CoreCompileInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.csproj.CopyComplete
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\refint\Generic.Services.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\Generic.Services.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Services\obj\Debug\net7.0\ref\Generic.Services.dll

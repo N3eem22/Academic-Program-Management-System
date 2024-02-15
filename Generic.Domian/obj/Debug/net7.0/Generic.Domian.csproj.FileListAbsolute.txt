@@ -23,3 +23,15 @@ D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domia
 D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\refint\Generic.Domian.dll
 D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.pdb
 D:\Education\Level 04\Grad Project\Generic.Domian\obj\Debug\net7.0\ref\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.deps.json
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\bin\Debug\net7.0\Generic.Domian.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.AssemblyReference.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.GeneratedMSBuildEditorConfig.editorconfig
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfoInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.AssemblyInfo.cs
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.csproj.CoreCompileInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\refint\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\Generic.Domian.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.Domian\obj\Debug\net7.0\ref\Generic.Domian.dll

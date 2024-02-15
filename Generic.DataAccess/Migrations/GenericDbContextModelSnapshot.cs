@@ -56,9 +56,6 @@ namespace Generic.DataAccess.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -99,9 +96,6 @@ namespace Generic.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(100)
@@ -172,9 +166,6 @@ namespace Generic.DataAccess.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -187,6 +178,742 @@ namespace Generic.DataAccess.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Hr_Employee");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.AbsenteeEstimateCalculation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("absenteeEstimateCalculation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_AbsenteeEstimateCalculation");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.AllGrades", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheGrade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_AllGrades");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.BlockingProofOfRegistration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReasonsOfBlocking")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_BlockingProofOfRegistration");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.BurdenCalculation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BurdenCalculationAS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_BurdenCalculation");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseRequirement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("courseRequirement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_CourseRequirement");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("courseType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_CourseType");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.EditTheStudentLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("editTheStudentLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_EditTheStudentLevel");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.EquivalentGrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("equivalentGrade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_EquivalentGrade");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.GradesDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_GradesDetails");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Hours", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HoursName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_Hours");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("levels")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_Level");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.PassingTheElectiveGroupBasedOn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PassingTheElectiveGroup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_PassingTheElectiveGroupBasedOn");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.PreviousQualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("previousQualification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_PreviousQualification");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingAcademicResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheReasonForBlockingAcademicResult")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_ReasonForBlockingAcademicResult");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingRegistration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheReasonForBlockingRegistration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_ReasonForBlockingRegistration");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Semesters", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("semesters")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_Semester");
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.SystemType", b =>
@@ -217,9 +944,6 @@ namespace Generic.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
@@ -236,6 +960,282 @@ namespace Generic.DataAccess.Migrations
                     b.HasIndex("UniversityId");
 
                     b.ToTable("System Type");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TheAcademicDegree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AcademicDegreeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_TheAcademicDegree");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TheResultAppears", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("resultAppears")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_TheResultAppears");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfFinancialStatementInTheProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_TypeOfFinancialStatementInTheProgram");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfProgramFees", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TypeOfFees")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_TypeOfProgramFees");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfStudySection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheTypeOfStudySectio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_TypeOfStudySection");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfSummerFees", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeleteBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TheTypeOfSummerFees")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UniversityId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("LU_Typeofsummerfees");
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Logs.ApplicationLog", b =>
@@ -269,9 +1269,6 @@ namespace Generic.DataAccess.Migrations
                     b.Property<string>("ObjectJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(100)
@@ -408,9 +1405,6 @@ namespace Generic.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("TenantCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -429,7 +1423,6 @@ namespace Generic.DataAccess.Migrations
                             InsertDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "دولار أمريكي",
-                            TenantCompanyId = 0,
                             UpdateDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -438,7 +1431,6 @@ namespace Generic.DataAccess.Migrations
                             InsertDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "دينار عراقي",
-                            TenantCompanyId = 0,
                             UpdateDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -447,7 +1439,6 @@ namespace Generic.DataAccess.Migrations
                             InsertDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "يوان صيني",
-                            TenantCompanyId = 0,
                             UpdateDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -486,9 +1477,6 @@ namespace Generic.DataAccess.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<int?>("ParentCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TenantCompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdateBy")
@@ -649,10 +1637,252 @@ namespace Generic.DataAccess.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.AbsenteeEstimateCalculation", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("AbsenteeEstimateCalculation")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.AllGrades", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("AllGrades")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.BlockingProofOfRegistration", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("BlockingProofOfRegistrations")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.BurdenCalculation", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("BurdenCalculation")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseRequirement", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("CourseRequirements")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseType", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("CourseTypes")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.EditTheStudentLevel", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("EditTheStudentLevel")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.EquivalentGrade", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("EquivalentGrades")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.GradesDetails", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("GradesDetails")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Hours", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("Hours")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Level", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("Levels")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.PassingTheElectiveGroupBasedOn", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("passingTheElectiveGroupBasedOns")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.PreviousQualification", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("PreviousQualifications")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingAcademicResult", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("ReasonForBlockingAcademicResults")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingRegistration", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("ReasonForBlockingRegistration")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.Semesters", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("Semesters")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
             modelBuilder.Entity("Generic.Domian.Models.Lockups.SystemType", b =>
                 {
                     b.HasOne("Generic.Domian.Models.Entities.University", "University")
-                        .WithMany()
+                        .WithMany("SystemTypes")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TheAcademicDegree", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TheAcademicDegrees")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TheResultAppears", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TheResultAppears")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfFinancialStatementInTheProgram", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TypeOfFinancialStatements")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfProgramFees", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TypeOfProgramFees")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfStudySection", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TypeOfStudySections")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfSummerFees", b =>
+                {
+                    b.HasOne("Generic.Domian.Models.Entities.University", "University")
+                        .WithMany("TypeOfSummerFees")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -719,6 +1949,55 @@ namespace Generic.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Generic.Domian.Models.Entities.University", b =>
+                {
+                    b.Navigation("AbsenteeEstimateCalculation");
+
+                    b.Navigation("AllGrades");
+
+                    b.Navigation("BlockingProofOfRegistrations");
+
+                    b.Navigation("BurdenCalculation");
+
+                    b.Navigation("CourseRequirements");
+
+                    b.Navigation("CourseTypes");
+
+                    b.Navigation("EditTheStudentLevel");
+
+                    b.Navigation("EquivalentGrades");
+
+                    b.Navigation("GradesDetails");
+
+                    b.Navigation("Hours");
+
+                    b.Navigation("Levels");
+
+                    b.Navigation("PreviousQualifications");
+
+                    b.Navigation("ReasonForBlockingAcademicResults");
+
+                    b.Navigation("ReasonForBlockingRegistration");
+
+                    b.Navigation("Semesters");
+
+                    b.Navigation("SystemTypes");
+
+                    b.Navigation("TheAcademicDegrees");
+
+                    b.Navigation("TheResultAppears");
+
+                    b.Navigation("TypeOfFinancialStatements");
+
+                    b.Navigation("TypeOfProgramFees");
+
+                    b.Navigation("TypeOfStudySections");
+
+                    b.Navigation("TypeOfSummerFees");
+
+                    b.Navigation("passingTheElectiveGroupBasedOns");
                 });
 #pragma warning restore 612, 618
         }

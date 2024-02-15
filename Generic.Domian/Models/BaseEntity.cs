@@ -12,7 +12,7 @@
         public string? InsertBy { get; set; }
         [StringLength(100)]
         public string? UpdateBy { get; set; }
-        public int TenantCompanyId { get; set; }
+        //public int TenantCompanyId { get; set; }
         public string? DeleteBy { get; set; }
     }
 }

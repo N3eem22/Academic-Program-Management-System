@@ -1,5 +1,6 @@
 ﻿
 using Generic.Domian.Models.Logs;
+using Generic.Domian.Models.Lockups;
 
 namespace Generic.DataAccess.DataContexts
 {
@@ -39,6 +40,30 @@ namespace Generic.DataAccess.DataContexts
         public DbSet<University> Universities { get; set; }
         //Lockups
         public DbSet<SystemType> SystemTypes { get; set; }
+        public DbSet<AllGrades> AllGrades { get; set; }
+        public DbSet<AbsenteeEstimateCalculation> AbsenteeEstimateCalculations { get; set; }
+        public DbSet<BlockingProofOfRegistration> BlockingProofOfRegistrations { get; set; }
+        public DbSet<BurdenCalculation> BurdenCalculations { get; set; }
+        public DbSet<CourseRequirement> CourseRequirements { get; set; }
+        public DbSet<CourseType> CourseTypes { get; set; }
+        public DbSet<EditTheStudentLevel> editTheStudentLevels { get; set; }
+        public DbSet<EquivalentGrade> equivalentGrades { get; set; }
+        public DbSet<GradesDetails> GradesDetails { get; set; }
+        public DbSet<Hours> Hours { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<PassingTheElectiveGroupBasedOn> passingTheElectiveGroupBasedOns { get; set; }
+        public DbSet<PreviousQualification> previousQualifications { get; set; }
+        public DbSet<ReasonForBlockingAcademicResult> reasonForBlockingAcademicResults { get; set; }
+        public DbSet<ReasonForBlockingRegistration> reasonForBlockingRegistrations { get; set; }
+        public DbSet<Semesters> Semesters { get; set; }
+        public DbSet<TheAcademicDegree> theAcademicDegrees { get; set; }
+        public DbSet<TheResultAppears> TheResultAppears { get; set; }
+        public DbSet<TypeOfFinancialStatementInTheProgram> typeOfFinancialStatementInThePrograms { get; set; }
+        public DbSet<TypeOfProgramFees> TypeOfProgramFees { get; set; }
+        public DbSet<TypeOfStudySection> typeOfStudySections { get; set; }
+        public DbSet<TypeOfSummerFees> TypeOfSummerFees { get; set; }
+
+
 
         #endregion
 
@@ -83,7 +108,7 @@ namespace Generic.DataAccess.DataContexts
             foreach (var entityEntry in entries)
             {
 
-                ((BaseEntity)entityEntry.Entity).TenantCompanyId = companyId;
+                //((BaseEntity)entityEntry.Entity).TenantCompanyId = companyId;
 
 
                 ((BaseEntity)entityEntry.Entity).UpdateDate = dateNow;

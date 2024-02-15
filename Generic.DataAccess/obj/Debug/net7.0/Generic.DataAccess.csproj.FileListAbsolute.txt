@@ -33,3 +33,20 @@ D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\refint\Ge
 D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.pdb
 D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.genruntimeconfig.cache
 D:\Education\Level 04\Grad Project\Generic.DataAccess\obj\Debug\net7.0\ref\Generic.DataAccess.dll
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.deps.json
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.runtimeconfig.json
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.dll
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.DataAccess.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.dll
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\bin\Debug\net7.0\Generic.Domian.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.AssemblyReference.cache
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfoInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.AssemblyInfo.cs
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CoreCompileInputs.cache
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.csproj.CopyComplete
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.dll
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\refint\Generic.DataAccess.dll
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.pdb
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\Generic.DataAccess.genruntimeconfig.cache
+D:\GP\Gp_Project\Grad-Project\Generic.DataAccess\obj\Debug\net7.0\ref\Generic.DataAccess.dll

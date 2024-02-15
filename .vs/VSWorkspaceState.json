@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Generic.Domian",
+    "\\Generic.Domian\\Models",
+    "\\Generic.Domian\\Models\\Lockups"
   ],
-  "SelectedNode": "\\Generic.sln",
+  "SelectedNode": "\\Generic.Api",
   "PreviewInSolutionExplorer": false
 }
