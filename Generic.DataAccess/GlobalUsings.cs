@@ -12,3 +12,5 @@ global using Microsoft.AspNetCore.Identity;
 global using Generic.Domian.Models.Shared;
 global using Generic.Domian.Models.Entities;
 global using Generic.Domian.Models.Lockups;
+
+//sfiuahsiuadhfoiw

@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Api\\Generic.Api.csproj": {}
+    "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Api\\Generic.Api.csproj": {}
   },
   "projects": {
-    "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Api\\Generic.Api.csproj": {
+    "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Api\\Generic.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Api\\Generic.Api.csproj",
+        "projectUniqueName": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Api\\Generic.Api.csproj",
         "projectName": "Generic.Api",
-        "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Api\\Generic.Api.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Api\\obj\\",
+        "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Api\\Generic.Api.csproj",
+        "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+        "outputPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Api\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\Generic.Services.csproj": {
-                "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\Generic.Services.csproj"
+              "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\Generic.Services.csproj": {
+                "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\Generic.Services.csproj"
               }
             }
           }
@@ -103,25 +98,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj": {
+    "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj",
+        "projectUniqueName": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj",
         "projectName": "Generic.DataAccess",
-        "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\obj\\",
+        "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+        "outputPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -129,15 +120,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj": {
-                "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj"
+              "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj": {
+                "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj"
               }
             }
           }
@@ -203,25 +193,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj": {
+    "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj",
+        "projectUniqueName": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj",
         "projectName": "Generic.Domian",
-        "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Domian\\obj\\",
+        "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\Generic.Domian.csproj",
+        "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+        "outputPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Domian\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -229,7 +215,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -281,25 +266,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\Generic.Services.csproj": {
+    "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\Generic.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\Generic.Services.csproj",
+        "projectUniqueName": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\Generic.Services.csproj",
         "projectName": "Generic.Services",
-        "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\Generic.Services.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.Services\\obj\\",
+        "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\Generic.Services.csproj",
+        "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+        "outputPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -307,15 +288,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj": {
-                "projectPath": "D:\\GP\\Gp_Project\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj"
+              "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj": {
+                "projectPath": "D:\\Education\\Level 04\\Grad\\Grad-Project\\Generic.DataAccess\\Generic.DataAccess.csproj"
               }
             }
           }
@@ -351,7 +331,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
