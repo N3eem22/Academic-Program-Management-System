@@ -38,6 +38,7 @@ namespace Generic.Domian.Models.Entities
         public ICollection<Semesters> Semesters { get; set; } = new HashSet<Semesters>();
         public ICollection<CourseRequirement> CourseRequirements { get; set;} = new HashSet<CourseRequirement>();
         public ICollection<AbsenteeEstimateCalculation> AbsenteeEstimateCalculation { get; set; } = new HashSet<AbsenteeEstimateCalculation>();
+        public ICollection<Faculty> Faculties { get; set; } = new HashSet<Faculty>();
 
 
 
