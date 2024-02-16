@@ -8,6 +8,8 @@ import { Routes, Route, useNavigation } from "react-router-dom";
 
 // pages
 import { LoginPage } from "./pages/login";
+import { HomePage } from "./pages/home";
+import { LevelsPage } from "./pages/programs/edit/levels";
 
 // mui
 import CircularProgress from "@mui/material/CircularProgress";
@@ -27,9 +29,10 @@ function App() {
     >
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin/*" element={<AdminPage />}>
+
+        {/* <Route path="/admin/*" element={<AdminPage />}>
           <Route path="dashboard" element={<AdminDashboardPage />} />
-        </Route>
+        </Route> */}
       </Routes>
     </Suspense>
   );

@@ -9,13 +9,13 @@ import {
 } from "./indexReducer";
 
 const LoginPage = React.memo(() => {
-  const [loginPageStates, dispatchLoginPageStates] = useReducer(
-    loginPageStatesReducer,
-    loginPageStatesInitialState
-  );
-  const forgetPasswordBtnHandler = () => {
-    dispatchLoginPageStates({ type: "FORGET" });
-  };
+  // const [loginPageStates, dispatchLoginPageStates] = useReducer(
+  //   loginPageStatesReducer,
+  //   loginPageStatesInitialState
+  // );
+  // const forgetPasswordBtnHandler = () => {
+  //   dispatchLoginPageStates({ type: "FORGET" });
+  // };
   return (
     <Fragment>
       <div className="container-fluid text-center  bg-light w-100 vh-100">
@@ -69,7 +69,7 @@ const LoginPage = React.memo(() => {
                     </button>
                   </div>
                 </div>
-                {!pageStates.forget && <div></div>}
+                {/* {!pageStates.forget && <div></div>} */}
               </div>
             </div>
           </div>
