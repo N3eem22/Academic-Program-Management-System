@@ -39,6 +39,7 @@ namespace Generic.DataAccess.DataContexts
         //Entities 
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty>Faculties { get; set; }
+        public DbSet<Programs> Programs { get; set; }
         //Lockups
         public DbSet<SystemType> SystemTypes { get; set; }
         public DbSet<AllGrades> AllGrades { get; set; }

@@ -15,5 +15,6 @@ namespace Generic.Domian.Models.Entities
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
         public ICollection<CollegeCourses> CollegeCourses { get; set; } = new HashSet<CollegeCourses>();
+        public ICollection<Programs> Programs { get; set; } = new HashSet<Programs>();
     }
 }
