@@ -18,7 +18,7 @@ try
     Log.Information("Application Starting");
     var builder = WebApplication.CreateBuilder(args);
     builder.Host.UseSerilog();
-    builder.Services.DataAccessLayerConfigurations(builder.Configuration);
+    builder.Services.DataAccessLayerConfigurations(builder.Configuration); //  mohamed Nasr
     builder.Services.ApiLayerConfigurations(builder.Configuration);
     builder.Services.ServicesLayerConfigurations();
 
