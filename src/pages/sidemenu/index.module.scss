@@ -1,0 +1,41 @@
+@import "../../sass/main.scss";
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+.sideMenu {
+  position: absolute;
+  top: 75px;
+  right: 0;
+  bottom: 0;
+  width: 15%;
+  height: fit-content;
+  background-color: $color-main-dark;
+  color: #fff;
+  padding: 20px;
+  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px 0px 0px 40px;
+  font-size: larger;
+
+  .menuItem {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: gray;
+    }
+  }
+
+  .active {
+    background-color: #555;
+  }
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  border-radius: 0px 40px 0px 0px;
+}

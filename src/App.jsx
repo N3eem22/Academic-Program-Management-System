@@ -8,11 +8,12 @@ import { Routes, Route, useNavigation } from "react-router-dom";
 
 // pages
 import { LoginPage } from "./pages/login";
-import { HomePage } from "./pages/home";
 import { LevelsPage } from "./pages/programs/edit/levels";
+import { HomePage } from "./pages/home";
 
 // mui
 import CircularProgress from "@mui/material/CircularProgress";
+import Layout from "./pages/layout";
 
 function App() {
   useEffect(() => {}, []);
@@ -28,7 +29,13 @@ function App() {
       }
     >
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/levels" element={<LevelsPage />} />
+
+        </Route>
+        <Route path="/home" element={<HomePage />} />
+
 
         {/* <Route path="/admin/*" element={<AdminPage />}>
           <Route path="dashboard" element={<AdminDashboardPage />} />

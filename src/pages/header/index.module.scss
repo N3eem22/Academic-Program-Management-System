@@ -1,0 +1,20 @@
+@import "../../sass/main.scss";
+
+.header {
+  background-color: $color-main-dark;
+  display: flex;
+  color: white;
+  padding: 10px;
+  margin-bottom: 3px;
+}
+
+.header-content {
+  text-align: center;
+}
+.header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-left: 50px;
+  border-radius: 25px;
+}
