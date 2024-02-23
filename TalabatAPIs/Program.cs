@@ -11,7 +11,7 @@ using Talabat.Core.Repositories;
 using Talabat.Repository;
 using Talabat.Repository.Data;
 using Talabat.Repository.Identity;
-
+//test
 public class Program
 {
     public static async Task Main(string [] args)
