@@ -1,3 +1,0 @@
-{"Timestamp":"2024-02-14T17:40:42.9368340+02:00","Level":"Information","MessageTemplate":"Application Starting","Properties":{"MachineName":"DESKTOP-RQT3AAF","ProcessId":9888,"ThreadId":1,"ApplicationName":"Serilog.Generic"}}
-{"Timestamp":"2024-02-14T17:42:30.8741943+02:00","Level":"Information","MessageTemplate":"Application Starting","Properties":{"MachineName":"DESKTOP-RQT3AAF","ProcessId":19980,"ThreadId":4,"ApplicationName":"Serilog.Generic"}}
-{"Timestamp":"2024-02-14T17:42:46.7482160+02:00","Level":"Information","MessageTemplate":"Application Starting","Properties":{"MachineName":"DESKTOP-RQT3AAF","ProcessId":352,"ThreadId":1,"ApplicationName":"Serilog.Generic"}}
