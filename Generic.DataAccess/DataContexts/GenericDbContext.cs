@@ -65,9 +65,7 @@ namespace Generic.DataAccess.DataContexts
         public DbSet<TypeOfStudySection> typeOfStudySections { get; set; }
         public DbSet<TypeOfSummerFees> TypeOfSummerFees { get; set; }
         public DbSet<CollegeCourses> CollegeCourses { get; set; }
-
-
-
+        public DbSet<Prerequisites> Prerequisites { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -107,7 +105,7 @@ namespace Generic.DataAccess.DataContexts
                         || e.State == EntityState.Modified
                         || e.State == EntityState.Deleted)
                         );
-
+            
             foreach (var entityEntry in entries)
             {
 

@@ -2,6 +2,7 @@
 using Generic.Domian.Constants;
 using Generic.Domian.Dtos.Requests.HR;
 using Generic.Services.IServices.HR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Generic.Api.Areas.HR
@@ -25,7 +26,7 @@ namespace Generic.Api.Areas.HR
         [HttpGet(ApiRoutes.Department.GetAllDepartments)]
         public async Task<IActionResult> GetAllDepartments() 
             => Ok(await _departmentsService.GetAllDepartmentsAsync());
-
+        [Authorize(Roles = Roles.SuperAdmin)]
         [HttpPost(ApiRoutes.Department.AddDepartment)]
         public async Task<IActionResult> AddDepartment(DepartmentRequest departmentRequest) 
             => Ok(await _departmentsService.AddDepartmentAsync(departmentRequest));

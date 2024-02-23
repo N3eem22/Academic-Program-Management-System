@@ -65,7 +65,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Faculty");
+                    b.ToTable("Faculty", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Entities.Programs", b =>
@@ -115,7 +115,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("EN_Programs");
+                    b.ToTable("EN_Programs", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Entities.University", b =>
@@ -161,7 +161,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("University");
+                    b.ToTable("University", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.HR.Department", b =>
@@ -202,7 +202,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hr_Departments");
+                    b.ToTable("Hr_Departments", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.HR.Employee", b =>
@@ -273,7 +273,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Hr_Employee");
+                    b.ToTable("Hr_Employee", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.AbsenteeEstimateCalculation", b =>
@@ -319,7 +319,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_AbsenteeEstimateCalculation");
+                    b.ToTable("LU_AbsenteeEstimateCalculation", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.AllGrades", b =>
@@ -365,7 +365,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_AllGrades");
+                    b.ToTable("LU_AllGrades", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.BlockingProofOfRegistration", b =>
@@ -411,7 +411,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_BlockingProofOfRegistration");
+                    b.ToTable("LU_BlockingProofOfRegistration", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.BurdenCalculation", b =>
@@ -457,7 +457,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_BurdenCalculation");
+                    b.ToTable("LU_BurdenCalculation", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.CollegeCourses", b =>
@@ -539,7 +539,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("CollegeCourses");
+                    b.ToTable("CollegeCourses", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseRequirement", b =>
@@ -585,7 +585,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_CourseRequirement");
+                    b.ToTable("LU_CourseRequirement", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.CourseType", b =>
@@ -631,7 +631,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_CourseType");
+                    b.ToTable("LU_CourseType", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.EditTheStudentLevel", b =>
@@ -677,7 +677,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_EditTheStudentLevel");
+                    b.ToTable("LU_EditTheStudentLevel", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.EquivalentGrade", b =>
@@ -723,7 +723,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_EquivalentGrade");
+                    b.ToTable("LU_EquivalentGrade", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.GradesDetails", b =>
@@ -769,7 +769,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_GradesDetails");
+                    b.ToTable("LU_GradesDetails", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.Hours", b =>
@@ -815,7 +815,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Hours");
+                    b.ToTable("LU_Hours", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.Level", b =>
@@ -861,7 +861,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Level");
+                    b.ToTable("LU_Level", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.PassingTheElectiveGroupBasedOn", b =>
@@ -907,7 +907,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_PassingTheElectiveGroupBasedOn");
+                    b.ToTable("LU_PassingTheElectiveGroupBasedOn", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.PreviousQualification", b =>
@@ -953,7 +953,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_PreviousQualification");
+                    b.ToTable("LU_PreviousQualification", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingAcademicResult", b =>
@@ -999,7 +999,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_ReasonForBlockingAcademicResult");
+                    b.ToTable("LU_ReasonForBlockingAcademicResult", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.ReasonForBlockingRegistration", b =>
@@ -1045,7 +1045,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_ReasonForBlockingRegistration");
+                    b.ToTable("LU_ReasonForBlockingRegistration", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.Semesters", b =>
@@ -1091,7 +1091,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Semester");
+                    b.ToTable("LU_Semester", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.SystemType", b =>
@@ -1137,7 +1137,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("System Type");
+                    b.ToTable("System Type", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TheAcademicDegree", b =>
@@ -1183,7 +1183,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TheAcademicDegree");
+                    b.ToTable("LU_TheAcademicDegree", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TheResultAppears", b =>
@@ -1229,7 +1229,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TheResultAppears");
+                    b.ToTable("LU_TheResultAppears", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfFinancialStatementInTheProgram", b =>
@@ -1275,7 +1275,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfFinancialStatementInTheProgram");
+                    b.ToTable("LU_TypeOfFinancialStatementInTheProgram", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfProgramFees", b =>
@@ -1321,7 +1321,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfProgramFees");
+                    b.ToTable("LU_TypeOfProgramFees", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfStudySection", b =>
@@ -1367,7 +1367,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfStudySection");
+                    b.ToTable("LU_TypeOfStudySection", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Lockups.TypeOfSummerFees", b =>
@@ -1413,7 +1413,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Typeofsummerfees");
+                    b.ToTable("LU_Typeofsummerfees", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Logs.ApplicationLog", b =>
@@ -1457,7 +1457,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Log_ApplicationLogs");
+                    b.ToTable("Log_ApplicationLogs", (string)null);
                 });
 
             modelBuilder.Entity("Generic.Domian.Models.Permissions.ApplicationUser", b =>
@@ -1592,7 +1592,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shar_SharCurrencies");
+                    b.ToTable("Shar_SharCurrencies", (string)null);
 
                     b.HasData(
                         new
@@ -1668,7 +1668,7 @@ namespace Generic.DataAccess.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Stk_Category");
+                    b.ToTable("Stk_Category", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

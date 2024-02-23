@@ -76,5 +76,23 @@ namespace Generic.Services.Services.Seeds
             await _userManager.CreateAsync(adminUser, password);
             await _userManager.AddToRolesAsync(adminUser, typeof(Roles).GetFields().Where(x => x.Name != Roles.SuperAdmin).Select(role => role.Name));
         }
+
+        public async Task SeedUserAsync()
+        {
+            var password = "123456";
+            var user = new ApplicationUser
+            {
+                FullName = "Ahmed Naeem",
+                Email = "ahmed@gmail.com",
+                UserName = "Ahmed",
+                EmailConfirmed = true,
+                PhoneNumber = "01153304771",
+                NormalizedEmail = "ahmed@gmail.com",
+                NormalizedUserName = "adminUser",
+                PhoneNumberConfirmed = true,
+            };
+            await _userManager.CreateAsync(user, password);
+            await _userManager.AddToRoleAsync(user, Roles.User);
+        }
     }
 }

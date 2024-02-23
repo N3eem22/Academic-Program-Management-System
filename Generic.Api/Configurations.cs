@@ -3,6 +3,7 @@ using Generic.Api.Untilities;
 using Generic.Domian.Options;
 using Generic.Domian.SwaggerFilters;
 using Generic.Services.IServices.Seeds;
+using Generic.Services.Services.Seeds;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
@@ -115,7 +116,6 @@ namespace Generic.Api
         private async static void SeedData(IHost app) //can be placed at the very bottom under app.Run()
         {
             var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-
             using (var scope = scopedFactory.CreateScope())
             {
                 var dbInitializer = scope.ServiceProvider.GetService<IDbInitSeedsService>();
