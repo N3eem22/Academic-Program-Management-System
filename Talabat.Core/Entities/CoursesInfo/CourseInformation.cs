@@ -31,22 +31,22 @@ namespace Grad.Core.Entities.CoursesInfo
         public int AddingCourse { get; set; }
         public bool PassOrFailSubject { get; set; }
         public bool RegistrationForTheCourseInTheSummerTerm { get; set; }
-        public int FirstReductionEstimatesForFailureTimes { get; set; }
+        public int? FirstReductionEstimatesForFailureTimes { get; set; }
         [ForeignKey(nameof(FirstReductionEstimatesForFailureTimes))]
-        public AllGrades FirstGrades { get; set; }
+        public AllGrades? FirstGrades { get; set; }
 
-        public int SecondReductionEstimatesForFailureTimes { get; set; }
+        public int? SecondReductionEstimatesForFailureTimes { get; set; }
         [ForeignKey(nameof(SecondReductionEstimatesForFailureTimes))]
-        public AllGrades SecondGrades { get; set; }
+        public AllGrades? SecondGrades { get; set; }
 
-        public int ThirdReductionEstimatesForFailureTimes { get; set; }
+        public int? ThirdReductionEstimatesForFailureTimes { get; set; }
         [ForeignKey(nameof(ThirdReductionEstimatesForFailureTimes))]
-        public AllGrades ThirdGrades { get; set; }
-        public int previousQualification { get; set; }
+        public AllGrades? ThirdGrades { get; set; }
+        public int? previousQualification { get; set; }
         [ForeignKey(nameof(previousQualification))]
         public PreviousQualification PreviousQualification { get; set; }
         public int NumberOfPreviousPreRequisiteCourses { get; set; }
-        public int PartOneCourse { get; set; }
+        public int? PartOneCourse { get; set; }
         public CollegeCourses collegeCourses { get; set; }
         public ICollection<CoursesandGradesDetails> coursesandGradesDetails { get; set; }  = new HashSet<CoursesandGradesDetails>();
         public ICollection<CoursesAndHours> coursesAndHours { get; set; } = new HashSet<CoursesAndHours>();

@@ -34,23 +34,23 @@ namespace Grad.Repository.Data.Configrations
 
             builder.HasOne(ci => ci.PreviousQualification)
                 .WithMany()
-                .HasForeignKey(ci => ci.previousQualification).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+                .HasForeignKey(ci => ci.previousQualification).OnDelete(deleteBehavior: DeleteBehavior.SetNull).IsRequired(false);
             builder.HasOne(ci => ci.collegeCourses)
               .WithMany()
-              .HasForeignKey(ci => ci.PartOneCourse).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+              .HasForeignKey(ci => ci.PartOneCourse).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
 
             // Configuring relationships with AllGrades
             builder.HasOne(ci => ci.FirstGrades)
                    .WithMany() 
-                   .HasForeignKey(ci => ci.FirstReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+                   .HasForeignKey(ci => ci.FirstReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
 
             builder.HasOne(ci => ci.SecondGrades)
                    .WithMany() 
-                   .HasForeignKey(ci => ci.SecondReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+                   .HasForeignKey(ci => ci.SecondReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
 
             builder.HasOne(ci => ci.ThirdGrades)
                    .WithMany() 
-                   .HasForeignKey(ci => ci.ThirdReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+                   .HasForeignKey(ci => ci.ThirdReductionEstimatesForFailureTimes).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
 
 
             builder.Property(ci => ci.MaximumGrade).IsRequired();

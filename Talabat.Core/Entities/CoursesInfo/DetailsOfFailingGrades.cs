@@ -7,6 +7,7 @@ using Talabat.Core.Entities;
 
 namespace Grad.Core.Entities.CoursesInfo
 {
+    [Table("CoursesAndFailingGrades")]
     public class DetailsOfFailingGrades  
     {
         public int CourseInfoId { get; set; }

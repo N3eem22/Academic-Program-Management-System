@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240225073132_Adding Courses Info")]
+    partial class AddingCoursesInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

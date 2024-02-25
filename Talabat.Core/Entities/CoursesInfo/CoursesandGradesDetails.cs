@@ -9,10 +9,10 @@ namespace Grad.Core.Entities.CoursesInfo
 {
     public class CoursesandGradesDetails 
     {
-        public int CourseInfoId { get; set; }
+        public int? CourseInfoId { get; set; }
         public CourseInformation CourseInformation { get; set; }
 
-        public int GradeDetailsId { get; set; }
+        public int? GradeDetailsId { get; set; }
         public GradesDetails GradesDetails { get; set; }
 
         public int Value { get; set; }
