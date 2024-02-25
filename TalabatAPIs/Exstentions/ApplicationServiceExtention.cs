@@ -15,6 +15,8 @@ namespace Talabat.APIs.Exstentions
         {
           
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
             Services.AddAutoMapper(typeof(MappingProfiles));
             Services.Configure<ApiBehaviorOptions>(options =>
             {
