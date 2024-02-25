@@ -22,6 +22,132 @@ namespace Grad.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gender")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2);
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LinkRegistrationToHours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaximumGrade")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PassOrFailSubject")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("PrerequisiteId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RegistrationForTheCourseInTheSummerTerm")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SecondReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SemesterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuccessRate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ThirdReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("previousQualification")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseTypeId");
+
+                    b.HasIndex("FirstReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("LevelId");
+
+                    b.HasIndex("PrerequisiteId");
+
+                    b.HasIndex("SecondReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("ThirdReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("previousQualification");
+
+                    b.ToTable("EN_CourssesInformations", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesandGradesDetails", b =>
+                {
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GradeDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseInfoId", "GradeDetailsId");
+
+                    b.HasIndex("GradeDetailsId");
+
+                    b.ToTable("CoursesInformationsAndDetailedGrade", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesAndHours", b =>
+                {
+                    b.Property<int>("HourId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HourId", "CourseInfoId");
+
+                    b.HasIndex("CourseInfoId");
+
+                    b.ToTable("CoursesAndHours", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.DetailsOfFailingGrades", b =>
+                {
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FailedGradeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseInfoId", "FailedGradeId");
+
+                    b.HasIndex("FailedGradeId");
+
+                    b.ToTable("CoursesAndFailingGrades", (string)null);
+                });
+
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
                 {
                     b.Property<int>("Id")
@@ -1005,6 +1131,130 @@ namespace Grad.Repository.Migrations
                     b.ToTable("Perm_ApplicationUser");
                 });
 
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+                {
+                    b.HasOne("Talabat.Core.Entities.Lockups.CourseType", "CourseType")
+                        .WithMany()
+                        .HasForeignKey("CourseTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "FirstGrades")
+                        .WithMany()
+                        .HasForeignKey("FirstReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "level")
+                        .WithMany()
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Prerequisites", "Prerequisites")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "SecondGrades")
+                        .WithMany()
+                        .HasForeignKey("SecondReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Semesters", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "ThirdGrades")
+                        .WithMany()
+                        .HasForeignKey("ThirdReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.PreviousQualification", "PreviousQualification")
+                        .WithMany()
+                        .HasForeignKey("previousQualification")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CourseType");
+
+                    b.Navigation("FirstGrades");
+
+                    b.Navigation("Prerequisites");
+
+                    b.Navigation("PreviousQualification");
+
+                    b.Navigation("SecondGrades");
+
+                    b.Navigation("Semester");
+
+                    b.Navigation("ThirdGrades");
+
+                    b.Navigation("level");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesandGradesDetails", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("coursesandGradesDetails")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
+                        .WithMany("coursesandGradesDetails")
+                        .HasForeignKey("GradeDetailsId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("GradesDetails");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesAndHours", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("coursesAndHours")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Hours", "Hours")
+                        .WithMany("coursesAndHours")
+                        .HasForeignKey("HourId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("Hours");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.DetailsOfFailingGrades", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("detailsOfFailingGrades")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "FailedGrade")
+                        .WithMany("detailsOfFailingGrades")
+                        .HasForeignKey("FailedGradeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("FailedGrade");
+                });
+
             modelBuilder.Entity("Talabat.Core.Entities.Entities.Faculty", b =>
                 {
                     b.HasOne("Talabat.Core.Entities.Entities.University", "University")
@@ -1350,6 +1600,15 @@ namespace Grad.Repository.Migrations
                     b.Navigation("University");
                 });
 
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+                {
+                    b.Navigation("coursesAndHours");
+
+                    b.Navigation("coursesandGradesDetails");
+
+                    b.Navigation("detailsOfFailingGrades");
+                });
+
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
                 {
                     b.Navigation("BurdenCalculation");
@@ -1421,6 +1680,18 @@ namespace Grad.Repository.Migrations
                     b.Navigation("TypeOfSummerFees");
 
                     b.Navigation("passingTheElectiveGroupBasedOns");
+                });
+
+            modelBuilder.Entity("Talabat.Core.Entities.Lockups.GradesDetails", b =>
+                {
+                    b.Navigation("coursesandGradesDetails");
+
+                    b.Navigation("detailsOfFailingGrades");
+                });
+
+            modelBuilder.Entity("Talabat.Core.Entities.Lockups.Hours", b =>
+                {
+                    b.Navigation("coursesAndHours");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
 ﻿
 
+using Grad.Core.Entities.CoursesInfo;
+
 namespace Talabat.Core.Entities.Lockups
 {
     [Table("LU_GradesDetails")]
@@ -9,5 +11,8 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+        public ICollection<CoursesandGradesDetails> coursesandGradesDetails { get; set; } = new HashSet<CoursesandGradesDetails>();
+        public ICollection<DetailsOfFailingGrades> detailsOfFailingGrades { get; set; } = new HashSet<DetailsOfFailingGrades>();
+
     }
 }
