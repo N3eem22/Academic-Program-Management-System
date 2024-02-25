@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
+using Talabat.Core.Entities.Entities;
+using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Repositories;
 using Talabat.Core.Specifications;
 using Talabat.Repository.Data;
@@ -18,6 +21,19 @@ namespace Talabat.Repository
         public GenericRepository(GradContext dbcontext)
         {
             _dbcontext = dbcontext;
+        }
+
+        public async Task<T?> GetByIdAsync(int id) 
+        {
+            return await _dbcontext.Set<T>().FindAsync(id);
+        }
+
+
+        public async Task<IEnumerable<T>> GetAllAsync() 
+        {
+           // if(typeof(T) == typeof(AllGrades))
+              //  return (IEnumerable<T>) await _dbcontext.Set<AllGrades>().Include(G =>G.University ).ToListAsync();
+            return await _dbcontext.Set<T>().ToListAsync();
         }
         public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecifications<T> specifications)
         {
@@ -51,5 +67,37 @@ namespace Talabat.Repository
         {
             _dbcontext.Set<T>().Update(item);
         }
+
+        public async Task<bool> ExistAsync(Expression<Func<T, bool>> filter = null, Expression<Func<T, bool>> universityFilter = null, string includeProperties = null, bool ignoreQueryFilters = false)
+        {
+            IQueryable<T> query = _dbcontext.Set<T>().AsNoTracking();
+            if (ignoreQueryFilters)
+            {
+                query = query.IgnoreQueryFilters();
+            }
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (universityFilter != null)
+            {
+                query = query.Where(universityFilter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' },
+                    StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            var result = await query.FirstOrDefaultAsync() is not null;
+            return result;
+        }
+
+
     }
 }
