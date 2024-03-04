@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Specifications;
 
-namespace Grad.Core.Specifications.AllGrades_spec
+namespace Grad.Core.Specifications.LockUps_spec
 {
     public class GradeswithUniSpecifications : BaseSpecifications<AllGrades>
     {
@@ -16,6 +16,8 @@ namespace Grad.Core.Specifications.AllGrades_spec
             Includes.Add(G => G.University);
         }
 
+        //TypeOfSummerFeeswithUniSpecifications
+       
 
         public GradeswithUniSpecifications(int id) : base(p => p.Id == id)
         {

@@ -2,9 +2,10 @@
 using Grad.APIs.DTO;
 using Grad.APIs.DTO.Lockups_Dto;
 using Grad.APIs.Helpers;
-using Grad.Core.Specifications.AllGrades_spec;
+using Grad.Core.Specifications.LockUps_spec;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Policy;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
 using Talabat.Core;
@@ -51,7 +52,7 @@ namespace Grad.APIs.Controllers
 
             if (grade == null)
             {
-                NotFound(new ApiResponse(404));
+               return  NotFound(new ApiResponse(404));
             }
 
             var gradeDTO = _mapper.Map<AllGrades, AllGradesDTO>(grade);
@@ -60,7 +61,7 @@ namespace Grad.APIs.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponeWithData<AllGradesReq>> AddGrade(AllGradesReq gradeDTO)
+        public async Task<ActionResult<AllGradesReq>> AddGrade(AllGradesReq gradeDTO)
         {
           
             bool exists = false;
@@ -69,14 +70,10 @@ namespace Grad.APIs.Controllers
          x => x.UniversityId == gradeDTO.UniversityId);
             if (exists)
             {
-                string resultMsg = AppMessage.IsExist;
 
-                return new ResponeWithData<AllGradesReq>()
-                {
-                    IsExists = true,
-                    Errors = new string[] { resultMsg },
-                    Message = resultMsg
-                };
+                return StatusCode(409, new ApiResponse(409));
+
+
 
             }
 
@@ -85,71 +82,53 @@ namespace Grad.APIs.Controllers
 
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
-            string err = AppMessage.Error;
+            string Done = AppMessage.Done;
+
+            string Err = AppMessage.Error;
 
 
-            return new ResponeWithData<AllGradesReq>()
-            {
-                IsSuccess = result,
-                IdOfAddedObject = gradee.Id,
-                Data = gradeDTO,
-                Errors = new string[] { },
-                Message = result ? AppMessage.Done : err
-            };
+            return result ? Ok(new { Message = Done }) : BadRequest(new ApiResponse(500));
+
 
         }
 
 
         [HttpPut]
-        public async Task<ResponeWithData<AllGradesReq>> UpdateGrade(int GradeID , AllGradesReq gradeDTO)
+        public async Task<ActionResult<AllGradesReq>> UpdateGrade(int GradeID , string Updatedgrade)
         {
 
             var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(GradeID);
 
 
-            if (grade == null || gradeDTO.Id != GradeID)
+            if (grade == null)
             {
                 string resultMsg = AppMessage.CannotBeFound;
 
-                return new ResponeWithData<AllGradesReq>()
-                {
-                    IsNotFound = true,
-                    Data = gradeDTO,
-                    Errors = new string[] { resultMsg },
-                    Message = resultMsg
-                };
+                return NotFound(new ApiResponse(404));
+              
             }
 
             bool exists = false;
-            exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(x => x.TheGrade.Trim().ToUpper() == gradeDTO.TheGrade.Trim().ToUpper() && x.Id != GradeID && x.UniversityId == gradeDTO.UniversityId);
+            exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(x => x.TheGrade.Trim().ToUpper() == Updatedgrade.Trim().ToUpper() && x.UniversityId == grade.UniversityId);
 
             string err = AppMessage.Error;
+            string Update = AppMessage.Updated;
 
-            if (!exists)
-            {
 
-                _mapper.Map(gradeDTO, grade);
-                 _unitOfWork.Repository<AllGrades>().Update(grade);
+            if (exists)
+                return StatusCode(409, new ApiResponse(409));
 
-                bool result = await _unitOfWork.CompleteAsync() > 0;
 
-                return new ResponeWithData<AllGradesReq>()
-                {
-                    IsSuccess = result,
-                    Data = gradeDTO,
-                    Errors = new string[] { },
-                    Message = result ? AppMessage.Done : err
-                };
+            grade.TheGrade = Updatedgrade;
+            _unitOfWork.Repository<AllGrades>().Update(grade);
 
-            }
+            bool result = await _unitOfWork.CompleteAsync() > 0;
 
-            string msg = AppMessage.IsExist;
-            return new ResponeWithData<AllGradesReq>()
-            {
-                IsExists = true,
-                Errors = new string[] { msg },
-                Message = msg
-            };
+            return result ? Ok(new { Message = Update }) : BadRequest(new ApiResponse(500));
+
+         
+
+
         }
 
         [HttpDelete("{GradeID}")]

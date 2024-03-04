@@ -1,9 +1,9 @@
 ﻿namespace Grad.APIs.DTO.Lockups_Dto
 {
-    public class AllGradesReq
+    public class TheResultAppearsReq
     {
-
-        public string TheGrade { get; set; }
+        public string resultAppears { get; set; }
         public int? UniversityId { get; set; }
+
     }
 }

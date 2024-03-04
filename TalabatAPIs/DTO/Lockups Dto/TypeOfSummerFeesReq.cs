@@ -1,9 +1,8 @@
 ﻿namespace Grad.APIs.DTO.Lockups_Dto
 {
-    public class AllGradesReq
+    public class TypeOfSummerFeesReq
     {
-
-        public string TheGrade { get; set; }
+        public string TheTypeOfSummerFees { get; set; }
         public int? UniversityId { get; set; }
     }
 }

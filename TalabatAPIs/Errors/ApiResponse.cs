@@ -18,7 +18,7 @@
                 401 => "You are not authorized",
                 404 => "resource not found",
                 500 => "internal server error",
-                501 => "the Entity EXisted",
+                409 => "Resource Already Exists",
                 _ => null
 
 

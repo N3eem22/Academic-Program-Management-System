@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Grad.APIs.DTO;
 using Grad.APIs.DTO.Lockups_Dto;
 using Talabat.APIs.DTO;
 using Talabat.Core.Entities;
@@ -17,7 +18,69 @@ namespace Talabat.APIs.Helpers
             CreateMap<AllGrades, AllGradesDTO>()
             .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
 
+
+            CreateMap<Level, LevelsDTO>()
+            .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<Hours, HoursDTO>()
+           .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<TypeOfSummerFees, TypeOfSummerFeesDTO>()
+        .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<TypeOfStudySection, TypeOfStudySectionDTO>()
+       .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<TypeOfProgramFees, TypeOfProgramFeesDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<TheResultAppears, TheResultAppearsDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<Semesters, SemestersDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+
+            CreateMap<ReasonForBlockingRegistration, ReasonForBlockingRegistrationDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+
+            CreateMap<ReasonForBlockingAcademicResult, ReasonForBlockingAcademicResultDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<PreviousQualification, PreviousQualificationDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+
+            CreateMap<Prerequisites, PrerequisitesDTO>()
+      .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+
+
+
+
+
+
+
             CreateMap<AllGradesReq, AllGrades>();
+            CreateMap<HoursReq, Hours>();
+            CreateMap<LevelsReq, Level>();
+            CreateMap<TypeOfSummerFeesReq, TypeOfSummerFees>();
+            CreateMap<TypeOfStudySectionReq, TypeOfStudySection>();
+            CreateMap<TypeOfFeesReq, TypeOfProgramFees>();
+            CreateMap<TheResultAppearsReq, TheResultAppears>();
+            CreateMap<SemestersReq, Semesters>();
+            CreateMap<ReasonForBlockingRegistrationReq, ReasonForBlockingRegistration>();
+            CreateMap<ReasonForBlockingAcademicResultReq, ReasonForBlockingAcademicResult>();
+            CreateMap<PreviousQualificationReq, PreviousQualification>();
+            CreateMap<PrerequisitesReq, Prerequisites>();
+
+
+
+
+
+
+
         }
     }
 }
