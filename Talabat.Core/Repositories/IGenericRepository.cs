@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
@@ -16,9 +17,14 @@ namespace Talabat.Core.Repositories
 
         Task<int> GetCountWithSpecAsync(ISpecifications<T> specifications);
 
+        Task<T?> GetByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync();
         Task Add(T item);
         void Delete(T item);
         void Update(T item);
+
+        Task<bool> ExistAsync(Expression<Func<T, bool>> filter = null, Expression<Func<T, bool>> universityFilter = null, string includeProperties = null, bool ignoreQueryFilters = false);
+
 
     }
 }

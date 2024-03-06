@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 ﻿using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.Entities;
 using Grad.Core.Entities.Lockups;
+=======
+﻿using Grad.Core.Entities.CoursesInfo;
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +21,7 @@ using Talabat.Core.Entities.Permissions;
 
 namespace Talabat.Repository.Data
 {
-    public class GradContext:DbContext
+    public class GradContext:DbContext 
     {
         #region DbSets
 
@@ -32,6 +36,13 @@ namespace Talabat.Repository.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Programs> Programs { get; set; }
+
+        //Courses Info
+        public DbSet<CourseInformation> CourseInformation { get; set; }
+        public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 
+        public DbSet<CoursesAndHours> CoursesAndHours { get; set; }
+        public DbSet<DetailsOfFailingGrades> DetailsOfFailingGrades { get; set; }
+        public DbSet<PreRequisiteCourses> PreRequisiteCourses { get; set; }
         //Lockups
         public DbSet<SystemType> SystemTypes { get; set; }
         public DbSet<AllGrades> AllGrades { get; set; }

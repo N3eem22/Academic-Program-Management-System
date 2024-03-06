@@ -47,7 +47,7 @@ public class Program
         #region Update Database
 
 
-        //  StoreContext context=new StoreContext()
+    
         var Scopped = app.Services.CreateScope();
         var services = Scopped.ServiceProvider;
         var LoggerFactory=services.GetService<ILoggerFactory>();

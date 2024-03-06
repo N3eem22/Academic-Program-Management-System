@@ -1,5 +1,7 @@
 ﻿
 
+using Grad.Core.Entities.CoursesInfo;
+
 namespace Talabat.Core.Entities.Lockups
 {
     [Table("CollegeCourses")]
@@ -20,6 +22,7 @@ namespace Talabat.Core.Entities.Lockups
         public int? FacultyId { get; set; }
         [ForeignKey(nameof(FacultyId))]
         public Faculty Faculty { get; set; }
+        public ICollection<PreRequisiteCourses> preRequisiteCourses { get; set; } = new HashSet<PreRequisiteCourses>();
 
 
 

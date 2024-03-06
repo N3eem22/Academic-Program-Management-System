@@ -22,7 +22,11 @@ namespace Grad.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+<<<<<<< HEAD
             modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.AcademicLoadAccordingToLevel", b =>
+=======
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,6 +34,7 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+<<<<<<< HEAD
                     b.Property<int>("AcademicNoticeHours")
                         .HasColumnType("int");
 
@@ -54,10 +59,29 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int>("AddingCourse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChooseDetailesofFailingGrades")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FirstReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gender")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2);
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     b.Property<int>("MaximumHours")
                         .HasColumnType("int");
 
@@ -344,6 +368,133 @@ namespace Grad.Repository.Migrations
                     b.HasIndex("UniversityId");
 
                     b.ToTable("LU_DivisionType");
+=======
+                    b.Property<int>("LinkRegistrationToHours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaximumGrade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfPreviousPreRequisiteCourses")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PartOneCourse")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PassOrFailSubject")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("PrerequisiteId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RegistrationForTheCourseInTheSummerTerm")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("SecondReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SemesterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuccessRate")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ThirdReductionEstimatesForFailureTimes")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("previousQualification")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseTypeId");
+
+                    b.HasIndex("FirstReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("LevelId");
+
+                    b.HasIndex("PartOneCourse");
+
+                    b.HasIndex("PrerequisiteId");
+
+                    b.HasIndex("SecondReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("ThirdReductionEstimatesForFailureTimes");
+
+                    b.HasIndex("previousQualification");
+
+                    b.ToTable("EN_CourssesInformations", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesandGradesDetails", b =>
+                {
+                    b.Property<int?>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GradeDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseInfoId", "GradeDetailsId");
+
+                    b.HasIndex("GradeDetailsId");
+
+                    b.ToTable("CoursesInformationsAndDetailedGrade", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesAndHours", b =>
+                {
+                    b.Property<int>("HourId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HourId", "CourseInfoId");
+
+                    b.HasIndex("CourseInfoId");
+
+                    b.ToTable("CoursesAndHours", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.DetailsOfFailingGrades", b =>
+                {
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FailedGradeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseInfoId", "FailedGradeId");
+
+                    b.HasIndex("FailedGradeId");
+
+                    b.ToTable("CoursesAndFailingGrades", (string)null);
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.PreRequisiteCourses", b =>
+                {
+                    b.Property<int>("PreRequisiteCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseInfoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PreRequisiteCourseId", "CourseInfoId");
+
+                    b.HasIndex("CourseInfoId");
+
+                    b.ToTable("PreRequisiteCourses");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
@@ -382,6 +533,7 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("CreditHours")
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     b.Property<string>("Degree")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -394,6 +546,15 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("EditTheStudentLevelId")
                         .HasColumnType("int");
+=======
+                    b.Property<string>("DetailedGradesToBeAnnounced")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DivisionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<int>("EligibleHoursforProjectRegistration")
                         .HasColumnType("int");
@@ -414,22 +575,12 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("FreeHours")
                         .HasColumnType("int");
 
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Institute")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InstitutionCode")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("LinkingTheAppearanceOfDocumentsToTheReasonForWithholdingRegistration")
                         .HasColumnType("bit");
@@ -523,13 +674,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("TypeOfSummerFeesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("pre_Requisite")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -575,36 +719,13 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("FacultyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -621,25 +742,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("FacultyId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("ProgramNameInArabic")
                         .IsRequired()
@@ -648,13 +753,6 @@ namespace Grad.Repository.Migrations
                     b.Property<string>("ProgramNameInEnglish")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -671,22 +769,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -696,13 +778,6 @@ namespace Grad.Repository.Migrations
                         .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -717,32 +792,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("absenteeEstimateCalculation")
                         .IsRequired()
@@ -763,22 +815,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheGrade")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -786,13 +822,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -809,6 +838,7 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+<<<<<<< HEAD
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -824,6 +854,11 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int?>("ProgramInformationId")
+                        .IsRequired()
+                        .HasColumnType("int");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<string>("ReasonsOfBlocking")
                         .IsRequired()
@@ -832,13 +867,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -859,6 +887,7 @@ namespace Grad.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -874,17 +903,15 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int?>("ProgramInformationId")
+                        .IsRequired()
+                        .HasColumnType("int");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -927,25 +954,9 @@ namespace Grad.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("FacultyId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Sub_CourseCodeInArabic")
                         .HasColumnType("int");
@@ -960,13 +971,6 @@ namespace Grad.Repository.Migrations
                     b.Property<string>("Sub_CourseNameInEnglish")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -983,32 +987,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("courseRequirement")
                         .IsRequired()
@@ -1029,32 +1010,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("courseType")
                         .IsRequired()
@@ -1075,6 +1033,7 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+<<<<<<< HEAD
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1090,17 +1049,15 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int?>("ProgramInformationId")
+                        .IsRequired()
+                        .HasColumnType("int");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("editTheStudentLevel")
                         .IsRequired()
@@ -1121,32 +1078,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("equivalentGrade")
                         .IsRequired()
@@ -1167,22 +1101,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheDetails")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1190,13 +1108,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1213,36 +1124,13 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("HoursName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1259,32 +1147,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("levels")
                         .IsRequired()
@@ -1305,22 +1170,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("PassingTheElectiveGroup")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1328,13 +1177,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1351,22 +1193,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Prerequisite")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1374,13 +1200,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1397,32 +1216,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("previousQualification")
                         .IsRequired()
@@ -1443,22 +1239,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheReasonForBlockingAcademicResult")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1466,13 +1246,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1489,22 +1262,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheReasonForBlockingRegistration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1512,13 +1269,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1535,32 +1285,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("semesters")
                         .IsRequired()
@@ -1581,6 +1308,7 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+<<<<<<< HEAD
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1596,6 +1324,11 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int?>("ProgramInformationId")
+                        .IsRequired()
+                        .HasColumnType("int");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<string>("SystemName")
                         .IsRequired()
@@ -1604,13 +1337,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1631,6 +1357,7 @@ namespace Grad.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1646,17 +1373,15 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+=======
+                    b.Property<int?>("ProgramInformationId")
+                        .IsRequired()
+                        .HasColumnType("int");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
 
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1673,32 +1398,9 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("resultAppears")
                         .IsRequired()
@@ -1719,22 +1421,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1742,13 +1428,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1765,22 +1444,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TypeOfFees")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1788,13 +1451,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1811,22 +1467,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheTypeOfStudySectio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1834,13 +1474,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1857,22 +1490,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TheTypeOfSummerFees")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1880,13 +1497,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("UniversityId")
                         .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1903,22 +1513,6 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1926,13 +1520,6 @@ namespace Grad.Repository.Migrations
                     b.Property<string>("ObjectJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1950,13 +1537,6 @@ namespace Grad.Repository.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeleteBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -1967,16 +1547,6 @@ namespace Grad.Repository.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -2005,13 +1575,6 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -2020,14 +1583,32 @@ namespace Grad.Repository.Migrations
                     b.ToTable("Perm_ApplicationUser");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.AcademicLoadAccordingToLevel", b =>
                 {
                     b.HasOne("Talabat.Core.Entities.Lockups.Level", "AcademicLevel")
+=======
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+                {
+                    b.HasOne("Talabat.Core.Entities.Lockups.CourseType", "CourseType")
+                        .WithMany()
+                        .HasForeignKey("CourseTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "FirstGrades")
+                        .WithMany()
+                        .HasForeignKey("FirstReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "level")
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                         .WithMany()
                         .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+<<<<<<< HEAD
                     b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "Program_Info")
                         .WithMany()
                         .HasForeignKey("Prog_InfoId")
@@ -2289,6 +1870,125 @@ namespace Grad.Repository.Migrations
                     b.Navigation("TypeOfProgramFees");
 
                     b.Navigation("TypeOfSummerFees");
+=======
+                    b.HasOne("Talabat.Core.Entities.Lockups.CollegeCourses", "collegeCourses")
+                        .WithMany()
+                        .HasForeignKey("PartOneCourse")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Prerequisites", "Prerequisites")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "SecondGrades")
+                        .WithMany()
+                        .HasForeignKey("SecondReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Semesters", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "ThirdGrades")
+                        .WithMany()
+                        .HasForeignKey("ThirdReductionEstimatesForFailureTimes")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.PreviousQualification", "PreviousQualification")
+                        .WithMany()
+                        .HasForeignKey("previousQualification")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("CourseType");
+
+                    b.Navigation("FirstGrades");
+
+                    b.Navigation("Prerequisites");
+
+                    b.Navigation("PreviousQualification");
+
+                    b.Navigation("SecondGrades");
+
+                    b.Navigation("Semester");
+
+                    b.Navigation("ThirdGrades");
+
+                    b.Navigation("collegeCourses");
+
+                    b.Navigation("level");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesandGradesDetails", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("coursesandGradesDetails")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
+                        .WithMany("coursesandGradesDetails")
+                        .HasForeignKey("GradeDetailsId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("GradesDetails");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CoursesAndHours", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("coursesAndHours")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Hours", "Hours")
+                        .WithMany("coursesAndHours")
+                        .HasForeignKey("HourId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("Hours");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.DetailsOfFailingGrades", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("detailsOfFailingGrades")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "FailedGrade")
+                        .WithMany("detailsOfFailingGrades")
+                        .HasForeignKey("FailedGradeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("FailedGrade");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.PreRequisiteCourses", b =>
+                {
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "CourseInformation")
+                        .WithMany("preRequisiteCourses")
+                        .HasForeignKey("CourseInfoId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.CollegeCourses", "Courses")
+                        .WithMany("preRequisiteCourses")
+                        .HasForeignKey("PreRequisiteCourseId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CourseInformation");
+
+                    b.Navigation("Courses");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Entities.Faculty", b =>
@@ -2588,9 +2288,21 @@ namespace Grad.Repository.Migrations
                     b.Navigation("University");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
                 {
                     b.Navigation("pI_DivisionTypes");
+=======
+            modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
+                {
+                    b.Navigation("coursesAndHours");
+
+                    b.Navigation("coursesandGradesDetails");
+
+                    b.Navigation("detailsOfFailingGrades");
+
+                    b.Navigation("preRequisiteCourses");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
@@ -2664,16 +2376,33 @@ namespace Grad.Repository.Migrations
                     b.Navigation("passingTheElectiveGroupBasedOns");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.AllGrades", b =>
                 {
                     b.Navigation("PI_EstimatesOfCourseFeeExemptions");
 
                     b.Navigation("pI_AllGradesSummerEstimates");
+=======
+            modelBuilder.Entity("Talabat.Core.Entities.Lockups.CollegeCourses", b =>
+                {
+                    b.Navigation("preRequisiteCourses");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.GradesDetails", b =>
                 {
+<<<<<<< HEAD
                     b.Navigation("pI_DetailedGradesToBeAnnounceds");
+=======
+                    b.Navigation("coursesandGradesDetails");
+
+                    b.Navigation("detailsOfFailingGrades");
+                });
+
+            modelBuilder.Entity("Talabat.Core.Entities.Lockups.Hours", b =>
+                {
+                    b.Navigation("coursesAndHours");
+>>>>>>> e91b97755146969c84567f62fc6b98bdf465ea96
                 });
 #pragma warning restore 612, 618
         }
