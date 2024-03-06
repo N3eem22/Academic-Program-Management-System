@@ -1,4 +1,5 @@
 ﻿using Grad.Core.Entities.CoursesInfo;
+using Grad.Core.Entities.CumulativeAverage;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,9 @@ namespace Talabat.Repository.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Programs> Programs { get; set; }
-
+        //Cumulative Average
+        public DbSet<CumulativeAverage> CumulativeAverages { get; set; }
+        public DbSet<GadesOfEstimatesThatDoesNotCount> GadesOfEstimates { get; set; }
         //Courses Info
         public DbSet<CourseInformation> CourseInformation { get; set; }
         public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 

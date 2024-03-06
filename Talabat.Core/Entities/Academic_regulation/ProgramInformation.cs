@@ -1,5 +1,7 @@
 ﻿
 
+using Grad.Core.Entities.CumulativeAverage;
+
 namespace Talabat.Core.Entities.Academic_regulation
 {
     [Table("AR_ProgramInformation")]
@@ -111,10 +113,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         [DefaultValue("استبيان النظام الداخلي")]
         public string Questionnaire { get; set; }
         public string DetailedGradesToBeAnnounced { get; set; }
-       
-        
+        public CumulativeAverage? ComulativeAvaregeId { get; set; }
 
-                             
+
+
     }
 }
  
