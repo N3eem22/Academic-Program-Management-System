@@ -1,10 +1,17 @@
 ﻿
 
+using Grad.Core.Entities.Academic_regulation;
+using Grad.Core.Entities.Entities;
+using Grad.Core.Entities.Lockups;
+
 namespace Talabat.Core.Entities.Academic_regulation
 {
-    [Table("AR_ProgramInformation")]
     public class ProgramInformation : BaseEntity
     {
+        public int ProgramId {  get; set; }
+        [ForeignKey(nameof(ProgramId))] 
+        public Programs Programs { get; set; }
+        
         [Required]
         public string ProgramNameInArabic { get; set; }
         [Required]
@@ -16,9 +23,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         public string Institute { get; set; }
 
         [Required]
-        public ICollection<TheAcademicDegree> theAcademicDegrees { get; set; } = new HashSet<TheAcademicDegree>();
-        //[DefaultValue("بكالوريوس")]
-        //public string Degree { get; set; }
+        public int AcademicDegreeid { get; set; }
+        [ForeignKey(nameof(AcademicDegreeid))]
+        public TheAcademicDegree AcademicDegree { get; set; }
+        public string Degree { get; set; }
         public string NameInCertificate { get; set; }
         public string NameInCertificateInEnglish { get; set; }
         [DataType(DataType.Date)]
@@ -27,8 +35,9 @@ namespace Talabat.Core.Entities.Academic_regulation
         [DataType(DataType.Date)]
         [Required]
         public string EndOfTheProgram { get; set; }
-        //public string SystemType { get; set; }
-        public ICollection<SystemType> SystemType { get; set; } = new HashSet<SystemType>();
+        public int SystemTypeId { get; set; }
+        [ForeignKey(nameof(SystemTypeId))]
+        public SystemType SystemType { get; set; }
         public int InstitutionCode { get; set; }
         [Required]
         [DefaultValue(0)]
@@ -40,60 +49,57 @@ namespace Talabat.Core.Entities.Academic_regulation
         public int FreeHours { get; set; }
         public int AdditionalRegistrationHours { get; set; }
         public int EligibleHoursforProjectRegistration { get; set; }
-        //public int ProjectHours { get; set; }
+        public int ProjectHours { get; set; }
         [Required]
-        public ICollection<BurdenCalculation> BurdenCalculation { get; set;} = new HashSet<BurdenCalculation>();
-        ////[DefaultValue("المستوي الدراسي")]
-        //public string GPAcalculation { get; set; }
-
-
-        //[DefaultValue(0)]
-        //public bool PrivateProgram { get; set; }
-        //[Required]
-        //public string SystemType { get; set; }
+        public int BurdanCalculationId { get; set; }
+        [ForeignKey(nameof(BurdanCalculationId))]
+        public BurdenCalculation BurdenCalculation { get; set; }
         [Required]
         [DefaultValue(1)]
         public bool ExcludingTheBudgetTermWhenCalculatingTheGPA { get; set; }
         [Required]
-        public ICollection<PassingTheElectiveGroupBasedOn> passingTheElectiveGroupBasedOns { get; set; } = new HashSet<PassingTheElectiveGroupBasedOn>();
-        //[DefaultValue("عدد المقررات")]
-        //public string PassingTheElectiveGroupBasedOn { get; set; }
+        public int PassingTheElectiveGroupBasedOnId { get; set; }
+        [ForeignKey(nameof(PassingTheElectiveGroupBasedOnId))]
+        public PassingTheElectiveGroupBasedOn PassingTheElectiveGroupBasedOn { get; set; }
         public string pre_Requisite { get; set; }
-        public string DivisionType { get; set; }
-
-        //public string ModifyTheStudentsLevel { get; set; }
-        public ICollection<EditTheStudentLevel> editTheStudentLevels { get; set; } = new HashSet<EditTheStudentLevel>();
+        public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
+        public int EditTheStudentLevelId { get; set; }
+        [ForeignKey(nameof(EditTheStudentLevelId))]
+        public EditTheStudentLevel EditTheStudentLevel { get; set; }
         public bool AllowingTheRegistrationOfaSpecificNumberOfElectiveCoursesDuringTheYear { get; set; }
-        //public int NumberOfElectiveHoursDuringTheYear { get; set; }
         public int FailureTimesForWarning { get; set; }
         public int FailureTimesForRe_Enrollment { get; set; }
-        [Required]
-        public ICollection<BlockingProofOfRegistration> blockingProofOfRegistration { get; set;} = new HashSet<BlockingProofOfRegistration>();
+        public int BlockingProofOfRegistrationId { get; set; }
+        [ForeignKey(nameof(BlockingProofOfRegistrationId))]
+        public BlockingProofOfRegistration BlockingProofOfRegistration { get; set; }
+        public int TypeOfFinancialStatementInTheProgramId { get; set; }
+        [ForeignKey(nameof(TypeOfFinancialStatementInTheProgramId))]
+        public TypeOfFinancialStatementInTheProgram TypeOfFinancialStatementInTheProgram { get; set; }
+        public int TypeOfProgramFeesId { get; set; }
+        [ForeignKey(nameof(TypeOfProgramFeesId))]
+        public TypeOfProgramFees TypeOfProgramFees { get; set; }
 
-        //[DefaultValue("بشرط التسجيل مع استثناء الطلاب المستجدين")]
-        //public string WithholdingProofOfRegistration { get; set; }
-        [Required]
-        [DefaultValue("بعام الالتحاق")]
-        public string TypeOfFinancialStatementInTheProgram { get; set; }
-        [Required]
-        [DefaultValue("رسوم بالساعة المعتمدة")]
-        public string ProgramFeeType { get; set; }
-
-        public string TypeOfSummerFees { get; set; }
-        public string EstimatesOfCourseFeeExemption { get; set; }
+        public int TypeOfSummerFeesId { get; set; }
+        [ForeignKey(nameof(TypeOfSummerFeesId))]
+        public TypeOfSummerFees TypeOfSummerFees { get; set; }
         [Required]
         [DefaultValue(0)]
         public bool CalculatingaSpecialRegistrationFeeForaCourseIfaPreviousAssessmentOfTheCourseIsIncomplete { get; set; }
         [Required]
         [DefaultValue(0)]
-        public bool BookFeeIsCalculatedForTheFirstTimeOfRegistrationOnly { get; set;  }
+        public bool BookFeeIsCalculatedForTheFirstTimeOfRegistrationOnly { get; set; }
         [Required]
         [DefaultValue("الدرجة")]
         public string Result { get; set; }
-        [Required]
-        [DefaultValue("التقدير")]
-        public string TheResultAppearanceToTheGuide { get; set; }
-        public string ReasonForBlockingRegistration { get; set; }
+        public int TheResultAppearsId { get; set; }
+        [ForeignKey(nameof(TheResultAppearsId))]
+        public TheResultAppears TheResultAppears { get; set; }
+        public int TheResultToTheGuidId { get; set; }
+        [ForeignKey(nameof(TheResultToTheGuidId))]
+        public TheResultAppears TheResultToTheGuid { get; set; }
+        public int ReasonForBlockingRegistrationId { get; set; }
+        [ForeignKey(nameof(ReasonForBlockingRegistrationId))]
+        public ReasonForBlockingRegistration ReasonForBlockingRegistration { get; set; }
         [Required]
         [DefaultValue(1)]
         public bool LinkingTheAppearanceOfDocumentsToTheReasonForWithholdingRegistration { get; set; }
@@ -105,16 +111,21 @@ namespace Talabat.Core.Entities.Academic_regulation
         [Required]
         [DefaultValue(0)]
         public int NumberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects { get; set; }
-        public string TheReasonForHiddingTheResult { get; set; }
-        public string SummerCourseEstimates { get; set; }
+        public int TheReasonForHiddingTheResultId { get; set; }
+        [ForeignKey(nameof(TheReasonForHiddingTheResultId))]
+        public ReasonForBlockingAcademicResult TheReasonForHiddingTheResult { get; set; }
         [Required]
         [DefaultValue("استبيان النظام الداخلي")]
         public string Questionnaire { get; set; }
-        public string DetailedGradesToBeAnnounced { get; set; }
-       
-        
 
-                             
+        public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
+        public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
+        public ICollection<PI_DetailedGradesToBeAnnounced> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnounced>();
+
+
+
+
+
     }
 }
  

@@ -1,4 +1,6 @@
 ﻿
+using Grad.Core.Entities.Academic_regulation;
+
 namespace Talabat.Core.Entities.Lockups
 {
     [Table("LU_EquivalentGrade")]
@@ -8,5 +10,6 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+
     }
 }

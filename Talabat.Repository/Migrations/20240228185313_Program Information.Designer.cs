@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240228185313_Program Information")]
+    partial class ProgramInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,198 +23,6 @@ namespace Grad.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.AcademicLoadAccordingToLevel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AcademicNoticeHours")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ExceptionToMinimumHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExceptionToTheMaximumHours")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LevelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaximumHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinimumHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Prog_InfoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Re_registrationHours")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Semester")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LevelId");
-
-                    b.HasIndex("Prog_InfoId");
-
-                    b.ToTable("AR_AcademicLoadAccordingToLevel");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.Program_TheGrades", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EquivalentEstimateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GraduationEstimateId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PointsFrom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsTo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TheGradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThePercentageFrom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThePercentageTo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("prog_InfoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EquivalentEstimateId");
-
-                    b.HasIndex("GraduationEstimateId");
-
-                    b.HasIndex("TheGradeId");
-
-                    b.HasIndex("prog_InfoId");
-
-                    b.ToTable("AR_Program_TheGrades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.programLevels", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InsertBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("InsertDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InstitutionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MaximumHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinimumHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TheLevelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("prog_InfoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TheLevelId");
-
-                    b.HasIndex("prog_InfoId");
-
-                    b.ToTable("AR_ProgramLevels");
-                });
 
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_AllGradesSummerEstimate", b =>
                 {
@@ -468,9 +278,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("ProgramCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProgramNameInArabic")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -545,8 +352,6 @@ namespace Grad.Repository.Migrations
                     b.HasIndex("EditTheStudentLevelId");
 
                     b.HasIndex("PassingTheElectiveGroupBasedOnId");
-
-                    b.HasIndex("ProgramId");
 
                     b.HasIndex("ReasonForBlockingRegistrationId");
 
@@ -2020,79 +1825,6 @@ namespace Grad.Repository.Migrations
                     b.ToTable("Perm_ApplicationUser");
                 });
 
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.AcademicLoadAccordingToLevel", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "AcademicLevel")
-                        .WithMany()
-                        .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "Program_Info")
-                        .WithMany()
-                        .HasForeignKey("Prog_InfoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AcademicLevel");
-
-                    b.Navigation("Program_Info");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.Program_TheGrades", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Lockups.EquivalentGrade", "EquivalentEstimate")
-                        .WithMany()
-                        .HasForeignKey("EquivalentEstimateId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.EquivalentGrade", "GraduationEstimate")
-                        .WithMany()
-                        .HasForeignKey("GraduationEstimateId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "TheGrade")
-                        .WithMany()
-                        .HasForeignKey("TheGradeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "prog_Info")
-                        .WithMany()
-                        .HasForeignKey("prog_InfoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("EquivalentEstimate");
-
-                    b.Navigation("GraduationEstimate");
-
-                    b.Navigation("TheGrade");
-
-                    b.Navigation("prog_Info");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.programLevels", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "TheLevel")
-                        .WithMany()
-                        .HasForeignKey("TheLevelId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "prog_Info")
-                        .WithMany()
-                        .HasForeignKey("prog_InfoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("TheLevel");
-
-                    b.Navigation("prog_Info");
-                });
-
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_AllGradesSummerEstimate", b =>
                 {
                     b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "AllGrades")
@@ -2211,12 +1943,6 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Talabat.Core.Entities.Entities.Programs", "Programs")
-                        .WithMany()
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Talabat.Core.Entities.Lockups.ReasonForBlockingRegistration", "ReasonForBlockingRegistration")
                         .WithMany()
                         .HasForeignKey("ReasonForBlockingRegistrationId")
@@ -2271,8 +1997,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("EditTheStudentLevel");
 
                     b.Navigation("PassingTheElectiveGroupBasedOn");
-
-                    b.Navigation("Programs");
 
                     b.Navigation("ReasonForBlockingRegistration");
 

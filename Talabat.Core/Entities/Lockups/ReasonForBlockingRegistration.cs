@@ -9,5 +9,6 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+
     }
 }
