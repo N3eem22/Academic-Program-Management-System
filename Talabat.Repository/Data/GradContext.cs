@@ -1,5 +1,10 @@
+
+﻿using Grad.Core.Entities.Academic_regulation;
+using Grad.Core.Entities.Entities;
+using Grad.Core.Entities.Lockups;
+
 ﻿using Grad.Core.Entities.CoursesInfo;
-using Grad.Core.Entities.CumulativeAverage;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
+using Talabat.Core.Entities.Academic_regulation;
 using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Entities.Logs;
@@ -30,9 +36,7 @@ namespace Talabat.Repository.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Programs> Programs { get; set; }
-        //Cumulative Average
-        public DbSet<CumulativeAverage> CumulativeAverages { get; set; }
-        public DbSet<GadesOfEstimatesThatDoesNotCount> GadesOfEstimates { get; set; }
+       
         //Courses Info
         public DbSet<CourseInformation> CourseInformation { get; set; }
         public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 
@@ -65,6 +69,12 @@ namespace Talabat.Repository.Data
         public DbSet<TypeOfSummerFees> TypeOfSummerFees { get; set; }
         public DbSet<CollegeCourses> CollegeCourses { get; set; }
         public DbSet<Prerequisites> Prerequisites { get; set; }
+        public DbSet<DivisionType> divisionTypes { get; set; }
+        //Academic_Regulation
+        public DbSet<ProgramInformation> ProgramInformation { get; set; }
+        public DbSet<programLevels> programLevels { get; set; }
+        public DbSet<Program_TheGrades> Program_TheGrades { get; set; }
+        public DbSet<AcademicLoadAccordingToLevel> AcademicLoadAccordingToLevels { get; set; } 
         #endregion
         public GradContext(DbContextOptions<GradContext> options):base(options)
         {
@@ -75,9 +85,11 @@ namespace Talabat.Repository.Data
            // modelBuilder.ApplyConfiguration(new ProductConfig());
            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+    
+           
         }
-      
+
 
     }
 }

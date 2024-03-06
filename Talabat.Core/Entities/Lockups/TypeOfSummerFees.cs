@@ -14,5 +14,6 @@ namespace Talabat.Core.Entities.Lockups
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
 
+
     }
 }

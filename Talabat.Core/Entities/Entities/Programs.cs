@@ -10,5 +10,7 @@ namespace Talabat.Core.Entities.Entities
         public int? FacultyId { get; set; }
         [ForeignKey(nameof(FacultyId))]
         public Faculty Faculty { get; set; }
+
+        ICollection<ProgramInformation> ProgramInformation { get; set; } = new HashSet<ProgramInformation>();
     }
 }

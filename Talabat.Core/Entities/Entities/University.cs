@@ -1,5 +1,7 @@
 ﻿
 
+using Grad.Core.Entities.Lockups;
+
 namespace Talabat.Core.Entities.Entities
 {
     [Table("University")]
@@ -34,7 +36,7 @@ namespace Talabat.Core.Entities.Entities
         public ICollection<CourseRequirement> CourseRequirements { get; set;} = new HashSet<CourseRequirement>();
         public ICollection<AbsenteeEstimateCalculation> AbsenteeEstimateCalculation { get; set; } = new HashSet<AbsenteeEstimateCalculation>();
         public ICollection<Faculty> Faculties { get; set; } = new HashSet<Faculty>();
-
+        public ICollection<DivisionType> divisionTypes { get; set; } = new HashSet<DivisionType>();
 
 
     }

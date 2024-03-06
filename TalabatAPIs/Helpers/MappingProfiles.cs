@@ -13,8 +13,10 @@ namespace Talabat.APIs.Helpers
         public MappingProfiles()
         {
 
-            //   CreateMap<CustomerBasket, CustomerBasketDto>();
+          
 
+
+            #region  Maps For Lockups with UNI
             CreateMap<AllGrades, AllGradesDTO>()
             .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
 
@@ -55,12 +57,22 @@ namespace Talabat.APIs.Helpers
             CreateMap<Prerequisites, PrerequisitesDTO>()
       .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
 
+            CreateMap<AbsenteeEstimateCalculation, AbsenteeEstimateCalculationDTO>()
+     .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<CourseRequirement, CourseRequirementDTO>()
+     .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<CourseType, CourseTypeDTO>()
+    .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+
+            CreateMap<EquivalentGrade, EquivalentGradeDTO>()
+    .ForMember(D => D.University, O => O.MapFrom(s => s.University.Name)).ReverseMap();
+            #endregion
 
 
 
-
-
-
+            #region Maps For Lockups Request
 
             CreateMap<AllGradesReq, AllGrades>();
             CreateMap<HoursReq, Hours>();
@@ -74,8 +86,16 @@ namespace Talabat.APIs.Helpers
             CreateMap<ReasonForBlockingAcademicResultReq, ReasonForBlockingAcademicResult>();
             CreateMap<PreviousQualificationReq, PreviousQualification>();
             CreateMap<PrerequisitesReq, Prerequisites>();
+            CreateMap<AbsenteeEstimateCalculationReq, AbsenteeEstimateCalculation>();
+            CreateMap<CourseRequirementReq, CourseRequirement>();
+            CreateMap<CourseTypeReq, CourseType>();
+            CreateMap<CourseTypeReq, CourseType>();
+            CreateMap<EquivalentGradeReq, EquivalentGrade>();
 
 
+
+
+            #endregion
 
 
 
