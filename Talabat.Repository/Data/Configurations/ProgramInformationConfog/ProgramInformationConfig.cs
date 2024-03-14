@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities.Academic_regulation;
+using Talabat.Core.Entities.Lockups;
 
 namespace Grad.Repository.Data.Configrations.ProgramInformationConfig
 {
@@ -20,60 +21,60 @@ namespace Grad.Repository.Data.Configrations.ProgramInformationConfig
 
             //Relations 1-M
             builder.HasOne(pi => pi.AcademicDegree)
-                   .WithMany()
+                   .WithMany(pi=> pi.Program_Information)
                    .HasForeignKey(pi => pi.AcademicDegreeid).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.SystemType)
-                   .WithMany()
-                   .HasForeignKey(pi => pi.SystemTypeId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi=>pi.Program_Information)
+                   .HasForeignKey(pi => pi.SystemTypeId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.BurdenCalculation)
-                   .WithMany()
+                   .WithMany(pi=>pi.Program_Information)
                    .HasForeignKey(pi => pi.BurdanCalculationId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.PassingTheElectiveGroupBasedOn)
-                   .WithMany()
+                   .WithMany(pi=>pi.Program_Information)
                    .HasForeignKey(pi => pi.PassingTheElectiveGroupBasedOnId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.EditTheStudentLevel)
-                  .WithMany()
+                  .WithMany(pi=>pi.Program_Information)
                   .HasForeignKey(pi => pi.EditTheStudentLevelId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.BlockingProofOfRegistration)
-                   .WithMany()
-                   .HasForeignKey(pi => pi.BlockingProofOfRegistrationId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi => pi.Program_Information)
+                   .HasForeignKey(pi => pi.BlockingProofOfRegistrationId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TypeOfFinancialStatementInTheProgram)
-                   .WithMany()
-                    .HasForeignKey(pi => pi.TypeOfFinancialStatementInTheProgramId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi => pi.Program_Information)
+                    .HasForeignKey(pi => pi.TypeOfFinancialStatementInTheProgramId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TypeOfProgramFees)
-                   .WithMany()
-                   .HasForeignKey(pi => pi.TypeOfProgramFeesId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi => pi.Program_Information)
+                   .HasForeignKey(pi => pi.TypeOfProgramFeesId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TypeOfSummerFees)
-                   .WithMany()
+                   .WithMany(pi => pi.Program_Information)
                    .HasForeignKey(pi => pi.TypeOfSummerFeesId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TheResultAppears)
-                   .WithMany()
+                   .WithMany(pi => pi.Result_Appears)
                    .HasForeignKey(pi => pi.TheResultAppearsId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TheResultToTheGuid)
-                   .WithMany()
-                   .HasForeignKey(pi => pi.TheResultToTheGuidId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi => pi.ResultAppearsToTheGuid)
+                   .HasForeignKey(pi => pi.TheResultToTheGuidId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.ReasonForBlockingRegistration)
-                   .WithMany()
+                   .WithMany(pi => pi.Program_Information)
                    .HasForeignKey(pi => pi.ReasonForBlockingRegistrationId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
 
             builder.HasOne(pi => pi.TheReasonForHiddingTheResult)
-                   .WithMany()
-                   .HasForeignKey(pi => pi.TheReasonForHiddingTheResultId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                   .WithMany(pi => pi.Program_Information)
+                   .HasForeignKey(pi => pi.TheReasonForHiddingTheResultId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.Programs)
-                  .WithMany()
+                  .WithMany(pi=>pi.Program_Information)
                   .HasForeignKey(pi => pi.ProgramId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
 

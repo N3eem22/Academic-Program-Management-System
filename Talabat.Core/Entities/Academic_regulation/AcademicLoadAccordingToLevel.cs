@@ -11,12 +11,12 @@ namespace Grad.Core.Entities.Academic_regulation
     [Table("AR_AcademicLoadAccordingToLevel")]
     public class AcademicLoadAccordingToLevel: BaseEntity
     {
+        [ForeignKey("Program_Info")]
         public int Prog_InfoId { get; set; }
-        [ForeignKey(nameof(Prog_InfoId))]
         public ProgramInformation Program_Info { get; set; }
         public string Semester { get; set; }
+        [ForeignKey("AcademicLevel")]
         public int LevelId { get; set; }
-        [ForeignKey(nameof(LevelId))]
         public Level AcademicLevel { get; set; }
         public int MinimumHours{ get; set; }
         public int ExceptionToMinimumHours { get; set; }

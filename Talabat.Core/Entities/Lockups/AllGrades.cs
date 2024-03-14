@@ -29,6 +29,7 @@ namespace Talabat.Core.Entities.Lockups
         public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
 
 
+        public ICollection<Program_TheGrades> program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
 
     }
 }

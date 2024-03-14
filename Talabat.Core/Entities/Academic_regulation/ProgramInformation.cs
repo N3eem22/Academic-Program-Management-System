@@ -10,8 +10,8 @@ namespace Talabat.Core.Entities.Academic_regulation
 {
     public class ProgramInformation : BaseEntity
     {
+        [ForeignKey("Programs")] 
         public int ProgramId {  get; set; }
-        [ForeignKey(nameof(ProgramId))] 
         public Programs Programs { get; set; }
         
         [Required]
@@ -25,8 +25,8 @@ namespace Talabat.Core.Entities.Academic_regulation
         public string Institute { get; set; }
 
         [Required]
+        [ForeignKey("AcademicDegree")]
         public int AcademicDegreeid { get; set; }
-        [ForeignKey(nameof(AcademicDegreeid))]
         public TheAcademicDegree AcademicDegree { get; set; }
         public string Degree { get; set; }
         public string NameInCertificate { get; set; }
@@ -37,8 +37,8 @@ namespace Talabat.Core.Entities.Academic_regulation
         [DataType(DataType.Date)]
         [Required]
         public string EndOfTheProgram { get; set; }
+        [ForeignKey("SystemType")]
         public int SystemTypeId { get; set; }
-        [ForeignKey(nameof(SystemTypeId))]
         public SystemType SystemType { get; set; }
         public int InstitutionCode { get; set; }
         [Required]
@@ -53,68 +53,68 @@ namespace Talabat.Core.Entities.Academic_regulation
         public int EligibleHoursforProjectRegistration { get; set; }
         public int ProjectHours { get; set; }
         [Required]
+        [ForeignKey("BurdenCalculation")]
         public int BurdanCalculationId { get; set; }
-        [ForeignKey(nameof(BurdanCalculationId))]
         public BurdenCalculation BurdenCalculation { get; set; }
         [Required]
-        [DefaultValue(1)]
+        [DefaultValue(true)]
         public bool ExcludingTheBudgetTermWhenCalculatingTheGPA { get; set; }
         [Required]
+        [ForeignKey("PassingTheElectiveGroupBasedOn")]
         public int PassingTheElectiveGroupBasedOnId { get; set; }
-        [ForeignKey(nameof(PassingTheElectiveGroupBasedOnId))]
         public PassingTheElectiveGroupBasedOn PassingTheElectiveGroupBasedOn { get; set; }
         public string pre_Requisite { get; set; }
         public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
+        [ForeignKey("EditTheStudentLevel")]
         public int EditTheStudentLevelId { get; set; }
-        [ForeignKey(nameof(EditTheStudentLevelId))]
         public EditTheStudentLevel EditTheStudentLevel { get; set; }
         public bool AllowingTheRegistrationOfaSpecificNumberOfElectiveCoursesDuringTheYear { get; set; }
         public int FailureTimesForWarning { get; set; }
         public int FailureTimesForRe_Enrollment { get; set; }
+        [ForeignKey("BlockingProofOfRegistration")]
         public int BlockingProofOfRegistrationId { get; set; }
-        [ForeignKey(nameof(BlockingProofOfRegistrationId))]
         public BlockingProofOfRegistration BlockingProofOfRegistration { get; set; }
+        [ForeignKey("TypeOfFinancialStatementInTheProgram")]
         public int TypeOfFinancialStatementInTheProgramId { get; set; }
-        [ForeignKey(nameof(TypeOfFinancialStatementInTheProgramId))]
         public TypeOfFinancialStatementInTheProgram TypeOfFinancialStatementInTheProgram { get; set; }
+        [ForeignKey("TypeOfProgramFees")]
         public int TypeOfProgramFeesId { get; set; }
-        [ForeignKey(nameof(TypeOfProgramFeesId))]
         public TypeOfProgramFees TypeOfProgramFees { get; set; }
 
+        [ForeignKey("TypeOfSummerFees")]
         public int TypeOfSummerFeesId { get; set; }
-        [ForeignKey(nameof(TypeOfSummerFeesId))]
         public TypeOfSummerFees TypeOfSummerFees { get; set; }
         [Required]
-        [DefaultValue(0)]
+        [DefaultValue(false)]
         public bool CalculatingaSpecialRegistrationFeeForaCourseIfaPreviousAssessmentOfTheCourseIsIncomplete { get; set; }
         [Required]
-        [DefaultValue(0)]
+        [DefaultValue(false)]
         public bool BookFeeIsCalculatedForTheFirstTimeOfRegistrationOnly { get; set; }
         [Required]
         [DefaultValue("الدرجة")]
         public string Result { get; set; }
+        [ForeignKey("TheResultAppears")]
         public int TheResultAppearsId { get; set; }
-        [ForeignKey(nameof(TheResultAppearsId))]
         public TheResultAppears TheResultAppears { get; set; }
+        [ForeignKey("TheResultToTheGuid")]
         public int TheResultToTheGuidId { get; set; }
-        [ForeignKey(nameof(TheResultToTheGuidId))]
         public TheResultAppears TheResultToTheGuid { get; set; }
+        [ForeignKey("ReasonForBlockingRegistration")]
         public int ReasonForBlockingRegistrationId { get; set; }
-        [ForeignKey(nameof(ReasonForBlockingRegistrationId))]
         public ReasonForBlockingRegistration ReasonForBlockingRegistration { get; set; }
         [Required]
-        [DefaultValue(1)]
+        [DefaultValue(true)]
         public bool LinkingTheAppearanceOfDocumentsToTheReasonForWithholdingRegistration { get; set; }
         [Required]
-        [DefaultValue(1)]
+        [DefaultValue(true)]
         public bool LinkingTheAppearanceOfTheExaminationScheduleToThePaymentOfFees { get; set; }
-        [DefaultValue(1)]
+        [DefaultValue(true)]
         public bool RegistrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly { get; set; }
         [Required]
         [DefaultValue(0)]
         public int NumberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects { get; set; }
+        [ForeignKey("TheReasonForHiddingTheResult")]
         public int TheReasonForHiddingTheResultId { get; set; }
-        [ForeignKey(nameof(TheReasonForHiddingTheResultId))]
         public ReasonForBlockingAcademicResult TheReasonForHiddingTheResult { get; set; }
         [Required]
         [DefaultValue("استبيان النظام الداخلي")]
@@ -127,10 +127,9 @@ namespace Talabat.Core.Entities.Academic_regulation
         public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
         public ICollection<PI_DetailedGradesToBeAnnounced> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnounced>();
 
-
-
-
-
+        public ICollection<Program_TheGrades> Program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
+        public ICollection<programLevels> programLevels { get; set; } = new HashSet<programLevels>();
+        public ICollection<AcademicLoadAccordingToLevel> academicLoadAccordingToLevels { get; set; } = new HashSet<AcademicLoadAccordingToLevel>();
 
     }
 }

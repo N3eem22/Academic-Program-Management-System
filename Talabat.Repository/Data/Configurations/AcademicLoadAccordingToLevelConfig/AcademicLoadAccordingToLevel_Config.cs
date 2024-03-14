@@ -14,11 +14,11 @@ namespace Grad.Repository.Data.Configrations.AcademicLoadAccordingToLevelConfig
         public void Configure(EntityTypeBuilder<AcademicLoadAccordingToLevel> builder)
         {
             builder.HasOne(pi => pi.Program_Info)
-                .WithMany()
+                .WithMany(pi=>pi.academicLoadAccordingToLevels)
                 .HasForeignKey(pi => pi.Prog_InfoId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.AcademicLevel)
-                .WithMany()
+                .WithMany(pi=>pi.academicLoadAccordingToLevels)
                 .HasForeignKey(pi => pi.LevelId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
     }

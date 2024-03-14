@@ -84,7 +84,7 @@ namespace Talabat.Repository.Data
         public DbSet<ProgramInformation> ProgramInformation { get; set; }
         public DbSet<programLevels> programLevels { get; set; }
         public DbSet<Program_TheGrades> Program_TheGrades { get; set; }
-        public DbSet<AcademicLoadAccordingToLevel> AcademicLoadAccordingToLevels { get; set; } 
+        public DbSet<AcademicLoadAccordingToLevel> AcademicLoadAccordingToLevels { get; set; }
         #endregion
         public GradContext(DbContextOptions<GradContext> options):base(options)
         {
