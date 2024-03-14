@@ -27,7 +27,7 @@ namespace Talabat.Service
             //1-private claims
             var authClaims = new List<Claim>()
             {
-                new Claim(ClaimTypes.GivenName,User.DisplayName),
+            new Claim(ClaimTypes.GivenName,User.DisplayName),
             new Claim(ClaimTypes.Email, User.Email)
             };
             var userRoles = await userManager.GetRolesAsync(User);

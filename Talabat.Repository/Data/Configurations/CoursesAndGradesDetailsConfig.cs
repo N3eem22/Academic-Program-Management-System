@@ -19,11 +19,11 @@ namespace Grad.Repository.Data.Configrations
 
             builder.HasOne(cg => cg.GradesDetails)
                 .WithMany(f => f.coursesandGradesDetails)
-                .HasForeignKey(e => e.GradeDetailsId).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
+                .HasForeignKey(e => e.GradeDetailsId).OnDelete(deleteBehavior: DeleteBehavior.Cascade).IsRequired(false);
 
             builder.HasOne(cg => cg.CourseInformation)
             .WithMany(f => f.coursesandGradesDetails)
-            .HasForeignKey(e => e.CourseInfoId).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
+            .HasForeignKey(e => e.CourseInfoId).OnDelete(deleteBehavior: DeleteBehavior.Cascade).IsRequired(false);
         }
     }
 }

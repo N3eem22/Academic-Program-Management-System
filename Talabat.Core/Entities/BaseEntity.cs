@@ -10,6 +10,7 @@ namespace Talabat.Core.Entities
     {
         [Key]
         public int Id { get; set; }
+        
     }
 
 }

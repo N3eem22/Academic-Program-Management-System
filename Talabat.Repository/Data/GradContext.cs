@@ -18,6 +18,9 @@ using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Entities.Logs;
 using Talabat.Core.Entities.Permissions;
+using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Control;
+using Grad.Core.Entities.Graduation;
 
 namespace Talabat.Repository.Data
 {
@@ -36,7 +39,14 @@ namespace Talabat.Repository.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Programs> Programs { get; set; }
-       
+        //Cumulative Average
+        public DbSet<CumulativeAverage> CumulativeAverages { get; set; }
+        public DbSet<GadesOfEstimatesThatDoesNotCount> GadesOfEstimatesThatDoesNotCounts { get; set; }
+        //Control
+        public DbSet<Control> Controls { get; set; }
+        //Graduation 
+        public DbSet<Graduation> Graduations { get; set; }
+        public DbSet<AverageValue> AverageValues { get; set; }
         //Courses Info
         public DbSet<CourseInformation> CourseInformation { get; set; }
         public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 

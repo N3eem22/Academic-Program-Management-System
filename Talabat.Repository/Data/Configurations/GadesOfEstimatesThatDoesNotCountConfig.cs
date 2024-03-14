@@ -17,10 +17,10 @@ namespace Grad.Repository.Data.Configrations
             builder.HasKey(k => new { k.GradeId, k.CumulativeAverageId });
             builder.HasOne(k => k.Grades)
                 .WithMany(g => g.gadesOfEstimatesThatDoesNotCount)
-                .HasForeignKey(k => k.GradeId);
+                .HasForeignKey(k => k.GradeId).OnDelete(deleteBehavior : DeleteBehavior.Cascade);
             builder.HasOne(k => k.CumulativeAverage)
             .WithMany(g => g.gadesOfEstimatesThatDoesNotCount)
-            .HasForeignKey(k => k.CumulativeAverageId);
+            .HasForeignKey(k => k.CumulativeAverageId).OnDelete(deleteBehavior: DeleteBehavior.Cascade);
         }
     }
 }

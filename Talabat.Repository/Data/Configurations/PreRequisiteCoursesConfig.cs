@@ -17,11 +17,11 @@ namespace Grad.Repository.Data.Configrations
 
             builder.HasOne(pc => pc.CourseInformation)
                 .WithMany(f => f.preRequisiteCourses)
-                .HasForeignKey(e => e.CourseInfoId).OnDelete(deleteBehavior : DeleteBehavior.NoAction).IsRequired(false);
+                .HasForeignKey(e => e.CourseInfoId).OnDelete(deleteBehavior : DeleteBehavior.Cascade).IsRequired(false);
 
             builder.HasOne(pc => pc.Courses)
                 .WithMany(f => f.preRequisiteCourses)
-                .HasForeignKey(e => e.PreRequisiteCourseId).OnDelete(deleteBehavior: DeleteBehavior.NoAction).IsRequired(false);
+                .HasForeignKey(e => e.PreRequisiteCourseId).OnDelete(deleteBehavior: DeleteBehavior.Cascade).IsRequired(false);
         }
     }
 }

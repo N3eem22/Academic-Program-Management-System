@@ -2,6 +2,7 @@
 
 
 using Grad.Core.Entities.Academic_regulation;
+using Grad.Core.Entities.Graduation;
 
 namespace Talabat.Core.Entities.Lockups
 {
@@ -14,7 +15,7 @@ namespace Talabat.Core.Entities.Lockups
         public University University { get; set; }
 
 
+        public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
 
-  
     }
 }
