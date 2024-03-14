@@ -16,9 +16,9 @@ namespace Talabat.Core.Entities.Lockups
         public University University { get; set; }
         public ICollection<CumulativeAverage> UtmostGrades { get; set; } = new HashSet<CumulativeAverage>();
         public ICollection<GadesOfEstimatesThatDoesNotCount> gadesOfEstimatesThatDoesNotCount { get; set; } = new HashSet<GadesOfEstimatesThatDoesNotCount>();
-
-public ICollection<PI_EstimatesOfCourseFeeExemption > PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
+        public ICollection<PI_EstimatesOfCourseFeeExemption > PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
         public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
+        public ICollection<Program_TheGrades> program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
 
     }
 }

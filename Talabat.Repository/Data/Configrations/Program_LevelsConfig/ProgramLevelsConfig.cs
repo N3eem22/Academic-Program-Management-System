@@ -15,11 +15,11 @@ namespace Grad.Repository.Data.Configrations.Program_LevelsConfig
         public void Configure(EntityTypeBuilder<programLevels> builder)
         {
             builder.HasOne(pi => pi.prog_Info)
-                  .WithMany()
+                  .WithMany(pi=>pi.programLevels)
                   .HasForeignKey(pi => pi.prog_InfoId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TheLevel)
-                  .WithMany()
+                  .WithMany(pi=>pi.ProgramLevels)
                   .HasForeignKey(pi => pi.TheLevelId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
     }

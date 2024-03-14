@@ -14,19 +14,19 @@ namespace Grad.Repository.Data.Configrations.ProgramTheGradeConfig
         public void Configure(EntityTypeBuilder<Program_TheGrades> builder)
         {
             builder.HasOne(pi => pi.prog_Info)
-                  .WithMany()
+                  .WithMany(pi=>pi.Program_TheGrades)
                   .HasForeignKey(pi => pi.prog_InfoId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.TheGrade)
-                  .WithMany()
+                  .WithMany(pi=>pi.program_TheGrades)
                   .HasForeignKey(pi => pi.TheGradeId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.EquivalentEstimate)
-                  .WithMany()
+                  .WithMany(pi=>pi.EquivalentEstimate)
                   .HasForeignKey(pi => pi.EquivalentEstimateId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pi => pi.GraduationEstimate)
-                  .WithMany()
+                  .WithMany(pi=>pi.GraduationEstimate)
                   .HasForeignKey(pi => pi.GraduationEstimateId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
 

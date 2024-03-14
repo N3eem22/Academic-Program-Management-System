@@ -10,6 +10,9 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+        public ICollection<Program_TheGrades> EquivalentEstimate {  get; set; } = new HashSet<Program_TheGrades>();
+        public ICollection<Program_TheGrades> GraduationEstimate { get; set; } = new HashSet<Program_TheGrades>();
+
 
     }
 }

@@ -27,7 +27,7 @@ namespace Grad.Core.Specifications.LockUps_spec
 
         public TheResultAppearswithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
-         (string.IsNullOrEmpty(grade) || p.resultAppears == grade) &&
+         (string.IsNullOrEmpty(grade) || p.ResultAppears == grade) &&
          (!UNiid.HasValue || p.UniversityId == UNiid)
      )
         {

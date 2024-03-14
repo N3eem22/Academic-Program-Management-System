@@ -56,7 +56,7 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<TheResultAppearsReq>> AddTheResultAppears(TheResultAppearsReq theResultAppearsReq)
         {
             bool exists = await _unitOfWork.Repository<TheResultAppears>().ExistAsync(
-                x => x.resultAppears.Trim().ToUpper() == theResultAppearsReq.resultAppears.Trim().ToUpper() &&
+                x => x.ResultAppears.Trim().ToUpper() == theResultAppearsReq.resultAppears.Trim().ToUpper() &&
                      x.UniversityId == theResultAppearsReq.UniversityId);
 
             if (exists)
@@ -79,11 +79,11 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<TheResultAppears>().ExistAsync(
-                x => x.resultAppears.Trim().ToUpper() == updatedResultAppears.Trim().ToUpper() && x.UniversityId == theResultAppears.UniversityId);
+                x => x.ResultAppears.Trim().ToUpper() == updatedResultAppears.Trim().ToUpper() && x.UniversityId == theResultAppears.UniversityId);
 
             if (!exists)
             {
-                theResultAppears.resultAppears = updatedResultAppears;
+                theResultAppears.ResultAppears = updatedResultAppears;
                 _unitOfWork.Repository<TheResultAppears>().Update(theResultAppears);
                 bool result = await _unitOfWork.CompleteAsync() > 0;
 
