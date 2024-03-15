@@ -102,7 +102,7 @@ namespace Grad.APIs.Controllers
             if (semester == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<Semesters>().Delete(semester);
+            await _unitOfWork.Repository<Semesters>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

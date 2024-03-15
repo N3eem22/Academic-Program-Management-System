@@ -103,7 +103,7 @@ namespace Grad.APIs.Controllers
             if (level == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<Level>().Delete(level);
+            await _unitOfWork.Repository<Level>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

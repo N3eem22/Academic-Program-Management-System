@@ -21,6 +21,8 @@ namespace Talabat.Core.Repositories
         Task<IEnumerable<T>> GetAllAsync();
         Task Add(T item);
         void Delete(T item);
+
+        Task softDelete (int id);
         void Update(T item);
 
         Task<bool> ExistAsync(Expression<Func<T, bool>> filter = null, Expression<Func<T, bool>> universityFilter = null, string includeProperties = null, bool ignoreQueryFilters = false);

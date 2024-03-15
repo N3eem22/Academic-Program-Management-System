@@ -88,7 +88,7 @@ namespace Grad.APIs.Controllers
             var collegeCourse = await _unitOfWork.Repository<CollegeCourses>().GetByIdAsync(id);
             if (collegeCourse == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<CollegeCourses>().Delete(collegeCourse);
+           await _unitOfWork.Repository<CollegeCourses>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

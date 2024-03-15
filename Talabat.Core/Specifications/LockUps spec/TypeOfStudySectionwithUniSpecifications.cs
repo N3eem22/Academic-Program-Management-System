@@ -9,8 +9,8 @@ namespace Grad.Core.Specifications.LockUps_spec
 {
     public class TypeOfStudySectionwithUniSpecifications : BaseSpecifications<TypeOfStudySection>
     {
-        public TypeOfStudySectionwithUniSpecifications(int? UniId)
-           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+        public TypeOfStudySectionwithUniSpecifications(int? UniId )
+           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -19,7 +19,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         //TypeOfSummerFeeswithUniSpecifications
         //TypeOfStudySectionwithUniSpecifications
 
-        public TypeOfStudySectionwithUniSpecifications(int id) : base(p => p.Id == id)
+        public TypeOfStudySectionwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -28,7 +28,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public TypeOfStudySectionwithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.TheTypeOfStudySectio == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

@@ -104,7 +104,7 @@ namespace Grad.APIs.Controllers
             if (hour == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<Hours>().Delete(hour);
+            await _unitOfWork.Repository<Hours>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

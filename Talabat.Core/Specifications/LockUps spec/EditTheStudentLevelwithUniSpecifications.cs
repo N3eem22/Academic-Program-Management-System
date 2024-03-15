@@ -11,7 +11,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     {
 
         public EditTheStudentLevelwithUniSpecifications(int? UniId)
-            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -21,7 +21,7 @@ namespace Grad.Core.Specifications.LockUps_spec
 
 
 
-        public EditTheStudentLevelwithUniSpecifications(int id) : base(p => p.Id == id)
+        public EditTheStudentLevelwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -30,7 +30,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public EditTheStudentLevelwithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.editTheStudentLevel == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid ) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

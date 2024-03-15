@@ -90,7 +90,7 @@ namespace Grad.APIs.Controllers
             var passingTheElectiveGroupBasedOn = await _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().GetByIdAsync(id);
             if (passingTheElectiveGroupBasedOn == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().Delete(passingTheElectiveGroupBasedOn);
+            await _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

@@ -135,25 +135,13 @@ namespace Grad.APIs.Controllers
         public async Task<IActionResult> DeleteGrade(int GradeID)
         {
             var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(GradeID);
-
-            if (grade == null)
-            {
-                
+            if (grade == null)   
                 return NotFound(new ApiResponse(400));
-            }
-
-            _unitOfWork.Repository<AllGrades>().Delete(grade);
+         await _unitOfWork.Repository<AllGrades>().softDelete(GradeID);
             bool result = await _unitOfWork.CompleteAsync() > 0;
+         return result ? Ok(new { message = AppMessage.Deleted }) : StatusCode(500, new { error = AppMessage.Error });
 
-            if (result)
-            {
-                return Ok(new {  message = AppMessage.Deleted });
-            }
-            else
-            {
-                
-                return StatusCode(500, new { error = AppMessage.Error });
-            }
+
         }
 
 

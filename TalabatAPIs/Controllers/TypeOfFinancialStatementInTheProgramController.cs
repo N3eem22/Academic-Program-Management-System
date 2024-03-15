@@ -90,7 +90,7 @@ namespace Grad.APIs.Controllers
             var financialStatement = await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().GetByIdAsync(id);
             if (financialStatement == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().Delete(financialStatement);
+            await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

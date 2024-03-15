@@ -9,33 +9,27 @@ namespace Grad.Core.Specifications.LockUps_spec
 {
     public class BurdenCalculationwithUniSpecifications : BaseSpecifications<BurdenCalculation>
     {
-
         public BurdenCalculationwithUniSpecifications(int? UniId)
-            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
-
+            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
         {
             Includes.Add(G => G.University);
         }
 
-       
-
-
-
-        public BurdenCalculationwithUniSpecifications(int id) : base(p => p.Id == id)
+        public BurdenCalculationwithUniSpecifications(int id)
+            : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
-
         }
 
         public BurdenCalculationwithUniSpecifications(string? grade, int? UNiid)
-     : base(p =>
-         (string.IsNullOrEmpty(grade) || p.BurdenCalculationAS == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
-     )
+            : base(p =>
+                (string.IsNullOrEmpty(grade) || p.BurdenCalculationAS == grade) &&
+                (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
+            )
         {
             Includes.Add(G => G.University);
         }
-
     }
 }
+
 

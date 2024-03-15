@@ -90,7 +90,7 @@ namespace Grad.APIs.Controllers
             var divisionType = await _unitOfWork.Repository<DivisionType>().GetByIdAsync(id);
             if (divisionType == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<DivisionType>().Delete(divisionType);
+            await _unitOfWork.Repository<DivisionType>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

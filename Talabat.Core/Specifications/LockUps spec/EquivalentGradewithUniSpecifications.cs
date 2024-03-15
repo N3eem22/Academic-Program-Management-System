@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class EquivalentGradewithUniSpecifications : BaseSpecifications<EquivalentGrade>
     {
         public EquivalentGradewithUniSpecifications(int? UniId)
-           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -19,7 +19,7 @@ namespace Grad.Core.Specifications.LockUps_spec
        
 
 
-        public EquivalentGradewithUniSpecifications(int id) : base(p => p.Id == id)
+        public EquivalentGradewithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -28,7 +28,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public EquivalentGradewithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.equivalentGrade == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

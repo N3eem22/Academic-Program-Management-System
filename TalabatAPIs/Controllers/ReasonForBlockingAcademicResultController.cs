@@ -102,7 +102,7 @@ namespace Grad.APIs.Controllers
             if (reason == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<ReasonForBlockingAcademicResult>().Delete(reason);
+            await _unitOfWork.Repository<ReasonForBlockingAcademicResult>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

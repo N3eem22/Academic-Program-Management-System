@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class GradesDetailswithUniSpecifications : BaseSpecifications<GradesDetails>
     {
         public GradesDetailswithUniSpecifications(int? UniId)
-          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -21,16 +21,16 @@ namespace Grad.Core.Specifications.LockUps_spec
 
 
 
-        public GradesDetailswithUniSpecifications(int id) : base(p => p.Id == id)
+        public GradesDetailswithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
         }
 
-        public GradesDetailswithUniSpecifications(string? grade, int? UNiid)
+        public GradesDetailswithUniSpecifications(string? grade, int? UNiid )
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.TheDetails == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

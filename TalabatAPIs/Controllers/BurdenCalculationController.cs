@@ -90,7 +90,7 @@ namespace Grad.APIs.Controllers
             var burdenCalculation = await _unitOfWork.Repository<BurdenCalculation>().GetByIdAsync(id);
             if (burdenCalculation == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<BurdenCalculation>().Delete(burdenCalculation);
+            await _unitOfWork.Repository<BurdenCalculation>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

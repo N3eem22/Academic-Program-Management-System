@@ -105,7 +105,7 @@ namespace Grad.APIs.Controllers
             if (calculation == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<AbsenteeEstimateCalculation>().Delete(calculation);
+          await  _unitOfWork.Repository<AbsenteeEstimateCalculation>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
 
             var message = result ? AppMessage.Deleted : AppMessage.Error;
