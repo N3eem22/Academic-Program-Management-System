@@ -34,6 +34,8 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<IEnumerable<UniversityDTO>>> GetAllUniversities()
         {
             var universities = await _unitOfWork.Repository<University>().GetAllAsync();
+            universities = universities.Where(u => !u.IsDeleted);
+
             var universityDTOs = _mapper.Map<IEnumerable<University>, IEnumerable<UniversityDTO>>(universities);
             return Ok(universityDTOs);
         }
@@ -44,8 +46,9 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<UniversityDTO>> GetUniversityById(int id)
         {
             var university = await _unitOfWork.Repository<University>().GetByIdAsync(id);
-            if (university == null)
+            if (university == null || university.IsDeleted)
                 return NotFound(new ApiResponse(404));
+            
             var universityDTO = _mapper.Map<University, UniversityDTO>(university);
             return Ok(universityDTO);
         }
@@ -58,7 +61,7 @@ namespace Grad.APIs.Controllers
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var university = _mapper.Map<UniversityReq, University>(universityReq);
-            _unitOfWork.Repository<University>().Add(university);
+            await _unitOfWork.Repository<University>().Add(university);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Done : AppMessage.Error;
             return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
@@ -92,7 +95,7 @@ namespace Grad.APIs.Controllers
             var university = await _unitOfWork.Repository<University>().GetByIdAsync(id);
             if (university == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<University>().Delete(university);
+          await  _unitOfWork.Repository<University>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

@@ -102,7 +102,7 @@ namespace Grad.APIs.Controllers
             if (prerequisite == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<Prerequisites>().Delete(prerequisite);
+            await _unitOfWork.Repository<Prerequisites>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

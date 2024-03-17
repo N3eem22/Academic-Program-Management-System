@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class PreviousQualificationwithUniSpecifications : BaseSpecifications<PreviousQualification>
     {
         public PreviousQualificationwithUniSpecifications(int? UniId)
-            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -20,7 +20,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         //PreviousQualificationwithUniSpecifications
 
 
-        public PreviousQualificationwithUniSpecifications(int id) : base(p => p.Id == id)
+        public PreviousQualificationwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -29,7 +29,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public PreviousQualificationwithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.previousQualification == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

@@ -106,7 +106,7 @@ namespace Grad.APIs.Controllers
             if (requirement == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<CourseRequirement>().Delete(requirement);
+            await _unitOfWork.Repository<CourseRequirement>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

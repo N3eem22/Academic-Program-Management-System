@@ -11,7 +11,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class CollegeCoursesReqwithFacultySpecifications : BaseSpecifications<CollegeCourses>
     {
         public CollegeCoursesReqwithFacultySpecifications(int? FacId)
-          : base(P => (!FacId.HasValue || P.FacultyId == FacId.Value))
+          : base(P => (!FacId.HasValue || P.FacultyId == FacId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.Faculty);
@@ -22,7 +22,7 @@ namespace Grad.Core.Specifications.LockUps_spec
 
 
 
-        public CollegeCoursesReqwithFacultySpecifications(int id) : base(p => p.Id == id)
+        public CollegeCoursesReqwithFacultySpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.Faculty);
 
@@ -31,8 +31,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public CollegeCoursesReqwithFacultySpecifications(string? grade, int? Facid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.CourseNameInArabic == grade) &&
-         (!Facid.HasValue || p.FacultyId == Facid)
-     )
+         (!Facid.HasValue || p.FacultyId == Facid) && !p.IsDeleted)
         {
             Includes.Add(G => G.Faculty);
         }

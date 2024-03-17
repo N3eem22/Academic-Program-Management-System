@@ -11,32 +11,26 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class AbsenteeEstimateCalculationwithUniSpecifications : BaseSpecifications<AbsenteeEstimateCalculation>
     {
         public AbsenteeEstimateCalculationwithUniSpecifications(int? UniId)
-           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
         }
 
-       
-
-
-        public AbsenteeEstimateCalculationwithUniSpecifications(int id) : base(p => p.Id == id)
+        public AbsenteeEstimateCalculationwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
-
         }
 
         public AbsenteeEstimateCalculationwithUniSpecifications(string? grade, int? UNiid)
-     : base(p =>
-         (string.IsNullOrEmpty(grade) || p.absenteeEstimateCalculation == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
-     )
+            : base(p =>
+                 (string.IsNullOrEmpty(grade) || p.absenteeEstimateCalculation == grade) &&
+                 (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
+             )
         {
             Includes.Add(G => G.University);
         }
-
-
-
     }
+
 }
 

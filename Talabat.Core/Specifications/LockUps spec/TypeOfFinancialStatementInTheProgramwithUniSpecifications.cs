@@ -9,8 +9,8 @@ namespace Grad.Core.Specifications.LockUps_spec
 {
     public class TypeOfFinancialStatementInTheProgramwithUniSpecifications : BaseSpecifications<TypeOfFinancialStatementInTheProgram>
     {
-        public TypeOfFinancialStatementInTheProgramwithUniSpecifications(int? UniId)
-          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+        public TypeOfFinancialStatementInTheProgramwithUniSpecifications(int? UniId )
+          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -19,7 +19,7 @@ namespace Grad.Core.Specifications.LockUps_spec
 
 
 
-        public TypeOfFinancialStatementInTheProgramwithUniSpecifications(int id) : base(p => p.Id == id)
+        public TypeOfFinancialStatementInTheProgramwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -28,7 +28,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public TypeOfFinancialStatementInTheProgramwithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.TheType == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

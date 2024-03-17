@@ -10,14 +10,14 @@ namespace Grad.Core.Specifications.Enities_Spec
     public class FacultywithUniSpecifications : BaseSpecifications<Faculty>
     {
         public FacultywithUniSpecifications(int? UniId)
-           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+           : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
         }
 
 
-        public FacultywithUniSpecifications(int id) : base(p => p.Id == id)
+        public FacultywithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -26,7 +26,7 @@ namespace Grad.Core.Specifications.Enities_Spec
         public FacultywithUniSpecifications(string? facultyName, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(facultyName) || p.FacultyName == facultyName) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

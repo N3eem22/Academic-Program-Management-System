@@ -90,7 +90,7 @@ namespace Grad.APIs.Controllers
             var faculty = await _unitOfWork.Repository<Faculty>().GetByIdAsync(id);
             if (faculty == null)
                 return NotFound(new ApiResponse(404));
-            _unitOfWork.Repository<Faculty>().Delete(faculty);
+            await _unitOfWork.Repository<Faculty>().softDelete(id);
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });

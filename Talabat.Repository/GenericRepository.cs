@@ -98,6 +98,12 @@ namespace Talabat.Repository
             return result;
         }
 
+        public async Task softDelete(int id)
+        {
+           var getEntity = await GetByIdAsync (id);
+            if (getEntity != null)
+             getEntity.IsDeleted = true;    
 
+        }
     }
 }

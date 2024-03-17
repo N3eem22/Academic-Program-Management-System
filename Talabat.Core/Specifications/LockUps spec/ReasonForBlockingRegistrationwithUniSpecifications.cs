@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class ReasonForBlockingRegistrationwithUniSpecifications : BaseSpecifications<ReasonForBlockingRegistration>
     {
         public ReasonForBlockingRegistrationwithUniSpecifications(int? UniId)
-            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+            : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -19,7 +19,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         //TypeOfSummerFeeswithUniSpecifications
 
 
-        public ReasonForBlockingRegistrationwithUniSpecifications(int id) : base(p => p.Id == id)
+        public ReasonForBlockingRegistrationwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -28,7 +28,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public ReasonForBlockingRegistrationwithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.TheReasonForBlockingRegistration == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

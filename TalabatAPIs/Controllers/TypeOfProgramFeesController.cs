@@ -103,7 +103,7 @@ namespace Grad.APIs.Controllers
             if (typeOfProgramFees == null)
                 return NotFound(new ApiResponse(404));
 
-            _unitOfWork.Repository<TypeOfProgramFees>().Delete(typeOfProgramFees);
+            await _unitOfWork.Repository<TypeOfProgramFees>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;

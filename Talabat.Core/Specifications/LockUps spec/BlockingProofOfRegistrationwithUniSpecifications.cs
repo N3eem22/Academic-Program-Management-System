@@ -10,32 +10,25 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class BlockingProofOfRegistrationwithUniSpecifications : BaseSpecifications<BlockingProofOfRegistration>
     {
         public BlockingProofOfRegistrationwithUniSpecifications(int? UniId)
-          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
-
+          : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
         {
             Includes.Add(G => G.University);
         }
 
-        
-
-
-
-
-        public BlockingProofOfRegistrationwithUniSpecifications(int id) : base(p => p.Id == id)
+        public BlockingProofOfRegistrationwithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
-
         }
 
         public BlockingProofOfRegistrationwithUniSpecifications(string? grade, int? UNiid)
-     : base(p =>
-         (string.IsNullOrEmpty(grade) || p.ReasonsOfBlocking == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
-     )
+            : base(p =>
+                 (string.IsNullOrEmpty(grade) || p.ReasonsOfBlocking == grade) &&
+                 (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
+             )
         {
             Includes.Add(G => G.University);
         }
-
     }
 }
+
 

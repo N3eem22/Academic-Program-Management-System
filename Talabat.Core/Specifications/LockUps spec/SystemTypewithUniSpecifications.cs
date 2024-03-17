@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class SystemTypewithUniSpecifications : BaseSpecifications<SystemType>
     {
         public SystemTypewithUniSpecifications(int? UniId)
-         : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value))
+         : base(P => (!UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
 
         {
             Includes.Add(G => G.University);
@@ -21,7 +21,7 @@ namespace Grad.Core.Specifications.LockUps_spec
 
 
 
-        public SystemTypewithUniSpecifications(int id) : base(p => p.Id == id)
+        public SystemTypewithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -30,7 +30,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public SystemTypewithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.SystemName == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);

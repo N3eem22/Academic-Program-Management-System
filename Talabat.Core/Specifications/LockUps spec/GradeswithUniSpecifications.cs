@@ -10,7 +10,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class GradeswithUniSpecifications : BaseSpecifications<AllGrades>
     {
         public GradeswithUniSpecifications(int? UniId )
-            :base( P => ( !UniId.HasValue || P.UniversityId == UniId.Value))
+            :base( P => ( !UniId.HasValue || P.UniversityId == UniId.Value) && !P.IsDeleted)
             
         {
             Includes.Add(G => G.University);
@@ -19,7 +19,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         //TypeOfSummerFeeswithUniSpecifications
        
 
-        public GradeswithUniSpecifications(int id) : base(p => p.Id == id)
+        public GradeswithUniSpecifications(int id) : base(P=> P.Id == id && !P.IsDeleted)
         {
             Includes.Add(G => G.University);
 
@@ -28,7 +28,7 @@ namespace Grad.Core.Specifications.LockUps_spec
         public GradeswithUniSpecifications(string? grade, int? UNiid)
      : base(p =>
          (string.IsNullOrEmpty(grade) || p.TheGrade == grade) &&
-         (!UNiid.HasValue || p.UniversityId == UNiid)
+         (!UNiid.HasValue || p.UniversityId == UNiid) && !p.IsDeleted
      )
         {
             Includes.Add(G => G.University);
