@@ -14,6 +14,10 @@ namespace Grad.Repository.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<CumulativeAverage> builder)
         {
+            builder.HasOne(ci => ci.Program)
+                  .WithMany(e => e.CumulativeAverages)
+                  .HasForeignKey(ci => ci.ProgramId).IsRequired().OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
             builder.HasOne(e => e.Grades)
                 .WithMany(g => g.UtmostGrades)
                 .HasForeignKey(e => e.UtmostGrade).OnDelete(deleteBehavior : DeleteBehavior.NoAction);

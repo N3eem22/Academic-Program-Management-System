@@ -100,7 +100,7 @@ namespace Talabat.Repository
 
         public async Task softDelete(int id)
         {
-           var getEntity = await GetByIdAsync (id);
+           var getEntity = await GetByIdAsync(id);
             if (getEntity != null)
              getEntity.IsDeleted = true;    
 

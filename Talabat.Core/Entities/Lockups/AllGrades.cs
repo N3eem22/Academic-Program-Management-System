@@ -7,6 +7,7 @@ using Grad.Core.Entities.Entities;
 using Grad.Core.Entities.Control;
 using System.Xml;
 using Grad.Core.Entities.Graduation;
+using Grad.Core.Entities.CoursesInfo;
 
 namespace Talabat.Core.Entities.Lockups
 {
@@ -17,6 +18,9 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+        public ICollection<CourseInformation> FirstReductionInfo { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<CourseInformation> SecondReductionInfo { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<CourseInformation> ThhirdReductionInfo { get; set; } = new HashSet<CourseInformation>();
         public ICollection<CumulativeAverage> UtmostGrades { get; set; } = new HashSet<CumulativeAverage>();
         public ICollection<GadesOfEstimatesThatDoesNotCount> gadesOfEstimatesThatDoesNotCount { get; set; } = new HashSet<GadesOfEstimatesThatDoesNotCount>();
         public ICollection<PI_EstimatesOfCourseFeeExemption > PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();

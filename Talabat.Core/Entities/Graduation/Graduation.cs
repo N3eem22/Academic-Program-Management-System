@@ -9,6 +9,9 @@ namespace Grad.Core.Entities.Graduation
 {
     public class Graduation : BaseEntity
     {
+        public int ProgramId { get; set; }
+        [ForeignKey(nameof(ProgramId))]
+        public ProgramInformation Program { get; set; }
         public bool Ratio { get; set; }
         public bool Rate { get; set; }
         public int Value { get; set; }

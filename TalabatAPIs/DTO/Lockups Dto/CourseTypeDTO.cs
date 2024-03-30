@@ -6,8 +6,6 @@
 
         public string courseType { get; set; }
         public int? UniversityId { get; set; }
-
-
         public string University { get; set; }
     }
 }

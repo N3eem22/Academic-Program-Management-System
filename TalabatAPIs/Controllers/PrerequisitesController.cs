@@ -27,7 +27,7 @@ namespace Grad.APIs.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PrerequisitesDTO>>> GetAllPrerequisites(int? UniversityId)
         {
-            var spec = new PrerequisiteswithUniSpecifications(UniversityId);.
+            var spec = new PrerequisiteswithUniSpecifications(UniversityId);
             var prerequisites = await _unitOfWork.Repository<Prerequisites>().GetAllWithSpecAsync(spec);
 
             var prerequisitesDTO = _mapper.Map<IEnumerable<Prerequisites>, IEnumerable<PrerequisitesDTO>>(prerequisites);

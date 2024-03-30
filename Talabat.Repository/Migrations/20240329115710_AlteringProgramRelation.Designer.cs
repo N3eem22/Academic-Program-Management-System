@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240329115710_AlteringProgramRelation")]
+    partial class AlteringProgramRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -461,6 +463,9 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("ProgramId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProgramInfoId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("RateApproximation")
                         .HasColumnType("bit");
 
@@ -491,6 +496,9 @@ namespace Grad.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProgramId");
+
+                    b.HasIndex("ProgramInfoId")
+                        .IsUnique();
 
                     b.HasIndex("UtmostGrade");
 
@@ -744,9 +752,6 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("CalculatingaSpecialRegistrationFeeForaCourseIfaPreviousAssessmentOfTheCourseIsIncomplete")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ComulativeAvaregeIdId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CreditHours")
                         .HasColumnType("int");
 
@@ -893,8 +898,6 @@ namespace Grad.Repository.Migrations
                     b.HasIndex("BlockingProofOfRegistrationId");
 
                     b.HasIndex("BurdanCalculationId");
-
-                    b.HasIndex("ComulativeAvaregeIdId");
 
                     b.HasIndex("EditTheStudentLevelId");
 
@@ -2044,11 +2047,19 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "ComulativeAvaregeId")
+                        .WithOne("ComulativeAvaregeId")
+                        .HasForeignKey("Grad.Core.Entities.CumulativeAverage.CumulativeAverage", "ProgramInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "Grades")
                         .WithMany("UtmostGrades")
                         .HasForeignKey("UtmostGrade")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("ComulativeAvaregeId");
 
                     b.Navigation("Grades");
 
@@ -2241,10 +2252,6 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Grad.Core.Entities.CumulativeAverage.CumulativeAverage", "ComulativeAvaregeId")
-                        .WithMany()
-                        .HasForeignKey("ComulativeAvaregeIdId");
-
                     b.HasOne("Talabat.Core.Entities.Lockups.EditTheStudentLevel", "EditTheStudentLevel")
                         .WithMany("Program_Information")
                         .HasForeignKey("EditTheStudentLevelId")
@@ -2307,8 +2314,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("BlockingProofOfRegistration");
 
                     b.Navigation("BurdenCalculation");
-
-                    b.Navigation("ComulativeAvaregeId");
 
                     b.Navigation("EditTheStudentLevel");
 
@@ -2658,6 +2663,8 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
                 {
+                    b.Navigation("ComulativeAvaregeId");
+
                     b.Navigation("Controls");
 
                     b.Navigation("Courses");

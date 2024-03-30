@@ -1,5 +1,6 @@
 ﻿
 
+using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.Graduation;
 
 namespace Talabat.Core.Entities.Lockups
@@ -12,6 +13,8 @@ namespace Talabat.Core.Entities.Lockups
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
         public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
+        public ICollection<CourseInformation> CourseInformation { get; set; } = new HashSet<CourseInformation>();
+
 
     }
 }
