@@ -13,6 +13,9 @@ namespace Grad.Repository.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Graduation> builder)
         {
+            builder.HasOne(ci => ci.Program)
+                  .WithMany(e => e.Graduations)
+                  .HasForeignKey(ci => ci.ProgramId).IsRequired().OnDelete(deleteBehavior: DeleteBehavior.NoAction);
             builder.HasOne(e => e.Level)
                 .WithMany(l => l.Graduations)
                 .HasForeignKey(e => e.LevelToBePassedId).OnDelete(deleteBehavior : DeleteBehavior.NoAction);

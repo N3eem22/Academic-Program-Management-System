@@ -4,6 +4,9 @@ using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.Entities;
 using Grad.Core.Entities.Lockups;
+using Grad.Core.Entities.CoursesInfo;
+using Grad.Core.Entities.Graduation;
+using Grad.Core.Entities.Control;
 
 
 namespace Talabat.Core.Entities.Academic_regulation
@@ -130,7 +133,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         public ICollection<Program_TheGrades> Program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
         public ICollection<programLevels> programLevels { get; set; } = new HashSet<programLevels>();
         public ICollection<AcademicLoadAccordingToLevel> academicLoadAccordingToLevels { get; set; } = new HashSet<AcademicLoadAccordingToLevel>();
-
+        public ICollection<CourseInformation> Courses { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<CumulativeAverage> CumulativeAverages { get; set; } = new HashSet<CumulativeAverage>();
+        public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
+        public ICollection<Control> Controls { get; set; } = new HashSet<Control>();
     }
 }
  

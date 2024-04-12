@@ -10,6 +10,8 @@ namespace Grad.Core.Entities.Control
 {
     public class Control : BaseEntity
     {
+        public int ProgramId { get; set; }
+        public ProgramInformation Program { get; set; }
         public int? SubtractFromTheDiscountRate { get; set; }
         public int? FirstReductionEstimatesForFailureTimes { get; set; }
         [ForeignKey(nameof(FirstReductionEstimatesForFailureTimes))]

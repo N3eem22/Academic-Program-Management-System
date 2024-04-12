@@ -101,7 +101,6 @@ public class Program
             
             var dbContext = services.GetRequiredService<GradContext>();
             await dbContext.Database.MigrateAsync();
-
             var IdentityDbCOntext =services.GetRequiredService<AppIdentityDbContext>();
             await IdentityDbCOntext.Database.MigrateAsync();
            
@@ -109,10 +108,7 @@ public class Program
             await AppIdentityDbContextSeed.SeedRolesAsync(RoleManager);
             var UserManager = services.GetRequiredService<UserManager<AppUser>>();
             await AppIdentityDbContextSeed.SeedUseAsync(UserManager);
-
-
-
-            // await  GradContextSeed.SeedAsync(dbContext);
+          await  GradContextSeed.SeedAsync(dbContext);
         }
         catch (Exception ex)
         {

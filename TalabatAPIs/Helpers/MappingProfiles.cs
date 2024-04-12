@@ -2,6 +2,8 @@
 using Grad.APIs.DTO;
 using Grad.APIs.DTO.Entities_Dto;
 using Grad.APIs.DTO.Lockups_Dto;
+using Grad.Core.Entities.CoursesInfo;
+using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Lockups;
 using Talabat.APIs.DTO;
 using Talabat.Core.Entities;
@@ -26,7 +28,14 @@ namespace Talabat.APIs.Helpers
 
             CreateMap<University,UniversityDTO>();
             CreateMap<UniversityReq, University>();
+            // Configuration
+            CreateMap<CumulativeAverageReq, CumulativeAverage>();
+            CreateMap<CourseInfoDTO, CourseInformation>();
+            CreateMap<CoursesAndGradesDetailsDTO, CoursesandGradesDetails>();
+            CreateMap<PreRequisiteCoursesDTO, PreRequisiteCourses>();
 
+            CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>(); 
+            CreateMap<CoursesAndHoursDTO, CoursesAndHours>();
 
             #region  Maps For Lockups with UNI
 

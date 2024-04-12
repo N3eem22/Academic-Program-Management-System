@@ -24,6 +24,8 @@ namespace Talabat.Core.Entities.Lockups
         public Faculty Faculty { get; set; }
         public ICollection<PreRequisiteCourses> preRequisiteCourses { get; set; } = new HashSet<PreRequisiteCourses>();
 
+        public ICollection<CourseInformation> CourseInformations { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<CourseInformation> PartOneCourse { get; set; } = new HashSet<CourseInformation>();
 
 
     }

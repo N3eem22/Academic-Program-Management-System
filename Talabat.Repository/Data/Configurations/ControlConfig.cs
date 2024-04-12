@@ -13,6 +13,10 @@ namespace Grad.Repository.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Control> builder)
         {
+            builder.HasOne(ci => ci.Program)
+                  .WithMany(e => e.Controls)
+                  .HasForeignKey(ci => ci.ProgramId).IsRequired().OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
             builder.HasOne(e => e.FirstGrades)
                 .WithMany(e => e.FirstReduction)
                 .HasForeignKey(e => e.FirstReductionEstimatesForFailureTimes).OnDelete(deleteBehavior : DeleteBehavior.NoAction);
