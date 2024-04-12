@@ -29,10 +29,15 @@ namespace Talabat.Core.Entities.Lockups
         public ICollection<Control> SecondReduction { get; set; } = new HashSet<Control>();
         public ICollection<Control> ThirdReduction { get; set; } = new HashSet<Control>();
         public ICollection<Control> TheoriticalFailure { get; set; } = new HashSet<Control>();
+        public ICollection<Control> EstimateDeprivationBeforeTheExam { get; set; } = new HashSet<Control>();
+        public ICollection<Control> EstimateDeprivationAfterTheExam { get; set; } = new HashSet<Control>();
+        public ICollection<ASuccessRatingDoesNotAddHoursOrAverage> ASuccessRatingDoesNotAddHoursOrAverages { get; set; } = new HashSet<ASuccessRatingDoesNotAddHoursOrAverage>();
         public ICollection<AverageValue> AverageValues { get; set; } = new HashSet<AverageValue>();
         public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
 
-
+        public ICollection<EstimatesNotDefinedInTheList> EstimatesNotDefinedInTheList { get; set; } = new HashSet<EstimatesNotDefinedInTheList>();
+        public ICollection<ExceptionalLetterGrades> ExceptionalLetterGrades { get; set; } = new HashSet<ExceptionalLetterGrades>();
+        public ICollection<FailureEstimatesInTheList> FailureEstimatesInTheLists { get; set; } = new HashSet<FailureEstimatesInTheList>();
         public ICollection<Program_TheGrades> program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
 
     }

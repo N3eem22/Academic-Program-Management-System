@@ -19,7 +19,7 @@ namespace Grad.Repository.Data.Configrations
                 .WithMany(g => g.gadesOfEstimatesThatDoesNotCount)
                 .HasForeignKey(k => k.GradeId).OnDelete(deleteBehavior : DeleteBehavior.Cascade);
             builder.HasOne(k => k.CumulativeAverage)
-            .WithMany(g => g.gadesOfEstimatesThatDoesNotCount)
+            .WithMany(g => g.GadesOfEstimatesThatDoesNotCount)
             .HasForeignKey(k => k.CumulativeAverageId).OnDelete(deleteBehavior: DeleteBehavior.Cascade);
         }
     }

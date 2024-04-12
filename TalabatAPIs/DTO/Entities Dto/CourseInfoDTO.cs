@@ -1,4 +1,5 @@
 ﻿using Grad.Core.Entities.CoursesInfo;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata.Ecma335;
 using Talabat.Core.Entities.Lockups;
@@ -9,6 +10,7 @@ namespace Grad.APIs.DTO.Entities_Dto
     {
         public int ProgramId { get; set; }
         public int CourseId { get; set; }
+        [Required]
         public int MaximumGrade { get; set; }
         public int SemesterId { get; set; }
         public int LevelId { get; set; }
@@ -31,9 +33,9 @@ namespace Grad.APIs.DTO.Entities_Dto
         public int NumberOfPreviousPreRequisiteCourses { get; set; }
         public int? PartOneCourse { get; set; }
         public ICollection<CoursesAndGradesDetailsDTO> CoursesandGradesDetails { get; set; } = new HashSet<CoursesAndGradesDetailsDTO>();
-        public ICollection<CoursesAndHoursDTO> coursesAndHours { get; set; } = new HashSet<CoursesAndHoursDTO>();
-        public ICollection<DetailsOfFailingGradesDTO> detailsOfFailingGrades { get; set; } = new HashSet<DetailsOfFailingGradesDTO>();
-        public ICollection<PreRequisiteCoursesDTO> preRequisiteCourses { get; set; } = new HashSet<PreRequisiteCoursesDTO>();
+        public ICollection<CoursesAndHoursDTO> CoursesAndHours { get; set; } = new HashSet<CoursesAndHoursDTO>();
+        public ICollection<DetailsOfFailingGradesDTO> DetailsOfFailingGrades { get; set; } = new HashSet<DetailsOfFailingGradesDTO>();
+        public ICollection<PreRequisiteCoursesDTO> PreRequisiteCourses { get; set; } = new HashSet<PreRequisiteCoursesDTO>();
 
     }
 }

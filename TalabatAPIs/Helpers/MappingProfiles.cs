@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO;
 using Grad.APIs.DTO.Entities_Dto;
+using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
+using Grad.APIs.DTO.Entities_Dto.Graduation;
 using Grad.APIs.DTO.Lockups_Dto;
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Graduation;
 using Grad.Core.Entities.Lockups;
 using Talabat.APIs.DTO;
 using Talabat.Core.Entities;
@@ -27,13 +30,45 @@ namespace Talabat.APIs.Helpers
             CreateMap<University,UniversityDTO>();
             CreateMap<UniversityReq, University>();
             // Configuration
+            #region Control
+            CreateMap<GraduationReq, Graduation>();
+            CreateMap<AverageValueReq, AverageValue>();
+            CreateMap<GraduationLevelsReq, GraduationLevels>();
+            CreateMap<GraduationSemestersReq, GraduationSemesters>();
+            
+            CreateMap<Graduation, GraduationDTO>()
+                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+
+            CreateMap<AverageValue, AverageValueDTO>()
+                .ForMember(D => D.EquivalentGrade, O => O.MapFrom(s => s.EquivalentGrade.equivalentGrade))
+                .ForMember(D => D.Grades, O => O.MapFrom(s =>  s.AllGrades.TheGrade));
+
+            CreateMap<GraduationLevels, GraduationLevelsDTO>()
+                .ForMember(D => D.Level, O => O.MapFrom(s => s.Level.levels)).ReverseMap();
+            CreateMap<GraduationSemesters, GraduationSemestersDTO>()
+          .ForMember(D => D.Semester, O => O.MapFrom(s => s.semesters.semesters)).ReverseMap();
+            #endregion
+            #region CumulativeAverage
+
+            CreateMap<CumulativeAverage, CumulativeAverageDTO>()
+                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+
+            CreateMap<GadesOfEstimatesThatDoesNotCount, GadesOfEstimatesThatDoesNotCountDTO>()
+                .ForMember(D => D.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+
+            CreateMap<GadesOfEstimatesThatDoesNotCountReq, GadesOfEstimatesThatDoesNotCount>();
+
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
+            #endregion
+
             CreateMap<CourseInfoDTO, CourseInformation>();
             CreateMap<CoursesAndGradesDetailsDTO, CoursesandGradesDetails>();
             CreateMap<PreRequisiteCoursesDTO, PreRequisiteCourses>();
 
             CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>(); 
             CreateMap<CoursesAndHoursDTO, CoursesAndHours>();
+            
+
 
             #region  Maps For Lockups with UNI
 

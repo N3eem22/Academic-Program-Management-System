@@ -32,6 +32,14 @@ namespace Grad.Repository.Data.Configrations
             builder.HasOne(e => e.TheoriticalFailure)
               .WithMany(e => e.TheoriticalFailure)
               .HasForeignKey(e => e.EstimatingTheTheoreticalFailure).OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+            builder.HasOne(e => e.EstimateDeprivationBeforeTheExam)
+             .WithMany(e => e.EstimateDeprivationBeforeTheExam)
+             .HasForeignKey(e => e.EstimateDeprivationBeforeTheExamId).OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+
+            builder.HasOne(e => e.EstimateDeprivationAfterTheExam)
+            .WithMany(e => e.EstimateDeprivationAfterTheExam)
+            .HasForeignKey(e => e.EstimateDeprivationAfterTheExamId).OnDelete(deleteBehavior: DeleteBehavior.NoAction);
         }
     }
 }

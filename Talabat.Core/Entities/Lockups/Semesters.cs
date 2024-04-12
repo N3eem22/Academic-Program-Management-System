@@ -12,7 +12,7 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
-        public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
+        public ICollection<GraduationSemesters> GraduationSemesters { get; set; } = new HashSet<GraduationSemesters>();
         public ICollection<CourseInformation> CourseInformation { get; set; } = new HashSet<CourseInformation>();
 
 

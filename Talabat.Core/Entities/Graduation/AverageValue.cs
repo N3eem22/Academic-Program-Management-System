@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talabat.Core.Entities;
 
 namespace Grad.Core.Entities.Graduation
 {
-    public class AverageValue
+    public class AverageValue : BaseEntity
     {
         public int value { get; set; }
         public int YearValue { get; set; }

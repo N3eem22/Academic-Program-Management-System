@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240409165031_last Alter")]
+    partial class lastAlter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -923,7 +925,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasKey("SemesterId", "GraduationId");
 
-                    b.HasIndex("GraduationId");
+                    b.HasIndex("Grad");
 
                     b.ToTable("GraduationSemesters");
                 });
@@ -2613,7 +2615,7 @@ namespace Grad.Repository.Migrations
                 {
                     b.HasOne("Grad.Core.Entities.Graduation.Graduation", "Graduation")
                         .WithMany("SemestersTobePssed")
-                        .HasForeignKey("GraduationId")
+                        .HasForeignKey("Grad")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

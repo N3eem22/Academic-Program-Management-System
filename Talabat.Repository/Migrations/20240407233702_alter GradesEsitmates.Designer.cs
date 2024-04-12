@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240407233702_alter GradesEsitmates")]
+    partial class alterGradesEsitmates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,53 +156,6 @@ namespace Grad.Repository.Migrations
                     b.ToTable("AR_ProgramLevels");
                 });
 
-            modelBuilder.Entity("Grad.Core.Entities.Control.ACaseOfAbsenceInTheDetailedGrades", b =>
-                {
-                    b.Property<int>("GradeGetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GradeGetailId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("ACaseOfAbsenceInTheDetailedGrades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.ASuccessRatingDoesNotAddHoursOrAverage", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GradeId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.HasIndex("ControlId1");
-
-                    b.ToTable("ASuccessRatingDoesNotAddHoursOrAverage");
-                });
-
             modelBuilder.Entity("Grad.Core.Entities.Control.Control", b =>
                 {
                     b.Property<int>("Id")
@@ -209,40 +164,14 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("AddingExciptionLetters")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllDetailOrNo")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("CalculateEstimate")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("CalculatingTheBudgetEstimateFromTheReductionEstimates")
                         .HasColumnType("bit");
-
-                    b.Property<int>("ChooseTheDetailsOfTheoreticalFailureBasedOn")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("DetailsOfTheoreticalFailingGrades")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("EstimateDeprivationAfterTheExamId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EstimateDeprivationBeforeTheExamId")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.Property<int?>("EstimatingTheTheoreticalFailure")
                         .HasColumnType("int");
 
                     b.Property<bool?>("ExceptionToDiscountEstimates")
                         .HasColumnType("bit");
-
-                    b.Property<int>("FailingGrades")
-                        .HasColumnType("int");
 
                     b.Property<int?>("FirstReductionEstimatesForFailureTimes")
                         .HasColumnType("int");
@@ -271,9 +200,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int?>("SubtractFromTheDiscountRate")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuccessGrades")
-                        .HasColumnType("int");
-
                     b.Property<int>("TheGrade")
                         .HasColumnType("int");
 
@@ -281,10 +207,6 @@ namespace Grad.Repository.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstimateDeprivationAfterTheExamId");
-
-                    b.HasIndex("EstimateDeprivationBeforeTheExamId");
 
                     b.HasIndex("EstimatingTheTheoreticalFailure");
 
@@ -297,117 +219,6 @@ namespace Grad.Repository.Migrations
                     b.HasIndex("ThirdReductionEstimatesForFailureTimes");
 
                     b.ToTable("Controls");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfExceptionalLetters", b =>
-                {
-                    b.Property<int>("GradeGetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GradeGetailId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("DetailsOfExceptionalLetters");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfTheoreticalFailingGrades", b =>
-                {
-                    b.Property<int>("GradeGetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("GradeGetailId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("DetailsOfTheoreticalFailingGrades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.EstimatesNotDefinedInTheList", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GradeId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("EstimatesNotDefinedInTheList");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.ExceptionalLetterGrades", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("GradeId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("ExceptionalLetterGrades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.FailureEstimatesInTheList", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ControlId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GradeId", "ControlId");
-
-                    b.HasIndex("ControlId");
-
-                    b.ToTable("FailureEstimatesInTheList");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
@@ -786,12 +597,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("AllGradesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("YearValue")
                         .HasColumnType("int");
 
@@ -827,7 +632,7 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LevelId")
+                    b.Property<int>("LevelToBePassedId")
                         .HasColumnType("int");
 
                     b.Property<int>("MakeSureToPassTheOptionalGroups")
@@ -847,6 +652,9 @@ namespace Grad.Repository.Migrations
 
                     b.Property<bool>("Ratio")
                         .HasColumnType("bit");
+
+                    b.Property<int>("SemesterToBePassedId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StudyYears")
                         .HasColumnType("int");
@@ -874,58 +682,15 @@ namespace Grad.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("LevelToBePassedId");
 
                     b.HasIndex("ProgramId");
+
+                    b.HasIndex("SemesterToBePassedId");
 
                     b.HasIndex("TheMinimumGradeForTheCourseId");
 
                     b.ToTable("Graduations");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationLevels", b =>
-                {
-                    b.Property<int>("LevelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GraduationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("LevelId", "GraduationId");
-
-                    b.HasIndex("GraduationId");
-
-                    b.ToTable("GraduationLevels");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationSemesters", b =>
-                {
-                    b.Property<int>("SemesterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GraduationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Grad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("SemesterId", "GraduationId");
-
-                    b.HasIndex("GraduationId");
-
-                    b.ToTable("GraduationSemesters");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
@@ -1580,6 +1345,7 @@ namespace Grad.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("UniversityId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("levels")
@@ -2085,58 +1851,8 @@ namespace Grad.Repository.Migrations
                     b.Navigation("prog_Info");
                 });
 
-            modelBuilder.Entity("Grad.Core.Entities.Control.ACaseOfAbsenceInTheDetailedGrades", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("ACaseOfAbsenceInTheDetailedGrades")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
-                        .WithMany("ACaseOfAbsenceInTheDetailedGrades")
-                        .HasForeignKey("GradeGetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("GradesDetails");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.ASuccessRatingDoesNotAddHoursOrAverage", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "Grades")
-                        .WithMany("ASuccessRatingDoesNotAddHoursOrAverages")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("ASuccessRatingDoesNotAddHours")
-                        .HasForeignKey("ControlId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("Grades");
-                });
-
             modelBuilder.Entity("Grad.Core.Entities.Control.Control", b =>
                 {
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "EstimateDeprivationAfterTheExam")
-                        .WithMany("EstimateDeprivationAfterTheExam")
-                        .HasForeignKey("EstimateDeprivationAfterTheExamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "EstimateDeprivationBeforeTheExam")
-                        .WithMany("EstimateDeprivationBeforeTheExam")
-                        .HasForeignKey("EstimateDeprivationBeforeTheExamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "TheoriticalFailure")
                         .WithMany("TheoriticalFailure")
                         .HasForeignKey("EstimatingTheTheoreticalFailure")
@@ -2163,10 +1879,6 @@ namespace Grad.Repository.Migrations
                         .HasForeignKey("ThirdReductionEstimatesForFailureTimes")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("EstimateDeprivationAfterTheExam");
-
-                    b.Navigation("EstimateDeprivationBeforeTheExam");
-
                     b.Navigation("FirstGrades");
 
                     b.Navigation("Program");
@@ -2176,101 +1888,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("TheoriticalFailure");
 
                     b.Navigation("ThirdGrades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfExceptionalLetters", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("DetailsOfExceptionalLetters")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
-                        .WithMany("DetailsOfExceptionalLetters")
-                        .HasForeignKey("GradeGetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("GradesDetails");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfTheoreticalFailingGrades", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("DetailsOfTheoreticalFailingGradesNav")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
-                        .WithMany("DetailsOfTheoreticalFailingGrades")
-                        .HasForeignKey("GradeGetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("GradesDetails");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.EstimatesNotDefinedInTheList", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("EstimatesNotDefinedInTheLists")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "Grades")
-                        .WithMany("EstimatesNotDefinedInTheList")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("Grades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.ExceptionalLetterGrades", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("ExceptionalLetterGrades")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "Grades")
-                        .WithMany("ExceptionalLetterGrades")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("Grades");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Control.FailureEstimatesInTheList", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Control.Control", "Control")
-                        .WithMany("FailureEstimatesInTheLists")
-                        .HasForeignKey("ControlId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.AllGrades", "grades")
-                        .WithMany("FailureEstimatesInTheLists")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Control");
-
-                    b.Navigation("grades");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
@@ -2570,13 +2187,21 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Graduation.Graduation", b =>
                 {
-                    b.HasOne("Talabat.Core.Entities.Lockups.Level", null)
+                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "Level")
                         .WithMany("Graduations")
-                        .HasForeignKey("LevelId");
+                        .HasForeignKey("LevelToBePassedId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Talabat.Core.Entities.Academic_regulation.ProgramInformation", "Program")
                         .WithMany("Graduations")
                         .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Talabat.Core.Entities.Lockups.Semesters", "Semesters")
+                        .WithMany("Graduations")
+                        .HasForeignKey("SemesterToBePassedId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -2587,45 +2212,11 @@ namespace Grad.Repository.Migrations
 
                     b.Navigation("Grades");
 
-                    b.Navigation("Program");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationLevels", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Graduation.Graduation", "Graduation")
-                        .WithMany("LevelsTobePassed")
-                        .HasForeignKey("GraduationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Lockups.Level", "Level")
-                        .WithMany("GraduationLevels")
-                        .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Graduation");
-
                     b.Navigation("Level");
-                });
 
-            modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationSemesters", b =>
-                {
-                    b.HasOne("Grad.Core.Entities.Graduation.Graduation", "Graduation")
-                        .WithMany("SemestersTobePssed")
-                        .HasForeignKey("GraduationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Program");
 
-                    b.HasOne("Talabat.Core.Entities.Lockups.Semesters", "semesters")
-                        .WithMany("GraduationSemesters")
-                        .HasForeignKey("SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Graduation");
-
-                    b.Navigation("semesters");
+                    b.Navigation("Semesters");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
@@ -2897,7 +2488,9 @@ namespace Grad.Repository.Migrations
                 {
                     b.HasOne("Talabat.Core.Entities.Entities.University", "University")
                         .WithMany("Levels")
-                        .HasForeignKey("UniversityId");
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("University");
                 });
@@ -3045,23 +2638,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Grad.Core.Entities.Control.Control", b =>
-                {
-                    b.Navigation("ACaseOfAbsenceInTheDetailedGrades");
-
-                    b.Navigation("ASuccessRatingDoesNotAddHours");
-
-                    b.Navigation("DetailsOfExceptionalLetters");
-
-                    b.Navigation("DetailsOfTheoreticalFailingGradesNav");
-
-                    b.Navigation("EstimatesNotDefinedInTheLists");
-
-                    b.Navigation("ExceptionalLetterGrades");
-
-                    b.Navigation("FailureEstimatesInTheLists");
-                });
-
             modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
                 {
                     b.Navigation("coursesAndHours");
@@ -3081,10 +2657,6 @@ namespace Grad.Repository.Migrations
             modelBuilder.Entity("Grad.Core.Entities.Graduation.Graduation", b =>
                 {
                     b.Navigation("AverageValues");
-
-                    b.Navigation("LevelsTobePassed");
-
-                    b.Navigation("SemestersTobePssed");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
@@ -3184,19 +2756,7 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.AllGrades", b =>
                 {
-                    b.Navigation("ASuccessRatingDoesNotAddHoursOrAverages");
-
                     b.Navigation("AverageValues");
-
-                    b.Navigation("EstimateDeprivationAfterTheExam");
-
-                    b.Navigation("EstimateDeprivationBeforeTheExam");
-
-                    b.Navigation("EstimatesNotDefinedInTheList");
-
-                    b.Navigation("ExceptionalLetterGrades");
-
-                    b.Navigation("FailureEstimatesInTheLists");
 
                     b.Navigation("FirstReduction");
 
@@ -3265,12 +2825,6 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.GradesDetails", b =>
                 {
-                    b.Navigation("ACaseOfAbsenceInTheDetailedGrades");
-
-                    b.Navigation("DetailsOfExceptionalLetters");
-
-                    b.Navigation("DetailsOfTheoreticalFailingGrades");
-
                     b.Navigation("coursesandGradesDetails");
 
                     b.Navigation("detailsOfFailingGrades");
@@ -3286,8 +2840,6 @@ namespace Grad.Repository.Migrations
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.Level", b =>
                 {
                     b.Navigation("CourseInformation");
-
-                    b.Navigation("GraduationLevels");
 
                     b.Navigation("Graduations");
 
@@ -3325,7 +2877,7 @@ namespace Grad.Repository.Migrations
                 {
                     b.Navigation("CourseInformation");
 
-                    b.Navigation("GraduationSemesters");
+                    b.Navigation("Graduations");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.SystemType", b =>

@@ -44,9 +44,19 @@ namespace Talabat.Repository.Data
         public DbSet<GadesOfEstimatesThatDoesNotCount> GadesOfEstimatesThatDoesNotCounts { get; set; }
         //Control
         public DbSet<Control> Controls { get; set; }
+        public DbSet<ACaseOfAbsenceInTheDetailedGrades> ACaseOfAbsenceInTheDetailedGrades { get; set; }
+        public DbSet<ASuccessRatingDoesNotAddHoursOrAverage> ASuccessRatingDoesNotAddHoursOrAverage { get; set; }
+        public DbSet<DetailsOfExceptionalLetters> DetailsOfExceptionalLetters { get; set; }
+        public DbSet<DetailsOfTheoreticalFailingGrades> DetailsOfTheoreticalFailingGrades { get; set; }
+        public DbSet<EstimatesNotDefinedInTheList> EstimatesNotDefinedInTheList { get; set; }
+        public DbSet<ExceptionalLetterGrades> ExceptionalLetterGrades { get; set; }
+        public DbSet<FailureEstimatesInTheList> FailureEstimatesInTheList { get; set; }
+
         //Graduation 
         public DbSet<Graduation> Graduations { get; set; }
         public DbSet<AverageValue> AverageValues { get; set; }
+        public DbSet<GraduationLevels> GraduationLevels { get; set; }
+        public DbSet<GraduationSemesters> GraduationSemesters { get; set; }
         //Courses Info
         public DbSet<CourseInformation> CourseInformation { get; set; }
         public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 

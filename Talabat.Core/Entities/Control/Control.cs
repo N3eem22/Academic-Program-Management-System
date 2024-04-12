@@ -32,5 +32,26 @@ namespace Grad.Core.Entities.Control
         public int? EstimatingTheTheoreticalFailure { get; set; }
         public AllGrades? TheoriticalFailure { get; set; }
 
+        public ICollection<FailureEstimatesInTheList> FailureEstimatesInTheLists { get; set; } = new HashSet<FailureEstimatesInTheList>();
+        public bool DetailsOfTheoreticalFailingGrades { get; set; }
+        public ICollection<DetailsOfTheoreticalFailingGrades> DetailsOfTheoreticalFailingGradesNav { get; set; } = new HashSet<DetailsOfTheoreticalFailingGrades>();
+        public int ChooseTheDetailsOfTheoreticalFailureBasedOn { get; set; }
+        public int CalculateEstimate { get; set; }
+        public ICollection<ACaseOfAbsenceInTheDetailedGrades> ACaseOfAbsenceInTheDetailedGrades { get; set; } = new HashSet<ACaseOfAbsenceInTheDetailedGrades>();
+        public bool AllDetailOrNo { get; set; }
+        public ICollection<DetailsOfExceptionalLetters> DetailsOfExceptionalLetters { get; set; } = new HashSet<DetailsOfExceptionalLetters>();
+        public bool AddingExciptionLetters { get; set; }
+        public ICollection<ExceptionalLetterGrades> ExceptionalLetterGrades { get; set; } = new HashSet<ExceptionalLetterGrades>();
+
+        public ICollection<EstimatesNotDefinedInTheList> EstimatesNotDefinedInTheLists { get; set; } = new HashSet<EstimatesNotDefinedInTheList>();
+
+        public int SuccessGrades { get; set; }
+        public int FailingGrades { get; set; }
+        public int? EstimateDeprivationBeforeTheExamId { get; set; }
+        public AllGrades EstimateDeprivationBeforeTheExam { get; set; }
+        public int? EstimateDeprivationAfterTheExamId { get; set; }
+        public AllGrades EstimateDeprivationAfterTheExam { get; set; }
+        public ICollection<ASuccessRatingDoesNotAddHoursOrAverage> ASuccessRatingDoesNotAddHours { get; set; } = new HashSet<ASuccessRatingDoesNotAddHoursOrAverage>();
+
     }
 }

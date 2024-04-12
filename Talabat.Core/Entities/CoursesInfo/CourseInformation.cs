@@ -7,6 +7,7 @@
         public enum Gender { Male = 0, Female = 1, Both }   
         public class CourseInformation : BaseEntity
         {
+        [Required]
         public int ProgramId { get; set; }
         public ProgramInformation Program { get; set; }
         public int CourseId { get; set; }

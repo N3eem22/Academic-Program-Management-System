@@ -1,15 +1,14 @@
-﻿
-using Talabat.Core.Entities;
+﻿using System.ComponentModel;
 
-namespace Grad.Core.Entities.Graduation
+namespace Grad.APIs.DTO.Entities_Dto.Graduation
 {
-    public class Graduation : BaseEntity
+    public class GraduationDTO
     {
+        public int Id { get; set; }
         public bool Ratio { get; set; }
         public bool Rate { get; set; }
         public int ProgramId { get; set; }
-        [ForeignKey(nameof(ProgramId))]
-        public ProgramInformation Program { get; set; }
+
         public int Value { get; set; }
         public bool CompulsoryCourses { get; set; }
         [DefaultValue(true)]
@@ -22,14 +21,12 @@ namespace Grad.Core.Entities.Graduation
         public int MakeSureToPassTheOptionalGroups { get; set; }
         public int DetermineTheRankBasedOn { get; set; }
         public int RateBase { get; set; }
-        public ICollection<AverageValue>? AverageValues { get; set; } = new HashSet<AverageValue>();
-        [DefaultValue(false)]
+        public ICollection<AverageValueDTO>? AverageValues { get; set; } = new HashSet<AverageValueDTO>();
+
         public bool ComparingCumulativeAverageForEachYear { get; set; }
         public int? StudyYears { get; set; }
-        public ICollection<GraduationLevels> LevelsTobePassed { get; set; } = new HashSet<GraduationLevels>();
-        public ICollection<GraduationSemesters> SemestersTobePssed { get; set; } = new HashSet<GraduationSemesters>();
-        public int? TheMinimumGradeForTheCourseId { get; set; }
-        [ForeignKey(nameof(TheMinimumGradeForTheCourseId))]
-        public AllGrades? Grades { get; set; }
+        public ICollection<GraduationLevelsDTO> LevelsTobePassed { get; set; } = new HashSet<GraduationLevelsDTO>();
+        public ICollection<GraduationSemestersDTO> SemestersTobePssed { get; set; } = new HashSet<GraduationSemestersDTO>();
+        public string? TheMinimumGradeForTheCourse { get; set; }
     }
 }

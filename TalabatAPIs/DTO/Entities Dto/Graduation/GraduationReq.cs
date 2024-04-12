@@ -1,15 +1,17 @@
-﻿
-using Talabat.Core.Entities;
+﻿using Grad.Core.Entities.Graduation;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+using Talabat.Core.Entities.Academic_regulation;
+using Talabat.Core.Entities.Lockups;
 
-namespace Grad.Core.Entities.Graduation
+namespace Grad.APIs.DTO.Entities_Dto.Graduation
 {
-    public class Graduation : BaseEntity
+    public class GraduationReq
     {
         public bool Ratio { get; set; }
         public bool Rate { get; set; }
         public int ProgramId { get; set; }
-        [ForeignKey(nameof(ProgramId))]
-        public ProgramInformation Program { get; set; }
+      
         public int Value { get; set; }
         public bool CompulsoryCourses { get; set; }
         [DefaultValue(true)]
@@ -22,14 +24,13 @@ namespace Grad.Core.Entities.Graduation
         public int MakeSureToPassTheOptionalGroups { get; set; }
         public int DetermineTheRankBasedOn { get; set; }
         public int RateBase { get; set; }
-        public ICollection<AverageValue>? AverageValues { get; set; } = new HashSet<AverageValue>();
-        [DefaultValue(false)]
+        public ICollection<AverageValueReq>? AverageValues { get; set; } = new HashSet<AverageValueReq>();
+      
         public bool ComparingCumulativeAverageForEachYear { get; set; }
         public int? StudyYears { get; set; }
-        public ICollection<GraduationLevels> LevelsTobePassed { get; set; } = new HashSet<GraduationLevels>();
-        public ICollection<GraduationSemesters> SemestersTobePssed { get; set; } = new HashSet<GraduationSemesters>();
+        public ICollection<GraduationLevelsReq> LevelsTobePassed { get; set; } = new HashSet<GraduationLevelsReq>();
+        public ICollection<GraduationSemestersReq> SemestersTobePssed { get; set; } = new HashSet<GraduationSemestersReq>();
         public int? TheMinimumGradeForTheCourseId { get; set; }
-        [ForeignKey(nameof(TheMinimumGradeForTheCourseId))]
-        public AllGrades? Grades { get; set; }
+       
     }
 }

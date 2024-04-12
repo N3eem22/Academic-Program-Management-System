@@ -16,13 +16,7 @@ namespace Grad.Repository.Data.Configrations
             builder.HasOne(ci => ci.Program)
                   .WithMany(e => e.Graduations)
                   .HasForeignKey(ci => ci.ProgramId).IsRequired().OnDelete(deleteBehavior: DeleteBehavior.NoAction);
-            builder.HasOne(e => e.Level)
-                .WithMany(l => l.Graduations)
-                .HasForeignKey(e => e.LevelToBePassedId).OnDelete(deleteBehavior : DeleteBehavior.NoAction);
-
-            builder.HasOne(e => e.Semesters)
-                .WithMany(l => l.Graduations)
-                .HasForeignKey(e => e.SemesterToBePassedId).OnDelete(deleteBehavior: DeleteBehavior.NoAction); ;
+           
 
             builder.HasOne(e => e.Grades)
                 .WithMany(l => l.Graduations)

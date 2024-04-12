@@ -14,6 +14,8 @@ namespace Talabat.Core.Entities.Lockups
         public int? UniversityId { get; set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; set; }
+        public ICollection<GraduationLevels> GraduationLevels { get; set; } = new HashSet<GraduationLevels>();
+
         public ICollection<programLevels> ProgramLevels { get; set; } = new HashSet<programLevels>();
         public ICollection<AcademicLoadAccordingToLevel> academicLoadAccordingToLevels { get; set; } = new HashSet<AcademicLoadAccordingToLevel>();
         public ICollection<CourseInformation> CourseInformation { get; set; } = new HashSet<CourseInformation>();

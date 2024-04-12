@@ -1,17 +1,13 @@
-﻿using Grad.Core.Entities.CumulativeAverage;
-using System.ComponentModel.DataAnnotations.Schema;
-using Talabat.Core.Entities.Academic_regulation;
-using Talabat.Core.Entities.Lockups;
-
-namespace Grad.APIs.DTO.Entities_Dto
+﻿namespace Grad.APIs.DTO.Entities_Dto.Cumulative_Average
 {
-    public class CumulativeAverageReq
+    public class CumulativeAverageDTO
     {
+        public int Id { get; set; }
         public int ProgramId { get; set; }
         public int ImprovingCourses { get; set; }
         public bool KeepFailing { get; set; }
         public bool MaintainingStudentSuccess { get; set; }
-        public int UtmostGrade { get; set; }
+        public string UtmostGrade { get; set; }
         public bool ChangingCourses { get; set; }
         public int SomeOfGrades { get; set; }
         public int HowToCalculateTheRatio { get; set; }
@@ -34,7 +30,7 @@ namespace Grad.APIs.DTO.Entities_Dto
         public bool CalculatingFailingGradePoints { get; set; }
         public bool CalculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage { get; set; }
         public int HowToCalculateTheSemesterAverage { get; set; }
-        public ICollection<GadesOfEstimatesThatDoesNotCountDTO> gadesOfEstimatesThatDoesNotCount { get; set; } = new HashSet<GadesOfEstimatesThatDoesNotCountDTO>();
+        public ICollection<GadesOfEstimatesThatDoesNotCountDTO> GadesOfEstimatesThatDoesNotCount { get; set; } = new HashSet<GadesOfEstimatesThatDoesNotCountDTO>();
 
     }
 }
