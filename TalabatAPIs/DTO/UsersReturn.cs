@@ -1,23 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Talabat.APIs.DTO
+namespace Grad.APIs.DTO
 {
-    public class RegisterDto
+    public class UsersReturn
     {
-        [Required]
-        [EmailAddress]
+        public string Id { get; set; }
         public string Email { get; set; }
-        [Required]
         public string DisplayName { get; set; }
-        [Required]
-        [Phone]
         public string PhoneNumber { get; set; }
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-
+     //   public string Password { get; set; }
         public string Role { get; set; }
     }
-
 }

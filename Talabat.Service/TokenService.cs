@@ -39,11 +39,11 @@ namespace Talabat.Service
             var Token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
-                expires: DateTime.Now.AddDays(double.Parse(_configuration["JWT:DurationInDays"])),
+                expires: DateTime.UtcNow.AddDays(double.Parse(_configuration["JWT:DurationInDays"])),
                 claims:authClaims,
                 signingCredentials:new SigningCredentials(authKey,SecurityAlgorithms.HmacSha256)
-                );
-            return new JwtSecurityTokenHandler().WriteToken(Token);
+                ); 
+            return new JwtSecurityTokenHandler().WriteToken(Token); 
         }
     }
 }
