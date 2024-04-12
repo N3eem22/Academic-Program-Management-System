@@ -16,6 +16,8 @@ namespace Talabat.APIs.Helpers
         public MappingProfiles()
         {
 
+            CreateMap<AppUser , UsersReturn>().ReverseMap();
+
 
             CreateMap<CollegeCourses, CollegeCoursesDTO>()
           .ForMember(D => D.Faculty, O => O.MapFrom(s => s.Faculty.FacultyName)).ReverseMap();
