@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
 
-namespace Grad.Core.Entities.Control
+namespace Grad.APIs.DTO.Entities_Dto
 {
-    public class ACaseOfAbsenceInTheDetailedGrades : BaseEntity
+    public class DetailsOfTheoreticalFailingGradesReq 
     {
         public int GradeDetailId { get; set; }
-        public GradesDetails GradesDetails { get; set; }
+      
         public int ControlId { get; set; }
-        public Control Control { get; set; }
+        
+        public int Value { get; set; }
     }
 }

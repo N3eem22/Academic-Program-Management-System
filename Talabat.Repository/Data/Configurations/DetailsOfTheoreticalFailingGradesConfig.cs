@@ -15,10 +15,10 @@ namespace Grad.Repository.Data.Configurations
         {
             builder.HasKey(x => new
             {
-                x.GradeGetailId,
+                x.GradeDetailId,
                 x.ControlId
             });
-            builder.HasOne(g => g.GradesDetails).WithMany(g => g.DetailsOfTheoreticalFailingGrades).HasForeignKey(f => f.GradeGetailId);
+            builder.HasOne(g => g.GradesDetails).WithMany(g => g.DetailsOfTheoreticalFailingGrades).HasForeignKey(f => f.GradeDetailId);
             builder.HasOne(g => g.Control).WithMany(g => g.DetailsOfTheoreticalFailingGradesNav).HasForeignKey(f => f.ControlId);
         }
     }

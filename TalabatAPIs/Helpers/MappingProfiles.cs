@@ -4,6 +4,7 @@ using Grad.APIs.DTO.Entities_Dto;
 using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
 using Grad.APIs.DTO.Entities_Dto.Graduation;
 using Grad.APIs.DTO.Lockups_Dto;
+using Grad.Core.Entities.Control;
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Graduation;
@@ -32,7 +33,7 @@ namespace Talabat.APIs.Helpers
             CreateMap<University,UniversityDTO>();
             CreateMap<UniversityReq, University>();
             // Configuration
-            #region Control
+            #region Grduation
             CreateMap<GraduationReq, Graduation>();
             CreateMap<AverageValueReq, AverageValue>();
             CreateMap<GraduationLevelsReq, GraduationLevels>();
@@ -62,14 +63,48 @@ namespace Talabat.APIs.Helpers
 
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
             #endregion
+            #region Control
+            CreateMap<ControlReq, Control>();
+            CreateMap<ACaseOfAbsenceInTheDetailedGradesReq, ACaseOfAbsenceInTheDetailedGrades>();
+            CreateMap<ASuccessRatingDoesNotAddHoursOrAverageReq, ASuccessRatingDoesNotAddHoursOrAverage>();
+            CreateMap<DetailsOfExceptionalLettersReq, DetailsOfExceptionalLetters>();
+            CreateMap<DetailsOfTheoreticalFailingGradesReq, DetailsOfTheoreticalFailingGrades>();
+            CreateMap<EstimatesNotDefinedInTheListReq, EstimatesNotDefinedInTheList>();
+            CreateMap<ExceptionalLetterGradesReq, ExceptionalLetterGrades>();
+            CreateMap<FailureEstimatesInTheListReq, FailureEstimatesInTheList>();
 
+            CreateMap<Control, ControlDTO>()
+                  .ForMember(c => c.FirstReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.FirstGrades.TheGrade))
+                  .ForMember(c => c.SecondReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.SecondGrades.TheGrade))
+                  .ForMember(c => c.ThirdReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.ThirdGrades.TheGrade))
+                  .ForMember(c => c.EstimatingTheTheoreticalFailure, O => O.MapFrom(s => s.TheoriticalFailure.TheGrade))
+                  .ForMember(c => c.EstimateDeprivationBeforeTheExam, O => O.MapFrom(s => s.EstimateDeprivationBeforeTheExam.TheGrade))
+                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade)).ReverseMap();
+            CreateMap<ACaseOfAbsenceInTheDetailedGrades, ACaseOfAbsenceInTheDetailedGradesDTO>()
+                .ForMember(c => c.GradeGetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<ASuccessRatingDoesNotAddHoursOrAverage, ASuccessRatingDoesNotAddHoursOrAverageDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<DetailsOfExceptionalLetters, DetailsOfExceptionalLettersDTO>()
+             .ForMember(c => c.GradeDetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<DetailsOfTheoreticalFailingGrades, DetailsOfTheoreticalFailingGradesDTO>()
+             .ForMember(c => c.GradeDetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<EstimatesNotDefinedInTheList, EstimatesNotDefinedInTheListDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<ExceptionalLetterGrades, ExceptionalLetterGradesDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<FailureEstimatesInTheList, FailureEstimatesInTheListDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.grades.TheGrade)).ReverseMap();
+            #endregion
+            #region CourseInfo
             CreateMap<CourseInfoDTO, CourseInformation>();
             CreateMap<CoursesAndGradesDetailsDTO, CoursesandGradesDetails>();
             CreateMap<PreRequisiteCoursesDTO, PreRequisiteCourses>();
 
-            CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>(); 
+            CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>();
             CreateMap<CoursesAndHoursDTO, CoursesAndHours>();
-            
+
+            #endregion
+
 
 
             #region  Maps For Lockups with UNI

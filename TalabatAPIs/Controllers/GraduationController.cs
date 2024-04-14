@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO.Entities_Dto;
-using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
 using Grad.APIs.DTO.Entities_Dto.Graduation;
 using Grad.APIs.Helpers;
-using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Graduation;
 using Grad.Core.Specifications.Enities_Spec;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pipelines.Sockets.Unofficial.Arenas;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
 using Talabat.Core;
@@ -65,8 +63,15 @@ namespace Grad.APIs.Controllers
         [HttpPost]
         public async Task<ActionResult<GraduationReq>> AddGraduation(GraduationReq graduationReq)
         {
+            bool exists = await _unitOfWork.Repository<Graduation>().ExistAsync(
+                 x => x.ProgramId == graduationReq.ProgramId && x.IsDeleted == false);
+            if (exists)
+            {
+                return StatusCode(409, new ApiResponse(409));
+            }
             var preValidationResult = await ValidateForeignKeyExistence(graduationReq);
             if (preValidationResult != null) return preValidationResult;
+
             try
             {
                 
@@ -80,6 +85,65 @@ namespace Grad.APIs.Controllers
                 return StatusCode(500, new ApiResponse(500, ex.Message));
             }
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateGraduation(int id, GraduationReq graduationReq)
+        {
+
+            var GraduationToUpdate = await _unitOfWork.Repository<Graduation>()
+                .GetByIdAsync(id);
+
+            if (GraduationToUpdate == null)
+            {
+                return NotFound(new ApiResponse(404, $"Graduation with ID {id} not found."));
+            }
+
+            var preValidationResult = await ValidateForeignKeyExistence(graduationReq);
+            if (preValidationResult != null) return preValidationResult;
+
+            try
+            {
+                await UpdateRelations(id);
+                _mapper.Map(graduationReq, GraduationToUpdate);
+                _unitOfWork.Repository<Graduation>().Update(GraduationToUpdate);
+                var result = await _unitOfWork.CompleteAsync() > 0;
+                var message = result ? AppMessage.Updated : AppMessage.Error;
+                return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500, message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse(500, ex.Message));
+            }
+        }
+        private async Task UpdateRelations(int id)
+        {
+            var AverageValues = await _unitOfWork.Repository<AverageValue>()
+                                .GetAllAsync();
+            var g = AverageValues.Where(g => g.Id == id);
+
+            foreach (var grade in g)
+            {
+                _unitOfWork.Repository<AverageValue>().Delete(grade);
+            }
+            var Semesters = await _unitOfWork.Repository<GraduationSemesters>()
+                                .GetAllAsync();
+            var s = Semesters.Where(g => g.Id == id);
+
+            foreach (var semester in s)
+            {
+                _unitOfWork.Repository<GraduationSemesters>().Delete(semester);
+            }
+            var levels = await _unitOfWork.Repository<GraduationLevels>()
+                                .GetAllAsync();
+            var L = levels.Where(g => g.Id == id);
+
+            foreach (var Levels in L)
+            {
+                _unitOfWork.Repository<GraduationLevels>().Delete(Levels);
+            }
+            await _unitOfWork.CompleteAsync();
+
+        }
+
         private async Task<ActionResult> ValidateForeignKeyExistence(GraduationReq graduationReq)
         {
             // Program existence check

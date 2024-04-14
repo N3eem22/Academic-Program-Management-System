@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240414003405_Alter Control Table")]
+    partial class AlterControlTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +158,7 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Control.ACaseOfAbsenceInTheDetailedGrades", b =>
                 {
-                    b.Property<int>("GradeDetailId")
+                    b.Property<int>("GradeGetailId")
                         .HasColumnType("int");
 
                     b.Property<int>("ControlId")
@@ -168,7 +170,7 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.HasKey("GradeDetailId", "ControlId");
+                    b.HasKey("GradeGetailId", "ControlId");
 
                     b.HasIndex("ControlId");
 
@@ -296,7 +298,7 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfExceptionalLetters", b =>
                 {
-                    b.Property<int>("GradeDetailId")
+                    b.Property<int>("GradeGetailId")
                         .HasColumnType("int");
 
                     b.Property<int>("ControlId")
@@ -308,7 +310,7 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.HasKey("GradeDetailId", "ControlId");
+                    b.HasKey("GradeGetailId", "ControlId");
 
                     b.HasIndex("ControlId");
 
@@ -317,7 +319,7 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfTheoreticalFailingGrades", b =>
                 {
-                    b.Property<int>("GradeDetailId")
+                    b.Property<int>("GradeGetailId")
                         .HasColumnType("int");
 
                     b.Property<int>("ControlId")
@@ -332,7 +334,7 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.HasKey("GradeDetailId", "ControlId");
+                    b.HasKey("GradeGetailId", "ControlId");
 
                     b.HasIndex("ControlId");
 
@@ -2090,7 +2092,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
                         .WithMany("ACaseOfAbsenceInTheDetailedGrades")
-                        .HasForeignKey("GradeDetailId")
+                        .HasForeignKey("GradeGetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2183,7 +2185,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
                         .WithMany("DetailsOfExceptionalLetters")
-                        .HasForeignKey("GradeDetailId")
+                        .HasForeignKey("GradeGetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2202,7 +2204,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasOne("Talabat.Core.Entities.Lockups.GradesDetails", "GradesDetails")
                         .WithMany("DetailsOfTheoreticalFailingGrades")
-                        .HasForeignKey("GradeDetailId")
+                        .HasForeignKey("GradeGetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

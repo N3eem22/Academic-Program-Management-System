@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO.Entities_Dto;
 using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
-using Grad.APIs.DTO.Lockups_Dto;
+using Grad.APIs.DTO.Entities_Dto.Graduation;
 using Grad.APIs.Helpers;
-using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Graduation;
 using Grad.Core.Specifications.Enities_Spec;
-using Grad.Core.Specifications.LockUps_spec;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Talabat.APIs.Controllers;
@@ -60,6 +59,12 @@ namespace Grad.APIs.Controllers
         [HttpPost]       
         public async Task<ActionResult<CumulativeAverageReq>> AddCumulativeAverage(CumulativeAverageReq cumulativeAverageRequest)
         {
+            bool exists = await _unitOfWork.Repository<CumulativeAverage>().ExistAsync(
+                x => x.ProgramId == cumulativeAverageRequest.ProgramId && x.IsDeleted == false);
+            if (exists)
+            {
+                return StatusCode(409, new ApiResponse(409));
+            }
             var preValidationResult = await ValidateForeignKeyExistence(cumulativeAverageRequest);
             if (preValidationResult != null) return preValidationResult;
             try
@@ -77,31 +82,20 @@ namespace Grad.APIs.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCumulativeAverage(int id, CumulativeAverageReq cumulativeAverageRequest)
         {
-           await UpdateGadesOfEstimates(id);
+           
             var cumulativeAverageToUpdate = await _unitOfWork.Repository<CumulativeAverage>()
                 .GetByIdAsync(id);
-
             if (cumulativeAverageToUpdate == null)
             {
                 return NotFound(new ApiResponse(404, $"CumulativeAverage with ID {id} not found."));
             }
-
-       
+            var preValidationResult = await ValidateForeignKeyExistence(cumulativeAverageRequest);
+            if (preValidationResult != null) return preValidationResult;
 
             try
             {
-                foreach (var newGradeReq in cumulativeAverageRequest.GadesOfEstimatesThatDoesNotCount)
-                {
-                    var newGrade = new GadesOfEstimatesThatDoesNotCount
-                    {
-                        
-                        CumulativeAverageId = id,
-                        GradeId = newGradeReq.GradeId ,
-                        IsDeleted = false
-                    };
-                    _unitOfWork.Repository<GadesOfEstimatesThatDoesNotCount>().Add(newGrade);
-                }
-
+                await UpdateGadesOfEstimates(id);
+                _mapper.Map(cumulativeAverageRequest, cumulativeAverageToUpdate);
                 _unitOfWork.Repository<CumulativeAverage>().Update(cumulativeAverageToUpdate);
                 var result = await _unitOfWork.CompleteAsync() > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
