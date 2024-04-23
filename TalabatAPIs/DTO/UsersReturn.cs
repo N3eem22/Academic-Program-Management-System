@@ -10,5 +10,9 @@ namespace Grad.APIs.DTO
         public string PhoneNumber { get; set; }
      //   public string Password { get; set; }
         public string Role { get; set; }
+
+        public List<int> Faculties { get; set; }
+
+        public List<int> Universities { get; set; }
     }
 }

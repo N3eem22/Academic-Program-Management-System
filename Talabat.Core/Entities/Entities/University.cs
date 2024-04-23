@@ -1,6 +1,8 @@
 ﻿
 
+using Grad.Core.Entities.Identity;
 using Grad.Core.Entities.Lockups;
+using Talabat.Core.Entities.Identity;
 
 namespace Talabat.Core.Entities.Entities
 {
@@ -11,6 +13,8 @@ namespace Talabat.Core.Entities.Entities
         public string Name { get; set; }
         [MaxLength(250)]
         public string Location { get; set; }
+
+        public ICollection<AppUserUni> UniAppUsers { get; set; } = new HashSet<AppUserUni>();
 
         public ICollection<SystemType> SystemTypes{ get; set; } = new HashSet<SystemType>();
         public ICollection<AllGrades> AllGrades { get; set; } = new HashSet<AllGrades>();

@@ -21,10 +21,12 @@ using Talabat.Core.Entities.Permissions;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Graduation;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Talabat.Core.Entities.Identity;
 
 namespace Talabat.Repository.Data
 {
-    public class GradContext:DbContext 
+    public class GradContext: IdentityDbContext<AppUser>
     {
         #region DbSets
 
@@ -104,6 +106,7 @@ namespace Talabat.Repository.Data
         {
            // modelBuilder.ApplyConfiguration(new ProductConfig());
            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
 
             base.OnModelCreating(modelBuilder);
     

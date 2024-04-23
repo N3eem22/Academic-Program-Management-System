@@ -21,13 +21,15 @@ namespace Grad.APIs.Controllers
         private readonly UserManager<AppUser> _manager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IdentityHelper _identityHelper;
 
-        public UsersController(IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        public UsersController(IdentityHelper identityHelper ,  IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
         {
             _mapper = mapper;
             _manager = manager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _identityHelper = identityHelper;
         }
 
         [HttpGet("GetUsers")]
@@ -43,7 +45,9 @@ namespace Grad.APIs.Controllers
                     DisplayName = u.DisplayName,
                     Email = u.Email,
                     PhoneNumber = u.PhoneNumber,
-                    Role = string.Join(",", await _manager.GetRolesAsync(u))
+                    Role = string.Join(",", await _manager.GetRolesAsync(u)),
+                    Faculties = _identityHelper.GetUserFaculties(u.Id) ,
+                    Universities = _identityHelper.GetUserUniversities(u.Id)
                 }).Select(task => task.Result).ToList();
 
                 return Ok(usersReturn);
@@ -64,7 +68,9 @@ namespace Grad.APIs.Controllers
                     DisplayName = user.DisplayName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                    Role = userRoles.FirstOrDefault()
+                    Role = userRoles.FirstOrDefault() ,
+                    Faculties = _identityHelper.GetUserFaculties(user.Id),
+                    Universities = _identityHelper.GetUserUniversities(user.Id)
                 };
                 return Ok(new List<UsersReturn> { mappedUser });
             }
@@ -81,8 +87,20 @@ namespace Grad.APIs.Controllers
             var user = await _manager.FindByIdAsync(id);
             if (user is null)
                 return NotFound(new ApiResponse(404 , "User Not Found"));
-            var MappedsUer = _mapper.Map<AppUser, UsersReturn>(user);
-            return Ok(MappedsUer);
+
+            var userRoles = await _manager.GetRolesAsync(user);
+
+            var mappedUser = new UsersReturn()
+            {
+                Id = user.Id,
+                DisplayName = user.DisplayName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Role = userRoles.FirstOrDefault(),
+                Faculties = _identityHelper.GetUserFaculties(user.Id),
+                Universities = _identityHelper.GetUserUniversities(user.Id)
+            };
+            return Ok(mappedUser);
 
         }
 
@@ -109,7 +127,11 @@ namespace Grad.APIs.Controllers
 
             var userRoles = await _manager.GetRolesAsync(User);
             await _manager.RemoveFromRolesAsync(User, userRoles); 
-            await _manager.AddToRoleAsync(User , UpdatedUser.Role); 
+            await _manager.AddToRoleAsync(User , UpdatedUser.Role);
+
+            await _identityHelper.UpdateUserFacultiesAsync(User.Id, UpdatedUser.Faculties);
+            await _identityHelper.UpdateUserUniversitiesAsync(User.Id, UpdatedUser.Universities);
+
 
             await _manager.UpdateAsync(User);
 

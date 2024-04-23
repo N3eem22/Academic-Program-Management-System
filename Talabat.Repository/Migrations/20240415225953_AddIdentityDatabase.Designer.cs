@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240415225953_AddIdentityDatabase")]
+    partial class AddIdentityDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -921,36 +923,6 @@ namespace Grad.Repository.Migrations
                     b.HasIndex("GraduationId");
 
                     b.ToTable("GraduationSemesters");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Identity.AppUserFaculty", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AppUserId", "FacultyId");
-
-                    b.HasIndex("FacultyId");
-
-                    b.ToTable("AppUserFaculty");
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Identity.AppUserUni", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AppUserId", "UniversityId");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("AppUserUni");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
@@ -2899,36 +2871,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("semesters");
                 });
 
-            modelBuilder.Entity("Grad.Core.Entities.Identity.AppUserFaculty", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Identity.AppUser", null)
-                        .WithMany("Faculties")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Entities.Faculty", null)
-                        .WithMany("FacultyAppUsers")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Grad.Core.Entities.Identity.AppUserUni", b =>
-                {
-                    b.HasOne("Talabat.Core.Entities.Identity.AppUser", null)
-                        .WithMany("Universities")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Talabat.Core.Entities.Entities.University", null)
-                        .WithMany("UniAppUsers")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
                 {
                     b.HasOne("Talabat.Core.Entities.Entities.University", "University")
@@ -3484,8 +3426,6 @@ namespace Grad.Repository.Migrations
                 {
                     b.Navigation("CollegeCourses");
 
-                    b.Navigation("FacultyAppUsers");
-
                     b.Navigation("Programs");
                 });
 
@@ -3542,8 +3482,6 @@ namespace Grad.Repository.Migrations
 
                     b.Navigation("TypeOfSummerFees");
 
-                    b.Navigation("UniAppUsers");
-
                     b.Navigation("divisionTypes");
 
                     b.Navigation("passingTheElectiveGroupBasedOns");
@@ -3553,10 +3491,6 @@ namespace Grad.Repository.Migrations
                 {
                     b.Navigation("Address")
                         .IsRequired();
-
-                    b.Navigation("Faculties");
-
-                    b.Navigation("Universities");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.AllGrades", b =>

@@ -18,6 +18,12 @@ namespace Talabat.APIs.DTO
         [Required]
 
         public string Role { get; set; }
+
+        [Required]
+        public List<int> Facultyid { get; set; }
+
+        [Required]
+        public List<int> universityID { get; set; }
     }
 
 }
