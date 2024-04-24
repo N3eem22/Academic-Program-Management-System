@@ -136,9 +136,18 @@ namespace Grad.APIs.Controllers
             await _manager.UpdateAsync(User);
 
 
-            var UserMapped = _mapper.Map<AppUser, UsersReturn>(User); 
+            var mappedUser = new UsersReturn()
+            {
+                Id = User.Id,
+                DisplayName = User.DisplayName,
+                Email = User.Email,
+                PhoneNumber = User.PhoneNumber,
+                Role = userRoles.FirstOrDefault(),
+                Faculties = _identityHelper.GetUserFaculties(User.Id),
+                Universities = _identityHelper.GetUserUniversities(User.Id)
+            };
 
-            return Ok(UserMapped);
+            return Ok(mappedUser);
         }
         
         [HttpDelete]
@@ -163,7 +172,7 @@ namespace Grad.APIs.Controllers
 
 
         [HttpPost("reset-password")]
-        [Authorize(Roles = "SuperAdmin")]
+      //  [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
         {
             var user = await _manager.FindByEmailAsync(request.Email);

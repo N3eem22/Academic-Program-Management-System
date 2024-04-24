@@ -14,7 +14,7 @@ namespace Talabat.APIs.Exstentions
         public static IServiceCollection AddIdentityServices(this IServiceCollection Services,IConfiguration configuration)
         {
             Services.AddScoped<ITokenService, TokenService>();
-           Services.AddIdentity<AppUser, IdentityRole>()
+           Services.AddIdentity<AppUser, IdentityRole>().AddDefaultTokenProviders()
           .AddEntityFrameworkStores<GradContext>();
             Services.AddAuthentication(Options=>
             {
