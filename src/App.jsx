@@ -14,6 +14,10 @@ import { HomePage } from "./pages/home";
 // mui
 import CircularProgress from "@mui/material/CircularProgress";
 import Layout from "./pages/layout";
+import { ControlsPage } from "./pages/controls";
+import { CoursesPage } from "./pages/programs/edit/courses";
+import { GpaPage } from "./pages/programs/edit/gpa";
+import { ControlPage } from "./pages/programs/edit/control";
 
 function App() {
   useEffect(() => {}, []);
@@ -32,7 +36,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/levels" element={<LevelsPage />} />
-
+          <Route path="/controls" element={<ControlsPage/>} />
+          <Route path="/courses" element={<CoursesPage/>} />
+          <Route path="/gpa" element={<GpaPage/>} />
+          <Route path="/control" element={<ControlPage/>} />
         </Route>
         <Route path="/home" element={<HomePage />} />
 
