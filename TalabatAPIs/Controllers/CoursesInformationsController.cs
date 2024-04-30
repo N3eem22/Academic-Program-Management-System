@@ -31,10 +31,10 @@ namespace Grad.APIs.Controllers
         [HttpPost]
         public async Task<ActionResult<CourseInfoDTO>> AddCourseInfo([FromBody] CourseInfoDTO courseInfoDTO)
         {
-            //var Exists = await _unitOfWork.Repository<CourseInformation>().ExistAsync(x => x.CourseId == courseInfoDTO.CourseId && x.ProgramId == courseInfoDTO.ProgramId&& x.IsDeleted == false);
-            //if (Exists) {
-            //    return StatusCode(409, new ApiResponse(409));
-            //}
+            var Exists = await _unitOfWork.Repository<CourseInformation>().ExistAsync(x => x.CourseId == courseInfoDTO.CourseId && x.ProgramId == courseInfoDTO.ProgramId&& x.IsDeleted == false);
+            if (Exists) {
+                return StatusCode(409, new ApiResponse(409));
+            }
             var preValidationResult = await ValidateForeignKeyExistence(courseInfoDTO);
             if (preValidationResult != null) return preValidationResult;
             try

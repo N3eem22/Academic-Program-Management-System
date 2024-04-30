@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Grad.APIs.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Helpers;
 using Talabat.Core;
 using Talabat.Core.Repositories;
 using Talabat.Core.Services;
 using Talabat.Repository;
+using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 using Talabat.Service;
 
 namespace Talabat.APIs.Exstentions
@@ -15,7 +18,19 @@ namespace Talabat.APIs.Exstentions
         {
           
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            
             Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+            Services.AddScoped<IdentityHelper>();
+
+            Services.AddScoped<IdentityHelper>(sp =>
+            {
+                var dbContext = sp.GetRequiredService<GradContext>();
+                return new IdentityHelper(dbContext);
+            });
+
+
+
 
             Services.AddAutoMapper(typeof(MappingProfiles));
             Services.Configure<ApiBehaviorOptions>(options =>

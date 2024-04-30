@@ -4,7 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Talabat.Core.Entities.Identity;
 using Talabat.Core.Services;
-using Talabat.Repository.Identity;
+using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 using Talabat.Service;
 
 namespace Talabat.APIs.Exstentions
@@ -14,8 +15,8 @@ namespace Talabat.APIs.Exstentions
         public static IServiceCollection AddIdentityServices(this IServiceCollection Services,IConfiguration configuration)
         {
             Services.AddScoped<ITokenService, TokenService>();
-           Services.AddIdentity<AppUser, IdentityRole>()
-          .AddEntityFrameworkStores<AppIdentityDbContext>();
+           Services.AddIdentity<AppUser, IdentityRole>().AddDefaultTokenProviders()
+          .AddEntityFrameworkStores<GradContext>();
             Services.AddAuthentication(Options=>
             {
                 Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

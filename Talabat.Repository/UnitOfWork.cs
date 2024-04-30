@@ -14,6 +14,7 @@ using System.Security.AccessControl;
 using Talabat.Core.Entities.Logs;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 namespace Talabat.Repository
 {

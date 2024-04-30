@@ -15,6 +15,7 @@ using Talabat.Core.Entities.Academic_regulation;
 using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Lockups;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 namespace Grad.APIs.Controllers
 {

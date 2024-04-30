@@ -1,3 +1,4 @@
+using Grad.Repository.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,8 @@ using Talabat.Core.Entities.Identity;
 using Talabat.Core.Repositories;
 using Talabat.Repository;
 using Talabat.Repository.Data;
-using Talabat.Repository.Identity;
+using Talabat.Repository.Data.Talabat.Repository.Data;
+
 //test
 public class Program
 {
@@ -70,10 +72,10 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
-        builder.Services.AddDbContext<AppIdentityDbContext>(Options =>
-        {
-            Options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
-        });
+        //builder.Services.AddDbContext<AppIdentityDbContext>(Options =>
+        //{
+        //    Options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+        //});
 
         builder.Services.AddSingleton<IConnectionMultiplexer>(Options =>
         {
@@ -100,7 +102,7 @@ public class Program
             
             var dbContext = services.GetRequiredService<GradContext>();
             await dbContext.Database.MigrateAsync();
-            var IdentityDbCOntext =services.GetRequiredService<AppIdentityDbContext>();
+            var IdentityDbCOntext =services.GetRequiredService<GradContext>();
             await IdentityDbCOntext.Database.MigrateAsync();
            
             var RoleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
