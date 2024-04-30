@@ -25,26 +25,22 @@ namespace Grad.APIs.DTO.Entities_Dto
         public int TheGrade { get; set; }
         public bool PlacementOfStudentsInTheCourse { get; set; }
         public string? EstimatingTheTheoreticalFailure { get; set; }
-        public ICollection<FailureEstimatesInTheListDTO> FailureEstimatesInTheLists { get; set; } = new HashSet<FailureEstimatesInTheListDTO>();
-
+        public string FailureEstimatesInTheLists { get; set; }
         public bool DetailsOfTheoreticalFailingGrades { get; set; }
         public ICollection<DetailsOfTheoreticalFailingGradesDTO> DetailsOfTheoreticalFailingGradesNav { get; set; } = new HashSet<DetailsOfTheoreticalFailingGradesDTO>();
         public int ChooseTheDetailsOfTheoreticalFailureBasedOn { get; set; }
         public int CalculateEstimate { get; set; }
-        public ICollection<ACaseOfAbsenceInTheDetailedGradesDTO> ACaseOfAbsenceInTheDetailedGrades { get; set; } = new HashSet<ACaseOfAbsenceInTheDetailedGradesDTO>();
+        public string ACaseOfAbsenceInTheDetailedGrades { get; set; }
         public bool AllDetailOrNo { get; set; }
-        public ICollection<DetailsOfExceptionalLettersDTO> DetailsOfExceptionalLetters { get; set; } = new HashSet<DetailsOfExceptionalLettersDTO>();
-
+        public string DetailsOfExceptionalLetters { get; set; }
         public int SuccessGrades { get; set; }      
         public bool AddingExciptionLetters { get; set; }
         public ICollection<ExceptionalLetterGradesDTO> ExceptionalLetterGrades { get; set; } = new HashSet<ExceptionalLetterGradesDTO>();
 
-        public ICollection<EstimatesNotDefinedInTheListDTO> EstimatesNotDefinedInTheLists { get; set; } = new HashSet<EstimatesNotDefinedInTheListDTO>();
-
+        public string EstimatesNotDefinedInTheLists { get; set; }
         public int FailingGrades { get; set; }
         public string? EstimateDeprivationBeforeTheExam { get; set; }
         public string? EstimateDeprivationAfterTheExam { get; set; }
-        public ICollection<ASuccessRatingDoesNotAddHoursOrAverageDTO> ASuccessRatingDoesNotAddHours { get; set; } = new HashSet<ASuccessRatingDoesNotAddHoursOrAverageDTO>();
-
+        public string ASuccessRatingDoesNotAddHours { get; set; }
     }
 }

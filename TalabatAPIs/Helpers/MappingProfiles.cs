@@ -58,7 +58,10 @@ namespace Talabat.APIs.Helpers
             #region CumulativeAverage
 
             CreateMap<CumulativeAverage, CumulativeAverageDTO>()
-                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GadesOfEstimatesThatDoesNotCount, o => o.MapFrom(s => string.Join(",", s.GadesOfEstimatesThatDoesNotCount.Select(gl => gl.Grades.TheGrade))))
+
+                .ReverseMap();
 
             CreateMap<GadesOfEstimatesThatDoesNotCount, GadesOfEstimatesThatDoesNotCountDTO>()
                 .ForMember(D => D.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
@@ -83,7 +86,13 @@ namespace Talabat.APIs.Helpers
                   .ForMember(c => c.ThirdReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.ThirdGrades.TheGrade))
                   .ForMember(c => c.EstimatingTheTheoreticalFailure, O => O.MapFrom(s => s.TheoriticalFailure.TheGrade))
                   .ForMember(c => c.EstimateDeprivationBeforeTheExam, O => O.MapFrom(s => s.EstimateDeprivationBeforeTheExam.TheGrade))
-                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade)).ReverseMap();
+                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade))
+                  .ForMember(D => D.FailureEstimatesInTheLists, o => o.MapFrom(s => string.Join(",", s.FailureEstimatesInTheLists.Select(gl => gl.grades.TheGrade))))
+                  .ForMember(D => D.ACaseOfAbsenceInTheDetailedGrades, o => o.MapFrom(s => string.Join(",", s.ACaseOfAbsenceInTheDetailedGrades.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.DetailsOfExceptionalLetters, o => o.MapFrom(s => string.Join(",", s.DetailsOfExceptionalLetters.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.EstimatesNotDefinedInTheLists, o => o.MapFrom(s => string.Join(",", s.EstimatesNotDefinedInTheLists.Select(gl => gl.Grades.TheGrade))))
+                  .ForMember(D => D.ASuccessRatingDoesNotAddHours, o => o.MapFrom(s => string.Join(",", s.ASuccessRatingDoesNotAddHours.Select(gl => gl.Grades.TheGrade))))
+                  .ReverseMap();
             CreateMap<ACaseOfAbsenceInTheDetailedGrades, ACaseOfAbsenceInTheDetailedGradesDTO>()
                 .ForMember(c => c.GradeGetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
             CreateMap<ASuccessRatingDoesNotAddHoursOrAverage, ASuccessRatingDoesNotAddHoursOrAverageDTO>()

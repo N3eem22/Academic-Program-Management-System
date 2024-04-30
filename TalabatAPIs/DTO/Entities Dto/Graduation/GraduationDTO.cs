@@ -26,9 +26,7 @@ namespace Grad.APIs.DTO.Entities_Dto.Graduation
         public string GraduationAverageValues { get; set; }
         public bool ComparingCumulativeAverageForEachYear { get; set; }
         public int? StudyYears { get; set; }
-        public ICollection<GraduationLevelsDTO> LevelsTobePassed { get; set; } = new HashSet<GraduationLevelsDTO>();
         public string GraduationLevels { get; set; }
-        public ICollection<GraduationSemestersDTO> SemestersTobePssed { get; set; } = new HashSet<GraduationSemestersDTO>();
         public string GraduationSemesters { get; set; }
         public string? TheMinimumGradeForTheCourse { get; set; }
     }
