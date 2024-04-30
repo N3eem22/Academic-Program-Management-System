@@ -40,7 +40,11 @@ namespace Talabat.APIs.Helpers
             CreateMap<GraduationSemestersReq, GraduationSemesters>();
             
             CreateMap<Graduation, GraduationDTO>()
-                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GraduationLevels , o => o.MapFrom(s => string.Join(",", s.LevelsTobePassed.Select(gl => gl.Level.levels))))
+                .ForMember(D => D.GraduationSemesters, o => o.MapFrom(s => string.Join(",", s.SemestersTobePssed.Select(gl => gl.semesters.semesters))))
+                .ReverseMap()
+                ;
 
             CreateMap<AverageValue, AverageValueDTO>()
                 .ForMember(D => D.EquivalentGrade, O => O.MapFrom(s => s.EquivalentGrade.equivalentGrade))

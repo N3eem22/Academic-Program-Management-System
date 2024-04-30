@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Talabat.Service\Grad.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\Entities Dto\NewFolder\" />
+  </ItemGroup>
+
 </Project>

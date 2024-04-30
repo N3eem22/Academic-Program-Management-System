@@ -21,17 +21,17 @@ using Talabat.Core.Entities.Permissions;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Graduation;
+using Grad.Core.Entities;
 
 namespace Talabat.Repository.Data
 {
-    public class GradContext:DbContext 
+    public class GradContext : DbContext
     {
         #region DbSets
 
-
         // Permissions
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-     
+
         //logs
         public DbSet<ApplicationLog> ApplicationLogs { get; set; }
 
@@ -59,7 +59,7 @@ namespace Talabat.Repository.Data
         public DbSet<GraduationSemesters> GraduationSemesters { get; set; }
         //Courses Info
         public DbSet<CourseInformation> CourseInformation { get; set; }
-        public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; } 
+        public DbSet<CoursesandGradesDetails> CoursesandGradesDetails { get; set; }
         public DbSet<CoursesAndHours> CoursesAndHours { get; set; }
         public DbSet<DetailsOfFailingGrades> DetailsOfFailingGrades { get; set; }
         public DbSet<PreRequisiteCourses> PreRequisiteCourses { get; set; }
@@ -96,18 +96,20 @@ namespace Talabat.Repository.Data
         public DbSet<Program_TheGrades> Program_TheGrades { get; set; }
         public DbSet<AcademicLoadAccordingToLevel> AcademicLoadAccordingToLevels { get; set; }
         #endregion
-        public GradContext(DbContextOptions<GradContext> options):base(options)
+        public GradContext(DbContextOptions<GradContext> options) : base(options)
         {
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.ApplyConfiguration(new ProductConfig());
-           modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<ApplicationLog>()
+            .Ignore(a => a.IsDeleted);
+            // modelBuilder.ApplyConfiguration(new ProductConfig());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
-    
-           
+
+
         }
 
 

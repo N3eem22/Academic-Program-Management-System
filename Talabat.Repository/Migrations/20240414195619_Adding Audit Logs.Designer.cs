@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240414195619_Adding Audit Logs")]
+    partial class AddingAuditLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("Prog_InfoId");
 
-                    b.ToTable("AR_AcademicLoadAccordingToLevel", (string)null);
+                    b.ToTable("AR_AcademicLoadAccordingToLevel");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.Program_TheGrades", b =>
@@ -115,7 +117,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("prog_InfoId");
 
-                    b.ToTable("AR_Program_TheGrades", (string)null);
+                    b.ToTable("AR_Program_TheGrades");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.programLevels", b =>
@@ -151,7 +153,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("prog_InfoId");
 
-                    b.ToTable("AR_ProgramLevels", (string)null);
+                    b.ToTable("AR_ProgramLevels");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.ACaseOfAbsenceInTheDetailedGrades", b =>
@@ -172,7 +174,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("ACaseOfAbsenceInTheDetailedGrades", (string)null);
+                    b.ToTable("ACaseOfAbsenceInTheDetailedGrades");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.ASuccessRatingDoesNotAddHoursOrAverage", b =>
@@ -193,7 +195,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("ASuccessRatingDoesNotAddHoursOrAverage", (string)null);
+                    b.ToTable("ASuccessRatingDoesNotAddHoursOrAverage");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.Control", b =>
@@ -291,7 +293,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ThirdReductionEstimatesForFailureTimes");
 
-                    b.ToTable("Controls", (string)null);
+                    b.ToTable("Controls");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfExceptionalLetters", b =>
@@ -312,7 +314,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("DetailsOfExceptionalLetters", (string)null);
+                    b.ToTable("DetailsOfExceptionalLetters");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.DetailsOfTheoreticalFailingGrades", b =>
@@ -336,7 +338,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("DetailsOfTheoreticalFailingGrades", (string)null);
+                    b.ToTable("DetailsOfTheoreticalFailingGrades");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.EstimatesNotDefinedInTheList", b =>
@@ -357,7 +359,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("EstimatesNotDefinedInTheList", (string)null);
+                    b.ToTable("EstimatesNotDefinedInTheList");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.ExceptionalLetterGrades", b =>
@@ -381,7 +383,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("ExceptionalLetterGrades", (string)null);
+                    b.ToTable("ExceptionalLetterGrades");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Control.FailureEstimatesInTheList", b =>
@@ -402,7 +404,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("ControlId");
 
-                    b.ToTable("FailureEstimatesInTheList", (string)null);
+                    b.ToTable("FailureEstimatesInTheList");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
@@ -579,7 +581,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("CourseInfoId");
 
-                    b.ToTable("PreRequisiteCourses", (string)null);
+                    b.ToTable("PreRequisiteCourses");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.CumulativeAverage.CumulativeAverage", b =>
@@ -680,7 +682,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UtmostGrade");
 
-                    b.ToTable("CumulativeAverages", (string)null);
+                    b.ToTable("CumulativeAverages");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.CumulativeAverage.GadesOfEstimatesThatDoesNotCount", b =>
@@ -701,7 +703,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("CumulativeAverageId");
 
-                    b.ToTable("GadesOfEstimatesThatDoesNotCounts", (string)null);
+                    b.ToTable("GadesOfEstimatesThatDoesNotCounts");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_AllGradesSummerEstimate", b =>
@@ -716,7 +718,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("AllGradesId");
 
-                    b.ToTable("PI_AllGradesSummerEstimate", (string)null);
+                    b.ToTable("PI_AllGradesSummerEstimate");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_DetailedGradesToBeAnnounced", b =>
@@ -737,7 +739,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("GradesDetailsId");
 
-                    b.ToTable("PI_DetailedGradesToBeAnnounced", (string)null);
+                    b.ToTable("PI_DetailedGradesToBeAnnounced");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_DivisionType", b =>
@@ -752,7 +754,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("DivisionTypeId");
 
-                    b.ToTable("PI_DivisionType", (string)null);
+                    b.ToTable("PI_DivisionType");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Entities.PI_EstimatesOfCourseFeeExemption", b =>
@@ -767,7 +769,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("AllGradesId");
 
-                    b.ToTable("PI_EstimatesOfCourseFeeExemption", (string)null);
+                    b.ToTable("PI_EstimatesOfCourseFeeExemption");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Graduation.AverageValue", b =>
@@ -799,7 +801,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("GraduationId");
 
-                    b.ToTable("AverageValues", (string)null);
+                    b.ToTable("AverageValues");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Graduation.Graduation", b =>
@@ -875,7 +877,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("TheMinimumGradeForTheCourseId");
 
-                    b.ToTable("Graduations", (string)null);
+                    b.ToTable("Graduations");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationLevels", b =>
@@ -896,7 +898,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("GraduationId");
 
-                    b.ToTable("GraduationLevels", (string)null);
+                    b.ToTable("GraduationLevels");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Graduation.GraduationSemesters", b =>
@@ -920,7 +922,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("GraduationId");
 
-                    b.ToTable("GraduationSemesters", (string)null);
+                    b.ToTable("GraduationSemesters");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Lockups.DivisionType", b =>
@@ -946,7 +948,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_DivisionType", (string)null);
+                    b.ToTable("LU_DivisionType");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
@@ -1182,7 +1184,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Faculty", (string)null);
+                    b.ToTable("Faculty");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Entities.Programs", b =>
@@ -1212,7 +1214,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("EN_Programs", (string)null);
+                    b.ToTable("EN_Programs");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Entities.University", b =>
@@ -1238,7 +1240,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("University", (string)null);
+                    b.ToTable("University");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.AbsenteeEstimateCalculation", b =>
@@ -1264,7 +1266,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_AbsenteeEstimateCalculation", (string)null);
+                    b.ToTable("LU_AbsenteeEstimateCalculation");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.AllGrades", b =>
@@ -1290,7 +1292,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_AllGrades", (string)null);
+                    b.ToTable("LU_AllGrades");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.BlockingProofOfRegistration", b =>
@@ -1316,7 +1318,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_BlockingProofOfRegistration", (string)null);
+                    b.ToTable("LU_BlockingProofOfRegistration");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.BurdenCalculation", b =>
@@ -1342,7 +1344,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_BurdenCalculation", (string)null);
+                    b.ToTable("LU_BurdenCalculation");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.CollegeCourses", b =>
@@ -1404,7 +1406,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("CollegeCourses", (string)null);
+                    b.ToTable("CollegeCourses");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.CourseRequirement", b =>
@@ -1430,7 +1432,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_CourseRequirement", (string)null);
+                    b.ToTable("LU_CourseRequirement");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.CourseType", b =>
@@ -1456,7 +1458,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_CourseType", (string)null);
+                    b.ToTable("LU_CourseType");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.EditTheStudentLevel", b =>
@@ -1482,7 +1484,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_EditTheStudentLevel", (string)null);
+                    b.ToTable("LU_EditTheStudentLevel");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.EquivalentGrade", b =>
@@ -1508,7 +1510,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_EquivalentGrade", (string)null);
+                    b.ToTable("LU_EquivalentGrade");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.GradesDetails", b =>
@@ -1534,7 +1536,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_GradesDetails", (string)null);
+                    b.ToTable("LU_GradesDetails");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.Hours", b =>
@@ -1560,7 +1562,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Hours", (string)null);
+                    b.ToTable("LU_Hours");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.Level", b =>
@@ -1585,7 +1587,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Level", (string)null);
+                    b.ToTable("LU_Level");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.PassingTheElectiveGroupBasedOn", b =>
@@ -1611,7 +1613,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_PassingTheElectiveGroupBasedOn", (string)null);
+                    b.ToTable("LU_PassingTheElectiveGroupBasedOn");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.Prerequisites", b =>
@@ -1637,7 +1639,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Prerequisite", (string)null);
+                    b.ToTable("LU_Prerequisite");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.PreviousQualification", b =>
@@ -1663,7 +1665,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_PreviousQualification", (string)null);
+                    b.ToTable("LU_PreviousQualification");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.ReasonForBlockingAcademicResult", b =>
@@ -1689,7 +1691,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_ReasonForBlockingAcademicResult", (string)null);
+                    b.ToTable("LU_ReasonForBlockingAcademicResult");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.ReasonForBlockingRegistration", b =>
@@ -1715,7 +1717,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_ReasonForBlockingRegistration", (string)null);
+                    b.ToTable("LU_ReasonForBlockingRegistration");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.Semesters", b =>
@@ -1741,7 +1743,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Semester", (string)null);
+                    b.ToTable("LU_Semester");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.SystemType", b =>
@@ -1767,7 +1769,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("System Type", (string)null);
+                    b.ToTable("System Type");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TheAcademicDegree", b =>
@@ -1793,7 +1795,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TheAcademicDegree", (string)null);
+                    b.ToTable("LU_TheAcademicDegree");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TheResultAppears", b =>
@@ -1819,7 +1821,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TheResultAppears", (string)null);
+                    b.ToTable("LU_TheResultAppears");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TypeOfFinancialStatementInTheProgram", b =>
@@ -1845,7 +1847,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfFinancialStatementInTheProgram", (string)null);
+                    b.ToTable("LU_TypeOfFinancialStatementInTheProgram");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TypeOfProgramFees", b =>
@@ -1871,7 +1873,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfProgramFees", (string)null);
+                    b.ToTable("LU_TypeOfProgramFees");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TypeOfStudySection", b =>
@@ -1897,7 +1899,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_TypeOfStudySection", (string)null);
+                    b.ToTable("LU_TypeOfStudySection");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.TypeOfSummerFees", b =>
@@ -1923,7 +1925,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("LU_Typeofsummerfees", (string)null);
+                    b.ToTable("LU_Typeofsummerfees");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Logs.ApplicationLog", b =>
@@ -1955,7 +1957,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Log_ApplicationLogs", (string)null);
+                    b.ToTable("Log_ApplicationLogs");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Permissions.ApplicationUser", b =>
@@ -2012,7 +2014,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Perm_ApplicationUser", (string)null);
+                    b.ToTable("Perm_ApplicationUser");
                 });
 
             modelBuilder.Entity("Grad.Core.Entities.Academic_regulation.AcademicLoadAccordingToLevel", b =>

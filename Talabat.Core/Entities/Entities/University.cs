@@ -1,5 +1,6 @@
 ﻿
 
+using Grad.Core.Entities;
 using Grad.Core.Entities.Lockups;
 
 namespace Talabat.Core.Entities.Entities

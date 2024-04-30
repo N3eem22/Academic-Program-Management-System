@@ -62,7 +62,7 @@ namespace Talabat.APIs.Controllers
             if (!roleResult.Succeeded)
                 return BadRequest(new ApiResponse(400, "Failed to assign role to user"));
 
-
+            
             var userRoles = await _manager.GetRolesAsync(user);
 
             var returnedUser = new UserDto()
