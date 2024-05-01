@@ -35,7 +35,7 @@ namespace Grad.APIs.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CumulativeAverageDTO>>> GetAllCumulative(int? CumulativeId)
-        {
+        { 
             var spec = new CumulativeAverageSpec(CumulativeId);
             var cumulativeAverages = await _unitOfWork.Repository<CumulativeAverage>().GetAllWithSpecAsync(spec);
             await _dbcontext.Set<GadesOfEstimatesThatDoesNotCount>().Include(G => G.Grades).ToListAsync();

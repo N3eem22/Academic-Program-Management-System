@@ -98,12 +98,13 @@ public class Program
         });
 
         using var app = builder.Build();
-       
-        
+        #endregion
+
+
         #region Update Database
 
 
-    
+
         var Scopped = app.Services.CreateScope();
         var services = Scopped.ServiceProvider;
         var LoggerFactory=services.GetService<ILoggerFactory>();
@@ -156,4 +157,4 @@ public class Program
 
     }
 }
-	#endregion 
+	
