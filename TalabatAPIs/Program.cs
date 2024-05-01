@@ -85,12 +85,13 @@ public class Program
         builder.Services.AddApplicationService();
         builder.Services.AddIdentityServices(builder.Configuration);
         using var app = builder.Build();
-       
-        
+        #endregion
+
+
         #region Update Database
 
 
-    
+
         var Scopped = app.Services.CreateScope();
         var services = Scopped.ServiceProvider;
         var LoggerFactory=services.GetService<ILoggerFactory>();

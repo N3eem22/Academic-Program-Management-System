@@ -7,7 +7,7 @@ namespace Talabat.Core.Entities.Entities
         public string ProgramNameInArabic { get; set; }
         public string ProgramNameInEnglish { get; set; }
 
-        public int? FacultyId { get; set; }
+        public int? FacultyId { get; set; } 
         [ForeignKey(nameof(FacultyId))]
         public Faculty Faculty { get; set; }
 
