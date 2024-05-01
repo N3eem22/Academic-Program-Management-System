@@ -19,7 +19,7 @@ namespace Grad.Repository.Data.Configurations
                 x.ControlId
             });
             builder.HasOne(g => g.Grades).WithMany(g => g.ASuccessRatingDoesNotAddHoursOrAverages).HasForeignKey(f => f.GradeId);
-            builder.HasOne(g => g.Grades).WithMany(g => g.ASuccessRatingDoesNotAddHoursOrAverages).HasForeignKey(f => f.ControlId);
+            builder.HasOne(g => g.Control).WithMany(g => g.ASuccessRatingDoesNotAddHours).HasForeignKey(f => f.ControlId);
         }
     }
 }

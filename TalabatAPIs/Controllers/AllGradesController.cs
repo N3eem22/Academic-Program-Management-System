@@ -3,8 +3,10 @@ using Grad.APIs.DTO;
 using Grad.APIs.DTO.Lockups_Dto;
 using Grad.APIs.Helpers;
 using Grad.Core.Specifications.LockUps_spec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Security.Policy;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
@@ -20,26 +22,38 @@ namespace Grad.APIs.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-
+        private readonly IdentityHelper _IdentityHelper;
 
         public AllGradesController(IMapper mapper,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork , IdentityHelper identityHelper )
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _IdentityHelper = identityHelper;
 
         }
 
+        [Authorize]
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<AllGradesDTO>>> GetAllGrades(int? Universityid)
         {
-            var spec = new GradeswithUniSpecifications(Universityid);
-            var grades = await _unitOfWork.Repository<AllGrades>().GetAllWithSpecAsync(spec);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var HasAcsess = await  _IdentityHelper.CheckUserUniversityAccessAsync(userId, Universityid); 
+            
+            if (HasAcsess)
+            {
+                var spec = new GradeswithUniSpecifications(Universityid);
+                var grades = await _unitOfWork.Repository<AllGrades>().GetAllWithSpecAsync(spec);
 
 
-            var gradesDTO = _mapper.Map<IEnumerable<AllGrades>, IEnumerable<AllGradesDTO>>(grades);
+                var gradesDTO = _mapper.Map<IEnumerable<AllGrades>, IEnumerable<AllGradesDTO>>(grades);
 
-            return Ok(gradesDTO);
+                return Ok(gradesDTO);
+            }
+            return Unauthorized(new ApiResponse(401));
+            
         }
 
         [HttpGet("{id}")]

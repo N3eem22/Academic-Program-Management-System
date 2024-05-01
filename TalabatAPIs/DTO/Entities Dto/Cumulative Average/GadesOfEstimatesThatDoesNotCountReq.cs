@@ -1,4 +1,5 @@
-﻿using Grad.Core.Entities.CumulativeAverage;
+﻿using Grad.APIs.DTO.Lockups_Dto;
+using Grad.Core.Entities.CumulativeAverage;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Talabat.Core.Entities.Lockups;

@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Grad.APIs.DTO.Lockups_Dto;
+using Grad.APIs.Helpers;
+using Grad.Core.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -7,8 +10,12 @@ using System.Security.Claims;
 using Talabat.APIs.DTO;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Exstentions;
+using Talabat.Core;
+using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Identity;
+using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Services;
+using Talabat.Repository.Data;
 
 namespace Talabat.APIs.Controllers
 {
@@ -20,17 +27,22 @@ namespace Talabat.APIs.Controllers
         private readonly UserManager<AppUser> _manager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IdentityHelper _identityHelper;
 
-        public AccountsController(IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+
+        public AccountsController(IdentityHelper identityHelper , IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
         {
             _mapper = mapper;
             _manager = manager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _identityHelper = identityHelper;
+
+
         }
 
         [HttpPost("Register")]
-        [Authorize(Roles = "SuperAdmin")]
+       // [Authorize(Roles = "SuperAdmin")]
 
         public async Task<ActionResult<UserDto>> Register(RegisterDto model)
         {
@@ -42,6 +54,9 @@ namespace Talabat.APIs.Controllers
 
             if (checkDuplicateEmail(model.Email).Result.Value)
                 return BadRequest(new ApiResponse(400, "Email Already Exists"));
+
+
+
 
             var user = new AppUser()
             {
@@ -61,6 +76,15 @@ namespace Talabat.APIs.Controllers
             var roleResult = await _manager.AddToRoleAsync(user, model.Role);
             if (!roleResult.Succeeded)
                 return BadRequest(new ApiResponse(400, "Failed to assign role to user"));
+
+
+
+
+
+            _identityHelper.AssignUserToFaculties(user.Id, model.Facultyid);
+
+            _identityHelper.AssignUserToUniversities(user.Id, model.universityID); 
+
 
 
             var userRoles = await _manager.GetRolesAsync(user);
@@ -132,7 +156,7 @@ namespace Talabat.APIs.Controllers
             };
             return Ok(ReturnedUser);
         }
-        [Authorize]
+       
         [HttpGet("Address")]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
@@ -143,7 +167,7 @@ namespace Talabat.APIs.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPut("Address")]
         public async Task<ActionResult<AddressDto>> UpdateAddress(AddressDto updatedAddress)
         {

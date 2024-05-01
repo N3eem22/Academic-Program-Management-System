@@ -9,7 +9,7 @@ namespace Grad.Core.Entities.Control
 {
     public class DetailsOfExceptionalLetters : BaseEntity
     {
-        public int GradeGetailId { get; set; }
+        public int GradeDetailId { get; set; }
         public GradesDetails GradesDetails { get; set; }
         public int ControlId { get; set; }
         public Control Control { get; set; }

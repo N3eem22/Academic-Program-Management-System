@@ -5,8 +5,12 @@ using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
 using Grad.APIs.DTO.Entities_Dto.Graduation;
 using Grad.APIs.DTO.Entities_Dto.ProgramLEvelsDTO;
 using Grad.APIs.DTO.Lockups_Dto;
+<<<<<<< HEAD
 using Grad.APIs.DTO.ProgrmInformation;
 using Grad.Core.Entities.Academic_regulation;
+=======
+using Grad.Core.Entities.Control;
+>>>>>>> 8712790eb02a70ac58b98d8e715538429aef2f5f
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
@@ -36,14 +40,18 @@ namespace Talabat.APIs.Helpers
             CreateMap<University,UniversityDTO>();
             CreateMap<UniversityReq, University>();
             // Configuration
-            #region Control
+            #region Grduation
             CreateMap<GraduationReq, Graduation>();
             CreateMap<AverageValueReq, AverageValue>();
             CreateMap<GraduationLevelsReq, GraduationLevels>();
             CreateMap<GraduationSemestersReq, GraduationSemesters>();
             
             CreateMap<Graduation, GraduationDTO>()
-                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GraduationLevels , o => o.MapFrom(s => string.Join(",", s.LevelsTobePassed.Select(gl => gl.Level.levels))))
+                .ForMember(D => D.GraduationSemesters, o => o.MapFrom(s => string.Join(",", s.SemestersTobePssed.Select(gl => gl.semesters.semesters))))
+                .ReverseMap()
+                ;
 
             CreateMap<AverageValue, AverageValueDTO>()
                 .ForMember(D => D.EquivalentGrade, O => O.MapFrom(s => s.EquivalentGrade.equivalentGrade))
@@ -57,7 +65,10 @@ namespace Talabat.APIs.Helpers
             #region CumulativeAverage
 
             CreateMap<CumulativeAverage, CumulativeAverageDTO>()
-                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GadesOfEstimatesThatDoesNotCount, o => o.MapFrom(s => string.Join(",", s.GadesOfEstimatesThatDoesNotCount.Select(gl => gl.Grades.TheGrade))))
+
+                .ReverseMap();
 
             CreateMap<GadesOfEstimatesThatDoesNotCount, GadesOfEstimatesThatDoesNotCountDTO>()
                 .ForMember(D => D.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
@@ -66,7 +77,17 @@ namespace Talabat.APIs.Helpers
 
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
             #endregion
+            #region Control
+            CreateMap<ControlReq, Control>();
+            CreateMap<ACaseOfAbsenceInTheDetailedGradesReq, ACaseOfAbsenceInTheDetailedGrades>();
+            CreateMap<ASuccessRatingDoesNotAddHoursOrAverageReq, ASuccessRatingDoesNotAddHoursOrAverage>();
+            CreateMap<DetailsOfExceptionalLettersReq, DetailsOfExceptionalLetters>();
+            CreateMap<DetailsOfTheoreticalFailingGradesReq, DetailsOfTheoreticalFailingGrades>();
+            CreateMap<EstimatesNotDefinedInTheListReq, EstimatesNotDefinedInTheList>();
+            CreateMap<ExceptionalLetterGradesReq, ExceptionalLetterGrades>();
+            CreateMap<FailureEstimatesInTheListReq, FailureEstimatesInTheList>();
 
+<<<<<<< HEAD
             #region
             CreateMap<programLevels, ProgramLevelResponseDto>()
                 .ForMember(d => d.TheLevel, o => o.MapFrom(s => s.TheLevel.levels))
@@ -125,13 +146,46 @@ namespace Talabat.APIs.Helpers
             #endregion
 
 
+=======
+            CreateMap<Control, ControlDTO>()
+                  .ForMember(c => c.FirstReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.FirstGrades.TheGrade))
+                  .ForMember(c => c.SecondReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.SecondGrades.TheGrade))
+                  .ForMember(c => c.ThirdReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.ThirdGrades.TheGrade))
+                  .ForMember(c => c.EstimatingTheTheoreticalFailure, O => O.MapFrom(s => s.TheoriticalFailure.TheGrade))
+                  .ForMember(c => c.EstimateDeprivationBeforeTheExam, O => O.MapFrom(s => s.EstimateDeprivationBeforeTheExam.TheGrade))
+                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade))
+                  .ForMember(D => D.FailureEstimatesInTheLists, o => o.MapFrom(s => string.Join(",", s.FailureEstimatesInTheLists.Select(gl => gl.grades.TheGrade))))
+                  .ForMember(D => D.ACaseOfAbsenceInTheDetailedGrades, o => o.MapFrom(s => string.Join(",", s.ACaseOfAbsenceInTheDetailedGrades.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.DetailsOfExceptionalLetters, o => o.MapFrom(s => string.Join(",", s.DetailsOfExceptionalLetters.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.EstimatesNotDefinedInTheLists, o => o.MapFrom(s => string.Join(",", s.EstimatesNotDefinedInTheLists.Select(gl => gl.Grades.TheGrade))))
+                  .ForMember(D => D.ASuccessRatingDoesNotAddHours, o => o.MapFrom(s => string.Join(",", s.ASuccessRatingDoesNotAddHours.Select(gl => gl.Grades.TheGrade))))
+                  .ReverseMap();
+            CreateMap<ACaseOfAbsenceInTheDetailedGrades, ACaseOfAbsenceInTheDetailedGradesDTO>()
+                .ForMember(c => c.GradeGetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<ASuccessRatingDoesNotAddHoursOrAverage, ASuccessRatingDoesNotAddHoursOrAverageDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<DetailsOfExceptionalLetters, DetailsOfExceptionalLettersDTO>()
+             .ForMember(c => c.GradeDetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<DetailsOfTheoreticalFailingGrades, DetailsOfTheoreticalFailingGradesDTO>()
+             .ForMember(c => c.GradeDetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
+            CreateMap<EstimatesNotDefinedInTheList, EstimatesNotDefinedInTheListDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<ExceptionalLetterGrades, ExceptionalLetterGradesDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+            CreateMap<FailureEstimatesInTheList, FailureEstimatesInTheListDTO>()
+             .ForMember(c => c.Grade, O => O.MapFrom(s => s.grades.TheGrade)).ReverseMap();
+            #endregion
+            #region CourseInfo
+>>>>>>> 8712790eb02a70ac58b98d8e715538429aef2f5f
             CreateMap<CourseInfoDTO, CourseInformation>();
             CreateMap<CoursesAndGradesDetailsDTO, CoursesandGradesDetails>();
             CreateMap<PreRequisiteCoursesDTO, PreRequisiteCourses>();
 
-            CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>(); 
+            CreateMap<DetailsOfFailingGradesDTO, DetailsOfFailingGrades>();
             CreateMap<CoursesAndHoursDTO, CoursesAndHours>();
-            
+
+            #endregion
+
 
 
             #region  Maps For Lockups with UNI

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Grad.Core.Entities.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Repositories;
 using Talabat.Core.Specifications;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 namespace Talabat.Repository
 {
@@ -58,6 +60,7 @@ namespace Talabat.Repository
             await _dbcontext.Set<T>().AddAsync(item);
         }
 
+
         public void Delete(T item)
         {
             _dbcontext.Set<T>().Remove(item);
@@ -67,6 +70,8 @@ namespace Talabat.Repository
         {
             _dbcontext.Set<T>().Update(item);
         }
+
+        
 
         public async Task<bool> ExistAsync(Expression<Func<T, bool>> filter = null, Expression<Func<T, bool>> universityFilter = null, string includeProperties = null, bool ignoreQueryFilters = false)
         {
