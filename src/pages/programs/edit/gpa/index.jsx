@@ -89,14 +89,14 @@ const GpaPage = () => {
                                                         تقديرات المحاولات التي لا تحتسب
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="try">
-                                                            <option selected disabled>  </option>
-                                                            <option value="option1">أ </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="try" multiple>
+                                                            <option value="option1">أ</option>
                                                             <option value="option2">ب</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="replaceCourses">

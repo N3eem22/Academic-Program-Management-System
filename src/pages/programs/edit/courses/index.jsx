@@ -1,9 +1,54 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
 const CoursesPage = () => {
+    const [selectedValueGrade, setSelectedValueGrade] = useState("");
+    const [selectedValueHours, setSelectedValueHours] = useState("");
+    const [selectedValueGradeCourse, setSelectedValueGradeCourse] = useState("");
+    const [gradeSections, setGradeSections] = useState([]);
+    const [hoursSections, setHoursSections] = useState([]);
+    const [courseSections, setCourseSections] = useState([]);
 
+    const handleSelectChangeGrade = (event) => {
+        setSelectedValueGrade(event.target.value);
+    };
+
+    const handleSelectChangeHours = (event) => {
+        setSelectedValueHours(event.target.value);
+    };
+
+    const handleSelectChangeGradeCourse = (event) => {
+        setSelectedValueGradeCourse(event.target.value);
+    };
+
+    const handlePlusIconClick = (sectionType) => {
+        const newSection = {
+            id: sectionType === "grade" ? gradeSections.length + 1 : sectionType === "hours" ? hoursSections.length + 1 : courseSections.length + 1,
+            selectedValue: sectionType === "grade" ? selectedValueGrade : sectionType === "hours" ? selectedValueHours : selectedValueGradeCourse,
+        };
+
+        if (sectionType === "grade") {
+            setGradeSections([...gradeSections, newSection]);
+        } else if (sectionType === "hours") {
+            setHoursSections([...hoursSections, newSection]);
+        } else {
+            setCourseSections([...courseSections, newSection]);
+        }
+    };
+
+    const handleRemoveSection = (id, sectionType) => {
+        if (sectionType === "grade") {
+            const updatedSections = gradeSections.filter((section) => section.id !== id);
+            setGradeSections(updatedSections);
+        } else if (sectionType === "hours") {
+            const updatedSections = hoursSections.filter((section) => section.id !== id);
+            setHoursSections(updatedSections);
+        } else {
+            const updatedSections = courseSections.filter((section) => section.id !== id);
+            setCourseSections(updatedSections);
+        }
+    };
     return (
         <Fragment>
             <div className="container " dir="rtl">
@@ -131,56 +176,64 @@ const CoursesPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6">
+                                            <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailGradeForPart">
-                                                        الدرجات التفصيلية للجزء<span className="text-danger">*</span>
+                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="detailGradeForPart">
+                                                        الدرجات التفصيلية للجزء
                                                     </label>
-                                                    <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="detailGradeForPart">
+                                                    <div className="col-lg-2">
+                                                        <select className="form-select fs-5 custom-select-start" id="detailGradeForPart" onChange={handleSelectChangeGrade} value={selectedValueGrade}>
                                                             <option selected disabled> </option>
-                                                            <option value="option1">المستوى الرابع</option>
-                                                            <option value="option2">المستوى الخامس</option>
+                                                            <option value="المستوى الرابع">المستوى الرابع</option>
+                                                            <option value="المستوى الخامس">المستوى الخامس</option>
                                                         </select>
                                                     </div>
                                                     <div className="col-md-1">
-                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }}>
+                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handlePlusIconClick("grade")}>
                                                             <span className="input-group-text">
-                                                                <i class="fa-solid fa-plus fw-bold fs-5"></i>
+                                                                <i className="fa-solid fa-plus fw-bold fs-5"></i>
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    {gradeSections.map((section) => (
+                                                        <div className="col-md-2" key={section.id}>
+                                                            <span className={`border ${styles.border}`}>
+                                                                <div className="form-group row">
+                                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label">
+                                                                        {section.selectedValue}
+                                                                    </label>
+                                                                    <div className="col-lg-4">
+                                                                        <div className="input-group">
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                style={{ textAlign: "center" }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-3">
+                                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id, "grade")}>
+                                                                            <span className="input-group-text">
+                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <span className={`border ${styles.border}`}>
-                                                    <div className="form-group  row">
-                                                        <label className="col-lg-3 fw-semibold fs-5 col-form-label" htmlFor="addLevel">
-                                                            كود المقرر:
-                                                        </label>
-                                                        <div class="col-lg-5 ">
-                                                            <div class="input-group">
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    id="addLevel"
-                                                                    name="addLevel"
-                                                                    style={{ textAlign: "center" }}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div className="col-xl-6">
+
+                                            <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label
-                                                        className="col-lg-4 fw-semibold fs-5 col-form-label"
+                                                        className="col-lg-2 fw-semibold fs-5 col-form-label"
                                                         htmlFor="highGrade"
                                                     >
                                                         الدرجة العظمى  <span className="text-danger">*</span>
                                                     </label>
-                                                    <div className="col-lg-6">
+                                                    <div className="col-lg-2">
 
                                                         <input
                                                             type="text"
@@ -192,56 +245,110 @@ const CoursesPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6"></div>
-                                            <div className="col-xl-6">
+                                            <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="hours">
-                                                        الساعات<span className="text-danger">*</span>
+                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="hours">
+                                                        الساعات
                                                     </label>
-                                                    <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="hours">
+                                                    <div className="col-lg-2">
+                                                        <select className="form-select fs-5 custom-select-start" id="hours" onChange={handleSelectChangeHours} value={selectedValueHours}>
                                                             <option selected disabled> </option>
-                                                            <option value="option1">المستوى الرابع</option>
-                                                            <option value="option2">المستوى الخامس</option>
+                                                            <option value="الساعات المعتمدة">الساعات المعتمدة </option>
+                                                            <option value="ساعات المحاضرة">ساعات المحاضرة </option>
                                                         </select>
                                                     </div>
                                                     <div className="col-md-1">
-                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }}>
+                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handlePlusIconClick("hours")}>
                                                             <span className="input-group-text">
-                                                                <i class="fa-solid fa-plus fw-bold fs-5"></i>
+                                                                <i className="fa-solid fa-plus fw-bold fs-5"></i>
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    {hoursSections.map((section) => (
+                                                        <div className="col-md-2" key={section.id}>
+                                                            <span className={`border ${styles.border}`}>
+                                                                <div className="form-group row">
+                                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label">
+                                                                        {section.selectedValue}
+                                                                    </label>
+                                                                    <div className="col-lg-4">
+                                                                        <div className="input-group">
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                style={{ textAlign: "center" }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-3">
+                                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id, "hours")}>
+                                                                            <span className="input-group-text">
+                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
-                                            {/* hidden */}
-                                            <div className="col-md-6">
-                                                <span className={`border ${styles.border}`}>
-                                                    <div className="form-group  row">
-                                                        <label className="col-lg-3 fw-semibold fs-5 col-form-label" htmlFor="addLevel">
-                                                            كود المقرر:
-                                                        </label>
-                                                        <div class="col-lg-5 ">
-                                                            <div class="input-group">
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    id="addLevel"
-                                                                    name="addLevel"
-                                                                    style={{ textAlign: "center" }}
-                                                                />
-                                                            </div>
+                                            <div className="col-xl-12">
+                                                <div className="form-group mb-3 row">
+                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="detailGradeForCourse">
+                                                        الدرجات التفصيلية للمقرر
+                                                    </label>
+                                                    <div className="col-lg-2">
+                                                        <select className="form-select fs-5 custom-select-start" id="detailGradeForCourse" onChange={handleSelectChangeGradeCourse} value={selectedValueGradeCourse}>
+                                                            <option selected disabled> </option>
+                                                            <option value="منتصف الفصل">منتصف الفصل</option>
+                                                            <option value="منتصف الفصل 2">منتصف الفصل 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-1">
+                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handlePlusIconClick("course")}>
+                                                            <span className="input-group-text">
+                                                                <i className="fa-solid fa-plus fw-bold fs-5"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                </span>
+                                                    {courseSections.map((section) => (
+                                                        <div className="col-md-2" key={section.id}>
+                                                            <span className={`border ${styles.border}`}>
+                                                                <div className="form-group row">
+                                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label">
+                                                                        {section.selectedValue}
+                                                                    </label>
+                                                                    <div className="col-lg-4">
+                                                                        <div className="input-group">
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                style={{ textAlign: "center" }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-3">
+                                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id, "course")}>
+                                                                            <span className="input-group-text">
+                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
-                                            <div className="col-xl-6">
+
+                                            {/* <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailGrade">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailGradeForCourse">
                                                         الدرجات التفصيلية للمقرر<span className="text-danger">*</span>
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="detailGrade">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="detailGradeForCourse">
                                                             <option selected disabled> </option>
                                                             <option value="option1">المستوى الرابع</option>
                                                             <option value="option2">المستوى الخامس</option>
@@ -259,7 +366,7 @@ const CoursesPage = () => {
                                                 </div>
 
                                             </div>
-                                            {/* hidden */}
+                                            {/* hidden 
                                             <div className="col-md-6">
                                                 <span className={`border ${styles.border}`}>
                                                     <div className="form-group  row">
@@ -279,17 +386,16 @@ const CoursesPage = () => {
                                                         </div>
                                                     </div>
                                                 </span>
-                                            </div>
+                                            </div> */}
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="failGrades">
                                                         تفاصيل درجات الرسوب النظري  <span className="text-danger">*</span>
                                                     </label>
-                                                    <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="failGrades">
-                                                            <option selected disabled> </option>
-                                                            <option value="option1">المستوى الرابع</option>
-                                                            <option value="option2">المستوى الخامس</option>
+                                                    <div className="col-lg-4">
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="failGrades" multiple>
+                                                            <option value="المستوى الرابع">المستوى الرابع</option>
+                                                            <option value="المستوي الخامس">المستوى الخامس</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -355,11 +461,11 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="detailGrade">
+                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="typeOfCourse">
                                                         نوع المقرر<span className="text-danger">*</span>
                                                     </label>
                                                     <div className="col-lg-3">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="detailGrade">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="typeOfCourse">
                                                             <option selected disabled> </option>
                                                             <option value="option1">اجباري</option>
                                                             <option value="option2">اختيارى</option>
@@ -392,14 +498,14 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="failGrades">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="lastQualification">
                                                         المؤهل السابق
                                                     </label>
-                                                    <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="failGrades">
-                                                            <option selected disabled> </option>
-                                                            <option value="option1">ثانوي عام علوم</option>
-                                                            <option value="option2"> ثانوي زراعي 3 </option>
+
+                                                    <div className="col-lg-4">
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="lastQualification" multiple>
+                                                            <option value="ثانوي عام علوم">ثانوي عام علوم</option>
+                                                            <option value="ثانوي زراعي 3"> ثانوي زراعي 3 </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -525,7 +631,7 @@ const CoursesPage = () => {
                                                 <div className="form-group mb-3 row">
                                                     <label
                                                         className="col-lg-3 fw-semibold fs-5 col-form-label"
-                                                        htmlFor="previousNum"
+
                                                     >
                                                         تقديرات التخفيض لمرات الرسوب
                                                     </label>
@@ -634,8 +740,8 @@ const CoursesPage = () => {
                                             <div className="col-xl-6"></div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="degree" value="تسجيل المقرر في الترم الصيفى " checked />
-                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="degree">تسجيل المقرر في الترم الصيفي  </label>
+                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="registerCourseInSummerTerm" value="تسجيل المقرر في الترم الصيفى " />
+                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="registerCourseInSummerTerm">تسجيل المقرر في الترم الصيفي  </label>
                                                 </div>
                                             </div>
                                             <br /> <br />
@@ -657,23 +763,23 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-lg-3">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="degree" value="تسجيل المقرر في الترم الصيفى " checked />
-                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="degree">مادة نجاح او رسوب</label>
+                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="successOrFail" value="تسجيل المقرر في الترم الصيفى " />
+                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="successOrFail">مادة نجاح او رسوب</label>
                                                 </div>
                                             </div>
                                             <div className="col-xl-3">
                                                 <div className="form-group row">
                                                     <div className="col-lg-3">
                                                         <input className="form-check-input  m-1 mt-2" type="radio" name="gender" id="male" value="ذكر" />
-                                                        <label className="form-check-label fw-semibold f-5" htmlFor="add">ذكور   </label>
+                                                        <label className="form-check-label fw-semibold f-5" htmlFor="male">ذكور   </label>
                                                     </div>
                                                     <div className="col-lg-3">
                                                         <input className="form-check-input m-1 mt-2" type="radio" name="gender" id="female" value="اناث" />
-                                                        <label className="form-check-label fw-semibold f-5" htmlFor="justHours"> اناث   </label>
+                                                        <label className="form-check-label fw-semibold f-5" htmlFor="female"> اناث   </label>
                                                     </div>
                                                     <div className="col-lg-4">
                                                         <input className="form-check-input m-1 mt-2" type="radio" name="gender" id="maleAndFemale" value="ذكور  واناث" />
-                                                        <label className="form-check-label fw-semibold f-5" htmlFor="noAdd">ذكور واناث</label>
+                                                        <label className="form-check-label fw-semibold f-5" htmlFor="maleAndFemale">ذكور واناث</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -688,12 +794,12 @@ const CoursesPage = () => {
                                                 </div>
                                             </div>
                                             <div className="d-grid gap-2 d-md-block text-center mt-3">
-                                                <button className={ ` btn fs-4 fw-semibold px-4  text-white ${styles.save} `} type="button">
-                                                <i className="fa-regular fa-bookmark"></i> حفظ
+                                                <button className={` btn fs-4 fw-semibold px-4  text-white ${styles.save} `} type="button">
+                                                    <i className="fa-regular fa-bookmark"></i> حفظ
                                                 </button>
                                             </div>
 
-                                            
+
 
 
 

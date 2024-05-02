@@ -220,18 +220,13 @@ const ControlPage = () => {
                                                         <span className={styles.hoverText}>تقديرات الرسوب المتوقعة هي (ر,غ,م,مح,غ,NP,رن)</span>
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="failRate">
-                                                            <option selected disabled>  </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="failRate" multiple>
                                                             <option value="أ">أ </option>
                                                             <option value="ب">ب</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
-
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="rateReduction">
@@ -253,16 +248,16 @@ const ControlPage = () => {
                                             </div>
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="failRate">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="failDetailsGrade">
                                                         تفاصيل درجات الرسوب النظري
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="failRate">
-                                                            <option selected disabled>  </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="failDetailsGrade" multiple>
                                                             <option value="منتصف الفصل ">منتصف الفصل  </option>
                                                             <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
                                                         </select>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div className="col-xl-12">
@@ -307,13 +302,14 @@ const ControlPage = () => {
                                                     <label className="col-lg-3 fw-semibold fs-5 col-form-label" htmlFor="inCaseAbsenceInDetailedGrades">
                                                         فى حالة غياب فى الدرجات التفصيلية
                                                     </label>
+
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="inCaseAbsenceInDetailedGrades">
-                                                            <option selected disabled>  </option>
-                                                            <option value="منتصف الفصل  ">منتصف الفصل   </option>
-                                                            <option value=" منتصف الفصل 2  ">منتصف الفصل 2   </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="inCaseAbsenceInDetailedGrades" multiple>
+                                                            <option value="منتصف الفصل ">منتصف الفصل  </option>
+                                                            <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
                                                         </select>
                                                     </div>
+
                                                     <div class="col-lg-2 ">
                                                         <div className="form-group mb-3 row">
                                                             <div className="col-lg-4">
@@ -334,8 +330,7 @@ const ControlPage = () => {
                                                         تفاصيل الحروف الاستثانئية
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="charDetails">
-                                                            <option selected disabled>  </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="charDetails" multiple>
                                                             <option value="منتصف الفصل ">منتصف الفصل  </option>
                                                             <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
                                                         </select>
@@ -368,7 +363,7 @@ const ControlPage = () => {
                                                     </label>
                                                     <div className="col-lg-2">
                                                         <select className="form-select fs-5 custom-select-start" id="exceptionLettersEstimate" onChange={handleSelectChange} value={selectedValue}>
-                                                        <option selected disabled>  </option>
+                                                            <option selected disabled>  </option>
                                                             <option value="أ">أ</option>
                                                             <option value="ب">ب</option>
                                                         </select>
@@ -416,8 +411,7 @@ const ControlPage = () => {
                                                         تقديرات غير معرفة باللائحة
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="notDefinedInTheList">
-                                                            <option selected disabled>  </option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="notDefinedInTheList" multiple>
                                                             <option value="منتصف الفصل ">منتصف الفصل  </option>
                                                             <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
                                                         </select>
@@ -486,45 +480,26 @@ const ControlPage = () => {
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="successRateNotAdded">
                                                         تقدير الساعات لا يضاف للساعات ولا للمعدل
                                                     </label>
+                                                    
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="successRateNotAdded">
-                                                            <option selected disabled></option>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="successRateNotAdded" multiple>
                                                             <option value="أ">أ</option>
                                                             <option value="د">د</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                             <div className="row justify-content-center text-center">
 
 
                                                 <div className="col-md-12">
-                                                <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button">
+                                                    <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button">
                                                         <i className="fa-solid fa-lock"></i> غلق
                                                     </button>
                                                     <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="button">
                                                         <i className="fa-regular fa-bookmark"></i> حفظ
                                                     </button>
-                                                    
                                                 </div>
-
-                                               
-
-
                                             </div>
 
 
