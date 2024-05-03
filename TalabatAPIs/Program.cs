@@ -13,6 +13,7 @@ using Talabat.Core.Entities.Identity;
 using Talabat.Core.Repositories;
 using Talabat.Repository;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 //test
 public class Program
@@ -85,13 +86,25 @@ public class Program
   
         builder.Services.AddApplicationService();
         builder.Services.AddIdentityServices(builder.Configuration);
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("MyCorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+                      
+            });
+        });
+
         using var app = builder.Build();
-       
-        
+        #endregion
+
+
         #region Update Database
 
 
-    
+
         var Scopped = app.Services.CreateScope();
         var services = Scopped.ServiceProvider;
         var LoggerFactory=services.GetService<ILoggerFactory>();
@@ -129,17 +142,22 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseRouting(); // Ensure routing is configured
+
+        app.UseCors("MyCorsPolicy");
         app.UseStaticFiles();
         app.UseStatusCodePagesWithRedirects("/errors/{0}");
 
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.Run();
 
     }
 }
-	#endregion 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d

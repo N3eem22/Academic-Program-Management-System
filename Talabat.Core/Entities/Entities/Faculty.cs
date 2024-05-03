@@ -16,5 +16,6 @@ namespace Talabat.Core.Entities.Entities
 
         public ICollection<CollegeCourses> CollegeCourses { get; set; } = new HashSet<CollegeCourses>();
         public ICollection<Programs> Programs { get; set; } = new HashSet<Programs>();
+        public ICollection<ProgramInformation> ProgramInformations { get; set; } = new HashSet<ProgramInformation>();
     }
 }

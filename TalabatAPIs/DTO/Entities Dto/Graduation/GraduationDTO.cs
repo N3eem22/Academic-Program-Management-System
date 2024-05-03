@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Stripe;
+using System.ComponentModel;
 
 namespace Grad.APIs.DTO.Entities_Dto.Graduation
 {
@@ -22,11 +23,11 @@ namespace Grad.APIs.DTO.Entities_Dto.Graduation
         public int DetermineTheRankBasedOn { get; set; }
         public int RateBase { get; set; }
         public ICollection<AverageValueDTO>? AverageValues { get; set; } = new HashSet<AverageValueDTO>();
-
+        public string GraduationAverageValues { get; set; }
         public bool ComparingCumulativeAverageForEachYear { get; set; }
         public int? StudyYears { get; set; }
-        public ICollection<GraduationLevelsDTO> LevelsTobePassed { get; set; } = new HashSet<GraduationLevelsDTO>();
-        public ICollection<GraduationSemestersDTO> SemestersTobePssed { get; set; } = new HashSet<GraduationSemestersDTO>();
+        public string GraduationLevels { get; set; }
+        public string GraduationSemesters { get; set; }
         public string? TheMinimumGradeForTheCourse { get; set; }
     }
 }

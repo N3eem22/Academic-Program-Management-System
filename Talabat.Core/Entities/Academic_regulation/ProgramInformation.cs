@@ -14,7 +14,7 @@ namespace Talabat.Core.Entities.Academic_regulation
     public class ProgramInformation : BaseEntity
     {
         [ForeignKey("Programs")] 
-        public int ProgramId {  get; set; }
+        public int ProgramsId {  get; set; }
         public Programs Programs { get; set; }
         
         [Required]
@@ -25,7 +25,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         public string MajorNameInArabic { get; set; }
         public string MajorNameInEnglish { get; set; }
         public int ProgramCode { get; set; }
-        public string Institute { get; set; }
+        [ForeignKey("Faculty")]
+        public int FacultyId { get; set; }
+        public Faculty Institue { get; set; }
+        //public string Institute { get; set; }
 
         [Required]
         [ForeignKey("AcademicDegree")]
@@ -67,7 +70,6 @@ namespace Talabat.Core.Entities.Academic_regulation
         public int PassingTheElectiveGroupBasedOnId { get; set; }
         public PassingTheElectiveGroupBasedOn PassingTheElectiveGroupBasedOn { get; set; }
         public string pre_Requisite { get; set; }
-        public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
         [ForeignKey("EditTheStudentLevel")]
         public int EditTheStudentLevelId { get; set; }
         public EditTheStudentLevel EditTheStudentLevel { get; set; }
@@ -122,10 +124,7 @@ namespace Talabat.Core.Entities.Academic_regulation
         [Required]
         [DefaultValue("استبيان النظام الداخلي")]
         public string Questionnaire { get; set; }
-
-        public string DetailedGradesToBeAnnounced { get; set; }
-        public CumulativeAverage? ComulativeAvaregeId { get; set; }
-
+        public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
         public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
         public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
         public ICollection<PI_DetailedGradesToBeAnnounced> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnounced>();

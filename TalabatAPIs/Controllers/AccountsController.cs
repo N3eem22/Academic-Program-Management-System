@@ -80,9 +80,11 @@ namespace Talabat.APIs.Controllers
 
 
 
+
             _identityHelper.AssignUserToFaculties(user.Id, model.Facultyid);
 
             _identityHelper.AssignUserToUniversities(user.Id, model.universityID);
+
 
 
             var userRoles = await _manager.GetRolesAsync(user);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 #nullable disable
 
@@ -674,6 +674,9 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("UtmostGrade")
                         .HasColumnType("int");
 
+                    b.Property<bool>("showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProgramId");
@@ -712,6 +715,12 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("AllGradesId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("ProgramInformationId", "AllGradesId");
 
                     b.HasIndex("AllGradesId");
@@ -748,6 +757,12 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("DivisionTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("ProgramInformationId", "DivisionTypeId");
 
                     b.HasIndex("DivisionTypeId");
@@ -762,6 +777,12 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("AllGradesId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProgramInformationId", "AllGradesId");
 
@@ -1145,17 +1166,10 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("CalculatingaSpecialRegistrationFeeForaCourseIfaPreviousAssessmentOfTheCourseIsIncomplete")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ComulativeAvaregeIdId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CreditHours")
                         .HasColumnType("int");
 
                     b.Property<string>("Degree")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DetailedGradesToBeAnnounced")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1172,6 +1186,9 @@ namespace Grad.Repository.Migrations
                     b.Property<bool>("ExcludingTheBudgetTermWhenCalculatingTheGPA")
                         .HasColumnType("bit");
 
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FailureTimesForRe_Enrollment")
                         .HasColumnType("int");
 
@@ -1180,10 +1197,6 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("FreeHours")
                         .HasColumnType("int");
-
-                    b.Property<string>("Institute")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InstitutionCode")
                         .HasColumnType("int");
@@ -1228,9 +1241,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("ProgramCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProgramNameInArabic")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1238,6 +1248,9 @@ namespace Grad.Repository.Migrations
                     b.Property<string>("ProgramNameInEnglish")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProgramsId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProjectHours")
                         .HasColumnType("int");
@@ -1295,13 +1308,13 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("BurdanCalculationId");
 
-                    b.HasIndex("ComulativeAvaregeIdId");
-
                     b.HasIndex("EditTheStudentLevelId");
+
+                    b.HasIndex("FacultyId");
 
                     b.HasIndex("PassingTheElectiveGroupBasedOnId");
 
-                    b.HasIndex("ProgramId");
+                    b.HasIndex("ProgramsId");
 
                     b.HasIndex("ReasonForBlockingRegistrationId");
 
@@ -2210,14 +2223,22 @@ namespace Grad.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
+                    b.Property<string>("Action")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ObjectJson")
+                    b.Property<string>("Changes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -3010,14 +3031,16 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Grad.Core.Entities.CumulativeAverage.CumulativeAverage", "ComulativeAvaregeId")
-                        .WithMany()
-                        .HasForeignKey("ComulativeAvaregeIdId");
-
                     b.HasOne("Talabat.Core.Entities.Lockups.EditTheStudentLevel", "EditTheStudentLevel")
                         .WithMany("Program_Information")
                         .HasForeignKey("EditTheStudentLevelId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Talabat.Core.Entities.Entities.Faculty", "Institue")
+                        .WithMany("ProgramInformations")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Talabat.Core.Entities.Lockups.PassingTheElectiveGroupBasedOn", "PassingTheElectiveGroupBasedOn")
                         .WithMany("Program_Information")
@@ -3027,7 +3050,7 @@ namespace Grad.Repository.Migrations
 
                     b.HasOne("Talabat.Core.Entities.Entities.Programs", "Programs")
                         .WithMany("Program_Information")
-                        .HasForeignKey("ProgramId")
+                        .HasForeignKey("ProgramsId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -3077,9 +3100,9 @@ namespace Grad.Repository.Migrations
 
                     b.Navigation("BurdenCalculation");
 
-                    b.Navigation("ComulativeAvaregeId");
-
                     b.Navigation("EditTheStudentLevel");
+
+                    b.Navigation("Institue");
 
                     b.Navigation("PassingTheElectiveGroupBasedOn");
 
@@ -3485,6 +3508,8 @@ namespace Grad.Repository.Migrations
                     b.Navigation("CollegeCourses");
 
                     b.Navigation("FacultyAppUsers");
+
+                    b.Navigation("ProgramInformations");
 
                     b.Navigation("Programs");
                 });

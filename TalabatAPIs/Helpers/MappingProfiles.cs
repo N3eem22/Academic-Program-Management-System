@@ -3,14 +3,25 @@ using Grad.APIs.DTO;
 using Grad.APIs.DTO.Entities_Dto;
 using Grad.APIs.DTO.Entities_Dto.Cumulative_Average;
 using Grad.APIs.DTO.Entities_Dto.Graduation;
+using Grad.APIs.DTO.Entities_Dto.ProgramLEvelsDTO;
 using Grad.APIs.DTO.Lockups_Dto;
+using Grad.APIs.DTO.ProgrmInformation;
+using Grad.Core.Entities.Academic_regulation;
+<<<<<<< HEAD
 using Grad.Core.Entities.Control;
+using Grad.Core.Entities.Control;
+=======
+
+using Grad.Core.Entities.Control;
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Entities;
 using Grad.Core.Entities.Graduation;
 using Grad.Core.Entities.Lockups;
 using Talabat.APIs.DTO;
 using Talabat.Core.Entities;
+using Talabat.Core.Entities.Academic_regulation;
 using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Identity;
 using Talabat.Core.Entities.Lockups;
@@ -23,7 +34,6 @@ namespace Talabat.APIs.Helpers
         {
 
             CreateMap<AppUser , UsersReturn>().ReverseMap();
-
 
             CreateMap<CollegeCourses, CollegeCoursesDTO>()
           .ForMember(D => D.Faculty, O => O.MapFrom(s => s.Faculty.FacultyName)).ReverseMap();
@@ -40,7 +50,11 @@ namespace Talabat.APIs.Helpers
             CreateMap<GraduationSemestersReq, GraduationSemesters>();
             
             CreateMap<Graduation, GraduationDTO>()
-                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.TheMinimumGradeForTheCourse, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GraduationLevels , o => o.MapFrom(s => string.Join(",", s.LevelsTobePassed.Select(gl => gl.Level.levels))))
+                .ForMember(D => D.GraduationSemesters, o => o.MapFrom(s => string.Join(",", s.SemestersTobePssed.Select(gl => gl.semesters.semesters))))
+                .ReverseMap()
+                ;
 
             CreateMap<AverageValue, AverageValueDTO>()
                 .ForMember(D => D.EquivalentGrade, O => O.MapFrom(s => s.EquivalentGrade.equivalentGrade))
@@ -54,7 +68,10 @@ namespace Talabat.APIs.Helpers
             #region CumulativeAverage
 
             CreateMap<CumulativeAverage, CumulativeAverageDTO>()
-                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
+                .ForMember(D => D.UtmostGrade, O => O.MapFrom(s => s.Grades.TheGrade))
+                .ForMember(D => D.GadesOfEstimatesThatDoesNotCount, o => o.MapFrom(s => string.Join(",", s.GadesOfEstimatesThatDoesNotCount.Select(gl => gl.Grades.TheGrade))))
+
+                .ReverseMap();
 
             CreateMap<GadesOfEstimatesThatDoesNotCount, GadesOfEstimatesThatDoesNotCountDTO>()
                 .ForMember(D => D.Grade, O => O.MapFrom(s => s.Grades.TheGrade)).ReverseMap();
@@ -63,6 +80,81 @@ namespace Talabat.APIs.Helpers
 
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
             #endregion
+
+<<<<<<< HEAD
+            #region programLevels
+=======
+            #region
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
+            CreateMap<programLevels, ProgramLevelResponseDto>()
+                .ForMember(d => d.TheLevel, o => o.MapFrom(s => s.TheLevel.levels));
+            CreateMap<ProgramLevelRequestDto, programLevels>();
+            #endregion
+
+            #region Programs
+            CreateMap<Programs, ProgramDTO>()
+                   .ForMember(d => d.Faculty, o => o.MapFrom(s => s.Faculty.FacultyName));
+
+            CreateMap<ProgramReqDTO, Programs>();
+            #endregion
+
+            #region Program_theGrade
+            CreateMap<Program_TheGrades, Program_TheGradesDTO>()
+                   .ForMember(d => d.TheGrade, o => o.MapFrom(s => s.TheGrade.TheGrade))
+                   .ForMember(d => d.EquivalentEstimate, o => o.MapFrom(s => s.EquivalentEstimate.equivalentGrade))
+                   .ForMember(d => d.prog_Info, o => o.MapFrom(s => s.prog_Info.ProgramNameInArabic))
+                   .ForMember(d => d.GraduationEstimate, o => o.MapFrom(s => s.GraduationEstimate.equivalentGrade));
+
+            CreateMap<Program_TheGradesReqDTO, Program_TheGrades>();
+            #endregion
+
+            #region AcademicLoad
+            CreateMap<AcademicLoadAccordingToLevel, AcademicLoadAccordingToLevelDTO>()
+                    .ForMember(d => d.Program_Info, o => o.MapFrom(s => s.Program_Info.ProgramNameInArabic))
+                    .ForMember(d => d.AcademicLevel, o => o.MapFrom(s => s.AcademicLevel.levels));
+
+            CreateMap<AcademicLoadAccordingToLevelReqDTO, AcademicLoadAccordingToLevel>();
+            #endregion
+
+            #region ProgramInformation
+            CreateMap<ProgramInformation, ProgramInformationDTO>()
+                .ForMember(d => d.AcademicDegree, O => O.MapFrom(s => s.AcademicDegree.AcademicDegreeName))
+                .ForMember(d => d.SystemType, O => O.MapFrom(s => s.SystemType.SystemName))
+                .ForMember(d => d.BurdenCalculation, O => O.MapFrom(s => s.BurdenCalculation.BurdenCalculationAS))
+                .ForMember(d => d.PassingTheElectiveGroupBasedOn, O => O.MapFrom(s => s.PassingTheElectiveGroupBasedOn.PassingTheElectiveGroup))
+                .ForMember(d => d.EditTheStudentLevel, O => O.MapFrom(s => s.EditTheStudentLevel.editTheStudentLevel))
+                .ForMember(d => d.BlockingProofOfRegistration, O => O.MapFrom(s => s.BlockingProofOfRegistration.ReasonsOfBlocking))
+                .ForMember(d => d.TypeOfFinancialStatementInTheProgram, O => O.MapFrom(s => s.TypeOfFinancialStatementInTheProgram.TheType))
+                .ForMember(d => d.TypeOfProgramFees, O => O.MapFrom(s => s.TypeOfProgramFees.TypeOfFees))
+                .ForMember(d => d.TypeOfSummerFees, O => O.MapFrom(s => s.TypeOfSummerFees.TheTypeOfSummerFees))
+                .ForMember(d => d.TheResultAppears, O => O.MapFrom(s => s.TheResultAppears.ResultAppears))
+                .ForMember(d => d.TheResultToTheGuid, O => O.MapFrom(s => s.TheResultToTheGuid.ResultAppears))
+                .ForMember(d => d.ReasonForBlockingRegistration, O => O.MapFrom(s => s.ReasonForBlockingRegistration.TheReasonForBlockingRegistration))
+                .ForMember(d => d.TheReasonForHiddingTheResult, O => O.MapFrom(s => s.TheReasonForHiddingTheResult.TheReasonForBlockingAcademicResult))
+                .ForMember(d => d.Institue, o => o.MapFrom(s => s.Institue.FacultyName));
+
+            CreateMap<PI_DivisionType, PI_DivisionTypeDTO>()
+                .ForMember(d => d.DivisionType, O => O.MapFrom(s => s.DivisionType.Division_Type));
+
+            CreateMap<PI_AllGradesSummerEstimate, PI_AllGradesSummerEstimateDTO>()
+                .ForMember(d => d.AllGrades, O => O.MapFrom(s => s.AllGrades.TheGrade));
+
+            CreateMap<PI_DetailedGradesToBeAnnounced, PI_DetailedGradesToBeAnnouncedDTO>()
+                .ForMember(d => d.GradesDetails, O => O.MapFrom(s => s.GradesDetails.TheDetails));
+
+            CreateMap<PI_EstimatesOfCourseFeeExemption, PI_EstimatesOfCourseFeeExemptionDTO>()
+                .ForMember(d => d.AllGrades_Etomate, O => O.MapFrom(s => s.AllGrades.TheGrade));
+
+            CreateMap<ProgramInformationReqDTO, ProgramInformation>();
+            CreateMap<PI_DivisionTypeReqDTO, PI_DivisionType>();
+            CreateMap<PI_EstimatesOfCourseFeeExemptionReqDTO, PI_EstimatesOfCourseFeeExemption>();
+            CreateMap<PI_AllGradesSummerEstimateReqDTO, PI_AllGradesSummerEstimate>();
+            CreateMap<PI_DetailedGradesToBeAnnouncedReqDTO,PI_DetailedGradesToBeAnnounced>();
+
+
+
+            #endregion
+
             #region Control
             CreateMap<ControlReq, Control>();
             CreateMap<ACaseOfAbsenceInTheDetailedGradesReq, ACaseOfAbsenceInTheDetailedGrades>();
@@ -73,13 +165,23 @@ namespace Talabat.APIs.Helpers
             CreateMap<ExceptionalLetterGradesReq, ExceptionalLetterGrades>();
             CreateMap<FailureEstimatesInTheListReq, FailureEstimatesInTheList>();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
             CreateMap<Control, ControlDTO>()
                   .ForMember(c => c.FirstReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.FirstGrades.TheGrade))
                   .ForMember(c => c.SecondReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.SecondGrades.TheGrade))
                   .ForMember(c => c.ThirdReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.ThirdGrades.TheGrade))
                   .ForMember(c => c.EstimatingTheTheoreticalFailure, O => O.MapFrom(s => s.TheoriticalFailure.TheGrade))
                   .ForMember(c => c.EstimateDeprivationBeforeTheExam, O => O.MapFrom(s => s.EstimateDeprivationBeforeTheExam.TheGrade))
-                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade)).ReverseMap();
+                  .ForMember(c => c.EstimateDeprivationAfterTheExam, O => O.MapFrom(s => s.EstimateDeprivationAfterTheExam.TheGrade))
+                  .ForMember(D => D.FailureEstimatesInTheLists, o => o.MapFrom(s => string.Join(",", s.FailureEstimatesInTheLists.Select(gl => gl.grades.TheGrade))))
+                  .ForMember(D => D.ACaseOfAbsenceInTheDetailedGrades, o => o.MapFrom(s => string.Join(",", s.ACaseOfAbsenceInTheDetailedGrades.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.DetailsOfExceptionalLetters, o => o.MapFrom(s => string.Join(",", s.DetailsOfExceptionalLetters.Select(gl => gl.GradesDetails.TheDetails))))
+                  .ForMember(D => D.EstimatesNotDefinedInTheLists, o => o.MapFrom(s => string.Join(",", s.EstimatesNotDefinedInTheLists.Select(gl => gl.Grades.TheGrade))))
+                  .ForMember(D => D.ASuccessRatingDoesNotAddHours, o => o.MapFrom(s => string.Join(",", s.ASuccessRatingDoesNotAddHours.Select(gl => gl.Grades.TheGrade))))
+                  .ReverseMap();
             CreateMap<ACaseOfAbsenceInTheDetailedGrades, ACaseOfAbsenceInTheDetailedGradesDTO>()
                 .ForMember(c => c.GradeGetail, O => O.MapFrom(s => s.GradesDetails.TheDetails)).ReverseMap();
             CreateMap<ASuccessRatingDoesNotAddHoursOrAverage, ASuccessRatingDoesNotAddHoursOrAverageDTO>()
@@ -95,6 +197,8 @@ namespace Talabat.APIs.Helpers
             CreateMap<FailureEstimatesInTheList, FailureEstimatesInTheListDTO>()
              .ForMember(c => c.Grade, O => O.MapFrom(s => s.grades.TheGrade)).ReverseMap();
             #endregion
+
+
             #region CourseInfo
             CreateMap<CourseInfoDTO, CourseInformation>();
             CreateMap<CoursesAndGradesDetailsDTO, CoursesandGradesDetails>();
@@ -244,8 +348,7 @@ namespace Talabat.APIs.Helpers
 
             #endregion
 
-
-
+            
 
 
         }

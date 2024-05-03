@@ -7,6 +7,7 @@ using Talabat.Core.Repositories;
 using Talabat.Core.Services;
 using Talabat.Repository;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 using Talabat.Service;
 
 namespace Talabat.APIs.Exstentions

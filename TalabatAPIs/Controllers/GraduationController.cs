@@ -5,6 +5,7 @@ using Grad.APIs.Helpers;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Graduation;
 using Grad.Core.Specifications.Enities_Spec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Talabat.APIs.Controllers;
@@ -13,6 +14,7 @@ using Talabat.Core;
 using Talabat.Core.Entities.Academic_regulation;
 using Talabat.Core.Entities.Lockups;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 namespace Grad.APIs.Controllers
 {
@@ -60,6 +62,7 @@ namespace Grad.APIs.Controllers
             var GradDTO = _mapper.Map<Graduation, GraduationDTO>(Grad);
             return Ok(GradDTO);
         }
+  
         [HttpPost]
         public async Task<ActionResult<GraduationReq>> AddGraduation(GraduationReq graduationReq)
         {
@@ -76,7 +79,7 @@ namespace Grad.APIs.Controllers
             {
                 
                 var Grad = _unitOfWork.Repository<Graduation>().Add(_mapper.Map<GraduationReq, Graduation>(graduationReq));
-                var result = await _unitOfWork.CompleteAsync() > 0;
+                var result = await _unitOfWork.CompleteAsync(User) > 0;
                 var message = result ? AppMessage.Done : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500, message));
             }

@@ -12,6 +12,7 @@ using Talabat.Core.Entities.Lockups;
 using Talabat.Core.Repositories;
 using Talabat.Core.Specifications;
 using Talabat.Repository.Data;
+using Talabat.Repository.Data.Talabat.Repository.Data;
 
 namespace Talabat.Repository
 {

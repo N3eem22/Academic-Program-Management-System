@@ -1,5 +1,7 @@
 ﻿
 
+using Grad.Core.Entities;
+
 using Grad.Core.Entities.Identity;
 using Grad.Core.Entities.Lockups;
 using Talabat.Core.Entities.Identity;

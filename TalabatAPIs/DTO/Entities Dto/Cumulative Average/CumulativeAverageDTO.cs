@@ -27,10 +27,11 @@
         public bool SummerIsNotExcludedInCalculatingTheAnnualAverage { get; set; }
         public bool TheCumulativeAverageDoesNotAppearInTheStudentGradesPortal { get; set; }
         public bool TheSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades { get; set; }
+        public bool showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal { get; set; }
+
         public bool CalculatingFailingGradePoints { get; set; }
         public bool CalculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage { get; set; }
         public int HowToCalculateTheSemesterAverage { get; set; }
-        public ICollection<GadesOfEstimatesThatDoesNotCountDTO> GadesOfEstimatesThatDoesNotCount { get; set; } = new HashSet<GadesOfEstimatesThatDoesNotCountDTO>();
-
+        public string GadesOfEstimatesThatDoesNotCount { get; set; }
     }
 }
