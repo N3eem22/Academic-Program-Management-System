@@ -18,8 +18,6 @@ import { ManageUsersPage } from "./pages/superadmin/manageusers";
 import { ManageUniPage } from "./pages/superadmin/manageuni";
 import { ManageFacultyPage } from "./pages/admin/managefaculty";
 
-
-
 // mui
 import CircularProgress from "@mui/material/CircularProgress";
 import Layout from "./pages/layout";
@@ -45,7 +43,6 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/levels" element={<LevelsPage />} />
-<<<<<<< HEAD
           <Route path="/estimates" element={<EstimatesPage />} />
           <Route path="/academicload" element={<AcademicloadPage />} />
           <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
@@ -53,14 +50,10 @@ function App() {
           <Route path="/manageusers" element={<ManageUsersPage />} />
           <Route path="/manageuni" element={<ManageUniPage />} />
           <Route path="/managefaculty" element={<ManageFacultyPage />} />
-
-
-=======
-          <Route path="/controls" element={<ControlsPage/>} />
-          <Route path="/courses" element={<CoursesPage/>} />
-          <Route path="/gpa" element={<GpaPage/>} />
-          <Route path="/control" element={<ControlPage/>} />
->>>>>>> c811d3d4ea1a4014b7d5cd9ace33ce63ee3de055
+          <Route path="/controls" element={<ControlsPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/gpa" element={<GpaPage />} />
+          <Route path="/control" element={<ControlPage />} />
         </Route>
         <Route path="/home" element={<HomePage />} />
 
