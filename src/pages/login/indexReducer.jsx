@@ -1,10 +1,12 @@
 export const loginPageStatesInitialState = {
+  login : true,
   success: false,
   error: false,
   pending: false,
   forget: false,
   errorMessage: "",
 };
+
 export const loginPageStatesReducer = (state, action) => {
   if (action.type === "PENDING") {
     return {
@@ -28,6 +30,7 @@ export const loginPageStatesReducer = (state, action) => {
   if (action.type === "FORGET") {
     return {
       ...state,
+      login : false , 
       pending: false,
       success: false,
       error: false,
