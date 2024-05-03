@@ -1,0 +1,7 @@
+@import "../../../../sass/main.scss";
+.save {
+    background-color: $color-main-dark;
+}
+.save:hover {
+    background-color: lighten($color-main-dark, 10%); 
+}

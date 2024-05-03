@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./index.module.scss";
+import { Link } from "react-router-dom";
 
 const SideMenu = ({ activeItem }) => {
   return (
@@ -42,7 +43,7 @@ const SideMenu = ({ activeItem }) => {
               </a>
             </div>
             <div className="">
-              <a className="navbar-brand" href="#">
+              <Link className="navbar-brand" to="/controls">
                 <img
                   src="../src\assets\imgs\gear-wide-connected.svg"
                   alt="Logo"
@@ -51,7 +52,7 @@ const SideMenu = ({ activeItem }) => {
                   className="d-inline-block align-text-center"
                 />
                 نظام التحكم
-              </a>
+              </Link>
             </div>
           </nav>
         </div>
