@@ -7,8 +7,13 @@ using Grad.APIs.DTO.Entities_Dto.ProgramLEvelsDTO;
 using Grad.APIs.DTO.Lockups_Dto;
 using Grad.APIs.DTO.ProgrmInformation;
 using Grad.Core.Entities.Academic_regulation;
+<<<<<<< HEAD
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Control;
+=======
+
+using Grad.Core.Entities.Control;
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
@@ -76,7 +81,11 @@ namespace Talabat.APIs.Helpers
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
             #endregion
 
+<<<<<<< HEAD
             #region programLevels
+=======
+            #region
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
             CreateMap<programLevels, ProgramLevelResponseDto>()
                 .ForMember(d => d.TheLevel, o => o.MapFrom(s => s.TheLevel.levels));
             CreateMap<ProgramLevelRequestDto, programLevels>();
@@ -156,6 +165,10 @@ namespace Talabat.APIs.Helpers
             CreateMap<ExceptionalLetterGradesReq, ExceptionalLetterGrades>();
             CreateMap<FailureEstimatesInTheListReq, FailureEstimatesInTheList>();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d
             CreateMap<Control, ControlDTO>()
                   .ForMember(c => c.FirstReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.FirstGrades.TheGrade))
                   .ForMember(c => c.SecondReductionEstimatesForFailureTimes, O => O.MapFrom(s => s.SecondGrades.TheGrade))

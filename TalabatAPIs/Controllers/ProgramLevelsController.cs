@@ -32,14 +32,14 @@ namespace Grad.APIs.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProgramLevelResponseDto>>> GetAllProgramLevels(int? prog_InfoId)
-        {
-            var spec = new ProgramLevelsSpec(prog_InfoId);
-            var programLevels = await _unitOfWork.Repository<programLevels>().GetAllWithSpecAsync(spec);
-            var programLevelDtos = _mapper.Map<IEnumerable<programLevels>, IEnumerable<ProgramLevelResponseDto>>(programLevels);
-            return Ok(programLevelDtos);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProgramLevelResponseDto>>> GetAllProgramLevels(int? prog_InfoId)
+        //{
+        //    var spec = new ProgramLevelsSpec(prog_InfoId);
+        //    var programLevels = await _unitOfWork.Repository<programLevels>().GetAllWithSpecAsync(spec);
+        //    var programLevelDtos = _mapper.Map<IEnumerable<programLevels>, IEnumerable<ProgramLevelResponseDto>>(programLevels);
+        //    return Ok(programLevelDtos);
+        //}
 
 
         [HttpGet("{id}")]

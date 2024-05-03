@@ -3,6 +3,7 @@ using Grad.APIs.DTO.ProgrmInformation;
 using Grad.APIs.Helpers;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
+using Grad.Core.Entities.Lockups;
 using Grad.Core.Specifications.Enities_Spec;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,8 +51,6 @@ namespace Grad.APIs.Controllers
 
             var spec = new ProgramInformationSpec(id);
             var programInformation = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
-            //if (programInformation == null /*|| programInformation.IsDeleted == true*/)
-            //    return NotFound(new ApiResponse(404));
             await _dbcontext.Set<PI_DivisionType>().Include(p=>p.DivisionType).ToListAsync();
             await _dbcontext.Set<PI_EstimatesOfCourseFeeExemption>().Include(p=>p.AllGrades).ToListAsync();
             await _dbcontext.Set<PI_DetailedGradesToBeAnnounced>().Include(p => p.GradesDetails).ToListAsync();
@@ -63,12 +62,7 @@ namespace Grad.APIs.Controllers
         [HttpPost]
         public async Task<ActionResult<ProgramInformationReqDTO>> AddProgramInformation(ProgramInformationReqDTO programInformationRequest)
         {
-            //bool exists = await _unitOfWork.Repository<ProgramInformation>().ExistAsync(
-            //x => x.ProgramsId == programInformationRequest.ProgramsId && x.IsDeleted == false);
-            //if (exists)
-            //{
-            //    return StatusCode(409, new ApiResponse(409));
-            //}
+           
             var preValidationResult = await ValidateForeignKeyExistence(programInformationRequest);
             if (preValidationResult != null) return preValidationResult;
             try
@@ -115,6 +109,7 @@ namespace Grad.APIs.Controllers
             }
         }
 
+        #region UpdateManytoMany
         private async Task UpdatePI_DivisionType(int id)
         {
             var DivisionTypeToDelete = await _unitOfWork.Repository<PI_DivisionType>()
@@ -172,6 +167,7 @@ namespace Grad.APIs.Controllers
 
         }
 
+        #endregion
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProgramInformation(int id)
@@ -185,11 +181,11 @@ namespace Grad.APIs.Controllers
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
         }
 
+        #region ValidateForeignKeyy
         private async Task<ActionResult> ValidateForeignKeyExistence(ProgramInformationReqDTO programInformationRequest)
         {
             if (programInformationRequest.ProgramsId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<Programs>().GetByIdAsync(programInformationRequest.ProgramsId);
                 if (programExists.IsDeleted == true)
                 {
@@ -198,136 +194,168 @@ namespace Grad.APIs.Controllers
             }
             if (programInformationRequest.AcademicDegreeId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TheAcademicDegree>().GetByIdAsync(programInformationRequest.AcademicDegreeId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.AcademicDegreeId} not found."));
+                    return NotFound(new ApiResponse(404, $"AcademicDegree with ID {programInformationRequest.AcademicDegreeId} not found."));
                 }
             }
 
             if (programInformationRequest.BlockingProofOfRegistrationId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<BlockingProofOfRegistration>().GetByIdAsync(programInformationRequest.BlockingProofOfRegistrationId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.BlockingProofOfRegistrationId} not found."));
+                    return NotFound(new ApiResponse(404, $"BlockingProofOfRegistration with ID {programInformationRequest.BlockingProofOfRegistrationId} not found."));
                 }
 
             }
 
             if (programInformationRequest.BurdanCalculationId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<BurdenCalculation>().GetByIdAsync(programInformationRequest.BurdanCalculationId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.BurdanCalculationId} not found."));
+                    return NotFound(new ApiResponse(404, $"BurdanCalculation with ID {programInformationRequest.BurdanCalculationId} not found."));
                 }
             }
             if (programInformationRequest.EditTheStudentLevelId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<EditTheStudentLevel>().GetByIdAsync(programInformationRequest.EditTheStudentLevelId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.EditTheStudentLevelId} not found."));
+                    return NotFound(new ApiResponse(404, $"EditTheStudentLevel with ID {programInformationRequest.EditTheStudentLevelId} not found."));
                 }
             }
             if (programInformationRequest.FacultyId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<Faculty>().GetByIdAsync(programInformationRequest.FacultyId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.FacultyId} not found."));
+                    return NotFound(new ApiResponse(404, $"Faculty with ID {programInformationRequest.FacultyId} not found."));
                 }
             }
             if (programInformationRequest.PassingTheElectiveGroupBasedOnId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().GetByIdAsync(programInformationRequest.PassingTheElectiveGroupBasedOnId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.PassingTheElectiveGroupBasedOnId} not found."));
+                    return NotFound(new ApiResponse(404, $"PassingTheElectiveGroupBasedOn with ID {programInformationRequest.PassingTheElectiveGroupBasedOnId} not found."));
                 }
             }
             if (programInformationRequest.ReasonForBlockingRegistrationId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<ReasonForBlockingRegistration>().GetByIdAsync(programInformationRequest.ReasonForBlockingRegistrationId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.ReasonForBlockingRegistrationId} not found."));
+                    return NotFound(new ApiResponse(404, $"ReasonForBlockingRegistration with ID {programInformationRequest.ReasonForBlockingRegistrationId} not found."));
                 }
             }
             if (programInformationRequest.SystemTypeId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<SystemType>().GetByIdAsync(programInformationRequest.SystemTypeId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.SystemTypeId} not found."));
+                    return NotFound(new ApiResponse(404, $"SystemType with ID {programInformationRequest.SystemTypeId} not found."));
                 }
             }
             if (programInformationRequest.TheReasonForHiddingTheResultId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<ReasonForBlockingAcademicResult>().GetByIdAsync(programInformationRequest.TheReasonForHiddingTheResultId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TheReasonForHiddingTheResultId} not found."));
+                    return NotFound(new ApiResponse(404, $"TheReasonForHiddingTheResult with ID {programInformationRequest.TheReasonForHiddingTheResultId} not found."));
                 }
             }
             if (programInformationRequest.TheResultAppearsId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TheResultAppears>().GetByIdAsync(programInformationRequest.TheResultAppearsId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TheResultAppearsId} not found."));
+                    return NotFound(new ApiResponse(404, $"TheResultAppears with ID {programInformationRequest.TheResultAppearsId} not found."));
                 }
             }
             if (programInformationRequest.TheResultToTheGuidId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TheResultAppears>().GetByIdAsync(programInformationRequest.TheResultToTheGuidId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TheResultToTheGuidId} not found."));
+                    return NotFound(new ApiResponse(404, $"TheResultToTheGuid with ID {programInformationRequest.TheResultToTheGuidId} not found."));
                 }
             }
             if (programInformationRequest.TypeOfFinancialStatementInTheProgramId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().GetByIdAsync(programInformationRequest.TypeOfFinancialStatementInTheProgramId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TypeOfFinancialStatementInTheProgramId} not found."));
+                    return NotFound(new ApiResponse(404, $"TypeOfFinancialStatementInTheProgram with ID {programInformationRequest.TypeOfFinancialStatementInTheProgramId} not found."));
                 }
             }
             if (programInformationRequest.TypeOfProgramFeesId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TypeOfProgramFees>().GetByIdAsync(programInformationRequest.TypeOfProgramFeesId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TypeOfProgramFeesId} not found."));
+                    return NotFound(new ApiResponse(404, $"TypeOfProgramFees with ID {programInformationRequest.TypeOfProgramFeesId} not found."));
                 }
             }
             if (programInformationRequest.TypeOfSummerFeesId != null)
             {
-                // Program existence check
                 var programExists = await _unitOfWork.Repository<TypeOfSummerFees>().GetByIdAsync(programInformationRequest.TypeOfSummerFeesId);
                 if (programExists.IsDeleted == true)
                 {
-                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.TypeOfSummerFeesId} not found."));
+                    return NotFound(new ApiResponse(404, $"TypeOfSummerFees with ID {programInformationRequest.TypeOfSummerFeesId} not found."));
                 }
             }
-          
+
+            foreach (var DevisionType in programInformationRequest.pI_DivisionTypes)
+            {
+                if (DevisionType.DivisionTypeId != null) 
+                {
+                    var DivisionExists = await _unitOfWork.Repository<DivisionType>().GetByIdAsync(DevisionType.DivisionTypeId) ;
+                    if (DivisionExists.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"Division  with ID {DevisionType.DivisionTypeId} not found."));
+                    }
+                }
+            }
+            foreach (var EstimateOdCourse in programInformationRequest.PI_EstimatesOfCourseFeeExemptions)
+            {
+                if (EstimateOdCourse.AllGradesId != null)
+                {
+                    var estimateOdCourse = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(EstimateOdCourse.AllGradesId);
+                    if (estimateOdCourse.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"EstimatesOfCourseFeeExemptions  with ID {EstimateOdCourse.AllGradesId} not found."));
+                    }
+                }
+            }
+            foreach (var SummerEstimates in programInformationRequest.pI_AllGradesSummerEstimates)
+            {
+                if (SummerEstimates.AllGradesId != null)
+                {
+                    var summerEstimates = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(SummerEstimates.AllGradesId);
+                    if (summerEstimates.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"AllGradesSummerEstimates  with ID {SummerEstimates.AllGradesId} not found."));
+                    }
+                }
+            }
+            foreach (var DetailedGrades in programInformationRequest.pI_DetailedGradesToBeAnnounced)
+            {
+                if (DetailedGrades.GradesDetailsId != null)
+                {
+                    var detailedGrades = await _unitOfWork.Repository<GradesDetails>().GetByIdAsync(DetailedGrades.GradesDetailsId);
+                    if (detailedGrades.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"DetailedGradesToBeAnnounced  with ID {DetailedGrades.GradesDetailsId} not found."));
+                    }
+                }
+            }
+
             return null;
-        }
+        } 
+        #endregion
 
 
     }
