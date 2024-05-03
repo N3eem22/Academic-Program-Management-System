@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talabat.Core.Entities;
 
 namespace Grad.Core.Entities.Entities
 {
-    public class PI_DivisionType
+    public class PI_DivisionType : BaseEntity
     {
         [ForeignKey("DivisionType")]
         public int DivisionTypeId { get; set; }

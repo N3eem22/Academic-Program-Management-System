@@ -14,7 +14,7 @@ namespace Talabat.Core.Entities.Academic_regulation
     public class ProgramInformation : BaseEntity
     {
         [ForeignKey("Programs")] 
-        public int ProgramId {  get; set; }
+        public int ProgramsId {  get; set; }
         public Programs Programs { get; set; }
         
         [Required]
@@ -25,7 +25,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         public string MajorNameInArabic { get; set; }
         public string MajorNameInEnglish { get; set; }
         public int ProgramCode { get; set; }
-        public string Institute { get; set; }
+        [ForeignKey("Faculty")]
+        public int FacultyId { get; set; }
+        public Faculty Institue { get; set; }
+        //public string Institute { get; set; }
 
         [Required]
         [ForeignKey("AcademicDegree")]
@@ -121,7 +124,6 @@ namespace Talabat.Core.Entities.Academic_regulation
         [Required]
         [DefaultValue("استبيان النظام الداخلي")]
         public string Questionnaire { get; set; }
-        public string DetailedGradesToBeAnnounced { get; set; }
         public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
         public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
         public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();

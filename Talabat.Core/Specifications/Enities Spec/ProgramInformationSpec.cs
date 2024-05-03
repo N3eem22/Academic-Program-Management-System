@@ -12,9 +12,10 @@ namespace Grad.Core.Specifications.Enities_Spec
 {
     public class ProgramInformationSpec : BaseSpecifications<ProgramInformation>
     {
-        public ProgramInformationSpec(int? ProgramId)
-         : base(c => (!ProgramId.HasValue || c.ProgramId == ProgramId.Value )&& (c.IsDeleted == false))
+        public ProgramInformationSpec(int ProgramsId)
+         : base(c => ( c.ProgramsId == ProgramsId && c.IsDeleted == false))
         {
+            Includes.Add(Pi => Pi.Programs);
             Includes.Add(pi => pi.AcademicDegree);
             Includes.Add(pi => pi.SystemType);
             Includes.Add(pi => pi.BurdenCalculation);
@@ -32,13 +33,14 @@ namespace Grad.Core.Specifications.Enities_Spec
             Includes.Add(pi => pi.pI_AllGradesSummerEstimates);
             Includes.Add(pi => pi.PI_EstimatesOfCourseFeeExemptions);
             Includes.Add(pi => pi.pI_DetailedGradesToBeAnnounced);
-            Includes.Add(pi => pi.Program_TheGrades);
-            Includes.Add(pi => pi.programLevels);
-            Includes.Add(pi => pi.academicLoadAccordingToLevels);
-            Includes.Add(pi => pi.Courses);
-            Includes.Add(pi => pi.CumulativeAverages);
-            Includes.Add(pi => pi.Graduations);
-            Includes.Add(pi => pi.Controls);
+            Includes.Add(pi => pi.Institue);
+            //Includes.Add(pi => pi.Program_TheGrades);
+            //Includes.Add(pi => pi.programLevels);
+            //Includes.Add(pi => pi.academicLoadAccordingToLevels);
+            //Includes.Add(pi => pi.Courses);
+            //Includes.Add(pi => pi.CumulativeAverages);
+            //Includes.Add(pi => pi.Graduations);
+            //Includes.Add(pi => pi.Controls);
 
         }
     }

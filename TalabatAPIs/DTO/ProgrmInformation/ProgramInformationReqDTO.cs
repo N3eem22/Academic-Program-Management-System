@@ -1,22 +1,26 @@
-﻿using Grad.Core.Entities.Academic_regulation;
+﻿using Grad.APIs.DTO.Entities_Dto;
+using Grad.APIs.DTO.Entities_Dto.Graduation;
+using Grad.APIs.DTO.Entities_Dto.ProgramLEvelsDTO;
+using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
 using Grad.Core.Entities.Graduation;
+using System.ComponentModel.DataAnnotations.Schema;
+using Talabat.Core.Entities.Entities;
 
 namespace Grad.APIs.DTO.ProgrmInformation
 {
     public class ProgramInformationReqDTO
     {
-            public int Id { get; set; }
-            public int ProgramId { get; set; }
+            public int ProgramsId { get; set; }
             public string ProgramNameInArabic { get; set; }
             public string ProgramNameInEnglish { get; set; }
             public string MajorNameInArabic { get; set; }
             public string MajorNameInEnglish { get; set; }
             public int ProgramCode { get; set; }
-            public string Institute { get; set; }
+            public int FacultyId { get; set; }
             public int AcademicDegreeId { get; set; }
             public string Degree { get; set; }
             public string NameInCertificate { get; set; }
@@ -58,18 +62,11 @@ namespace Grad.APIs.DTO.ProgrmInformation
             public int NumberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects { get; set; }
             public int TheReasonForHiddingTheResultId { get; set; }
             public string Questionnaire { get; set; }
-            public string DetailedGradesToBeAnnounced { get; set; }
-            public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
-            public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
-            public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();
-            public ICollection<PI_DetailedGradesToBeAnnounced> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnounced>();
+            public ICollection<PI_DivisionTypeReqDTO> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionTypeReqDTO>();
+            public ICollection<PI_AllGradesSummerEstimateReqDTO> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimateReqDTO>();
+            public ICollection<PI_EstimatesOfCourseFeeExemptionReqDTO> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemptionReqDTO>();
+            public ICollection<PI_DetailedGradesToBeAnnouncedReqDTO> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnouncedReqDTO>();
 
-            public ICollection<Program_TheGrades> Program_TheGrades { get; set; } = new HashSet<Program_TheGrades>();
-            public ICollection<programLevels> programLevels { get; set; } = new HashSet<programLevels>();
-            public ICollection<AcademicLoadAccordingToLevel> academicLoadAccordingToLevels { get; set; } = new HashSet<AcademicLoadAccordingToLevel>();
-            public ICollection<CourseInformation> Courses { get; set; } = new HashSet<CourseInformation>();
-            public ICollection<CumulativeAverage> CumulativeAverages { get; set; } = new HashSet<CumulativeAverage>();
-            public ICollection<Graduation> Graduations { get; set; } = new HashSet<Graduation>();
-            public ICollection<Control> Controls { get; set; } = new HashSet<Control>();
+       
     }
     }

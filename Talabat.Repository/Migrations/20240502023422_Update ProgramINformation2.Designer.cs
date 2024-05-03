@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data.Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data.Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240502023422_Update ProgramINformation2")]
+    partial class UpdateProgramINformation2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -715,12 +717,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("AllGradesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("ProgramInformationId", "AllGradesId");
 
                     b.HasIndex("AllGradesId");
@@ -757,12 +753,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("DivisionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("ProgramInformationId", "DivisionTypeId");
 
                     b.HasIndex("DivisionTypeId");
@@ -777,12 +767,6 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("AllGradesId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("ProgramInformationId", "AllGradesId");
 
