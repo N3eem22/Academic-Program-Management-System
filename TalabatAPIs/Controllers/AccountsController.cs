@@ -30,7 +30,7 @@ namespace Talabat.APIs.Controllers
         private readonly IdentityHelper _identityHelper;
 
 
-        public AccountsController(IdentityHelper identityHelper , IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        public AccountsController(IdentityHelper identityHelper, IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
         {
             _mapper = mapper;
             _manager = manager;
@@ -42,7 +42,7 @@ namespace Talabat.APIs.Controllers
         }
 
         [HttpPost("Register")]
-       // [Authorize(Roles = "SuperAdmin")]
+        // [Authorize(Roles = "SuperAdmin")]
 
         public async Task<ActionResult<UserDto>> Register(RegisterDto model)
         {
@@ -52,7 +52,7 @@ namespace Talabat.APIs.Controllers
                 return BadRequest(new { message = "Invalid role" });
             }
 
-            if (checkDuplicateEmail(model.Email).Result.Value)
+            if (CheckDuplicateEmail(model.Email).Result.Value)
                 return BadRequest(new ApiResponse(400, "Email Already Exists"));
 
 
@@ -63,8 +63,8 @@ namespace Talabat.APIs.Controllers
                 DisplayName = model.DisplayName,
                 Email = model.Email,
                 UserName = model.Email.Split('@')[0],
-                PhoneNumber = model.PhoneNumber ,
-                Role  = model.Role 
+                PhoneNumber = model.PhoneNumber,
+                Role = model.Role
             };
 
 
@@ -83,7 +83,7 @@ namespace Talabat.APIs.Controllers
 
             _identityHelper.AssignUserToFaculties(user.Id, model.Facultyid);
 
-            _identityHelper.AssignUserToUniversities(user.Id, model.universityID); 
+            _identityHelper.AssignUserToUniversities(user.Id, model.universityID);
 
 
 
@@ -107,7 +107,7 @@ namespace Talabat.APIs.Controllers
             if (model.Role != "SuperAdmin" && model.Role != "Admin" && model.Role != "User")
             {
                 return BadRequest(new { message = "Invalid role" });
-            } 
+            }
 
             var user = await _manager.FindByEmailAsync(model.Email);
             if (user is null) return Unauthorized(new ApiResponse(401));
@@ -115,7 +115,7 @@ namespace Talabat.APIs.Controllers
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
 
-           
+
             if (model.Role != user.Role)
             {
                 return Unauthorized(new ApiResponse(401, "Unauthorized access"));
@@ -135,7 +135,7 @@ namespace Talabat.APIs.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return Ok(new {Message = "Logout Succeeded" });
+            return Ok(new { Message = "Logout Succeeded" });
         }
 
 
@@ -152,11 +152,11 @@ namespace Talabat.APIs.Controllers
                 DisplayName = user.DisplayName,
                 Email = user.Email,
                 Token = await _tokenService.CreateTokenAsync(user, _manager),
-                 UserRole = userRoles.FirstOrDefault()
+                UserRole = userRoles.FirstOrDefault()
             };
             return Ok(ReturnedUser);
         }
-       
+
         [HttpGet("Address")]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
@@ -167,35 +167,37 @@ namespace Talabat.APIs.Controllers
 
         }
 
-        
+
         [HttpPut("Address")]
         public async Task<ActionResult<AddressDto>> UpdateAddress(AddressDto updatedAddress)
         {
-           
+
             var user = await _manager.GetUserAddressAsync(User);
             if (user is null)
                 return Unauthorized(new ApiResponse(401));
-            var address =_mapper.Map<AddressDto, Address>(updatedAddress);
+            var address = _mapper.Map<AddressDto, Address>(updatedAddress);
             address.Id = user.Address.Id;
             user.Address = address;
-            var result =await _manager.UpdateAsync(user);
+            var result = await _manager.UpdateAsync(user);
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
             return Ok(updatedAddress);
-         
+
 
 
         }
 
 
-        [HttpGet("EmailExist")]
-        public async Task<ActionResult<bool>> checkDuplicateEmail(string email)
+        [HttpGet("CheckDuplicateEmail")]
+        public async Task<ActionResult<bool>> CheckDuplicateEmail(string email)
         {
-            var user =await _manager.FindByEmailAsync(email);
-            if (user is null) return false;
-            else return Ok("Email Exists");
+            var user = await _manager.FindByEmailAsync(email);
+            if (user != null)
+                return true;
+            else
+                return false;
+
+
         }
-
-
-
     }
 }
+

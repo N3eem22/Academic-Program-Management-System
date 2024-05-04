@@ -1,13 +1,19 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO.ProgrmInformation;
 using Grad.APIs.Helpers;
+using Grad.Core.Entities.CumulativeAverage;
+using Grad.Core.Entities.Entities;
+using Grad.Core.Entities.Lockups;
 using Grad.Core.Specifications.Enities_Spec;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
 using Talabat.Core;
 using Talabat.Core.Entities.Academic_regulation;
+using Talabat.Core.Entities.Entities;
+using Talabat.Core.Entities.Lockups;
 using Talabat.Repository.Data;
 using Talabat.Repository.Data.Talabat.Repository.Data;
 
@@ -28,31 +34,35 @@ namespace Grad.APIs.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProgramInformationDTO>>> GetAllProgramInformation(int? programInformationId)
-        {
-            var spec = new ProgramInformationSpec(programInformationId);
-            var programInformations = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
-            var programInformationDTOs = _mapper.Map<IEnumerable<ProgramInformation>, IEnumerable<ProgramInformationDTO>>(programInformations);
-            return Ok(programInformationDTOs);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProgramInformationDTO>>> GetAllProgramInformation(int? programInformationId)
+        //{
+        //    var spec = new ProgramInformationSpec(programInformationId);
+        //    var programInformations = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
+        //    var programInformationDTOs = _mapper.Map<IEnumerable<ProgramInformation>, IEnumerable<ProgramInformationDTO>>(programInformations);
+        //    return Ok(programInformationDTOs);
+        //}
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProgramInformationDTO), 200)]
         [ProducesResponseType(typeof(ApiResponse), 404)]
         public async Task<ActionResult<ProgramInformationDTO>> GetProgramInformationById(int id)
         {
+
             var spec = new ProgramInformationSpec(id);
-            var programInformation = await _unitOfWork.Repository<ProgramInformation>().GetEntityWithSpecAsync(spec);
-            if (programInformation == null)
-                return NotFound(new ApiResponse(404));
-            var programInformationDTO = _mapper.Map<ProgramInformation, ProgramInformationDTO>(programInformation);
+            var programInformation = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
+            await _dbcontext.Set<PI_DivisionType>().Include(p=>p.DivisionType).ToListAsync();
+            await _dbcontext.Set<PI_EstimatesOfCourseFeeExemption>().Include(p=>p.AllGrades).ToListAsync();
+            await _dbcontext.Set<PI_DetailedGradesToBeAnnounced>().Include(p => p.GradesDetails).ToListAsync();
+            await _dbcontext.Set<PI_AllGradesSummerEstimate>().Include(p=>p.AllGrades).ToListAsync();
+            var programInformationDTO = _mapper.Map<IEnumerable<ProgramInformation>,IEnumerable<ProgramInformationDTO>>(programInformation);
             return Ok(programInformationDTO);
         }
 
         [HttpPost]
         public async Task<ActionResult<ProgramInformationReqDTO>> AddProgramInformation(ProgramInformationReqDTO programInformationRequest)
         {
+           
             var preValidationResult = await ValidateForeignKeyExistence(programInformationRequest);
             if (preValidationResult != null) return preValidationResult;
             try
@@ -77,10 +87,18 @@ namespace Grad.APIs.Controllers
             {
                 return NotFound(new ApiResponse(404, $"ProgramInformation with ID {id} not found."));
             }
-
+            var preValidationResult = await ValidateForeignKeyExistence(programInformationRequest);
+            if (preValidationResult != null) return preValidationResult;
             try
             {
+                
+                await UpdatePI_DivisionType(id);
+                await UpdatePI_EstimatesOfCourseFeeExemption(id);
+                await UpdatePI_DetailedGradesToBeAnnounced(id);
+                await UpdatePI_AllGradesSummerEstimate(id);
                 _mapper.Map(programInformationRequest, programInformationToUpdate);
+                _unitOfWork.Repository<ProgramInformation>().Update(programInformationToUpdate);
+
                 var result = await _unitOfWork.CompleteAsync() > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500, message));
@@ -90,6 +108,66 @@ namespace Grad.APIs.Controllers
                 return StatusCode(500, new ApiResponse(500, ex.Message));
             }
         }
+
+        #region UpdateManytoMany
+        private async Task UpdatePI_DivisionType(int id)
+        {
+            var DivisionTypeToDelete = await _unitOfWork.Repository<PI_DivisionType>()
+                                .GetAllAsync();
+            var d = DivisionTypeToDelete.Where(d => d.ProgramInformationId == id);
+
+            foreach (var DivisionType in d)
+            {
+                _unitOfWork.Repository<PI_DivisionType>().Delete(DivisionType);
+            }
+
+            await _unitOfWork.CompleteAsync();
+
+        }
+        private async Task UpdatePI_EstimatesOfCourseFeeExemption(int id)
+        {
+            var EstimaterToDelete = await _unitOfWork.Repository<PI_EstimatesOfCourseFeeExemption>()
+                                .GetAllAsync();
+            var E = EstimaterToDelete.Where(E => E.ProgramInformationId == id);
+
+            foreach (var AllGrades in E)
+            {
+                _unitOfWork.Repository<PI_EstimatesOfCourseFeeExemption>().Delete(AllGrades);
+            }
+
+            await _unitOfWork.CompleteAsync();
+
+        }
+        private async Task UpdatePI_DetailedGradesToBeAnnounced(int id)
+        {
+            var DetailedToDelete = await _unitOfWork.Repository<PI_DetailedGradesToBeAnnounced>()
+                                .GetAllAsync();
+            var d = DetailedToDelete.Where(d => d.ProgramInformationId == id);
+
+            foreach (var GradesDetails in d)
+            {
+                _unitOfWork.Repository<PI_DetailedGradesToBeAnnounced>().Delete(GradesDetails);
+            }
+
+            await _unitOfWork.CompleteAsync();
+
+        }
+        private async Task UpdatePI_AllGradesSummerEstimate(int id)
+        {
+            var AllGradesToDelete = await _unitOfWork.Repository<PI_AllGradesSummerEstimate>()
+                                .GetAllAsync();
+            var A = AllGradesToDelete.Where(A => A.ProgramInformationId == id);
+
+            foreach (var AllGrades in A)
+            {
+                _unitOfWork.Repository<PI_AllGradesSummerEstimate>().Delete(AllGrades);
+            }
+
+            await _unitOfWork.CompleteAsync();
+
+        }
+
+        #endregion
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProgramInformation(int id)
@@ -103,16 +181,182 @@ namespace Grad.APIs.Controllers
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
         }
 
+        #region ValidateForeignKeyy
         private async Task<ActionResult> ValidateForeignKeyExistence(ProgramInformationReqDTO programInformationRequest)
         {
-            // Program existence check
-            var programExists = await _unitOfWork.Repository<ProgramInformation>().GetByIdAsync(programInformationRequest.ProgramId) != null;
-            if (!programExists)
+            if (programInformationRequest.ProgramsId != null)
             {
-                return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.ProgramId} not found."));
+                var programExists = await _unitOfWork.Repository<Programs>().GetByIdAsync(programInformationRequest.ProgramsId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"Program with ID {programInformationRequest.ProgramsId} not found."));
+                }
+            }
+            if (programInformationRequest.AcademicDegreeId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TheAcademicDegree>().GetByIdAsync(programInformationRequest.AcademicDegreeId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"AcademicDegree with ID {programInformationRequest.AcademicDegreeId} not found."));
+                }
+            }
+
+            if (programInformationRequest.BlockingProofOfRegistrationId != null)
+            {
+                var programExists = await _unitOfWork.Repository<BlockingProofOfRegistration>().GetByIdAsync(programInformationRequest.BlockingProofOfRegistrationId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"BlockingProofOfRegistration with ID {programInformationRequest.BlockingProofOfRegistrationId} not found."));
+                }
+
+            }
+
+            if (programInformationRequest.BurdanCalculationId != null)
+            {
+                var programExists = await _unitOfWork.Repository<BurdenCalculation>().GetByIdAsync(programInformationRequest.BurdanCalculationId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"BurdanCalculation with ID {programInformationRequest.BurdanCalculationId} not found."));
+                }
+            }
+            if (programInformationRequest.EditTheStudentLevelId != null)
+            {
+                var programExists = await _unitOfWork.Repository<EditTheStudentLevel>().GetByIdAsync(programInformationRequest.EditTheStudentLevelId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"EditTheStudentLevel with ID {programInformationRequest.EditTheStudentLevelId} not found."));
+                }
+            }
+            if (programInformationRequest.FacultyId != null)
+            {
+                var programExists = await _unitOfWork.Repository<Faculty>().GetByIdAsync(programInformationRequest.FacultyId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"Faculty with ID {programInformationRequest.FacultyId} not found."));
+                }
+            }
+            if (programInformationRequest.PassingTheElectiveGroupBasedOnId != null)
+            {
+                var programExists = await _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().GetByIdAsync(programInformationRequest.PassingTheElectiveGroupBasedOnId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"PassingTheElectiveGroupBasedOn with ID {programInformationRequest.PassingTheElectiveGroupBasedOnId} not found."));
+                }
+            }
+            if (programInformationRequest.ReasonForBlockingRegistrationId != null)
+            {
+                var programExists = await _unitOfWork.Repository<ReasonForBlockingRegistration>().GetByIdAsync(programInformationRequest.ReasonForBlockingRegistrationId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"ReasonForBlockingRegistration with ID {programInformationRequest.ReasonForBlockingRegistrationId} not found."));
+                }
+            }
+            if (programInformationRequest.SystemTypeId != null)
+            {
+                var programExists = await _unitOfWork.Repository<SystemType>().GetByIdAsync(programInformationRequest.SystemTypeId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"SystemType with ID {programInformationRequest.SystemTypeId} not found."));
+                }
+            }
+            if (programInformationRequest.TheReasonForHiddingTheResultId != null)
+            {
+                var programExists = await _unitOfWork.Repository<ReasonForBlockingAcademicResult>().GetByIdAsync(programInformationRequest.TheReasonForHiddingTheResultId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TheReasonForHiddingTheResult with ID {programInformationRequest.TheReasonForHiddingTheResultId} not found."));
+                }
+            }
+            if (programInformationRequest.TheResultAppearsId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TheResultAppears>().GetByIdAsync(programInformationRequest.TheResultAppearsId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TheResultAppears with ID {programInformationRequest.TheResultAppearsId} not found."));
+                }
+            }
+            if (programInformationRequest.TheResultToTheGuidId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TheResultAppears>().GetByIdAsync(programInformationRequest.TheResultToTheGuidId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TheResultToTheGuid with ID {programInformationRequest.TheResultToTheGuidId} not found."));
+                }
+            }
+            if (programInformationRequest.TypeOfFinancialStatementInTheProgramId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().GetByIdAsync(programInformationRequest.TypeOfFinancialStatementInTheProgramId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TypeOfFinancialStatementInTheProgram with ID {programInformationRequest.TypeOfFinancialStatementInTheProgramId} not found."));
+                }
+            }
+            if (programInformationRequest.TypeOfProgramFeesId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TypeOfProgramFees>().GetByIdAsync(programInformationRequest.TypeOfProgramFeesId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TypeOfProgramFees with ID {programInformationRequest.TypeOfProgramFeesId} not found."));
+                }
+            }
+            if (programInformationRequest.TypeOfSummerFeesId != null)
+            {
+                var programExists = await _unitOfWork.Repository<TypeOfSummerFees>().GetByIdAsync(programInformationRequest.TypeOfSummerFeesId);
+                if (programExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"TypeOfSummerFees with ID {programInformationRequest.TypeOfSummerFeesId} not found."));
+                }
+            }
+
+            foreach (var DevisionType in programInformationRequest.pI_DivisionTypes)
+            {
+                if (DevisionType.DivisionTypeId != null) 
+                {
+                    var DivisionExists = await _unitOfWork.Repository<DivisionType>().GetByIdAsync(DevisionType.DivisionTypeId) ;
+                    if (DivisionExists.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"Division  with ID {DevisionType.DivisionTypeId} not found."));
+                    }
+                }
+            }
+            foreach (var EstimateOdCourse in programInformationRequest.PI_EstimatesOfCourseFeeExemptions)
+            {
+                if (EstimateOdCourse.AllGradesId != null)
+                {
+                    var estimateOdCourse = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(EstimateOdCourse.AllGradesId);
+                    if (estimateOdCourse.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"EstimatesOfCourseFeeExemptions  with ID {EstimateOdCourse.AllGradesId} not found."));
+                    }
+                }
+            }
+            foreach (var SummerEstimates in programInformationRequest.pI_AllGradesSummerEstimates)
+            {
+                if (SummerEstimates.AllGradesId != null)
+                {
+                    var summerEstimates = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(SummerEstimates.AllGradesId);
+                    if (summerEstimates.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"AllGradesSummerEstimates  with ID {SummerEstimates.AllGradesId} not found."));
+                    }
+                }
+            }
+            foreach (var DetailedGrades in programInformationRequest.pI_DetailedGradesToBeAnnounced)
+            {
+                if (DetailedGrades.GradesDetailsId != null)
+                {
+                    var detailedGrades = await _unitOfWork.Repository<GradesDetails>().GetByIdAsync(DetailedGrades.GradesDetailsId);
+                    if (detailedGrades.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"DetailedGradesToBeAnnounced  with ID {DetailedGrades.GradesDetailsId} not found."));
+                    }
+                }
             }
 
             return null;
-        }
+        } 
+        #endregion
+
+
     }
 }

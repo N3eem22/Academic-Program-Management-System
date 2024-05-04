@@ -9,8 +9,6 @@ namespace Grad.APIs.DTO.Entities_Dto.ProgramLEvelsDTO
     { 
         public int Id { get; set; }
         public int prog_InfoId { get; set; }
-        public int prog_Info { get; set; }
-        public int TheLevelId { get; set; }
         public string TheLevel { get; set; }
         [Required]
         public int MinimumHours { get; set; }

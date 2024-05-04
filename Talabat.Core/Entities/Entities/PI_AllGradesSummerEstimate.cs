@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Talabat.Core.Entities;
 
 namespace Grad.Core.Entities.Entities
 {
-    public class PI_AllGradesSummerEstimate
+    public class PI_AllGradesSummerEstimate : BaseEntity
     {
         [ForeignKey("AllGrades")]
         public int AllGradesId { get; set; }
