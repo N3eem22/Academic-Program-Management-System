@@ -18,6 +18,7 @@ import { ControlsPage } from "./pages/controls";
 import { CoursesPage } from "./pages/programs/edit/courses";
 import { GpaPage } from "./pages/programs/edit/gpa";
 import { ControlPage } from "./pages/programs/edit/control";
+import { RegisterPage } from "./pages/register";
 
 function App() {
   useEffect(() => {}, []);
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/levels" element={<LevelsPage />} />
           <Route path="/controls" element={<ControlsPage/>} />
           <Route path="/courses" element={<CoursesPage/>} />
