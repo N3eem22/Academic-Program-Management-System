@@ -21,7 +21,6 @@ const HeaderPage = () => {
             <div className={`${styles["header-icon"]} col-md-2   `}>
               <Link to="login">
                 <button className="border border-transparent  rounded-2 p-2">
-                  <link to="login" />
                   <img src="..\src\assets\imgs\box-arrow-left.svg" alt="" />
                 </button>
               </Link>
