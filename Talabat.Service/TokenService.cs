@@ -28,7 +28,8 @@ namespace Talabat.Service
             var authClaims = new List<Claim>()
             {
             new Claim(ClaimTypes.GivenName,User.DisplayName),
-            new Claim(ClaimTypes.Email, User.Email)
+            new Claim(ClaimTypes.Email, User.Email) ,
+            new Claim(ClaimTypes.NameIdentifier, User.Id.ToString())
             };
             var userRoles = await userManager.GetRolesAsync(User);
             foreach(var role in userRoles)
