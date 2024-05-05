@@ -65,7 +65,7 @@ namespace Grad.APIs.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CourseTypeReq>> UpdateCourseType(int id, [FromBody] string updatedCourseType)
+        public async Task<ActionResult<CourseTypeReq>> UpdateCourseType(int id,  string updatedCourseType)
         {
             var courseType = await _unitOfWork.Repository<CourseType>().GetByIdAsync(id);
             if (courseType == null)
