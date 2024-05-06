@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate } from "react-router-dom";
+import { getAuthUser } from "../../../helpers/storage";
 
 const RegisterPage = React.memo(() => {
     const navigate = useNavigate();
@@ -21,23 +22,30 @@ const RegisterPage = React.memo(() => {
         loading: false,
         err: [],
     });
+    // axios.get('https://localhost:7095/api/University', {
+    //   headers: {
+    //     'Authorization': `Bearer ${userToken.token}`
+    //   }
     useEffect(() => {
-        axios
-            .get("https://localhost:7095/api/University")
-            .then((response) => {
-                setRegister({ ...register, universities: response.data });
-                console.log(response.data);
-            })
-            .catch((err) => {
-                setRegister({
-                    ...register,
-                    loading: false,
-                    err: [{ message: err.response.data.message }],
-                });
-            });
-
-
-    }, []);
+        const userToken = getAuthUser(); 
+        axios.get('https://localhost:7095/api/University', {
+          headers: {
+            'Authorization': `Bearer ${userToken.token}`
+          }
+        })
+        .then(response => {
+          setRegister({ ...register, universities: response.data });
+          console.log(response.data);
+        })
+        .catch(err => {
+          setRegister({
+            ...register,
+            loading: false,
+            err: [{ message: err.response.data.message }]
+          });
+        });
+      }, []);
+      
     useEffect(() => {
         if (register.university.length === 1) {
             axios

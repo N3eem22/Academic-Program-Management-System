@@ -7,7 +7,7 @@ const ManageUsersPage = () => {
     const navigate = useNavigate();
   
     const handleAddUserClick = () => {
-      navigate('/regsiter');
+      navigate('/register');
     };
   return (
     <Fragment>

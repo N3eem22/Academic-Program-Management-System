@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
 
-const SideMenu = ({ activeItem }) => {
-  const authUser = getAuthUser(); 
-  const isSuperAdmin = authUser && authUser.userRole === "SuperAdmin";
+const SideMenu = () => {
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [activeItem, setActiveItem] = useState("");
+
+  useEffect(() => {
+    const authUser = getAuthUser();
+    setIsSuperAdmin(authUser && authUser.userRole === "SuperAdmin");
+  }, [getAuthUser()]);
+  
+  
+  
+
+  const handleItemClick = (item) => {
+    setActiveItem(item);
+  };
 
   return (
     <div className="container-fluid" dir="rtl">
@@ -16,7 +28,7 @@ const SideMenu = ({ activeItem }) => {
               className={`${styles.menuItem} ${
                 activeItem === "dashboard" && styles.active
               }`}
-              onClick={() => (activeItem = "dashboard")}
+              onClick={() => handleItemClick("dashboard")}
             >
               البرامج الدراسيه
             </div>
@@ -24,16 +36,16 @@ const SideMenu = ({ activeItem }) => {
               className={`${styles.menuItem} ${
                 activeItem === "reports" && styles.active
               }`}
-              onClick={() => (activeItem = "reports")}
+              onClick={() => handleItemClick("reports")}
             >
               التقارير
             </div>
             {isSuperAdmin && (
               <div
-                className={  ` ${styles.menuItem} ${
+                className={`${styles.menuItem} ${
                   activeItem === "controlUni" && styles.active
                 }`}
-                onClick={() => (activeItem = "controlUni")} style={{textDecoration:"none"}}
+                onClick={() => handleItemClick("controlUni")}
               >
                 <Link to="/manageuni">ادارة الجامعات </Link>
               </div>
@@ -43,7 +55,7 @@ const SideMenu = ({ activeItem }) => {
                 className={`${styles.menuItem} ${
                   activeItem === "userManagement" && styles.active
                 }`}
-                onClick={() => (activeItem = "userManagement")}
+                onClick={() => handleItemClick("userManagement")}
               >
                 <Link to="/manageusers">إدارة المستخدمين</Link>
               </div>
@@ -53,12 +65,11 @@ const SideMenu = ({ activeItem }) => {
                 className={`${styles.menuItem} ${
                   activeItem === "controlSystem" && styles.active
                 }`}
-                onClick={() => (activeItem = "controlSystem")}
+                onClick={() => handleItemClick("controlSystem")}
               >
                 <Link to="/controls">نظام التحكم</Link>
               </div>
             )}
-            
           </div>
         </div>
         <div className="col-md-10">
