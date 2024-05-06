@@ -6,6 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 const HeaderPage = () => {
+  const logout = async () => {
+    try {
+      await axios.post("http://localhost:4000/auth/logout" );
+      removeAuthUser();
+      navigate("/login"); 
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+};
+
   return (
     <Fragment>
       <div className="container-fluied" dir="rtl">
@@ -21,7 +31,6 @@ const HeaderPage = () => {
             <div className={`${styles["header-icon"]} col-md-2   `}>
               <Link to="login">
                 <button className="border border-transparent  rounded-2 p-2">
-                  <link to="login" />
                   <img src="..\src\assets\imgs\box-arrow-left.svg" alt="" />
                 </button>
               </Link>
