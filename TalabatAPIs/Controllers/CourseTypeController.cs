@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<CourseType>().ExistAsync(
                 x => x.courseType.Trim().ToUpper() == courseTypeReq.courseType.Trim().ToUpper() &&
-                     x.UniversityId == courseTypeReq.UniversityId);
+                     x.UniversityId == courseTypeReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var courseType = _unitOfWork.Repository<CourseType>().Add(_mapper.Map<CourseTypeReq, CourseType>(courseTypeReq));

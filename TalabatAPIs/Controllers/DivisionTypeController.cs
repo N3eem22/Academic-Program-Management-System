@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<DivisionType>().ExistAsync(
                 x => x.Division_Type.Trim().ToUpper() == divisionTypeReq.Division_Type.Trim().ToUpper() &&
-                     x.UniversityId == divisionTypeReq.UniversityId);
+                     x.UniversityId == divisionTypeReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var divisionType = _unitOfWork.Repository<DivisionType>().Add(_mapper.Map<DivisionTypeReq, DivisionType>(divisionTypeReq));
