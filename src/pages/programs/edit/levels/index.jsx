@@ -4,12 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { TablePage } from "../../../../components/tables";
 import { headers } from "../../../../helpers/headers";
+import Joi from "joi";
+import axios from "axios";
 
 const LevelsPage = () => {
-  // function validation() {
-  //   var regx = /^[0-9]{0,3}$/;
-  // }
-
   // var levelinput = document.getElementById("levelinput");
   // var minhoursinput = document.getElementById("minhoursinput");
   // var maxhoursinput = document.getElementById("maxhoursinput");
@@ -37,7 +35,7 @@ const LevelsPage = () => {
   // const displaySub = () => {
   //   var subs = ``;
   //   for (var i = 0; i < subcontainer.length; i++) {
-  //     subs += `     <tr> 
+  //     subs += `     <tr>
   //     <td>
   //       <strong>${i + 1}</strong>
   //     </td>
@@ -59,6 +57,28 @@ const LevelsPage = () => {
   //   document.getElementById("tablebody").innerHTML = subs;
   // };
 
+  let [level, setlevel] = useState([]);
+  async function getLevel() {
+    let { data } = await axios.get(
+      "https://localhost:7095/api/ProgramLevels/9"
+    );
+    // setlevel(data.results);
+    console.log(data);
+    setlevel(data);
+  }
+  useEffect(() => {
+    getLevel();
+  }, []);
+
+  function validateForm() {
+    let scheme = Joi.object({
+      minhours: Joi.number().min(0).max(1000).required(),
+      maxhours: Joi.number().min(0).max(1000).required(),
+      // code : Joi.string().number().min(1).max(4).required(),
+      code: Joi.pattern("w"),
+    });
+    return scheme.validate(level, { abortEarly: false });
+  }
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -67,7 +87,7 @@ const LevelsPage = () => {
           <div className="col-md-10">
             <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
             <div className="inputs-card  ">
-              <div className="col-md-6 ">
+              <div className="col-md-12 ">
                 <div className="card-body">
                   <div className="form-validation">
                     <form className="form-valide" action="#" method="post">
@@ -75,91 +95,97 @@ const LevelsPage = () => {
                         <div className="col-xl-6">
                           <div className="form-group  mt-4 row">
                             <label
-                              className="col-md-4 col-form-label"
-                              htmlFor="val-number"
+                              className="col-md-2 col-form-label"
+                              htmlFor="level"
                             >
                               المستوي
                               <span className="text-danger">*</span>
                             </label>
-                            <div className="col-md-6">
+                            <div className="col-md-2">
                               <div className="input-group mb-3 ">
-                                <select className="form-select" id="levelinput">
-                                  <option value="1">الاول</option>
-                                  <option value="2">التاني</option>
-                                  <option value="3">التالت</option>
+                                <select className="form-select" id="level">
+                                  {level.map((item, index) => (
+                                    <option key={index} value={item.value}>
+                                      {item.text}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="col-xl-6">
+                        <div className="col-xl-2">
                           <div className="form-group mb-3 row">
                             <label
-                              className="col-md-4 col-form-label"
-                              htmlFor="val-number"
+                              className="col-md-2 col-form-label"
+                              htmlFor="minhours"
                             >
                               الحد الادنى للساعات{" "}
                               <span className="text-danger">*</span>
                             </label>
 
-                            <div className="col-md-3 ">
+                            <div className="col-md-2 ">
                               <input
                                 type="number"
                                 className="form-control"
-                                id="minhoursinput"
+                                id="minhours"
                               />
                             </div>
                           </div>
 
                           <div className="form-group mb-3 row">
                             <label
-                              className="col-md-4 col-form-label"
-                              htmlFor="val-number"
+                              className="col-md-2 col-form-label"
+                              htmlFor="maxhours"
                             >
                               الحد الاقصى للساعات{" "}
                               <span className="text-danger">*</span>
                             </label>
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                               <input
                                 type="number"
                                 className="form-control"
-                                id="maxhoursinput"
+                                id="maxhours"
                               />
                             </div>
                           </div>
                           <div className="form-group mb-3 row">
                             <label
-                              className="col-md-4 col-form-label"
-                              htmlFor="val-username"
+                              className="col-md-2 col-form-label"
+                              htmlFor="code"
                             >
                               كود المؤسسة <span className="text-danger">*</span>
                             </label>
-                            <div className="col-md-6">
+                            <div className="col-md-2">
                               <input
                                 type="text"
                                 className="form-control"
-                                id="codeinput"
-                                name="val-username"
+                                id="code"
+                                name="code"
                               />
                             </div>
                           </div>
+                        </div>
+
+                        <div className="btns d-flex justify-content-center align-items-center py-3">
+                          <button
+                            // onClick={addSub}
+                            type="submit"
+                            className="btn  btn-info mx-1 "
+                          >
+                            جديد
+                          </button>
+                          <button
+                            type="submit"
+                            className="btn  btn-primary mx-1 "
+                          >
+                            حفظ
+                          </button>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
-              </div>
-              <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                <button
-                  // onClick={addSub}
-                  type="submit"
-                  className="btn  btn-info mx-1 "
-                >
-                  جديد
-                </button>
-                <button type="submit" className="btn  btn-primary mx-1 ">
-                  حفظ
-                </button>
               </div>
             </div>
 

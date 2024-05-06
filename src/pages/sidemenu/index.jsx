@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
 
+<<<<<<< HEAD
 const SideMenu = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [activeItem, setActiveItem] = useState("");
@@ -18,6 +19,11 @@ const SideMenu = () => {
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
+=======
+const SideMenu = ({ activeItem }) => {
+  const authUser = getAuthUser();
+  const isSuperAdmin = authUser && authUser.userRole === "SuperAdmin";
+>>>>>>> d0db3b5e9442e47f1457737453db3e3980bd9f90
 
   return (
     <div className="container-fluid" dir="rtl">
@@ -42,10 +48,18 @@ const SideMenu = () => {
             </div>
             {isSuperAdmin && (
               <div
+<<<<<<< HEAD
                 className={`${styles.menuItem} ${
                   activeItem === "controlUni" && styles.active
                 }`}
                 onClick={() => handleItemClick("controlUni")}
+=======
+                className={` ${styles.menuItem} ${
+                  activeItem === "controlUni" && styles.active
+                }`}
+                onClick={() => (activeItem = "controlUni")}
+                style={{ textDecoration: "none" }}
+>>>>>>> d0db3b5e9442e47f1457737453db3e3980bd9f90
               >
                 <Link to="/manageuni">ادارة الجامعات </Link>
               </div>
@@ -73,7 +87,9 @@ const SideMenu = () => {
           </div>
         </div>
         <div className="col-md-10">
-          <nav className={`${styles["navbar"]} border border-2 shadow p-2 mb-1  `}>
+          <nav
+            className={`${styles["navbar"]} border border-2 shadow p-2 mb-1  `}
+          >
             <div className="nav-content fs-5 fw-semibold p-3">
               <a className="navbar-brand" href="#">
                 <img
@@ -98,7 +114,10 @@ const SideMenu = () => {
                 </Link>
               )}
               {isSuperAdmin && (
-                <Link className="navbar-brand fs-5 fw-semibold" to="/manageusers">
+                <Link
+                  className="navbar-brand fs-5 fw-semibold"
+                  to="/manageusers"
+                >
                   <img
                     src="../src\assets\imgs\gear-wide-connected.svg"
                     alt="Logo"
