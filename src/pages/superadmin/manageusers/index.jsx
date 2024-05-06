@@ -1,12 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { getAuthUser } from "../../../helpers/storage";
+import { UpdateUsersPage } from "./updateusers";
 
 const ManageUsersPage = () => {
   let { id } = useParams();
+  const auth = getAuthUser();
 
   const [users, setUsers] = useState({
     loading: true,
@@ -30,15 +33,16 @@ const ManageUsersPage = () => {
       });
   }, [users.reload]);
 
-  const deleteUser = () => {
+  const deleteUser = (id) => {
     axios
-      .delete(
-        "https://localhost:7095/api/Users?id= " + id
-        // headers: {
-        //   token: auth.token,
-        // },
-      )
-      .then((resp) => {})
+      .delete("https://localhost:7095/api/Users?id= " + id, {
+        headers: {
+          token: auth.token,
+        },
+      })
+      .then((resp) => {
+        setUsers({ ...users, reload: users.reload + 1 });
+      })
       .catch((err) => {});
   };
 
@@ -52,6 +56,10 @@ const ManageUsersPage = () => {
   const handleAddUserClick = () => {
     navigate("/register");
   };
+  const handleUpdateUserClick = () => {
+    navigate(`/updateusers/${id}`  );
+  };
+
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -60,12 +68,12 @@ const ManageUsersPage = () => {
           <div className="col-md-10">
             <div className="col-12" style={{ paddingBottom: "15px" }}>
               <div className="row">
-                <div className="col-2">
+                <div className="col-4">
                   <h2 style={{ color: "red" }}>اداره المستخدمين </h2>
                 </div>
                 <div className="col-md-2">
                   <button
-                    className="btn btn-success py-3 fw-semibold fs-5 sharp"
+                    className="btn btn-success py-2 fw-semibold fs-5 sharp"
                     type="button"
                     onClick={handleAddUserClick}
                   >
@@ -104,7 +112,6 @@ const ManageUsersPage = () => {
                           {users.results.map((users) => (
                             <tr key={users.id}>
                               <td>{users.id}</td>
-
                               <td>{users.displayName}</td>
                               <td>{users.phoneNumber}</td>
                               <td>{users.email}</td>
@@ -114,12 +121,13 @@ const ManageUsersPage = () => {
 
                               <td>
                                 <div className="d-flex">
-                                  <button
-                                    // onClick={updateUsers(id)}
-                                    className="btn btn-primary shadow btn-xs sharp me-1"
-                                    href=""
-                                  >
+                                  <button className="btn btn-primary shadow btn-xs sharp me-1"
+                                  onClick={handleUpdateUserClick}>
                                     <i className="fas fa-pen"></i>
+                                    {/* <Link
+                                      to={`/updateusers/${users.id}`}
+                                      className="UpdateBtn"
+                                    ></Link> */}
                                   </button>
                                 </div>
                               </td>
@@ -127,7 +135,9 @@ const ManageUsersPage = () => {
                               <td>
                                 <div className="d-flex">
                                   <button
-                                    onClick={deleteUser}
+                                    onClick={(e) => {
+                                      deleteUser(users.id);
+                                    }}
                                     className="btn btn-danger shadow btn-xs sharp"
                                     href=""
                                   >

@@ -11,6 +11,7 @@ import { AcademicloadPage } from "./pages/programs/edit/academicload";
 import { GeneralestimatesPage } from "./pages/programs/edit/generalestimates";
 import { GraduationPage } from "./pages/programs/edit/graduation";
 import { ManageUsersPage } from "./pages/superadmin/manageusers";
+import { UpdateUsersPage } from "./pages/superadmin/manageusers/updateusers";
 import { ManageUniPage } from "./pages/superadmin/manageuni";
 import { ManageFacultyPage } from "./pages/admin/managefaculty";
 import { ControlsPage } from "./pages/controls";
@@ -49,6 +50,14 @@ function App() {
             <Route path="/manageuni" element={<ManageUniPage />} />
             <Route path="/addUniversity" element={<AddUniversity />} />
             <Route path="/manageusers" element={<ManageUsersPage />} />
+            {/* <Route path="/updateusers/:id" element={<UpdateUsersPage />} /> */}
+
+            <Route
+              path="/updateusers/:id"
+              element={<UpdateUsersWrapper />}
+            />
+
+
             <Route path="/register" element={<RegisterPage />} />
             {/* Pass id to UpdateUniversity */}
             <Route
@@ -60,16 +69,14 @@ function App() {
             <Route path="/control" element={<ControlPage />} />
             <Route path="/gpa" element={<GpaPage />} />
             <Route path="/graduation" element={<GraduationPage />} />
-            <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
+            <Route
+              path="/Generalestimates"
+              element={<GeneralestimatesPage />}
+            />
             <Route path="/levels" element={<LevelsPage />} />
             <Route path="/estimates" element={<EstimatesPage />} />
             <Route path="/academicload" element={<AcademicloadPage />} />
 
-
-
-
-
-            
             <Route path="/courses" element={<CoursesPage />} />
           </Route>
         </Route>
@@ -84,10 +91,15 @@ function UpdateUniversityWrapper() {
   return <UpdateUniversity id={id} />;
 }
 
+function UpdateUsersWrapper() {
+  let { id } = useParams(); 
+  return <UpdateUsersPage id={id} />;
+}
+
 export default App;
 
-
-{/* <Routes>
+{
+  /* <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -107,4 +119,5 @@ export default App;
         <Route path="/home" element={<HomePage />} />
 
         
-      </Routes> */}
+      </Routes> */
+}
