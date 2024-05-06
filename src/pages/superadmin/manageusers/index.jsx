@@ -8,6 +8,13 @@ import { getAuthUser } from "../../../helpers/storage";
 import { UpdateUsersPage } from "./updateusers";
 
 const ManageUsersPage = () => {
+// <<<<<<< HEAD
+//     const navigate = useNavigate();
+  
+//     const handleAddUserClick = () => {
+//       navigate('/register');
+//     };
+// =======
   let { id } = useParams();
   const auth = getAuthUser();
 

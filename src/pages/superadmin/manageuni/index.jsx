@@ -3,20 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // استيراد مكتبة axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { getAuthUser } from "../../../helpers/storage";
 
 const ManageUniPage = () => {
   const navigate = useNavigate();
   const [universities, setUniversities] = useState([]);
 
   useEffect(() => {
-    axios.get('https://localhost:7095/api/University')
-      .then(response => {
-        setUniversities(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching universities:', error);
-      });
+    const userToken = getAuthUser();   
+    axios.get('https://localhost:7095/api/University', {
+      headers: {
+        'Authorization': `Bearer ${userToken.token}`
+      }
+    })
+    .then(response => {
+      setUniversities(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching universities:', error);
+    });
   }, []);
+  
 
   const handleAddUniversityClick = () => {
     navigate('/addUniversity');
