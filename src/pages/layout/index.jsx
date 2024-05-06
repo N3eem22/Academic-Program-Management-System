@@ -6,9 +6,6 @@ export default function Layout(){
     return<>
     <HeaderPage/>
     <SideMenu/>
-    <Outlet></Outlet>
-    
-    
-    
+    <Outlet></Outlet>    
     </>
 }
