@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
 
-<<<<<<< HEAD
+
 const SideMenu = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [activeItem, setActiveItem] = useState("");
@@ -19,11 +19,7 @@ const SideMenu = () => {
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
-=======
-const SideMenu = ({ activeItem }) => {
-  const authUser = getAuthUser();
-  const isSuperAdmin = authUser && authUser.userRole === "SuperAdmin";
->>>>>>> d0db3b5e9442e47f1457737453db3e3980bd9f90
+
 
   return (
     <div className="container-fluid" dir="rtl">
@@ -48,18 +44,18 @@ const SideMenu = ({ activeItem }) => {
             </div>
             {isSuperAdmin && (
               <div
-<<<<<<< HEAD
-                className={`${styles.menuItem} ${
-                  activeItem === "controlUni" && styles.active
-                }`}
-                onClick={() => handleItemClick("controlUni")}
-=======
+
+//                 className={`${styles.menuItem} ${
+//                   activeItem === "controlUni" && styles.active
+//                 }`}
+//                 onClick={() => handleItemClick("controlUni")}
+
                 className={` ${styles.menuItem} ${
                   activeItem === "controlUni" && styles.active
                 }`}
-                onClick={() => (activeItem = "controlUni")}
+                onClick={() => (setActiveItem("controlUni") )}
                 style={{ textDecoration: "none" }}
->>>>>>> d0db3b5e9442e47f1457737453db3e3980bd9f90
+
               >
                 <Link to="/manageuni">ادارة الجامعات </Link>
               </div>
@@ -68,7 +64,7 @@ const SideMenu = ({ activeItem }) => {
               <div
                 className={`${styles.menuItem} ${
                   activeItem === "userManagement" && styles.active
-                }`}
+                }`} 
                 onClick={() => handleItemClick("userManagement")}
               >
                 <Link to="/manageusers">إدارة المستخدمين</Link>

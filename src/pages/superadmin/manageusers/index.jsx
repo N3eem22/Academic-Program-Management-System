@@ -6,13 +6,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const ManageUsersPage = () => {
-<<<<<<< HEAD
-    const navigate = useNavigate();
+// <<<<<<< HEAD
+//     const navigate = useNavigate();
   
-    const handleAddUserClick = () => {
-      navigate('/register');
-    };
-=======
+//     const handleAddUserClick = () => {
+//       navigate('/register');
+//     };
+// =======
   let { id } = useParams();
 
   const [users, setUsers] = useState({
@@ -59,7 +59,7 @@ const ManageUsersPage = () => {
   const handleAddUserClick = () => {
     navigate("/register");
   };
->>>>>>> d0db3b5e9442e47f1457737453db3e3980bd9f90
+
   return (
     <Fragment>
       <div className="container " dir="rtl">
