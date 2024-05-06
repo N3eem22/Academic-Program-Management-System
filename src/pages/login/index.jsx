@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { setAuthUser } from "../../helper/storage.jsx";
+import { setAuthUser } from "../../helpers/storage.jsx";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = React.memo(() => {
@@ -14,7 +14,7 @@ const LoginPage = React.memo(() => {
     role: "",
     loading: false,
     err: [],
-    showPassword: false, 
+    showPassword: false,
   });
 
   const togglePasswordVisibility = () => {
@@ -32,10 +32,25 @@ const LoginPage = React.memo(() => {
       })
       .then((resp) => {
         setLogin({ ...login, loading: false, err: [] });
-        setAuthUser(resp.data.user);
+        setAuthUser(resp.data);
         console.log(resp.data);
         localStorage.setItem("Token", JSON.stringify(resp.data.token));
-        navigate("/");
+        console.log(resp.data.userRole);
+        // Navigate based on user role
+        switch (resp.data.userRole) {
+          case "SuperAdmin":
+            navigate("/manageuni");
+            break;
+          case "Admin":
+            navigate("/managefaculty");
+            break;
+          case "User":
+            navigate("/control");
+            break;
+          default:
+            navigate("/");
+            break;
+        }
       })
       .catch((err) => {
         setLogin({
@@ -48,12 +63,12 @@ const LoginPage = React.memo(() => {
 
   return (
     <Fragment>
-      <div className="container-fluid text-center bg-light w-100 vh-100">
+      <div className="container-fluid text-center bg-light w-100 ">
         <div className="row">
           <div className="col-md-12 border-3">
             <div className="row w-100 vh-100 shadow-5 align-content-center justify-content-center">
-              <div className="w-50 h-75 card shadow justify-content-center align-items-center">
-                <div className="col-md-4 logo">
+              <div className="w-50 card shadow justify-content-center align-items-center">
+                <div className="col-md-4 logo mt-4">
                   <img
                     src="./src/assets/imgs/Hel.svg"
                     className="w-50 h-100"
@@ -98,19 +113,17 @@ const LoginPage = React.memo(() => {
                       }
                     />
                     <i
-                      className={`position-absolute end-0 top-50 translate-middle-y ${styles.passwordIcon}`}
+                      className={`position-absolute end-0 top-50 translate-middle-y `}
                       onClick={togglePasswordVisibility}
                     >
                       <i
                         className={`${login.showPassword ? "fas fa-eye-slash" : "fas fa-eye"} fs-5 me-3`}
                         style={{ cursor: "pointer" }}
                       ></i>
-
-
                     </i>
                     <label htmlFor="floatingPassword">Password</label>
                   </div>
-                  
+
                   <div className={`form-group radio-group mt-4 ${styles.radio} `}>
                     <div className="form-check">
                       <input
@@ -155,10 +168,10 @@ const LoginPage = React.memo(() => {
                       </label>
                     </div>
                   </div>
-              </div>
+                </div>
                 <button
                   type="button"
-                  className={styles["button"]}
+                  className={` mb-4 ${styles["button"]}`}
                   onClick={LoginFun}
                 >
                   Login

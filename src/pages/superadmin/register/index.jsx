@@ -3,7 +3,6 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { setAuthUser } from "../../helper/storage.jsx";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = React.memo(() => {
@@ -13,6 +12,7 @@ const RegisterPage = React.memo(() => {
         displayName: "",
         phoneNumber: "",
         password: "",
+        passwordError: "",
         role: "",
         university: "",
         universities: [],
@@ -39,14 +39,13 @@ const RegisterPage = React.memo(() => {
 
     }, []);
     useEffect(() => {
-        if (register.university) {
+        if (register.university.length === 1) {
             axios
-                .get(`https://localhost:7095/api/faculty?universityId=${register.university}`)
-
+                .get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`)
                 .then((response) => {
                     setRegister({ ...register, faculties: response.data });
                     console.log(response.data);
-                    console.log(register.university);
+                    console.log(register.university[0]);
                 })
                 .catch((err) => {
                     setRegister({
@@ -59,6 +58,7 @@ const RegisterPage = React.memo(() => {
     }, [register.university]);
 
 
+
     const RegisterFun = (e) => {
         e.preventDefault();
         setRegister({ ...register, loading: true, err: [] });
@@ -69,14 +69,13 @@ const RegisterPage = React.memo(() => {
                 phoneNumber: register.phoneNumber,
                 password: register.password,
                 role: register.role,
-                facultyid: [register.faculty],
-                universityID: [register.university] 
+                facultyid: register.faculty ? [register.faculty] : [],
+                universityID: Array.isArray(register.university) ? register.university : [register.university]
             })
-            .then((resp) => {
+
+            .then(() => {
                 setRegister({ ...register, loading: false, err: [] });
-                setAuthUser(resp.data.user);
-                localStorage.setItem("Token", JSON.stringify(resp.data.token));
-                navigate("/");
+                navigate("/manageusers");
             })
             .catch((err) => {
                 setRegister({
@@ -86,6 +85,34 @@ const RegisterPage = React.memo(() => {
                 });
             });
     };
+    const validatePassword = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+    };
+
+    const handlePasswordBlur = (e) => {
+        const newPassword = e.target.value;
+        if (!validatePassword(newPassword)) {
+            setRegister({
+                ...register,
+                passwordError: "Password must contain at least 8 characters (uppercase letter,lowercase letter,special character, and number).",
+            });
+        } else {
+            setRegister({
+                ...register,
+                passwordError: "",
+            });
+        }
+    };
+
+
+
+    const handlePasswordChange = (e) => {
+        setRegister({ ...register, password: e.target.value });
+    };
+    useEffect(() => {
+        setRegister({ ...register, passwordError: "" });
+    }, [register.password]);
 
     return (
         <Fragment>
@@ -157,35 +184,38 @@ const RegisterPage = React.memo(() => {
                                     <div className="form-floating position-relative">
                                         <input
                                             type="password"
-                                            className="form-control  mb-4"
+                                            className={`form-control  mb-4 ${register.passwordError && "is-invalid"}`}
                                             id="floatingPassword"
                                             placeholder="Password"
                                             value={register.password}
-                                            onChange={(e) =>
-                                                setRegister({ ...register, password: e.target.value })
-                                            }
+                                            onChange={handlePasswordChange}
+                                            onBlur={handlePasswordBlur}
                                         />
-
                                         <label htmlFor="floatingPassword">Password</label>
+                                        {register.passwordError && (
+                                            <div className="invalid-feedback mb-2 mt-0">{register.passwordError}</div>
+                                        )}
                                     </div>
-
                                     <div className="form-floating position-relative">
+                                    <div className="col-lg-12">
                                         <select
-                                            className="form-control mb-4 fw-semibold"
+                                            multiple
+                                            className="form-select custom-select-start fs-6 mb-4"
                                             id="floatingUni"
                                             value={register.university}
                                             onChange={(e) =>
-                                                setRegister({ ...register, university: e.target.value })
+                                                setRegister({ ...register, university: Array.from(e.target.selectedOptions, option => option.value) })
                                             }
                                         >
-                                            <option value="" disabled>Select an university</option>
+                                            <option value="" disabled>Select universities</option>
                                             {register.universities.map((university) => (
                                                 <option key={university.id} value={university.id}>
                                                     {university.name}
                                                 </option>
                                             ))}
                                         </select>
-                                        <label htmlFor="floatingUni fw-semibold">University</label>
+
+                                        </div>
                                     </div>
                                     <div className="form-floating position-relative">
                                         <select
@@ -193,16 +223,18 @@ const RegisterPage = React.memo(() => {
                                             id="floatingFaculity"
                                             value={register.faculty}
                                             onChange={(e) =>
-                                                setRegister({ ...register, faculty: e.target.value })
+                                                setRegister({ ...register, faculty: e.target.value === "null" ? null : e.target.value })
                                             }
                                         >
-                                            <option value="" disabled>Select a faculty</option>
+                                            <option value="null">No faculty</option>
                                             {register.faculties.map((faculty) => (
                                                 <option key={faculty.id} value={faculty.id}>
                                                     {faculty.facultyName}
                                                 </option>
                                             ))}
                                         </select>
+
+
                                         <label htmlFor="floatingFaculity fw-semibold">Faculty</label>
                                     </div>
 

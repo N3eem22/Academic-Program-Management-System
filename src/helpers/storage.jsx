@@ -7,3 +7,8 @@ export const setAuthUser = (data) => {
       return JSON.parse(localStorage.getItem("user"));
     }
   };
+  export const removeAuthUser = () => {
+    if (localStorage.getItem("user")) {
+      localStorage.removeItem("user");
+    }
+  };

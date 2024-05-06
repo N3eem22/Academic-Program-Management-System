@@ -339,25 +339,7 @@ const GpaPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
-                                                <span >
-                                                    <div className="form-group  row">
-                                                        <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="numberRatePoints">
-                                                            عدد ارقام تقريب النقاط
-                                                        </label>
-                                                        <div class="col-lg-2 ">
-                                                            <div class="input-group">
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    id="numberRatePoints"
-                                                                    name="numberRatePoints"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                            </div>
+                                            
                                             <div className="col-md-12">
                                                 <span >
                                                     <div className="form-group  row">

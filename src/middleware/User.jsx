@@ -4,13 +4,13 @@ import { Outlet, Navigate } from "react-router-dom";
 import { getAuthUser } from "../helpers/storage.jsx";
 
 
-const Admin = () => {
+const User = () => {
   const auth = getAuthUser();
-  if (auth && auth.userRole === "Admin") {
+  if (auth && auth.userRole === "User") {
     return <Outlet/> ;
   } else {
     return <Navigate to="/" />;
   }
 };
 
-export default Admin;
+export default User;

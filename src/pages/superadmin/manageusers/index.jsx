@@ -1,17 +1,33 @@
 import React, { Fragment } from "react";
+import { useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const ManageUsersPage = () => {
+    const navigate = useNavigate();
+  
+    const handleAddUserClick = () => {
+      navigate('/regsiter');
+    };
   return (
     <Fragment>
       <div className="container " dir="rtl">
         <div className="row mt-3">
           <div className="col-md-2"></div>
           <div className="col-md-10">
-            <h2 style={{ color: "red", paddingBottom: "15px" }}>
-              اداره المستخدمين{" "}
-            </h2>
+            <div className="col-12" style={{  paddingBottom: "15px" }}>
+              <div className="row"><div className="col-2">
+                <h2 style={{ color: "red"}}>
+                  اداره المستخدمين{" "}
+                </h2>
+              </div>
+                <div className="col-md-2">
+                  <button className="btn btn-success py-3 fw-semibold fs-5 sharp" type="button" onClick={handleAddUserClick}>
+                    اضافة مستخدم
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className="card  ">
               <div className="card-header">
                 <h4 className="card-title">اداره المستخدمين</h4>

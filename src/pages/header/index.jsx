@@ -6,6 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 const HeaderPage = () => {
+  const logout = async () => {
+    try {
+      await axios.post("http://localhost:4000/auth/logout" );
+      removeAuthUser();
+      navigate("/login"); 
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+};
+
   return (
     <Fragment>
       <div className="container-fluied" dir="rtl">
