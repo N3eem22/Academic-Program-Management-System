@@ -20,6 +20,10 @@ namespace Grad.Repository.Data.Configrations.AcademicLoadAccordingToLevelConfig
             builder.HasOne(pi => pi.AcademicLevel)
                 .WithMany(pi=>pi.academicLoadAccordingToLevels)
                 .HasForeignKey(pi => pi.LevelId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(pi => pi.AL_Semesters)
+             .WithMany(pi => pi.academicLoadAccordingToLevels)
+             .HasForeignKey(pi => pi.SemestersId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
