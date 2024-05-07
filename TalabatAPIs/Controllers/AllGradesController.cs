@@ -123,7 +123,7 @@ namespace Grad.APIs.Controllers
             }
 
             bool exists = false;
-            exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(x => x.TheGrade.Trim().ToUpper() == Updatedgrade.Trim().ToUpper() && x.UniversityId == grade.UniversityId);
+            exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(x => x.TheGrade.Trim().ToUpper() == Updatedgrade.Trim().ToUpper() && x.UniversityId == grade.UniversityId && !x.IsDeleted);
 
             string err = AppMessage.Error;
             string Update = AppMessage.Updated;

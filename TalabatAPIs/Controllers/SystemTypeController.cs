@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<SystemType>().ExistAsync(
                 x => x.SystemName.Trim().ToUpper() == updatedSystemName.Trim().ToUpper() &&
-                     x.UniversityId == systemType.UniversityId);
+                     x.UniversityId == systemType.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 systemType.SystemName = updatedSystemName;

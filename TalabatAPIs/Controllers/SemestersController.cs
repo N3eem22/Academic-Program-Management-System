@@ -78,7 +78,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<Semesters>().ExistAsync(
-                x => x.semesters.Trim().ToUpper() == updatedSemester.Trim().ToUpper() && x.UniversityId == semester.UniversityId);
+                x => x.semesters.Trim().ToUpper() == updatedSemester.Trim().ToUpper() && x.UniversityId == semester.UniversityId && !x.IsDeleted);
 
             if (!exists)
             {

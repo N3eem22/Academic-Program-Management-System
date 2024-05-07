@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<DivisionType>().ExistAsync(
                 x => x.Division_Type.Trim().ToUpper() == updatedDivisionType.Trim().ToUpper() &&
-                     x.UniversityId == divisionType.UniversityId);
+                     x.UniversityId == divisionType.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 divisionType.Division_Type = updatedDivisionType;

@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<BlockingProofOfRegistration>().ExistAsync(
                 x => x.ReasonsOfBlocking.Trim().ToUpper() == updatedReasonsOfBlocking.Trim().ToUpper() &&
-                     x.UniversityId == blockingProofOfRegistration.UniversityId);
+                     x.UniversityId == blockingProofOfRegistration.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 blockingProofOfRegistration.ReasonsOfBlocking = updatedReasonsOfBlocking;

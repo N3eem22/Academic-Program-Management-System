@@ -79,7 +79,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<PreviousQualification>().ExistAsync(
-                x => x.previousQualification.Trim().ToUpper() == updatedQualification.Trim().ToUpper() &&  x.UniversityId == qualification.UniversityId);
+                x => x.previousQualification.Trim().ToUpper() == updatedQualification.Trim().ToUpper() &&  x.UniversityId == qualification.UniversityId && !x.IsDeleted);
 
             if (!exists)
             {

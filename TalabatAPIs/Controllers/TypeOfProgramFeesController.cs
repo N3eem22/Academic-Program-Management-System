@@ -79,7 +79,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<TypeOfProgramFees>().ExistAsync(
-                x => x.TypeOfFees.Trim().ToUpper() == updatedTypeOfFeesName.Trim().ToUpper() && x.UniversityId == typeOfProgramFees.UniversityId);
+                x => x.TypeOfFees.Trim().ToUpper() == updatedTypeOfFeesName.Trim().ToUpper() && x.UniversityId == typeOfProgramFees.UniversityId && !x.IsDeleted);
 
             if (!exists)
             {
