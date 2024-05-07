@@ -22,7 +22,6 @@ namespace Grad.APIs.DTO.ProgrmInformation
             public int ProgramCode { get; set; }
             public int FacultyId { get; set; }
             public int AcademicDegreeId { get; set; }
-            public string Degree { get; set; }
             public string NameInCertificate { get; set; }
             public string NameInCertificateInEnglish { get; set; }
             public string BeginningOfTheProgram { get; set; }
@@ -41,7 +40,7 @@ namespace Grad.APIs.DTO.ProgrmInformation
             public int BurdanCalculationId { get; set; }
             public bool ExcludingTheBudgetTermWhenCalculatingTheGPA { get; set; }
             public int PassingTheElectiveGroupBasedOnId { get; set; }
-            public string pre_Requisite { get; set; }
+            public int? PrerequisitesProgramsId { get; set; }
             public int EditTheStudentLevelId { get; set; }
             public bool AllowingTheRegistrationOfaSpecificNumberOfElectiveCoursesDuringTheYear { get; set; }
             public int FailureTimesForWarning { get; set; }

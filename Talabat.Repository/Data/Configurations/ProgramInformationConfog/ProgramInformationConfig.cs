@@ -77,8 +77,13 @@ namespace Grad.Repository.Data.Configrations.ProgramInformationConfig
                   .WithMany(pi=>pi.Program_Information)
                   .HasForeignKey(pi => pi.ProgramsId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(pi => pi.PrerequisitesPrograms)
+                   .WithMany(pi => pi.ProgramInformation_Pre)
+                   .HasForeignKey(pi => pi.PrerequisitesProgramsId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
 
-
+            builder.HasOne(pi => pi.Institue)
+                   .WithMany(pi => pi.ProgramInformations)
+                   .HasForeignKey(pi => pi.FacultyId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
         }
     }

@@ -157,7 +157,3 @@ public class Program
 
     }
 }
-<<<<<<< HEAD
-=======
-	
->>>>>>> fbb305a60abca39302ac4478aeaa8ab71a30fc4d

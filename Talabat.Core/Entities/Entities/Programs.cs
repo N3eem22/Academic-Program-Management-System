@@ -12,5 +12,6 @@ namespace Talabat.Core.Entities.Entities
         public Faculty Faculty { get; set; }
 
        public ICollection<ProgramInformation> Program_Information { get; set; } = new HashSet<ProgramInformation>();
+       public ICollection<ProgramInformation> ProgramInformation_Pre {  get; set; } = new HashSet<ProgramInformation>();
     }
 }

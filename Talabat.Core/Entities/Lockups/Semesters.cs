@@ -1,5 +1,6 @@
 ﻿
 
+using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.Graduation;
 
@@ -14,6 +15,7 @@ namespace Talabat.Core.Entities.Lockups
         public University University { get; set; }
         public ICollection<GraduationSemesters> GraduationSemesters { get; set; } = new HashSet<GraduationSemesters>();
         public ICollection<CourseInformation> CourseInformation { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<AcademicLoadAccordingToLevel> academicLoadAccordingToLevels { get; set; } = new HashSet<AcademicLoadAccordingToLevel>();
 
 
     }

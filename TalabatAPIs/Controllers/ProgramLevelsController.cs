@@ -49,7 +49,7 @@ namespace Grad.APIs.Controllers
         {
             var spec = new ProgramLevelsSpec(id);
             var programLevel = await _unitOfWork.Repository<programLevels>().GetAllWithSpecAsync(spec);
-            if (programLevel == null)
+            if (programLevel.Count == 0)
                 return NotFound(new ApiResponse(404));
             var programLevelDto = _mapper.Map<IEnumerable<programLevels>,IEnumerable<ProgramLevelResponseDto>>(programLevel);
             return Ok(programLevelDto);

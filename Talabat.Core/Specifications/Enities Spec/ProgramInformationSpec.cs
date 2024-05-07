@@ -34,13 +34,6 @@ namespace Grad.Core.Specifications.Enities_Spec
             Includes.Add(pi => pi.PI_EstimatesOfCourseFeeExemptions);
             Includes.Add(pi => pi.pI_DetailedGradesToBeAnnounced);
             Includes.Add(pi => pi.Institue);
-            //Includes.Add(pi => pi.Program_TheGrades);
-            //Includes.Add(pi => pi.programLevels);
-            //Includes.Add(pi => pi.academicLoadAccordingToLevels);
-            //Includes.Add(pi => pi.Courses);
-            //Includes.Add(pi => pi.CumulativeAverages);
-            //Includes.Add(pi => pi.Graduations);
-            //Includes.Add(pi => pi.Controls);
 
         }
     }
