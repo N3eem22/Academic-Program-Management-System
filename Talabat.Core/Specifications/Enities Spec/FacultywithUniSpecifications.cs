@@ -22,6 +22,12 @@ namespace Grad.Core.Specifications.Enities_Spec
             Includes.Add(G => G.University);
 
         }
+        public FacultywithUniSpecifications(IEnumerable<int> FacId)
+            : base(c => FacId.Contains(c.Id) && !c.IsDeleted)
+        {
+            Includes.Add(G => G.University);
+        }
+
 
         public FacultywithUniSpecifications(string? facultyName, int? UNiid)
      : base(p =>

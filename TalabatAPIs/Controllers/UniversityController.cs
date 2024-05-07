@@ -47,7 +47,7 @@ namespace Grad.APIs.Controllers
         //}
 
         [HttpGet]
-        [Authorize(Roles ="Admin,SuperAdmin")]
+        [Authorize(Roles = "Admin,SuperAdmin,User")]
         [ProducesResponseType(typeof(UniversityDTO), 200)]
         [ProducesResponseType(typeof(ApiResponse), 404)]
         public async Task<ActionResult<IEnumerable<UniversityDTO>>> UserUniversities()
@@ -63,15 +63,16 @@ namespace Grad.APIs.Controllers
                 return Ok(universityDTOs);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var userUniversities = _IdentityHelper.GetUserUniversities(userId);
-                if (!userUniversities.Any())
+            var userUniversities = _IdentityHelper.GetUserUniversities(userId);
+            if (!userUniversities.Any())
                 {
                     return NotFound(new { Message = $"No universities found for user ID {userId}." });
                 }
          
-            var spec = new UniwithUsersSpecifications(userUniversities);
+                var spec = new UniwithUsersSpecifications(userUniversities);
                 var Unis = await _unitOfWork.Repository<University>().GetAllWithSpecAsync(spec);
-                var UniDTO = _mapper.Map<IEnumerable<University>, IEnumerable<UniversityDTO>>(Unis);
+                     await Console.Out.WriteLineAsync("sddsdsdsd      "+ Unis.Count);
+            var UniDTO = _mapper.Map<IEnumerable<University>, IEnumerable<UniversityDTO>>(Unis);
 
                 return Ok(UniDTO);
             

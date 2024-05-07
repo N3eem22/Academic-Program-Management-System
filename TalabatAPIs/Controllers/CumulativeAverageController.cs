@@ -57,7 +57,7 @@ namespace Grad.APIs.Controllers
             var cumulativeAverageDTO = _mapper.Map<CumulativeAverage, CumulativeAverageDTO>(cumulativeAverage);
             return Ok(cumulativeAverageDTO);
         }
-        [HttpPost]       
+        [HttpPost]
         public async Task<ActionResult<CumulativeAverageReq>> AddCumulativeAverage(CumulativeAverageReq cumulativeAverageRequest)
         {
             bool exists = await _unitOfWork.Repository<CumulativeAverage>().ExistAsync(
