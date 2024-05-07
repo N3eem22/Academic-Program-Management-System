@@ -63,15 +63,11 @@ namespace Grad.APIs.Controllers
                 return Ok(universityDTOs);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-<<<<<<< HEAD
                 var userUniversities = _IdentityHelper.GetUserUniversities(userId);
-                if (!userUniversities.Any())
-                {   
-=======
-            var userUniversities = _IdentityHelper.GetUserUniversities(userId);
+               
             if (!userUniversities.Any())
                 {
->>>>>>> 862efda9e022927011efff8a5659a1a80be7d4e2
+
                     return NotFound(new { Message = $"No universities found for user ID {userId}." });
                 }
          
