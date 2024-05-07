@@ -12,6 +12,7 @@ using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Control;
 using Grad.Core.Entities.Control;
+using Grad.Core.Entities.Control;
 using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
@@ -77,10 +78,12 @@ namespace Talabat.APIs.Helpers
             CreateMap<GadesOfEstimatesThatDoesNotCountReq, GadesOfEstimatesThatDoesNotCount>();
 
             CreateMap<CumulativeAverageReq, CumulativeAverage>();
+
             #endregion
 
-            #region programLevels
 
+
+            #region programLevels
 
             CreateMap<programLevels, ProgramLevelResponseDto>()
                 .ForMember(d => d.TheLevel, o => o.MapFrom(s => s.TheLevel.levels));

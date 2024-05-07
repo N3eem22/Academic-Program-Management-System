@@ -4,8 +4,10 @@ using Grad.APIs.DTO.Entities_Dto;
 using Grad.APIs.Helpers;
 using Grad.Core.Specifications;
 using Grad.Core.Specifications.Enities_Spec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
@@ -21,19 +23,44 @@ namespace Grad.APIs.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IdentityHelper _IdentityHelper;
 
-        public FacultyController(IMapper mapper, IUnitOfWork unitOfWork)
+        public FacultyController(IMapper mapper, IUnitOfWork unitOfWork, IdentityHelper identityHelper)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _IdentityHelper = identityHelper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FacultyDTO>>> GetAllFaculties(int? UniversityId)
+        [Authorize(Roles = "Admin,SuperAdmin,User")]
+        [ProducesResponseType(typeof(FacultyDTO), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 404)]
+        public async Task<ActionResult<IEnumerable<FacultyDTO>>> GetAllFaculties()
         {
-            var spec = new FacultywithUniSpecifications(UniversityId);
+            
+            var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            if (role == "SuperAdmin")
+            {
+
+                var faculty = await _unitOfWork.Repository<Faculty>().GetAllAsync();
+                faculty = faculty.Where(u => !u.IsDeleted);
+
+                var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
+                return Ok(facultyDTO);
+            }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userFaculties = _IdentityHelper.GetUserFaculties(userId);
+            if (!userFaculties.Any())
+            {
+                return NotFound(new { Message = $"No Faculties found for user ID {userId}." });
+            }
+
+            var spec = new FacultywithUniSpecifications(userFaculties);
             var faculties = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(spec);
             var facultyDTOs = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculties);
+
             return Ok(facultyDTOs);
         }
 
@@ -55,7 +82,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<Faculty>().ExistAsync(
                 x => x.FacultyName.Trim().ToUpper() == facultyReq.FacultyName.Trim().ToUpper() &&
-                     x.UniversityId == facultyReq.UniversityId);
+                     x.UniversityId == facultyReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var faculty = _unitOfWork.Repository<Faculty>().Add(_mapper.Map<FacultyReq, Faculty>(facultyReq));

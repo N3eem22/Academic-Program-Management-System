@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<TheAcademicDegree>().ExistAsync(
                 x => x.AcademicDegreeName.Trim().ToUpper() == academicDegreeReq.AcademicDegreeName.Trim().ToUpper() &&
-                     x.UniversityId == academicDegreeReq.UniversityId);
+                     x.UniversityId == academicDegreeReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var academicDegree = _unitOfWork.Repository<TheAcademicDegree>().Add(_mapper.Map<TheAcademicDegreeReq, TheAcademicDegree>(academicDegreeReq));

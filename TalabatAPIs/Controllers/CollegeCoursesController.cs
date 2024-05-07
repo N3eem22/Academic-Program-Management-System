@@ -101,7 +101,7 @@ namespace Grad.APIs.Controllers
                 x.CourseNameInEnglish.Trim().ToUpper() == collegeCourseReq.CourseNameInEnglish.Trim().ToUpper() &&
                 x.CourseCodeInArabic.ToString().Trim().ToUpper() == collegeCourseReq.CourseCodeInArabic.ToString().Trim().ToUpper() &&
                 x.CourseCodeInEnglish.ToString().Trim().ToUpper() == collegeCourseReq.CourseCodeInEnglish.ToString().Trim().ToUpper() &&
-                x.FacultyId == collegeCourseReq.FacultyId);
+                x.FacultyId == collegeCourseReq.FacultyId && !x.IsDeleted);
             return exists;
         }
 

@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<BlockingProofOfRegistration>().ExistAsync(
                 x => x.ReasonsOfBlocking.Trim().ToUpper() == blockingProofOfRegistrationReq.ReasonsOfBlocking.Trim().ToUpper() &&
-                     x.UniversityId == blockingProofOfRegistrationReq.UniversityId);
+                     x.UniversityId == blockingProofOfRegistrationReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var blockingProofOfRegistration = _unitOfWork.Repository<BlockingProofOfRegistration>().Add(_mapper.Map<BlockingProofOfRegistrationReq, BlockingProofOfRegistration>(blockingProofOfRegistrationReq));

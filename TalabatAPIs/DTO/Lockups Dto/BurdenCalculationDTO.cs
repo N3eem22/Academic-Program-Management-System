@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string FacultyName { get; set; }
+        public string BurdenCalculationAS { get; set; }
         public int? UniversityId { get; set; }
 
 

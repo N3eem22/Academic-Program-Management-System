@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<EquivalentGrade>().ExistAsync(
                 x => x.equivalentGrade.Trim().ToUpper() == equivalentGradeReq.equivalentGrade.Trim().ToUpper() &&
-                     x.UniversityId == equivalentGradeReq.UniversityId);
+                     x.UniversityId == equivalentGradeReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var equivalentGrade = _unitOfWork.Repository<EquivalentGrade>().Add(_mapper.Map<EquivalentGradeReq, EquivalentGrade>(equivalentGradeReq));
@@ -65,7 +65,7 @@ namespace Grad.APIs.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<EquivalentGradeReq>> UpdateEquivalentGrade(int id, [FromBody] string updatedEquivalentGrade)
+        public async Task<ActionResult<EquivalentGradeReq>> UpdateEquivalentGrade(int id, string updatedEquivalentGrade)
         {
             var equivalentGrade = await _unitOfWork.Repository<EquivalentGrade>().GetByIdAsync(id);
             if (equivalentGrade == null)

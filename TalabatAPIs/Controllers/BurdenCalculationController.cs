@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<BurdenCalculation>().ExistAsync(
                 x => x.BurdenCalculationAS.Trim().ToUpper() == burdenCalculationReq.BurdenCalculationAS.Trim().ToUpper() &&
-                     x.UniversityId == burdenCalculationReq.UniversityId);
+                     x.UniversityId == burdenCalculationReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var burdenCalculation = _unitOfWork.Repository<BurdenCalculation>().Add(_mapper.Map<BurdenCalculationReq, BurdenCalculation>(burdenCalculationReq));

@@ -56,7 +56,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<Level>().ExistAsync(
                 x => x.levels.Trim().ToUpper() == levelDTO.levels.Trim().ToUpper() &&
-                     x.UniversityId == levelDTO.UniversityId);
+                     x.UniversityId == levelDTO.UniversityId && !x.IsDeleted);
 
             if (exists)
                 return StatusCode(409, new ApiResponse(409));

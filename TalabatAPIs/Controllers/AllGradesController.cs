@@ -33,17 +33,17 @@ namespace Grad.APIs.Controllers
 
         }
 
-        [Authorize]
+
         [HttpGet]
 
         public async Task<ActionResult<IEnumerable<AllGradesDTO>>> GetAllGrades(int? Universityid)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var HasAcsess = await  _IdentityHelper.CheckUserUniversityAccessAsync(userId, Universityid); 
+          //  var HasAcsess = await  _IdentityHelper.CheckUserUniversityAccessAsync(userId, Universityid); 
             
-            if (HasAcsess)
-            {
+           // if (HasAcsess)
+           // {
                 var spec = new GradeswithUniSpecifications(Universityid);
                 var grades = await _unitOfWork.Repository<AllGrades>().GetAllWithSpecAsync(spec);
 
@@ -51,8 +51,8 @@ namespace Grad.APIs.Controllers
                 var gradesDTO = _mapper.Map<IEnumerable<AllGrades>, IEnumerable<AllGradesDTO>>(grades);
 
                 return Ok(gradesDTO);
-            }
-            return Unauthorized(new ApiResponse(401));
+          //  }
+        //    return Unauthorized(new ApiResponse(401));
             
         }
 
@@ -81,7 +81,7 @@ namespace Grad.APIs.Controllers
             bool exists = false;
             exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(
          x => x.TheGrade.Trim().ToUpper() == gradeDTO.TheGrade.Trim().ToUpper(),
-         x => x.UniversityId == gradeDTO.UniversityId);
+         x => x.UniversityId == gradeDTO.UniversityId && !x.IsDeleted);
             if (exists)
             {
 
@@ -107,11 +107,11 @@ namespace Grad.APIs.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<ActionResult<AllGradesReq>> UpdateGrade(int GradeID , string Updatedgrade)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<AllGradesReq>> UpdateGrade( int id, string Updatedgrade)
         {
 
-            var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(GradeID);
+            var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(id);
 
 
             if (grade == null)
@@ -145,13 +145,13 @@ namespace Grad.APIs.Controllers
 
         }
 
-        [HttpDelete("{GradeID}")]
-        public async Task<IActionResult> DeleteGrade(int GradeID)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGrade(int id)
         {
-            var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(GradeID);
+            var grade = await _unitOfWork.Repository<AllGrades>().GetByIdAsync(id);
             if (grade == null)   
                 return NotFound(new ApiResponse(400));
-         await _unitOfWork.Repository<AllGrades>().softDelete(GradeID);
+         await _unitOfWork.Repository<AllGrades>().softDelete(id);
             bool result = await _unitOfWork.CompleteAsync() > 0;
          return result ? Ok(new { message = AppMessage.Deleted }) : StatusCode(500, new { error = AppMessage.Error });
 

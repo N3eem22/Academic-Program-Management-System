@@ -25,12 +25,12 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
 
-        #region  Swagger
-        builder.Services.AddSwaggerGen(c =>
-        {
+            #region  Swagger
+            builder.Services.AddSwaggerGen(c =>
+            {
 
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<SystemType>().ExistAsync(
                 x => x.SystemName.Trim().ToUpper() == systemTypeReq.SystemName.Trim().ToUpper() &&
-                     x.UniversityId == systemTypeReq.UniversityId);
+                     x.UniversityId == systemTypeReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var systemType = _unitOfWork.Repository<SystemType>().Add(_mapper.Map<SystemTypeReq, SystemType>(systemTypeReq));
