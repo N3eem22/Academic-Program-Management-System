@@ -29,7 +29,7 @@ namespace Talabat.Service
             {
             new Claim(ClaimTypes.GivenName,User.DisplayName),
             new Claim(ClaimTypes.Email, User.Email) ,
-            new Claim(ClaimTypes.NameIdentifier, User.Id.ToString())
+            new Claim(ClaimTypes.NameIdentifier, User.Id)
             };
             var userRoles = await userManager.GetRolesAsync(User);
             foreach(var role in userRoles)
