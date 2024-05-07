@@ -56,7 +56,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<ReasonForBlockingAcademicResult>().ExistAsync(
                 x => x.TheReasonForBlockingAcademicResult.Trim().ToUpper() == reasonDTO.TheReasonForBlockingAcademicResult.Trim().ToUpper() &&
-                     x.UniversityId == reasonDTO.UniversityId);
+                     x.UniversityId == reasonDTO.UniversityId && !x.IsDeleted);
 
             if (exists)
                 return StatusCode(409, new ApiResponse(409));

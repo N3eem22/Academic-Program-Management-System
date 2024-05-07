@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().ExistAsync(
                 x => x.TheType.Trim().ToUpper() == financialStatementReq.TheType.Trim().ToUpper() &&
-                     x.UniversityId == financialStatementReq.UniversityId);
+                     x.UniversityId == financialStatementReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var financialStatement = _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().Add(_mapper.Map<TypeOfFinancialStatementInTheProgramReq, TypeOfFinancialStatementInTheProgram>(financialStatementReq));

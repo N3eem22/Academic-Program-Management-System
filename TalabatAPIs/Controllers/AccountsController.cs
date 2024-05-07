@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Talabat.APIs.DTO;
+using Talabat.APIs.DTO.Talabat.APIs.DTO;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Exstentions;
 using Talabat.Core;
@@ -52,6 +53,8 @@ namespace Talabat.APIs.Controllers
                 return BadRequest(new { message = "Invalid role" });
             }
 
+
+
             if (CheckDuplicateEmail(model.Email).Result.Value)
                 return BadRequest(new ApiResponse(400, "Email Already Exists"));
 
@@ -83,7 +86,7 @@ namespace Talabat.APIs.Controllers
 
             _identityHelper.AssignUserToFaculties(user.Id, model.Facultyid);
 
-            _identityHelper.AssignUserToUniversities(user.Id, model.universityID);
+            _identityHelper.AssignUserToUniversities(user.Id, model.UniversityID);
 
 
 

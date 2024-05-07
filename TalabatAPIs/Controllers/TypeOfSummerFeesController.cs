@@ -56,7 +56,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<TypeOfSummerFees>().ExistAsync(
                 x => x.TheTypeOfSummerFees.Trim().ToUpper() == typeOfSummerFeesDTO.TheTypeOfSummerFees.Trim().ToUpper() &&
-                     x.UniversityId == typeOfSummerFeesDTO.UniversityId);
+                     x.UniversityId == typeOfSummerFeesDTO.UniversityId && !x.IsDeleted);
 
             if (exists)
                 return StatusCode(409, new ApiResponse(409));

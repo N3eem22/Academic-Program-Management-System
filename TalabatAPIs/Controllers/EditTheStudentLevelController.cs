@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<EditTheStudentLevel>().ExistAsync(
                 x => x.editTheStudentLevel.Trim().ToUpper() == editTheStudentLevelReq.editTheStudentLevel.Trim().ToUpper() &&
-                     x.UniversityId == editTheStudentLevelReq.UniversityId);
+                     x.UniversityId == editTheStudentLevelReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var editTheStudentLevel = _unitOfWork.Repository<EditTheStudentLevel>().Add(_mapper.Map<EditTheStudentLevelReq, EditTheStudentLevel>(editTheStudentLevelReq));

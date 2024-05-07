@@ -14,17 +14,14 @@
         {
             return code switch
             {
-                400 => "BadRequest",
-                401 => "You are not authorized",
-                404 => "resource not found",
-                500 => "internal server error",
-                409 => "Resource Already Exists",
+                400 => "طلب غير صالح",
+                401 => "ليس لديك الصلاحية",
+                404 => "المورد غير موجود",
+                500 => "خطأ داخلي في الخادم",
+                409 => "المورد موجود بالفعل",
                 _ => null
-
-
-
-
             };
+
         }
     }
 }

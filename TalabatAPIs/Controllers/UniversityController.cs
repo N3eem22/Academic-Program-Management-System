@@ -95,7 +95,7 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<UniversityReq>> AddUniversity(UniversityReq universityReq)
         {
             bool exists = await _unitOfWork.Repository<University>().ExistAsync(
-                x => x.Name.Trim().ToUpper() == universityReq.Name.Trim().ToUpper());
+                x => x.Name.Trim().ToUpper() == universityReq.Name.Trim().ToUpper() && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var university = _mapper.Map<UniversityReq, University>(universityReq);

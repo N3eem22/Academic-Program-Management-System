@@ -81,7 +81,7 @@ namespace Grad.APIs.Controllers
             bool exists = false;
             exists = await _unitOfWork.Repository<AllGrades>().ExistAsync(
          x => x.TheGrade.Trim().ToUpper() == gradeDTO.TheGrade.Trim().ToUpper(),
-         x => x.UniversityId == gradeDTO.UniversityId);
+         x => x.UniversityId == gradeDTO.UniversityId && !x.IsDeleted);
             if (exists)
             {
 

@@ -55,7 +55,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<GradesDetails>().ExistAsync(
                 x => x.TheDetails.Trim().ToUpper() == gradesDetailsReq.TheDetails.Trim().ToUpper() &&
-                     x.UniversityId == gradesDetailsReq.UniversityId);
+                     x.UniversityId == gradesDetailsReq.UniversityId && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var gradesDetails = _unitOfWork.Repository<GradesDetails>().Add(_mapper.Map<GradesDetailsReq, GradesDetails>(gradesDetailsReq));
