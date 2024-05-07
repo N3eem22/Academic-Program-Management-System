@@ -65,7 +65,7 @@ namespace Grad.APIs.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var userUniversities = _IdentityHelper.GetUserUniversities(userId);
                 if (!userUniversities.Any())
-                {
+                {   
                     return NotFound(new { Message = $"No universities found for user ID {userId}." });
                 }
          

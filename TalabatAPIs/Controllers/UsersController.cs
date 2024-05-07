@@ -46,8 +46,8 @@ namespace Grad.APIs.Controllers
                     Email = u.Email,
                     PhoneNumber = u.PhoneNumber,
                     Role = string.Join(",", await _manager.GetRolesAsync(u)),
-                    Faculties = _identityHelper.GetUserFaculties(u.Id) ,
-                    Universities = _identityHelper.GetUserUniversities(u.Id)
+                    Faculties = _identityHelper.GetUserFacultiesName(u.Id) ,
+                    Universities = _identityHelper.GetUserUniversitiesName(u.Id)
                 }).Select(task => task.Result).ToList();
 
                 return Ok(usersReturn);
@@ -69,8 +69,8 @@ namespace Grad.APIs.Controllers
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     Role = userRoles.FirstOrDefault() ,
-                    Faculties = _identityHelper.GetUserFaculties(user.Id),
-                    Universities = _identityHelper.GetUserUniversities(user.Id)
+                    Faculties = _identityHelper.GetUserFacultiesName(user.Id),
+                    Universities = _identityHelper.GetUserUniversitiesName(user.Id)
                 };
                 return Ok(new List<UsersReturn> { mappedUser });
             }
@@ -97,8 +97,8 @@ namespace Grad.APIs.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 Role = userRoles.FirstOrDefault(),
-                Faculties = _identityHelper.GetUserFaculties(user.Id),
-                Universities = _identityHelper.GetUserUniversities(user.Id)
+                Faculties = _identityHelper.GetUserFacultiesName(user.Id),
+                Universities = _identityHelper.GetUserUniversitiesName(user.Id)
             };
             return Ok(mappedUser);
 
@@ -107,7 +107,7 @@ namespace Grad.APIs.Controllers
         [HttpPut("Update")]
        
 
-        public async Task<IActionResult> UpdateUser(string id, UsersReturn UpdatedUser)
+        public async Task<IActionResult> UpdateUser(string id, UserReq UpdatedUser)
         {
             if (id != UpdatedUser.Id)
             {
@@ -143,8 +143,8 @@ namespace Grad.APIs.Controllers
                 Email = User.Email,
                 PhoneNumber = User.PhoneNumber,
                 Role = userRoles.FirstOrDefault(),
-                Faculties = _identityHelper.GetUserFaculties(User.Id),
-                Universities = _identityHelper.GetUserUniversities(User.Id)
+                Faculties = _identityHelper.GetUserFacultiesName(User.Id),
+                Universities = _identityHelper.GetUserUniversitiesName(User.Id)
             };
 
             return Ok(mappedUser);
