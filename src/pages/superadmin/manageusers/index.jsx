@@ -5,19 +5,11 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { getAuthUser } from "../../../helpers/storage";
-import { UpdateUsersPage } from "./updateusers";
 
 const ManageUsersPage = () => {
-// <<<<<<< HEAD
-//     const navigate = useNavigate();
-  
-//     const handleAddUserClick = () => {
-//       navigate('/register');
-//     };
-// =======
+
   let { id } = useParams();
   const auth = getAuthUser();
-
   const [users, setUsers] = useState({
     loading: true,
     results: [],
@@ -27,7 +19,7 @@ const ManageUsersPage = () => {
   useEffect(() => {
     setUsers({ ...users, loading: true });
     axios
-      .get("https://localhost:7095/api/Users/GetUsers?SearchValue")
+      .get("https://localhost:7095/api/Users/GetUsers?SearchValue" )
       .then((resp) => {
         setUsers({ ...users, results: resp.data, loading: false, err: null });
       })
@@ -39,6 +31,8 @@ const ManageUsersPage = () => {
         });
       });
   }, [users.reload]);
+
+ 
 
   const deleteUser = (id) => {
     axios
@@ -63,9 +57,9 @@ const ManageUsersPage = () => {
   const handleAddUserClick = () => {
     navigate("/register");
   };
-  const handleUpdateUserClick = () => {
-    navigate(`/updateusers/${id}`  );
-  };
+  // const handleUpdateUserClick = () => {
+  //   navigate(`/updateusers/ea9d2ca3-3c75-481d-bab9-4204abe1721f`  );
+  // };
 
   return (
     <Fragment>
@@ -128,14 +122,21 @@ const ManageUsersPage = () => {
 
                               <td>
                                 <div className="d-flex">
-                                  <button className="btn btn-primary shadow btn-xs sharp me-1"
-                                  onClick={handleUpdateUserClick}>
-                                    <i className="fas fa-pen"></i>
-                                    {/* <Link
+                                <Link
                                       to={`/updateusers/${users.id}`}
                                       className="UpdateBtn"
-                                    ></Link> */}
+                                    >
+                                  <button className="btn btn-primary shadow btn-xs sharp me-1"
+                                  // onClick={handleUpdateUserClick}
+                                  
+                                  >
+                                    <i className="fas fa-pen"></i>
+                                  
+
+
                                   </button>
+                                  </Link>
+
                                 </div>
                               </td>
 

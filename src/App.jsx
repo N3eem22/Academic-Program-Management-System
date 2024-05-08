@@ -14,6 +14,7 @@ import { ManageUsersPage } from "./pages/superadmin/manageusers";
 import { UpdateUsersPage } from "./pages/superadmin/manageusers/updateusers";
 import { ManageUniPage } from "./pages/superadmin/manageuni";
 import { ManageFacultyPage } from "./pages/admin/managefaculty";
+import { UpdatefacultyPage } from "./pages/admin/managefaculty/updatefaculty";
 import { ControlsPage } from "./pages/controls";
 import { CoursesPage } from "./pages/programs/edit/courses";
 import { GpaPage } from "./pages/programs/edit/gpa";
@@ -45,6 +46,10 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
+            <Route
+              path="/updatefaculty/:id"
+              element={<UpdateFacultyWrapper />}
+            />
           </Route>
           <Route element={<SuperAdmin />}>
             <Route path="/manageuni" element={<ManageUniPage />} />
@@ -52,11 +57,7 @@ function App() {
             <Route path="/manageusers" element={<ManageUsersPage />} />
             {/* <Route path="/updateusers/:id" element={<UpdateUsersPage />} /> */}
 
-            <Route
-              path="/updateusers/:id"
-              element={<UpdateUsersWrapper />}
-            />
-
+            <Route path="/updateusers/:id" element={<UpdateUsersWrapper />} />
 
             <Route path="/register" element={<RegisterPage />} />
             {/* Pass id to UpdateUniversity */}
@@ -92,8 +93,12 @@ function UpdateUniversityWrapper() {
 }
 
 function UpdateUsersWrapper() {
-  let { id } = useParams(); 
+  let { id } = useParams();
   return <UpdateUsersPage id={id} />;
+}
+function UpdateFacultyWrapper() {
+  let { id } = useParams();
+  return <UpdatefacultyPage id={id} />;
 }
 
 export default App;
