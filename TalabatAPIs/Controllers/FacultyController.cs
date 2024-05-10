@@ -36,16 +36,21 @@ namespace Grad.APIs.Controllers
         [Authorize(Roles = "Admin,SuperAdmin,User")]
         [ProducesResponseType(typeof(FacultyDTO), 200)]
         [ProducesResponseType(typeof(ApiResponse), 404)]
-        public async Task<ActionResult<IEnumerable<FacultyDTO>>> GetAllFaculties()
+        public async Task<ActionResult<IEnumerable<FacultyDTO>>> GetAllFaculties(int? UniversityId)
         {
             
             var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
+
+
             if (role == "SuperAdmin")
             {
 
-                var faculty = await _unitOfWork.Repository<Faculty>().GetAllAsync();
-                faculty = faculty.Where(u => !u.IsDeleted);
+                var specWithUNiID = new FacultywithUniSpecifications(UniversityId);
+
+
+                var faculty = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(specWithUNiID);
+               // faculty = faculty.Where(u => !u.IsDeleted);
 
                 var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
                 return Ok(facultyDTO);
@@ -99,7 +104,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<Faculty>().ExistAsync(
                 x => x.FacultyName.Trim().ToUpper() == updatedFacultyName.Trim().ToUpper() &&
-                     x.UniversityId == faculty.UniversityId);
+                     x.UniversityId == faculty.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 faculty.FacultyName = updatedFacultyName;

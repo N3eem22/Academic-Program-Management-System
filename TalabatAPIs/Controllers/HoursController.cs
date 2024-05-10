@@ -80,7 +80,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<Hours>().ExistAsync(
-                x => x.HoursName.Trim().ToUpper() == updatedHour.Trim().ToUpper() &&  x.UniversityId == hour.UniversityId);
+                x => x.HoursName.Trim().ToUpper() == updatedHour.Trim().ToUpper() &&  x.UniversityId == hour.UniversityId && !x.IsDeleted);
 
             if (!exists)
             {

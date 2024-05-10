@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<TheAcademicDegree>().ExistAsync(
                 x => x.AcademicDegreeName.Trim().ToUpper() == updatedAcademicDegreeName.Trim().ToUpper() &&
-                     x.UniversityId == academicDegree.UniversityId);
+                     x.UniversityId == academicDegree.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 academicDegree.AcademicDegreeName = updatedAcademicDegreeName;
