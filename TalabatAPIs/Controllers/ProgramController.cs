@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO.Entities_Dto;
+using Grad.APIs.DTO.Entities_Dto.Program_TheGrade;
 using Grad.APIs.DTO.ProgrmInformation;
 using Grad.APIs.Helpers;
+using Grad.Core.Entities.Academic_regulation;
 using Grad.Core.Entities.Entities;
+using Grad.Core.Specifications.Enities_Spec;
 using Grad.Core.Specifications.LockUps_spec;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Talabat.APIs.Controllers;
 using Talabat.APIs.Errors;
 using Talabat.Core;
+using Talabat.Core.Entities.Academic_regulation;
 using Talabat.Core.Entities.Entities;
 using Talabat.Core.Entities.Lockups;
 using Talabat.Repository.Data;
@@ -31,14 +35,14 @@ namespace Grad.APIs.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProgramDTO>>> GetAllPrograms(int? FacultyId)
-        {
-            var spec = new ProgramSpec(FacultyId);
-            var programs = await _unitOfWork.Repository<Programs>().GetAllWithSpecAsync(spec);
-            var programDTOs = _mapper.Map<IEnumerable<Programs>, IEnumerable<ProgramDTO>>(programs);
-            return Ok(programDTOs);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProgramDTO>>> GetAllPrograms(int? FacultyId)
+        //{
+        //    var spec = new ProgramSpec(FacultyId);
+        //    var programs = await _unitOfWork.Repository<Programs>().GetAllWithSpecAsync(spec);
+        //    var programDTOs = _mapper.Map<IEnumerable<Programs>, IEnumerable<ProgramDTO>>(programs);
+        //    return Ok(programDTOs);
+        //}
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProgramDTO), 200)]
@@ -46,12 +50,13 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<ProgramDTO>> GetProgramById(int id)
         {
             var spec = new ProgramSpec(id);
-            var program = await _unitOfWork.Repository<Programs>().GetEntityWithSpecAsync(spec);
-            if (program == null)
+            var program = await _unitOfWork.Repository<Programs>().GetAllWithSpecAsync(spec);
+            if (program.Count == 0)
                 return NotFound(new ApiResponse(404));
-            var programDTO = _mapper.Map<Programs, ProgramDTO>(program);
-            return Ok(programDTO);
+            var programDto = _mapper.Map<IEnumerable<Programs>, IEnumerable<ProgramDTO>>(program);
+            return Ok(programDto);
         }
+
 
         [HttpPost]
         public async Task<ActionResult<ProgramReqDTO>> AddProgram(ProgramReqDTO programRequest)
@@ -84,6 +89,7 @@ namespace Grad.APIs.Controllers
             try
             {
                 _mapper.Map(programRequest, programToUpdate);
+                _unitOfWork.Repository<Programs>().Update(programToUpdate);
                 var result = await _unitOfWork.CompleteAsync() > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500, message));
@@ -109,10 +115,13 @@ namespace Grad.APIs.Controllers
         private async Task<ActionResult> ValidateForeignKeyExistence(ProgramReqDTO programRequest)
         {
             // Faculty existence check
-            var facultyExists = await _unitOfWork.Repository<Faculty>().GetByIdAsync(programRequest.FacultyId.Value) != null;
-            if (!facultyExists)
+            if (programRequest.FacultyId != null)
             {
-                return NotFound(new ApiResponse(404, $"Faculty with ID {programRequest.FacultyId} not found."));
+                var FacultyExists = await _unitOfWork.Repository<Faculty>().GetByIdAsync(programRequest.FacultyId);
+                if (FacultyExists.IsDeleted == true)
+                {
+                    return NotFound(new ApiResponse(404, $"Faculty with ID {programRequest.FacultyId} not found."));
+                }
             }
             return null;
         }

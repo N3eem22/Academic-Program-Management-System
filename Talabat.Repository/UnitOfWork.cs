@@ -123,6 +123,12 @@ namespace Talabat.Repository
                     return "غير محدد";
             }
         }
+        public DbContext GetDbContext()
+        {
+            return _context;
+        }
+
+
     }
 
 }
