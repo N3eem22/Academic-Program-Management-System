@@ -40,6 +40,7 @@ function App() {
       }
     >
       <Routes>
+      
         <Route element={<Layout />}>
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
