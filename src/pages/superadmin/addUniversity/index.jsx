@@ -32,7 +32,7 @@ const AddUniversity = () => {
             });
 
     };
-
+  
     return (
         <Fragment>
             <div className="container rtl" dir="rtl" style={{ backgroundColor: "#fff", boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)", padding: "20px", borderRadius: "10px", marginTop: "50px", width: "40%" }}>
