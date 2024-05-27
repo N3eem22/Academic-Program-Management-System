@@ -1,26 +1,56 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment  ,useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Context from "../../../../components/dropdowmitems/Context";
+import styles from "./index.module.scss";
+
 import axios from "axios";
 import Joi from "joi";
+function reducer(state, action) {
+  switch (action.type) {
+      case "Get":
+          return { ...state, status: "Get"};
+      case "Update":
+          return { ...state, status: "Update" };
+      case "Open":
+          return { ...state, status: "Open" };
+      case "Close":
+          return { ...state, status: "Close" };
+      case "Add":
+          return { ...state, status: "Add" };
+      default:
+          return state;
+  }
+}
 const GraduationPage = () => {
+  const initialState = {
+    status: '',
+};
+const [state , dispatch] = useReducer(reducer,initialState);
   const [graduation, setgraduation] = useState({
     studyYears: "",
     value: "",
     rate: "",
     ratio: "",
     compulsoryCourses: "",
-    summerTraining: "",
+    summerTraining: false,
     verifyPaymentOfFees: "",
     makeSureToPassTheOptionalGroups: "",
+    passingMilitaryEducation : "",
+    successInEveryCourse : "",
+    determineTheRankBasedOn : "",
+    
   });
   function getGradutionData(eventinfo) {
     let myGradution = { ...graduation };
     myGradution[eventinfo.target.name] = eventinfo.target.value;
     setgraduation(myGradution);
+    
     console.log(myGradution);
-  }
+    if(graduation.summerTraining !== true) 
+      { 
+  console.log( typeof(graduation.summerTraining));}
+      }
   async function sendDataToApi() {
     try {
       const dataToSend = { graduationReq: graduation }; // Ensure 'graduationReq' field is included
@@ -130,7 +160,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="compulsoryCourses"
                             id="compulsoryCourses"
-                            value="ايا من التفاصيل"
+                            value={false}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -145,7 +175,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="compulsoryCourses"
                             id="compulsoryCourses"
-                            value="ايا من التفاصيل"
+                            value={true}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -173,7 +203,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
-                            value="ايا من التفاصيل"
+                            value={false}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -188,7 +218,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
-                            value="ايا من التفاصيل"
+                            value={true}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -215,7 +245,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="passingMilitaryEducation"
                             id="passingMilitaryEducation"
-                            value="ايا من التفاصيل"
+                            value={true}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -230,7 +260,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="passingMilitaryEducation"
                             id="passingMilitaryEducation"
-                            value="ايا من التفاصيل"
+                            value={false}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -257,7 +287,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="summerTraining"
                             id="summerTraining"
-                            value="ايا من التفاصيل"
+                            value={false}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -272,7 +302,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="summerTraining"
                             id="summerTraining"
-                            value="ايا من التفاصيل"
+                            value={()=>{true === true}}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -298,11 +328,12 @@ const GraduationPage = () => {
                               className="form-select"
                               id="verifyPaymentOfFees"
                               name="verifyPaymentOfFees"
+                              onChange={getGradutionData}
                             >
-                              <option value="1">
+                              <option value={0}>
                                 ضرورة سداد الرسوم قبل التخرج
                               </option>
-                              <option value="2">
+                              <option value={1}>
                                 عدم ضرورة سداد الرسوم قبل التخرج
                               </option>
                             </select>
@@ -324,11 +355,13 @@ const GraduationPage = () => {
                               className="form-select"
                               id="makeSureToPassTheOptionalGroups"
                               name="makeSureToPassTheOptionalGroups"
+                              onChange={getGradutionData}
+
                             >
-                              <option value="1">
+                              <option value={0}>
                                 المجموعات التي درس منها الطالب{" "}
                               </option>
-                              <option value="2">
+                              <option value={1}>
                                 كل المجموعات الاختياريه{" "}
                               </option>
                             </select>
@@ -353,6 +386,7 @@ const GraduationPage = () => {
                             name="rate"
                             id="rate"
                             value="ايا من التفاصيل"
+                            onChange={getGradutionData}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -367,6 +401,8 @@ const GraduationPage = () => {
                             name="ratio"
                             id="ratio"
                             value="ايا من التفاصيل"
+                            onChange={getGradutionData}
+
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -387,6 +423,8 @@ const GraduationPage = () => {
                             name="choose"
                             id="anyDetails"
                             value="ايا من التفاصيل"
+                            onChange={getGradutionData}
+
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -401,6 +439,8 @@ const GraduationPage = () => {
                             name="choose"
                             id="anyDetails"
                             value="ايا من التفاصيل"
+                            onChange={getGradutionData}
+
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -436,6 +476,8 @@ const GraduationPage = () => {
                           type="checkbox"
                           name="comparingCumulativeAverageForEachYear"
                           id="comparingCumulativeAverageForEachYear"
+                          onChange={getGradutionData}
+
                         />
 
                         <div className="form-check">
@@ -488,8 +530,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
-                            value="                            عدم التاكد من النجاح
-"
+                            value={false}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6 "
@@ -504,8 +545,7 @@ const GraduationPage = () => {
                             type="radio"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
-                            value="                            التاكد من النجاح
-"
+                            value={true}
                           />
                           <label
                             className="form-check-label fw-semibold fs-6  "
@@ -600,12 +640,18 @@ const GraduationPage = () => {
                       </div>
                     </div>
                     <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                      <button type="submit" className="btn  btn-info mx-1 ">
-                        حفظ
-                      </button>
-                      <button type="submit" className="btn  btn-info mx-1 ">
-                        تعديل
-                      </button>
+                    {  (state.status !== "Get")&&  <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
+                                                        <i className="fa-regular fa-bookmark"></i> حفظ
+                                                    </button>}
+                                                    { (state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Get"})}}>
+                                                        <i className="fa-solid fa-lock"></i> غلق
+                                                    </button>}
+                                                    {
+                                                        (state.status !=="Add" && state.status ==="Get")&&
+                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=>{dispatch({type : "Update"})}}>
+                                                        <i className="fa-solid fa-lock-open"></i> تعديل
+                                                         </button>
+                                                    }
                     </div>
                   </form>
                 </div>

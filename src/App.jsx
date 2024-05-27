@@ -44,6 +44,8 @@ function App() {
       <Routes>
       
         <Route element={<Layout />}>
+        <Route path="/graduation" element={<GraduationPage />} />
+
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
@@ -70,7 +72,6 @@ function App() {
           <Route element={<User />}>
             <Route path="/control" element={<ControlPage />} />
             <Route path="/gpa" element={<GpaPage />} />
-            <Route path="/graduation" element={<GraduationPage />} />
             <Route
               path="/Generalestimates"
               element={<GeneralestimatesPage />}
