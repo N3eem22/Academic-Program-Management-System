@@ -70,6 +70,11 @@ function App() {
             <Route path="/control" element={<ControlPage />} />
             <Route path="/gpa" element={<GpaPage />} />
             <Route path="/graduation" element={<GraduationPage />} />
+            <Route path="/controls" element={<ControlsPage />} />
+            <Route path="/estimates" element={<EstimatesPage />} />
+          <Route path="/academicload" element={<AcademicloadPage />} />
+          <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
+          <Route path="/graduation" element={<GraduationPage />} />
             <Route
               path="/Generalestimates"
               element={<GeneralestimatesPage />}
