@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<TypeOfFinancialStatementInTheProgram>().ExistAsync(
                 x => x.TheType.Trim().ToUpper() == updatedFinancialStatementType.Trim().ToUpper() &&
-                     x.UniversityId == financialStatement.UniversityId);
+                     x.UniversityId == financialStatement.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 financialStatement.TheType = updatedFinancialStatementType;

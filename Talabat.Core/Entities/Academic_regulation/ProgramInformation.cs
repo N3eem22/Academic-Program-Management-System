@@ -28,13 +28,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         [ForeignKey("Faculty")]
         public int FacultyId { get; set; }
         public Faculty Institue { get; set; }
-        //public string Institute { get; set; }
-
         [Required]
         [ForeignKey("AcademicDegree")]
         public int AcademicDegreeid { get; set; }
         public TheAcademicDegree AcademicDegree { get; set; }
-        public string Degree { get; set; }
         public string NameInCertificate { get; set; }
         public string NameInCertificateInEnglish { get; set; }
         [DataType(DataType.Date)]
@@ -69,7 +66,10 @@ namespace Talabat.Core.Entities.Academic_regulation
         [ForeignKey("PassingTheElectiveGroupBasedOn")]
         public int PassingTheElectiveGroupBasedOnId { get; set; }
         public PassingTheElectiveGroupBasedOn PassingTheElectiveGroupBasedOn { get; set; }
-        public string pre_Requisite { get; set; }
+        [ForeignKey("Prerequisites Programs")]
+        public int? PrerequisitesProgramsId { get; set; }
+        public Programs PrerequisitesPrograms { get; set; }
+
         [ForeignKey("EditTheStudentLevel")]
         public int EditTheStudentLevelId { get; set; }
         public EditTheStudentLevel EditTheStudentLevel { get; set; }

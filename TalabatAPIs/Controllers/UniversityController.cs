@@ -63,9 +63,11 @@ namespace Grad.APIs.Controllers
                 return Ok(universityDTOs);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userUniversities = _IdentityHelper.GetUserUniversities(userId);
+                var userUniversities = _IdentityHelper.GetUserUniversities(userId);
+               
             if (!userUniversities.Any())
                 {
+
                     return NotFound(new { Message = $"No universities found for user ID {userId}." });
                 }
          
@@ -113,7 +115,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             bool exists = await _unitOfWork.Repository<University>().ExistAsync(
-                x => x.Name.Trim().ToUpper() == universityReq.Name.Trim().ToUpper() && x.Id != id);
+                x => x.Name.Trim().ToUpper() == universityReq.Name.Trim().ToUpper() && x.Id != id && !x.IsDeleted);
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
 

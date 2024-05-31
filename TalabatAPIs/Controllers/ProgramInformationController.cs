@@ -51,6 +51,11 @@ namespace Grad.APIs.Controllers
 
             var spec = new ProgramInformationSpec(id);
             var programInformation = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
+            if(programInformation.Count == 0)
+            {
+                return NotFound(new ApiResponse(404, $"Program not found."));
+
+            }
             await _dbcontext.Set<PI_DivisionType>().Include(p=>p.DivisionType).ToListAsync();
             await _dbcontext.Set<PI_EstimatesOfCourseFeeExemption>().Include(p=>p.AllGrades).ToListAsync();
             await _dbcontext.Set<PI_DetailedGradesToBeAnnounced>().Include(p => p.GradesDetails).ToListAsync();
@@ -62,7 +67,13 @@ namespace Grad.APIs.Controllers
         [HttpPost]
         public async Task<ActionResult<ProgramInformationReqDTO>> AddProgramInformation(ProgramInformationReqDTO programInformationRequest)
         {
-           
+            bool exists = await _unitOfWork.Repository<ProgramInformation>().ExistAsync(
+               x => x.ProgramsId == programInformationRequest.ProgramsId && x.IsDeleted == false);
+            if (exists)
+            {
+                return StatusCode(409, new ApiResponse(409));
+            }
+
             var preValidationResult = await ValidateForeignKeyExistence(programInformationRequest);
             if (preValidationResult != null) return preValidationResult;
             try
@@ -208,16 +219,19 @@ namespace Grad.APIs.Controllers
                 {
                     return NotFound(new ApiResponse(404, $"BlockingProofOfRegistration with ID {programInformationRequest.BlockingProofOfRegistrationId} not found."));
                 }
-
             }
 
             if (programInformationRequest.BurdanCalculationId != null)
             {
                 var programExists = await _unitOfWork.Repository<BurdenCalculation>().GetByIdAsync(programInformationRequest.BurdanCalculationId);
-                if (programExists.IsDeleted == true)
+                if (programExists != null)
                 {
-                    return NotFound(new ApiResponse(404, $"BurdanCalculation with ID {programInformationRequest.BurdanCalculationId} not found."));
+                    if (programExists.IsDeleted == true)
+                    {
+                        return NotFound(new ApiResponse(404, $"BurdanCalculation with ID {programInformationRequest.BurdanCalculationId} not found."));
+                    }
                 }
+               
             }
             if (programInformationRequest.EditTheStudentLevelId != null)
             {

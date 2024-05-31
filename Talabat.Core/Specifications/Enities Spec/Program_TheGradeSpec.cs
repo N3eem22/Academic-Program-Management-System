@@ -8,16 +8,20 @@ using Talabat.Core.Specifications;
 
 namespace Grad.Core.Specifications.Enities_Spec
 {
-    public class ProgramLevelsSpec : BaseSpecifications<programLevels>
+    public class Program_TheGradeSpec : BaseSpecifications<Program_TheGrades>
     {
-        public ProgramLevelsSpec(int prog_InfoId)
+        public Program_TheGradeSpec(int prog_InfoId)
           : base(c => (c.prog_InfoId == prog_InfoId && c.IsDeleted == false))
 
         {
             Includes.Add(P => P.prog_Info);
-            Includes.Add(p => p.TheLevel);
+            Includes.Add(p => p.EquivalentEstimate);
+            Includes.Add(p => p.GraduationEstimate);
+            Includes.Add(p => p.TheGrade);
 
         }
-    
+
     }
+    
+    
 }

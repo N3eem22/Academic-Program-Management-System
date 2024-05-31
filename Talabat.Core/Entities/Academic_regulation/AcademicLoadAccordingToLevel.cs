@@ -14,7 +14,9 @@ namespace Grad.Core.Entities.Academic_regulation
         [ForeignKey("Program_Info")]
         public int Prog_InfoId { get; set; }
         public ProgramInformation Program_Info { get; set; }
-        public string Semester { get; set; }
+        [ForeignKey("Semesters")]
+        public int SemestersId { get; set; }
+        public Semesters AL_Semesters { get; set; }
         [ForeignKey("AcademicLevel")]
         public int LevelId { get; set; }
         public Level AcademicLevel { get; set; }

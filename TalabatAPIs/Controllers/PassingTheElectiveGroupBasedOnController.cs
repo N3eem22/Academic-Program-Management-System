@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<PassingTheElectiveGroupBasedOn>().ExistAsync(
                 x => x.PassingTheElectiveGroup.Trim().ToUpper() == updatedPassingTheElectiveGroup.Trim().ToUpper() &&
-                     x.UniversityId == passingTheElectiveGroupBasedOn.UniversityId);
+                     x.UniversityId == passingTheElectiveGroupBasedOn.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 passingTheElectiveGroupBasedOn.PassingTheElectiveGroup = updatedPassingTheElectiveGroup;

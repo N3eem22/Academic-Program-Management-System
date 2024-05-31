@@ -251,17 +251,18 @@ namespace Grad.APIs.Controllers
             foreach (var Grade in controlReq.DetailsOfTheoreticalFailingGradesNav)
             {
                 var gradeExists = await _unitOfWork.Repository<GradesDetails>().GetByIdAsync(Grade.GradeDetailId) != null;
+                await Console.Out.WriteLineAsync("  The Grade is    "+Grade.GradeDetailId);
                 if (!gradeExists)
                 {
-                    return NotFound(new ApiResponse(404, $"Grade  with ID {Grade.GradeDetailId} not found."));
+                    return NotFound(new ApiResponse(404, $"Grade detail  with ID {Grade.GradeDetailId} not found."));
                 }
             }
             foreach (var Grade in controlReq.ACaseOfAbsenceInTheDetailedGrades)
             {
-                var gradeExists = await _unitOfWork.Repository<GradesDetails>().GetByIdAsync(Grade.GradeGetailId) != null;
+                var gradeExists = await _unitOfWork.Repository<GradesDetails>().GetByIdAsync(Grade.GradeDetailId) != null;
                 if (!gradeExists)
                 {
-                    return NotFound(new ApiResponse(404, $"Grade  with ID {Grade.GradeGetailId} not found."));
+                    return NotFound(new ApiResponse(404, $"Grade  with ID {Grade.GradeDetailId} not found."));
                 }
             }
             foreach (var Grade in controlReq.DetailsOfExceptionalLetters)

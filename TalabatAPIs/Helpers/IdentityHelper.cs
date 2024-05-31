@@ -58,6 +58,29 @@ namespace Grad.APIs.Helpers
             return userFaculties;
         }
 
+        public List<string> GetUserFacultiesName(string userId)
+        {
+            var userFaculties = (from uf in _dbContext.Set<AppUserFaculty>()
+                                 join f in _dbContext.Set<Faculty>() on uf.FacultyId equals f.Id
+                                 where uf.AppUserId == userId
+                                 select f.FacultyName)
+                                .ToList();
+
+            return userFaculties;
+        }
+
+
+        public List<string> GetUserUniversitiesName(string userId)
+        {
+            var userUniversities = (from uu in _dbContext.Set<AppUserUni>()
+                                    join u in _dbContext.Set<University>() on uu.UniversityId equals u.Id
+                                    where uu.AppUserId == userId
+                                    select u.Name)
+                                   .ToList();
+
+            return userUniversities;
+        }
+
 
         public List<int> GetUserUniversities(string userId)
         {

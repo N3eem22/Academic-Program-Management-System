@@ -9,7 +9,7 @@ namespace Grad.APIs.DTO.Entities_Dto
 {
     public class ACaseOfAbsenceInTheDetailedGradesReq
     {
-        public int GradeGetailId { get; set; }
+        public int GradeDetailId { get; set; }
        
         public int ControlId { get; set; }
     }

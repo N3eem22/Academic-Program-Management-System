@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data.Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data.Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240505131155_Update PI_Fin4")]
+    partial class UpdatePI_Fin4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,16 +59,15 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("Re_registrationHours")
                         .HasColumnType("int");
 
-                    b.Property<int>("SemestersId")
-                        .HasColumnType("int");
+                    b.Property<string>("Semester")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LevelId");
 
                     b.HasIndex("Prog_InfoId");
-
-                    b.HasIndex("SemestersId");
 
                     b.ToTable("AR_AcademicLoadAccordingToLevel");
                 });
@@ -2316,14 +2317,6 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Talabat.Core.Entities.Lockups.Semesters", "AL_Semesters")
-                        .WithMany("academicLoadAccordingToLevels")
-                        .HasForeignKey("SemestersId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("AL_Semesters");
-
                     b.Navigation("AcademicLevel");
 
                     b.Navigation("Program_Info");
@@ -3743,8 +3736,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("CourseInformation");
 
                     b.Navigation("GraduationSemesters");
-
-                    b.Navigation("academicLoadAccordingToLevels");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Lockups.SystemType", b =>

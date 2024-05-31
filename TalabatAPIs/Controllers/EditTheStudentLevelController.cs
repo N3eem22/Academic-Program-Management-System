@@ -72,7 +72,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
             var exists = await _unitOfWork.Repository<EditTheStudentLevel>().ExistAsync(
                 x => x.editTheStudentLevel.Trim().ToUpper() == updatedEditTheStudentLevel.Trim().ToUpper() &&
-                     x.UniversityId == editTheStudentLevel.UniversityId);
+                     x.UniversityId == editTheStudentLevel.UniversityId && !x.IsDeleted);
             if (!exists)
             {
                 editTheStudentLevel.editTheStudentLevel = updatedEditTheStudentLevel;

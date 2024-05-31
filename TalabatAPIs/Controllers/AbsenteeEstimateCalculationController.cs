@@ -81,7 +81,7 @@ namespace Grad.APIs.Controllers
 
             var exists = await _unitOfWork.Repository<AbsenteeEstimateCalculation>().ExistAsync(
                 x => x.absenteeEstimateCalculation.Trim().ToUpper() == updatedCalculation.Trim().ToUpper() &&
-                     x.UniversityId == calculation.UniversityId);
+                     x.UniversityId == calculation.UniversityId && !x.IsDeleted);
 
             if (!exists)
             {
