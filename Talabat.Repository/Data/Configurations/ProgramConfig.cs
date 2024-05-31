@@ -16,7 +16,7 @@ namespace Grad.Repository.Data.Configurations
         {
             builder.HasOne(P => P.Faculty)
                 .WithMany(P => P.Programs)
-                .HasForeignKey(P => P.FacultyId);
+                .HasForeignKey(P => P.FacultyId).IsRequired();
         }
     }
 }

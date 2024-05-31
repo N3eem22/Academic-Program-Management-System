@@ -10,7 +10,7 @@ namespace Grad.APIs.DTO.ProgrmInformation
         public string ProgramNameInArabic { get; set; }
         public string ProgramNameInEnglish { get; set; }
 
-        public int? FacultyId { get; set; }
+        public int FacultyId { get; set; }
         public string Faculty { get; set; }
     }
 }

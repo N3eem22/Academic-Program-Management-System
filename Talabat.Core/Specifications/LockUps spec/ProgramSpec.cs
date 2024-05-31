@@ -11,7 +11,7 @@ namespace Grad.Core.Specifications.LockUps_spec
     public class ProgramSpec : BaseSpecifications<Programs>
     {
         public ProgramSpec(int? FacultyId)
-          : base(c => (!FacultyId.HasValue || c.FacultyId == FacultyId.Value))
+          : base(c => (!FacultyId.HasValue || c.FacultyId == FacultyId.Value && c.IsDeleted == false))
         
             {
               Includes.Add(P => P.Faculty);      

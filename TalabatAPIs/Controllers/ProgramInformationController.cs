@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using Grad.APIs.DTO.ProgrmInformation;
 using Grad.APIs.Helpers;
+using Grad.Core.Entities.Academic_regulation;
+using Grad.Core.Entities.Control;
+using Grad.Core.Entities.CoursesInfo;
 using Grad.Core.Entities.CumulativeAverage;
 using Grad.Core.Entities.Entities;
+using Grad.Core.Entities.Graduation;
 using Grad.Core.Entities.Lockups;
 using Grad.Core.Specifications.Enities_Spec;
 using Microsoft.AspNetCore.Mvc;
@@ -187,6 +191,7 @@ namespace Grad.APIs.Controllers
             if (programInformation == null)
                 return NotFound(new ApiResponse(404));
             await _unitOfWork.Repository<ProgramInformation>().softDelete(id);
+            await DeleteRelatedData(id); // Call the function to delete related data
             var result = await _unitOfWork.CompleteAsync() > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
@@ -368,8 +373,41 @@ namespace Grad.APIs.Controllers
             }
 
             return null;
-        } 
+        }
         #endregion
+
+
+        private async Task DeleteRelatedData(int programInformationId)
+        {
+            // Get the DbContext from the UnitOfWork
+            var dbContext = _unitOfWork.GetDbContext();
+
+            // Delete related data in many-to-many tables
+
+            var programTheGrades = dbContext.Set<Program_TheGrades>().Where(x => x.prog_InfoId == programInformationId);
+            dbContext.RemoveRange(programTheGrades);
+
+            var programLevels = dbContext.Set<programLevels>().Where(x => x.prog_InfoId == programInformationId);
+            dbContext.RemoveRange(programLevels);
+
+            var academicLoadAccordingToLevels = dbContext.Set<AcademicLoadAccordingToLevel>().Where(x => x.Prog_InfoId == programInformationId);
+            dbContext.RemoveRange(academicLoadAccordingToLevels);
+
+            var courseInformations = dbContext.Set<CourseInformation>().Where(x => x.ProgramId == programInformationId);
+            dbContext.RemoveRange(courseInformations);
+
+            var cumulativeAverages = dbContext.Set<CumulativeAverage>().Where(x => x.ProgramId == programInformationId);
+            dbContext.RemoveRange(cumulativeAverages);
+
+            var graduations = dbContext.Set<Graduation>().Where(x => x.ProgramId == programInformationId);
+            dbContext.RemoveRange(graduations);
+
+            var controls = dbContext.Set<Control>().Where(x => x.ProgramId == programInformationId);
+            dbContext.RemoveRange(controls);
+
+            await dbContext.SaveChangesAsync();
+        }
+
 
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Talabat.Core.Entities;
 using Talabat.Core.Repositories;
 
@@ -8,6 +9,8 @@ namespace Talabat.Core
     {
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
         Task<int> CompleteAsync(ClaimsPrincipal? userPrincipal = null);
+
+        DbContext GetDbContext();
 
     }
 }
