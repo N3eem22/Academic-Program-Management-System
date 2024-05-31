@@ -1,8 +1,48 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ManageFacultyPage = () => {
+  const [faculty, setfaculty] = useState({
+    loading: true,
+    results: [],
+    err: null,
+    reload: 0,
+  });
+  useEffect(() => {
+    setfaculty({ ...faculty, loading: true });
+    axios
+      .get("https://localhost:7095/api/Faculty?UniversityId=2")
+      .then((resp) => {
+        setfaculty({
+          ...faculty,
+          results: resp.data,
+          loading: false,
+          err: null,
+        });
+      })
+      .catch((err) => {
+        setfaculty({
+          ...faculty,
+          loading: false,
+          err: " something went wrong, please try again later ! ",
+        });
+      });
+  }, [faculty.reload]);
+
+  const DeleteFaculty = (id) => {
+    axios
+      .delete(`https://localhost:7095/api/Faculty?id=${id}`)
+      .then((response) => {
+        setfaculty(faculty.filter(f => f.id !== id));
+      })
+      .catch((error) => {
+        console.error("Error deleting Faculty:", error);
+      });
+  };
+
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -18,147 +58,53 @@ const ManageFacultyPage = () => {
               </div>
 
               <div className="card-body">
-                <div class="w-100 table-responsive">
+                <div className="w-100 table-responsive">
                   <div id="example_wrapper" className="dataTables_wrapper">
                     <form>
                       <table id="example" className="display w-100 table ">
                         <thead className="table  table-hover">
                           <tr role="row" className="">
+                            <th>id of faculty</th>
                             <th>id of uni</th>
-
-                            <th>الاسم</th>
+                            <th>اسم الجامعه</th>
+                            <th>اسم الكليه</th>
                             <th>تعديل</th>
                             <th>حذف</th>
                           </tr>
                         </thead>
+
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>حاسبات ومعلومات</td>
+                          {faculty.results.map((faculty) => (
+                            <tr key={faculty.id}>
+                              <td>{faculty.id}</td>
+                              <td>{faculty.universityId}</td>
+                              <td>{faculty.university}</td>
+                              <td> {faculty.facultyName}</td>
+                              <td>
+                                <div className="d-flex">
+                                  <Link to={`/updatefaculty/${faculty.id}`}>
+                                    <button
+                                      className="btn btn-primary shadow btn-xs sharp me-1"
+                                      href=""
+                                    >
+                                      <i className="fas fa-pen"></i>
+                                    </button>
+                                  </Link>
+                                </div>
+                              </td>
 
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-primary shadow btn-xs sharp me-1"
-                                  href=""
-                                >
-                                  <i class="fas fa-pen"></i>
-                                </a>
-                              </div>
-                            </td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-danger shadow btn-xs sharp"
-                                  href=""
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>حاسبات ومعلومات</td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-primary shadow btn-xs sharp me-1"
-                                  href=""
-                                >
-                                  <i class="fas fa-pen"></i>
-                                </a>
-                              </div>
-                            </td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-danger shadow btn-xs sharp"
-                                  href=""
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>   <tr>
-                            <td>1</td>
-                            <td>حاسبات ومعلومات</td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-primary shadow btn-xs sharp me-1"
-                                  href=""
-                                >
-                                  <i class="fas fa-pen"></i>
-                                </a>
-                              </div>
-                            </td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-danger shadow btn-xs sharp"
-                                  href=""
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>   <tr>
-                            <td>1</td>
-                            <td>حاسبات ومعلومات</td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-primary shadow btn-xs sharp me-1"
-                                  href=""
-                                >
-                                  <i class="fas fa-pen"></i>
-                                </a>
-                              </div>
-                            </td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-danger shadow btn-xs sharp"
-                                  href=""
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>   <tr>
-                            <td>1</td>
-                            <td>حاسبات ومعلومات</td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-primary shadow btn-xs sharp me-1"
-                                  href=""
-                                >
-                                  <i class="fas fa-pen"></i>
-                                </a>
-                              </div>
-                            </td>
-
-                            <td>
-                              <div class="d-flex">
-                                <a
-                                  class="btn btn-danger shadow btn-xs sharp"
-                                  href=""
-                                >
-                                  <i class="fa fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
+                              <td>
+                                <div className="d-flex">
+                                  <button
+                                    onClick={() => DeleteFaculty(faculty.id)} 
+                                    className="btn btn-danger shadow btn-xs sharp"
+                                  >
+                                    <i className="fa fa-trash"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </form>

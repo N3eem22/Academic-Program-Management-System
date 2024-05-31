@@ -7,7 +7,7 @@ const ControlPage = () => {
     
     const [controlData, setControlData] = useState({
 
-        programId: 41,
+        programId: 1002,
         subtractFromTheDiscountRate: '',
         exceptionToDiscountEstimates: false,
         calculatingTheBudgetEstimateFromTheReductionEstimates: false,
