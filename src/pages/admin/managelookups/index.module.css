@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.rtl-label {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}/*# sourceMappingURL=index.module.css.map */

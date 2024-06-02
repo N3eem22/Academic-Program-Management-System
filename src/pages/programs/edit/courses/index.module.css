@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.border {
+  display: block;
+  border: 1px solid #000;
+  padding: 3px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.save {
+  background-color: #19355a;
+}
+
+.save:hover {
+  background-color: #244d82;
+}/*# sourceMappingURL=index.module.css.map */

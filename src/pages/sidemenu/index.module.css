@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.sideMenu {
+  position: absolute;
+  top: 75px;
+  right: 0;
+  bottom: 0;
+  width: 15%;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #19355a;
+  color: #fff !important;
+  padding: 20px;
+  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px 0px 0px 40px;
+  font-size: larger;
+}
+.sideMenu .menuItem {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.sideMenu .menuItem:hover {
+  background-color: gray;
+}
+.sideMenu .menuItem a {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.sideMenu .active {
+  background-color: #555;
+}/*# sourceMappingURL=index.module.css.map */
