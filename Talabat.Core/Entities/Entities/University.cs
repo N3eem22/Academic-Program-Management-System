@@ -4,6 +4,7 @@ using Grad.Core.Entities;
 
 using Grad.Core.Entities.Identity;
 using Grad.Core.Entities.Lockups;
+using Grad.Core.Entities.Test;
 using Talabat.Core.Entities.Identity;
 
 namespace Talabat.Core.Entities.Entities
@@ -43,6 +44,7 @@ namespace Talabat.Core.Entities.Entities
         public ICollection<AbsenteeEstimateCalculation> AbsenteeEstimateCalculation { get; set; } = new HashSet<AbsenteeEstimateCalculation>();
         public ICollection<Faculty> Faculties { get; set; } = new HashSet<Faculty>();
         public ICollection<DivisionType> divisionTypes { get; set; } = new HashSet<DivisionType>();
+        public ICollection<Students> Students { get; set; } = new HashSet<Students>();
 
 
     }

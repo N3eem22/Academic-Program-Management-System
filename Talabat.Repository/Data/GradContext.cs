@@ -24,6 +24,8 @@ using Grad.Core.Entities.Graduation;
 using Grad.Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Talabat.Core.Entities.Identity;
+using Grad.Core.Entities.Test;
+
 namespace Talabat.Repository.Data
 {
 
@@ -101,6 +103,8 @@ namespace Talabat.Repository.Data
             public DbSet<programLevels> programLevels { get; set; }
             public DbSet<Program_TheGrades> Program_TheGrades { get; set; }
             public DbSet<AcademicLoadAccordingToLevel> AcademicLoadAccordingToLevels { get; set; }
+            //Test
+            public DbSet<Students> Students { get; set; }
             #endregion
             public GradContext(DbContextOptions<GradContext> options) : base(options)
             {

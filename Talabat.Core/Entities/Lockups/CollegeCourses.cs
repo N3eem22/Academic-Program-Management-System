@@ -1,6 +1,4 @@
-﻿
-
-using Grad.Core.Entities.CoursesInfo;
+﻿using Grad.Core.Entities.CoursesInfo;
 
 namespace Talabat.Core.Entities.Lockups
 {
@@ -18,7 +16,6 @@ namespace Talabat.Core.Entities.Lockups
         public string CourseNickname { get; set; }
         public string ContentSummaryInArabic { get; set; }
         public string ContentSummaryInEnglish { get; set; }
-
         public int? FacultyId { get; set; }
         [ForeignKey(nameof(FacultyId))]
         public Faculty Faculty { get; set; }
