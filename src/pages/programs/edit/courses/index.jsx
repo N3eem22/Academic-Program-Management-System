@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
+import axios from "axios";
 const CoursesPage = () => {
     const [selectedValueGrade, setSelectedValueGrade] = useState("");
     const [selectedValueHours, setSelectedValueHours] = useState("");
@@ -49,6 +50,70 @@ const CoursesPage = () => {
             setCourseSections(updatedSections);
         }
     };
+    const [dataCourse, setDataCourse] = useState({
+
+        programId: 41,
+        courseId: 3,
+        maximumGrade: 1,
+        semesterId: 1,
+        levelId: 1,
+        prerequisiteId: 1,
+        courseTypeId: 1,
+        linkRegistrationToHours: 1,
+        chooseDetailesofFailingGrades: 1,
+        successRate: 1,
+        previousQualification: 1,
+        gender: 0,
+        addingCourse: 0,
+        passOrFailSubject: true,
+        registrationForTheCourseInTheSummerTerm: true,
+        firstReductionEstimatesForFailureTimes: 3,
+        percentageForFristGrade: 0,
+        secondReductionEstimatesForFailureTimes: 3,
+        percentageForSecondGrade: 0,
+        thirdReductionEstimatesForFailureTimes: 3,
+        percentageForThirdGrade: 0,
+        numberOfPreviousPreRequisiteCourses: 0,
+        partOneCourse: 3,
+        "coursesandGradesDetails": [
+            {
+                "courseInfoId": 31,
+                "gradeDetailsId": 1,
+                "value": 0
+            }
+        ],
+        "coursesAndHours": [
+            {
+                "courseInfoId": 31,
+                "hourId": 1
+            }
+        ],
+        "detailsOfFailingGrades": [
+            {
+                "courseInfoId": 31,
+                "failedGradeId": 1,
+                "value": 0
+            }
+        ],
+        "preRequisiteCourses": [
+            {
+                "preRequisiteCourseId": 3,
+                "courseInfoId": 31
+            }
+        ]
+
+    });
+    const sendData = () => {
+        axios.post(dataCourse)
+            .then(response => {
+                console.log('تم إرسال البيانات بنجاح:', response);
+
+            })
+            .catch(error => {
+                console.error('حدث خطأ أثناء إرسال البيانات:', error);
+            });
+    }
+
     return (
         <Fragment>
             <div className="container " dir="rtl">
@@ -66,16 +131,16 @@ const CoursesPage = () => {
                                         <div className="row">
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="code">
-                                                        كود المقرر<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="courseId">
+                                                        كود المقرر
                                                     </label>
                                                     <div class="col-lg-6 input-with-icon">
                                                         <div class="input-group">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="code"
-                                                                name="code"
+                                                                id="courseId"
+                                                                name="courseId"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -91,7 +156,7 @@ const CoursesPage = () => {
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="arabicName">
-                                                        اسم المقرر <span className="text-danger">*</span>
+                                                        اسم المقرر
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
@@ -110,7 +175,7 @@ const CoursesPage = () => {
                                                         className="col-lg-4 fw-semibold fs-5 col-form-label"
                                                         htmlFor="arabicCodeF"
                                                     >
-                                                        كود المقرر الفرعي  <span className="text-danger">*</span>
+                                                        كود المقرر الفرعي
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
@@ -130,7 +195,7 @@ const CoursesPage = () => {
                                                         className="col-lg-4 fw-semibold fs-5 col-form-label"
                                                         htmlFor="famousName"
                                                     >
-                                                        اسم المقرر الفرعي<span className="text-danger">*</span>
+                                                        اسم المقرر الفرعي
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
@@ -149,11 +214,11 @@ const CoursesPage = () => {
                                                         className="col-lg-4 fw-semibold fs-5 col-form-label"
                                                         htmlFor="term"
                                                     >
-                                                        الفصل الدراسي<span className="text-danger">*</span>
+                                                        الفصل الدراسي
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select term" aria-label="term" id="term">
-                                                            <option selected disabled > الفصل الدراسي:</option>
+                                                        <select className="form-select semesterId" aria-label="semesterId" id="semesterId">
+                                                            <option selected disabled ></option>
                                                             <option> الفصل الدراسي الاول</option>
                                                             <option value="option1"> الفصل الدراسي الثاني</option>
                                                             <option value="option2"> الصيفي</option>
@@ -164,11 +229,11 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="level">
-                                                        المستوى<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="levelId">
+                                                        المستوى
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="level">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="levelId">
                                                             <option selected disabled> المستوى: </option>
                                                             <option value="option1">المستوى الرابع</option>
                                                             <option value="option2">المستوى الخامس</option>
@@ -231,7 +296,7 @@ const CoursesPage = () => {
                                                         className="col-lg-2 fw-semibold fs-5 col-form-label"
                                                         htmlFor="highGrade"
                                                     >
-                                                        الدرجة العظمى  <span className="text-danger">*</span>
+                                                        الدرجة العظمى
                                                     </label>
                                                     <div className="col-lg-2">
 
@@ -345,7 +410,7 @@ const CoursesPage = () => {
                                             {/* <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailGradeForCourse">
-                                                        الدرجات التفصيلية للمقرر<span className="text-danger">*</span>
+                                                        الدرجات التفصيلية للمقرر
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <select className="form-select custom-select-start" aria-label="Select an option" id="detailGradeForCourse">
@@ -390,7 +455,7 @@ const CoursesPage = () => {
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="failGrades">
-                                                        تفاصيل درجات الرسوب النظري  <span className="text-danger">*</span>
+                                                        تفاصيل درجات الرسوب النظري
                                                     </label>
                                                     <div className="col-lg-4">
                                                         <select className="form-select custom-select-start fs-5" aria-label="Select options" id="failGrades" multiple>
@@ -403,7 +468,7 @@ const CoursesPage = () => {
                                             {/* hidden */}
                                             <div className="col-md-6">
                                                 <div className="form-group  row">
-                                                    <p className=" fw-medium">نسب الرسوب النظري</p>
+                                                    {/* <p className=" fw-medium">نسب الرسوب النظري</p> */}
                                                     <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="addLevel">
                                                         كود المقرر:
                                                     </label>
@@ -420,32 +485,37 @@ const CoursesPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-4">
-                                                <p className="fw-semibold fs-5">اختيار تفاصيل الرسوب النظرى بناء على</p>
-                                            </div>
-                                            <div className="col-xl-6">
+                                            <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
-                                                    <div className="col-lg-3">
-                                                        <input className="form-check-input  m-1 mt-2" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                                        <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio1">كل التفاصيل</label>
-                                                    </div>
-                                                    <div className="col-lg-3">
-                                                        <input className="form-check-input m-1 mt-2" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                                        <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio2">ايا من التفاصيل</label>
-                                                    </div>
-                                                    <div className="col-lg-3">
-                                                        <input className="form-check-input m-1 mt-2" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                                                        <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio3">مجموع التفاصيل</label>
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="chooseDetailesofFailingGrades">
+                                                        اختيار تفاصيل الرسوب النظري بناء علي
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <div className="form-group mb-3 row">
+                                                            <div className="col-lg-3">
+                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="chooseDetailesofFailingGrades" id="inlineRadio1" value="option1" />
+                                                                <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio1">كل التفاصيل</label>
+                                                            </div>
+                                                            <div className="col-lg-3">
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="chooseDetailesofFailingGrades" id="inlineRadio2" value="option2" />
+                                                                <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio2">ايا من التفاصيل</label>
+                                                            </div>
+                                                            <div className="col-lg-3">
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="chooseDetailesofFailingGrades" id="inlineRadio3" value="option3" />
+                                                                <label className="form-check-label fw-semibold fs-5" htmlFor="inlineRadio3">مجموع التفاصيل</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label
                                                         className="col-lg-4 fw-semibold fs-5 col-form-label"
                                                         htmlFor="highGradeTow"
                                                     >
-                                                        الدرجة العظمى للمقرر <span className="text-danger">*</span>
+                                                        الدرجة العظمى للمقرر
                                                     </label>
                                                     <div className="col-lg-3">
 
@@ -461,11 +531,11 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="typeOfCourse">
-                                                        نوع المقرر<span className="text-danger">*</span>
+                                                    <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="courseTypeId">
+                                                        نوع المقرر
                                                     </label>
                                                     <div className="col-lg-3">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="typeOfCourse">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="courseTypeId">
                                                             <option selected disabled> </option>
                                                             <option value="option1">اجباري</option>
                                                             <option value="option2">اختيارى</option>
@@ -474,12 +544,12 @@ const CoursesPage = () => {
                                                             <option value="option1">اختياري حر</option>
                                                         </select>
                                                     </div>
-                                                    <div className="col-lg-6">
+                                                    {/* <div className="col-lg-6">
                                                         <div className="form-check form-check-inline d-flex">
                                                             <input className="form-check-input mt-2 fs-5" type="checkbox" id="degree" value="ظهور المقرر بالشهادة" />
                                                             <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="degree">ظهور المقرر بالشهاده</label>
                                                         </div>
-                                                    </div>
+                                                    </div>                  elmafrod tzhr lma y5tar ma4ro3 */}
                                                 </div>
                                             </div>
                                             <div className="mt-4 col-xl-6">
@@ -498,12 +568,12 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="lastQualification">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="previousQualification">
                                                         المؤهل السابق
                                                     </label>
 
                                                     <div className="col-lg-4">
-                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="lastQualification" multiple>
+                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="previousQualification" multiple>
                                                             <option value="ثانوي عام علوم">ثانوي عام علوم</option>
                                                             <option value="ثانوي زراعي 3"> ثانوي زراعي 3 </option>
                                                         </select>
@@ -512,15 +582,15 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="registerHours">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="linkRegistrationToHours">
                                                         ربط التسجيل بعدد الساعات
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="registerHours"
-                                                            name="registerHours"
+                                                            id="linkRegistrationToHours"
+                                                            name="linkRegistrationToHours"
                                                             required
                                                         />
                                                     </div>
@@ -529,16 +599,16 @@ const CoursesPage = () => {
                                             <div className="col-xl-6"></div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="partOne">
-                                                        الجزء الاول <span className="text-danger">*</span>
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="partOneCourse">
+                                                        الجزء الاول
                                                     </label>
                                                     <div class="col-lg-6 input-with-icon">
                                                         <div class="input-group">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="partOne"
-                                                                name="partOne"
+                                                                id="partOneCourse"
+                                                                name="partOneCourse"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -560,16 +630,16 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="pre-requisite">
-                                                        المتطلب السابق  <span className="text-danger">*</span>
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="prerequisiteId">
+                                                        المتطلب السابق
                                                     </label>
                                                     <div class="col-lg-6 input-with-icon">
                                                         <div class="input-group">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="pre-requisite"
-                                                                name="pre-requisite"
+                                                                id="prerequisiteId"
+                                                                name="prerequisiteId"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -587,16 +657,16 @@ const CoursesPage = () => {
                                                 <div className="form-group mb-3 row">
                                                     <label
                                                         className="col-lg-4 fw-semibold fs-5 col-form-label"
-                                                        htmlFor="previousNum"
+                                                        htmlFor="numberOfPreviousPreRequisiteCourses"
                                                     >
-                                                        عدد المتطلب السابق <span className="text-danger">*</span>
+                                                        عدد المتطلب السابق
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="previousNum"
-                                                            name="previousNum"
+                                                            id="numberOfPreviousPreRequisiteCourses"
+                                                            name="numberOfPreviousPreRequisiteCourses"
                                                             required
                                                         />
                                                     </div>
@@ -638,13 +708,13 @@ const CoursesPage = () => {
                                                     <div className="col-lg-1">
                                                         <label
                                                             className="col-lg-1 me-5 mt-1 fw-semibold fs-5"
-                                                            htmlFor="first"
+                                                            htmlFor="firstReductionEstimatesForFailureTimes"
                                                         >
                                                             الاولي
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="first">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="firstReductionEstimatesForFailureTimes">
                                                             <option selected disabled> </option>
                                                             <option value="option1">ثانوي عام علوم</option>
                                                             <option value="option2"> ثانوي زراعي 3 </option>
@@ -655,8 +725,8 @@ const CoursesPage = () => {
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
-                                                                id="first"
-                                                                name="first"
+                                                                id="percentageForFirstGrade"
+                                                                name="percentageForFirstGrade"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -673,7 +743,7 @@ const CoursesPage = () => {
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="second">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="secondReductionEstimatesForFailureTimes">
                                                             <option selected disabled> </option>
                                                             <option value="option1">ثانوي عام علوم</option>
                                                             <option value="option2"> ثانوي زراعي 3 </option>
@@ -684,8 +754,8 @@ const CoursesPage = () => {
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
-                                                                id="second"
-                                                                name="second"
+                                                                id="percentageForSecondGrade"
+                                                                name="percentageForSecondGrade"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -701,7 +771,7 @@ const CoursesPage = () => {
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="third">
+                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="thirdReductionEstimatesForFailureTimes">
                                                             <option selected disabled> </option>
                                                             <option value="option1">ثانوي عام علوم</option>
                                                             <option value="option2"> ثانوي زراعي 3 </option>
@@ -712,8 +782,8 @@ const CoursesPage = () => {
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
-                                                                id="third"
-                                                                name="third"
+                                                                id="percentageForThirdGrade"
+                                                                name="percentageForThirdGrade"
                                                                 required
                                                                 style={{ textAlign: "center" }}
                                                             />
@@ -724,11 +794,11 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="successPersent">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="successRate">
                                                         نسبة النجاح
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select" aria-label="Select an option" id="successPersent">
+                                                        <select className="form-select" aria-label="Select an option" id="successRate">
                                                             <option className="fs-5 fw-semibold" selected disabled>اختر...</option>
                                                             {Array.from({ length: 51 }, (_, index) => (
                                                                 <option className="fs-5 fw-semibold" key={index} value={index + 50}>{index + 50}</option>
@@ -748,23 +818,23 @@ const CoursesPage = () => {
                                             <div className="col-xl-6">
                                                 <div className="form-group row">
                                                     <div className="col-lg-4">
-                                                        <input className="form-check-input  m-1 mt-2" type="radio" name="addFor" id="add" value="يضاف للمعدل التراكمي " />
+                                                        <input className="form-check-input  m-1 mt-2" type="radio" name="addingCourse" id="add" value="يضاف للمعدل التراكمي " />
                                                         <label className="form-check-label fw-bold f-6" htmlFor="add">يضاف للمعدل التراكمي </label>
                                                     </div>
                                                     <div className="col-lg-3">
-                                                        <input className="form-check-input m-1 mt-2" type="radio" name="addFor" id="justHours" value=" يضاف للساعات فقط" />
+                                                        <input className="form-check-input m-1 mt-2" type="radio" name="addingCourse" id="justHours" value=" يضاف للساعات فقط" />
                                                         <label className="form-check-label fw-bold f-6" htmlFor="justHours"> يضاف للساعات فقط </label>
                                                     </div>
                                                     <div className="col-lg-4">
-                                                        <input className="form-check-input m-1 mt-2" type="radio" name="addFor" id="noAdd" value="لا يضاف للمعدل التراكمي  " />
+                                                        <input className="form-check-input m-1 mt-2" type="radio" name="addingCourse" id="noAdd" value="لا يضاف للمعدل التراكمي  " />
                                                         <label className="form-check-label fw-bold f-6" htmlFor="noAdd">لا يضاف للمعدل التراكمي </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-lg-3">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="successOrFail" value="تسجيل المقرر في الترم الصيفى " />
-                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="successOrFail">مادة نجاح او رسوب</label>
+                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="registrationForTheCourseInTheSummerTerm" value="تسجيل المقرر في الترم الصيفى " />
+                                                    <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="registrationForTheCourseInTheSummerTerm">مادة نجاح او رسوب</label>
                                                 </div>
                                             </div>
                                             <div className="col-xl-3">
@@ -794,7 +864,7 @@ const CoursesPage = () => {
                                                 </div>
                                             </div>
                                             <div className="d-grid gap-2 d-md-block text-center mt-3">
-                                                <button className={` btn fs-4 fw-semibold px-4  text-white ${styles.save} `} type="button">
+                                                <button className={` btn fs-4 fw-semibold px-4  text-white ${styles.save}`} type="button" onClick={sendData}>
                                                     <i className="fa-regular fa-bookmark"></i> حفظ
                                                 </button>
                                             </div>

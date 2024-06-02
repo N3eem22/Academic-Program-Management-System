@@ -32,38 +32,52 @@ const GpaPage = () => {
         status: '',
     };
     const [state , dispatch] = useReducer(reducer,initialState);
-  
+  var Options = {
+    howToCalculateTheRatio : ["الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100", "الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات" , "المعدل التراكمي المكتسب مقسوم علي الاجمالي" , "معادلة خاصه علوم" , "معادلة خاصه (اكاديميه طيبه)" , "حساب النسبة مقربة","الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100" , "الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية" , "حساب النسبة بناء علي التقديرات العامة"]
+    ,
+    multiplyingTheHoursByTheStudentsGrades : ["الجمع بدون ضرب الدرجة بساعات المقرر" , "الجمع بضرب الدرجة بساعات المقرر" , "القسمه علي الساعات بدون ضرب" , "الجمع بضرب نسبه الطالب في المقرر بساعات المقرر"]
+    ,
+    maximumNumberOfAdditionsToFailedCoursesWithoutSuccess : ["اضافه الجميع" , "عدم اضافه مقررات" , "اضافه مقرر" , " اضافه مقرران" , "اضافه 3 مقررات"]
+    ,
+    deleteFailedCoursesAfterSuccess : ["حذف مقرر واحد من المقام " ,"حذف جميع المقررات","عدم حذف المقررات ","حساب مقرر في المقام","حساب مقرران في المقام","حساب 3 مقررات في المقام"]
+    ,
+    maximumCumulativeGPA : ["GPA 3.5","GPA 4","GPA 5","GPA 6"]
+    ,
+    calculateTheCumulativeEstimate : ["بناء علي المعدل" , "بناء علي النسبة" , "بناء علي المعدل وفقا للتقديرات العامة" ,"بناء علي النسبة وفقا للتقديرات العامة"]
+    ,
+    howToCalculateTheRate : ["بالقسمة علي الساعات الفعلية" , "بالقسمه علي الساعات المكتسبة" , "قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25"]
+}
     
     const[data, setData] = useState({
         
-            programId: 45,
-            improvingCourses:null ,
-            keepFailing: false,
-            maintainingStudentSuccess: false,
-            utmostGrade: 0,
-            changingCourses: null,
-            someOfGrades: null,
-            howToCalculateTheRatio: null,
-            multiplyingTheHoursByTheStudentsGrades: 0,
-            calculateTheTermOfTheEquationInTheRate: true,
-            calculatingTheSemesterEquationInHourseEarned: true,
-            rateApproximation: true,
-            theNnumberOfDigitsRroundingTheRate: null,
-            reducingTheRateUponImprovement: null,
-            maximumNumberOfAdditionsToFailedCoursesWithoutSuccess: null,
-            deleteFailedCoursesAfterSuccess: 0,
-            maximumCumulativeGPA: null,
-            calculateTheCumulativeEstimate: 0,
-            howToCalculateTheRate: 0,
-            theNumberOfDigitsRoundinPoints: 0,
-            numberOfDigitsRoundingTheRatio: 0,
-            summerIsNotExcludedInCalculatingTheAnnualAverage: false,
-            theCumulativeAverageDoesNotAppearInTheStudentGradesPortal: false,
-            theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades: false,
-            calculatingFailingGradePoints: false,
-            calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: false, 
-            showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal : false,
-            howToCalculateTheSemesterAverage: 0,
+            programId: 48,
+            improvingCourses:"" ,
+            keepFailing: "",
+            maintainingStudentSuccess: "",
+            utmostGrade: 3,
+            changingCourses: "",
+            someOfGrades: "",
+            howToCalculateTheRatio: "",
+            multiplyingTheHoursByTheStudentsGrades: "",
+            calculateTheTermOfTheEquationInTheRate: "",
+            calculatingTheSemesterEquationInHourseEarned: "",
+            rateApproximation: "",
+            theNnumberOfDigitsRroundingTheRate: "",
+            reducingTheRateUponImprovement: "",
+            maximumNumberOfAdditionsToFailedCoursesWithoutSuccess: "",
+            deleteFailedCoursesAfterSuccess: "",
+            maximumCumulativeGPA: "",
+            calculateTheCumulativeEstimate: "",
+            howToCalculateTheRate: "",
+            theNumberOfDigitsRoundinPoints: "",
+            numberOfDigitsRoundingTheRatio: "",
+            summerIsNotExcludedInCalculatingTheAnnualAverage: "",
+            theCumulativeAverageDoesNotAppearInTheStudentGradesPortal: "",
+            theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades: "",
+            calculatingFailingGradePoints: "",
+            calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: "", 
+            showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal : "",
+            howToCalculateTheSemesterAverage: "",
             "gadesOfEstimatesThatDoesNotCount": [
               {
                 "gradeId": 0,
@@ -78,27 +92,27 @@ const GpaPage = () => {
             setShowCheckbox2(false);
             setData(prevData => ({
                 ...prevData,
-                improvingCourses: 0  
+                improvingCourses: parseInt(0)  
             }));
         } else if (event.target.value === "الاخير") {
             setShowCheckbox1(false);
             setShowCheckbox2(true);
             setData(prevData => ({
                 ...prevData,
-                improvingCourses: 1  
+                improvingCourses: parseInt(1)  
             }));
         }
     };
-    // useEffect(() => {
-    //     // console.log(data.improvingCourses);
-    //     // console.log(data.changingCourses);  
-    //     // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
-    //     console.log(data);
-    //     }, [data]);
+    useEffect(() => {
+        // console.log(data.improvingCourses);
+        // console.log(data.changingCourses);  
+        // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
+        console.log(data);
+        }, [data]);
 
     useEffect(() => {
         const fetchData =async (programId) =>{
-                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${programId}`).then( (resp)=> {
+                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then( (resp)=> {
                     dispatch({ type: 'Get'});
                     setData({...data , utmostGrade: resp.data.utmostGrade,
                         changingCourses: resp.data.changingCourses,
@@ -111,7 +125,7 @@ const GpaPage = () => {
                         calculateTheTermOfTheEquationInTheRate: resp.data.calculateTheTermOfTheEquationInTheRate,
                         calculatingTheSemesterEquationInHourseEarned: resp.data.calculatingTheSemesterEquationInHourseEarned,
                         rateApproximation: resp.data.rateApproximation,
-                        theNnumberOfDigitsRroundingTheRate: resp.data.theNumberOfDigitsRroundingTheRate,
+                        theNnumberOfDigitsRroundingTheRate: resp.data.theNnumberOfDigitsRroundingTheRate,
                         reducingTheRateUponImprovement: resp.data.reducingTheRateUponImprovement,
                         maximumNumberOfAdditionsToFailedCoursesWithoutSuccess: resp.data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess,
                         deleteFailedCoursesAfterSuccess: resp.data.deleteFailedCoursesAfterSuccess,
@@ -128,16 +142,20 @@ const GpaPage = () => {
                         showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal: resp.data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
                         howToCalculateTheSemesterAverage: resp.data.howToCalculateTheSemesterAverage,
                         gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount || prevData.gadesOfEstimatesThatDoesNotCount });
-                    
+                  console.log(resp.data);
                 }).catch((err)=>{
                     dispatch({ type: 'Add' }); 
                     console.log(err);
                 });
+                
     
         }
     fetchData(ProgramId);
     }, []);
-
+    useEffect(() => {
+    if(state.status === "Update")
+        console.log("we are on udate");    
+    }, [state]);
     // useEffect(() => {
     //     console.log(state);
     // }, [state]);
@@ -145,37 +163,36 @@ const GpaPage = () => {
         try {
             setData({...data , programId : 45 })
             const dataToSend = { cumulativeAverageRequest: data }; 
-            //console.log('Sending data:', dataToSend); // Log the data being sent
-
-            // Make the API call and store the response
-                const res = await axios.post('https://localhost:7095/api/CumulativeAverage', {
-                    "programId":45,
+            if (state.status === "Add") {
+                const res = await axios.post(   'https://localhost:7095/api/CumulativeAverage', {
+                    "programId":48,
                     "improvingCourses": data.improvingCourses,
-                    "keepFailing": data.keepFailing,
-                    "maintainingStudentSuccess": true,
-                    "utmostGrade": 3,
-                    "changingCourses": true,
-                    "someOfGrades": 0,
-                    "howToCalculateTheRatio": 0,
-                    "multiplyingTheHoursByTheStudentsGrades": 0,
-                    "calculateTheTermOfTheEquationInTheRate": true,
-                    "calculatingTheSemesterEquationInHourseEarned": true,
-                    "rateApproximation": true,
-                    "theNnumberOfDigitsRroundingTheRate": 0,
-                    "reducingTheRateUponImprovement": true,
-                    "maximumNumberOfAdditionsToFailedCoursesWithoutSuccess": 0,
-                    "deleteFailedCoursesAfterSuccess": 0,
-                    "maximumCumulativeGPA": 0,
-                    "calculateTheCumulativeEstimate": 0,
-                    "howToCalculateTheRate": 0,
-                    "theNumberOfDigitsRoundinPoints": 0,
-                    "numberOfDigitsRoundingTheRatio": 0,
-                    "summerIsNotExcludedInCalculatingTheAnnualAverage": true,
-                    "theCumulativeAverageDoesNotAppearInTheStudentGradesPortal": true,
-                    "theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades": true,
-                    "calculatingFailingGradePoints": true,
-                    "calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage": true,
-                    "howToCalculateTheSemesterAverage": 0,
+                    "keepFailing": true,
+                    "maintainingStudentSuccess": false,
+                    "utmostGrade": data.utmostGrade,
+                    "changingCourses": data.changingCourses,
+                    "someOfGrades": data.someOfGrades,
+                    "howToCalculateTheRatio": data.howToCalculateTheRatio,
+                    "multiplyingTheHoursByTheStudentsGrades": data.multiplyingTheHoursByTheStudentsGrades,
+                    "calculateTheTermOfTheEquationInTheRate": data.calculateTheTermOfTheEquationInTheRate,
+                    "calculatingTheSemesterEquationInHourseEarned": data.calculatingTheSemesterEquationInHourseEarned,
+                    "rateApproximation": data.rateApproximation,
+                   "theNnumberOfDigitsRroundingTheRate": data.theNnumberOfDigitsRroundingTheRate,
+                    "reducingTheRateUponImprovement": data.reducingTheRateUponImprovement,
+                    "maximumNumberOfAdditionsToFailedCoursesWithoutSuccess": data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess,
+                    "deleteFailedCoursesAfterSuccess": data.deleteFailedCoursesAfterSuccess,
+                    "maximumCumulativeGPA": data.maximumCumulativeGPA,
+                    "showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal" : data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
+                    "calculateTheCumulativeEstimate": data.calculateTheCumulativeEstimate,
+                    "howToCalculateTheRate": data.howToCalculateTheRate,
+                    "theNumberOfDigitsRoundinPoints": data.theNumberOfDigitsRoundinPoints,
+                    "numberOfDigitsRoundingTheRatio": data.numberOfDigitsRoundingTheRatio,
+                    "summerIsNotExcludedInCalculatingTheAnnualAverage": data.summerIsNotExcludedInCalculatingTheAnnualAverage,
+                    "theCumulativeAverageDoesNotAppearInTheStudentGradesPortal": data.theCumulativeAverageDoesNotAppearInTheStudentGradesPortal,
+                    "theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades": data.theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades,
+                    "calculatingFailingGradePoints": data.calculatingFailingGradePoints,
+                    "calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage": data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
+                    "howToCalculateTheSemesterAverage": data.howToCalculateTheSemesterAverage,
                     "gadesOfEstimatesThatDoesNotCount": [
                       {
                         "gradeId": 3,
@@ -183,6 +200,46 @@ const GpaPage = () => {
                       }
                     ]
                   } );
+            }
+             else if (state.status === "Update") {
+                const res = await axios.put( `https://localhost:7095/api/CumulativeAverage/${17}`, {
+                    "programId":48,
+                    "improvingCourses": data.improvingCourses,
+                    "keepFailing": true,
+                    "maintainingStudentSuccess": false,
+                    "utmostGrade": 3,
+                    "changingCourses": data.changingCourses,
+                    "someOfGrades": data.someOfGrades,
+                    "howToCalculateTheRatio": data.howToCalculateTheRatio,
+                    "multiplyingTheHoursByTheStudentsGrades": data.multiplyingTheHoursByTheStudentsGrades,
+                    "calculateTheTermOfTheEquationInTheRate": data.calculateTheTermOfTheEquationInTheRate,
+                    "calculatingTheSemesterEquationInHourseEarned": data.calculatingTheSemesterEquationInHourseEarned,
+                    "rateApproximation": data.rateApproximation,
+                   "theNnumberOfDigitsRroundingTheRate": data.theNnumberOfDigitsRroundingTheRate,
+                    "reducingTheRateUponImprovement": data.reducingTheRateUponImprovement,
+                    "maximumNumberOfAdditionsToFailedCoursesWithoutSuccess": data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess,
+                    "deleteFailedCoursesAfterSuccess": data.deleteFailedCoursesAfterSuccess,
+                    "maximumCumulativeGPA": data.maximumCumulativeGPA,
+                    "showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal" : data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
+                    "calculateTheCumulativeEstimate": data.calculateTheCumulativeEstimate,
+                    "howToCalculateTheRate": data.howToCalculateTheRate,
+                    "theNumberOfDigitsRoundinPoints": data.theNumberOfDigitsRoundinPoints,
+                    "numberOfDigitsRoundingTheRatio": data.numberOfDigitsRoundingTheRatio,
+                    "summerIsNotExcludedInCalculatingTheAnnualAverage": data.summerIsNotExcludedInCalculatingTheAnnualAverage,
+                    "theCumulativeAverageDoesNotAppearInTheStudentGradesPortal": data.theCumulativeAverageDoesNotAppearInTheStudentGradesPortal,
+                    "theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades": data.theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades,
+                    "calculatingFailingGradePoints": data.calculatingFailingGradePoints,
+                    "calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage": data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
+                    "howToCalculateTheSemesterAverage": data.howToCalculateTheSemesterAverage,
+                    "gadesOfEstimatesThatDoesNotCount": [
+                      {
+                        "gradeId": 3,
+                        "cumulativeAverageId": 0
+                      }
+                    ]
+                  } );
+                  dispatch({ type: 'Get' }); 
+              }
     
             // Logging the response data for debugging
             console.log(dataToSend);
@@ -200,6 +257,7 @@ const GpaPage = () => {
     function submit(e) {
         console.log(data);
         e.preventDefault();
+
         sendDataToApi();
       }
     return (
@@ -223,7 +281,7 @@ const GpaPage = () => {
                                                         تحسين المقررات
                                                     </label>
                                                     <div className="col-lg-5">
-                                                        <div className="form-group mb-3 row">
+                                                       { (state.status !== "Get")&&<div className="form-group mb-3 row">
                                                             <div className="col-lg-3">
                                                                 <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="higher" value="الاعلى" onChange={handleRadioChange} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="higher">الاعلي </label>
@@ -232,7 +290,10 @@ const GpaPage = () => {
                                                                 <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="lower" value="الاخير" onChange={handleRadioChange} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="lower">الاخير</label>
                                                             </div>
-                                                        </div>
+                                                        </div>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.improvingCourses === 0 ? "الاعلي" : "الاخير"} />
+                                                        }
                                                     </div>
                                                     {showCheckbox1 && (
                                                         <div className="col-3">
@@ -277,10 +338,13 @@ const GpaPage = () => {
                                                         تقديرات المحاولات التي لا تحتسب
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="try" multiple>
+                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start fs-5" aria-label="Select options" id="try" multiple>
                                                             <option value="option1">أ</option>
                                                             <option value="option2">ب</option>
-                                                        </select>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.gadesOfEstimatesThatDoesNotCount} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,8 +358,8 @@ const GpaPage = () => {
                                                         {(state.status !== "Get")&&<select className="form-select fs-5 custom-select-start" id="changingCourses" required onChange={(e) => setData({...data,changingCourses: e.target.value === "true" ? true : false })}
 >
                                                             <option selected disabled>  </option>
-                                                            <option value={true}>نعم </option>
-                                                            <option value={false}>لا</option>
+                                                            <option value={true} selected={data.changingCourses ===true}>نعم </option>
+                                                            <option value={false}selected={data.changingCourses ===false}>لا</option>
                                                         </select>}
                                                         { ((state.status === "Get")) &&
                                                             <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.changingCourses === true ? "نعم" : "لا"} />
@@ -313,11 +377,11 @@ const GpaPage = () => {
                                                             setData({...data , someOfGrades :e.target.value === "تقريب" ? 0 : 1})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value="تقريب">تقريب </option>
-                                                            <option value="جبر">جبر</option>
+                                                            <option value="تقريب" selected={data.someOfGrades ===0}>تقريب </option>
+                                                            <option value="جبر"selected={data.someOfGrades ===1}>جبر</option>
                                                         </select>}
                                                         { ((state.status === "Get")) &&
-                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.someOfGrades === 0 ? "تقريب" : "جبر"} />
+                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="someOfGrades" id="someOfGrades" placeholder={data.someOfGrades === 0 ? "تقريب" : "جبر"} />
                                                         }
                                                     </div>
                                                 </div>
@@ -328,22 +392,20 @@ const GpaPage = () => {
                                                         كيفية حساب النسبة
                                                     </label>
                                                     <div className="col-lg-4">
-                                                        {(state.status !== "Get")&& <select className="form-select fs-5 custom-select-start" id="howToCalculateTheRatio" onChange={(e)=>{
-                                                          setData({...data , howToCalculateTheRatio : parseInt(e.target.value) })
-                                                        }}>
+                                                        {(state.status !== "Get")&& <select className="form-select fs-5 custom-select-start" value={data.howToCalculateTheRatio} id="howToCalculateTheRatio" onChange={(e)=>{setData({...data , howToCalculateTheRatio : parseInt(e.target.value) })}}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100</option>
-                                                            <option value={1}>الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات</option>
-                                                            <option value={2}>المعدل التراكمي المكتسب مقسوم علي الاجمالي</option>
-                                                            <option value={3}>معادلة خاصه علوم</option>
-                                                            <option value={4}>معادلة خاصه (اكاديميه طيبه)</option>
-                                                            <option value={5}>حساب النسبة مقربة</option>
-                                                            <option value={6}>الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100</option>
-                                                            <option value={7}>الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية</option>
-                                                            <option value={8}>حساب النسبة بناء علي التقديرات العامة</option>
+                                                            <option value={0}selected={data.someOfGrades ===0}>الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100</option>
+                                                            <option value={1}selected={data.someOfGrades ===1}>الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات</option>
+                                                            <option value={2}selected={data.someOfGrades ===2}>المعدل التراكمي المكتسب مقسوم علي الاجمالي</option>
+                                                            <option value={3}selected={data.someOfGrades ===3}>معادلة خاصه علوم</option>
+                                                            <option value={4}selected={data.someOfGrades ===4}>معادلة خاصه (اكاديميه طيبه)</option>
+                                                            <option value={5}selected={data.someOfGrades ===5}>حساب النسبة مقربة</option>
+                                                            <option value={6}selected={data.someOfGrades ===6}>الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100</option>
+                                                            <option value={7}selected={data.someOfGrades ===7}>الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية</option>
+                                                            <option value={8}selected={data.someOfGrades ===8}>حساب النسبة بناء علي التقديرات العامة</option>
                                                         </select>}
                                                         { ((state.status === "Get")) &&
-                                                            <input  style={{ width: '130%' }}   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.howToCalculateTheRatio === 0 ? "الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100" : "جبر"} />
+                                                            <input  style={{ width: '130%' }}   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="howToCalculateTheRatio" id="howToCalculateTheRatio" placeholder={Options.howToCalculateTheRatio[data.howToCalculateTheRatio]} />
                                                         }
                                                     </div>
                                                 </div>
@@ -354,15 +416,18 @@ const GpaPage = () => {
                                                         ضرب الساعات في درجات الطالب
                                                     </label>
                                                     <div className="col-lg-4">
-                                                        <select className="form-select fs-5 custom-select-start" id="multiplyingTheHoursByTheStudentsGrades"onChange={(e)=>{
+                                                        {(state.status !== "Get")&&<select className="form-select fs-5 custom-select-start" id="multiplyingTheHoursByTheStudentsGrades"onChange={(e)=>{
                                                            setData({...data , multiplyingTheHoursByTheStudentsGrades : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>الجمع بدون ضرب الدرجة بساعات المقرر</option>
-                                                            <option value={1}>الجمع بضرب الدرجة بساعات المقرر</option>
-                                                            <option value={2}> القسمه علي الساعات بدون ضرب</option>
-                                                            <option value={3}>الجمع بضرب نسبه الطالب في المقرر بساعات المقرر</option>
-                                                        </select>
+                                                            <option value={0}selected={data.someOfGrades ===0}>الجمع بدون ضرب الدرجة بساعات المقرر</option>
+                                                            <option value={1}selected={data.someOfGrades ===1}>الجمع بضرب الدرجة بساعات المقرر</option>
+                                                            <option value={2}selected={data.someOfGrades ===2}> القسمه علي الساعات بدون ضرب</option>
+                                                            <option value={3}selected={data.someOfGrades ===3}>الجمع بضرب نسبه الطالب في المقرر بساعات المقرر</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input  style={{ width: '130%' }}   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="multiplyingTheHoursByTheStudentsGrades" id="multiplyingTheHoursByTheStudentsGrades" placeholder={Options.multiplyingTheHoursByTheStudentsGrades[data.multiplyingTheHoursByTheStudentsGrades]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -372,20 +437,23 @@ const GpaPage = () => {
                                                         حساب ترم المعادلة في المعدل
                                                     </label>
                                                     <div class="col-lg-6 ">
-                                                        <div className="form-group mb-3 row">
+                                                       {(state.status !== "Get")&& <div className="form-group mb-3 row">
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="calculateTheTermOfTheEquationInTheRate" id="calculateTheTermOfTheEquationInTheRate" value={false} onChange={(e)=> {
+                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="calculateTheTermOfTheEquationInTheRate" id="calculateTheTermOfTheEquationInTheRate" value={false} checked={data.calculateTheTermOfTheEquationInTheRate=== false} onChange={(e)=> {
                                                                     setData({...data , calculateTheTermOfTheEquationInTheRate : false})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="calculateTheTermOfTheEquationInTheRate">عدم الدخول فى الحساب  </label>
                                                             </div>
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="calculateTheTermOfTheEquationInTheRate" id="calculateTheTermOfTheEquationInTheRate" value={true} onChange={(e)=> {
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="calculateTheTermOfTheEquationInTheRate" id="calculateTheTermOfTheEquationInTheRate" checked={data.calculateTheTermOfTheEquationInTheRate=== true} value={true} onChange={(e)=> {
                                                                     setData({...data , calculateTheTermOfTheEquationInTheRate : true})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="calculateTheTermOfTheEquationInTheRate"> دخول فى الحساب</label>
                                                             </div>
-                                                        </div>
+                                                        </div>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="calculateTheTermOfTheEquationInTheRate" id="calculateTheTermOfTheEquationInTheRate" placeholder={data.calculateTheTermOfTheEquationInTheRate === true ? "دخول فى الحساب" :"عدم الدخول فى الحساب" } />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -394,20 +462,23 @@ const GpaPage = () => {
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="calculateTermHours">
                                                     </label>
                                                     <div class="col-lg-6 ">
-                                                        <div className="form-group mb-3 row">
+                                                       { (state.status !== "Get")&&<div className="form-group mb-3 row">
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="calculateTermHours" id="calculatingTheSemesterEquationInHourseEarned" value={false} onChange={(e)=> {
+                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="calculateTermHours" id="calculatingTheSemesterEquationInHourseEarned" checked={data.calculatingTheSemesterEquationInHourseEarned=== false} value={false} onChange={(e)=> {
                                                                     setData({...data , calculatingTheSemesterEquationInHourseEarned : false})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="enterHours">عدم الدخول فى الحساب  </label>
                                                             </div>
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="calculateTermHours" id="calculatingTheSemesterEquationInHourseEarned" value={true} onChange={(e)=> {
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="calculateTermHours" id="calculatingTheSemesterEquationInHourseEarned"checked={data.calculatingTheSemesterEquationInHourseEarned=== true}  value={true} onChange={(e)=> {
                                                                     setData({...data , calculatingTheSemesterEquationInHourseEarned : true})
                                                                 }}  />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="enterHours" > دخول فى الحساب</label>
                                                             </div>
-                                                        </div>
+                                                        </div>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="calculatingTheSemesterEquationInHourseEarned" id="calculatingTheSemesterEquationInHourseEarned" placeholder={data.calculatingTheSemesterEquationInHourseEarned === true ? "دخول فى الحساب" :"عدم الدخول فى الحساب" } />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -417,65 +488,76 @@ const GpaPage = () => {
                                                         تقريب المعدل
                                                     </label>
                                                     <div class="col-lg-6 ">
-                                                        <div className="form-group mb-3 row">
+                                                       {(state.status !== "Get")&& <div className="form-group mb-3 row">
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="rateRounding" id="rateApproximation" value={false}onChange={(e)=> {
+                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="rateRounding" id="rateApproximation" checked={data.rateApproximation=== false} value={false}onChange={(e)=> {
                                                                     setData({...data , rateApproximation : false})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="rateApproximation">عدم تقريب المعدل    </label>
                                                             </div>
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="rateRounding" id="rateApproximation" value={true}  onChange={(e)=> {
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="rateRounding" id="rateApproximation" checked={data.rateApproximation=== true} value={true}  onChange={(e)=> {
                                                                     setData({...data , rateApproximation : true})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="rate"> تقريب المعدل  </label>
                                                             </div>
-                                                        </div>
+                                                        </div>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="rateApproximation" id="rateApproximation" placeholder={data.rateApproximation === true ? "تقريب المعدل " :"عدم تقريب المعدل" } />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <span >
                                                     <div className="form-group  row">
-                                                        <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="numberRate">
+                                                        <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="theNnumberOfDigitsRroundingTheRate">
                                                             عدد ارقام تقريب المعدل
                                                         </label>
                                                         <div class="col-lg-2 ">
-                                                            <div class="input-group">
+                                                           {(state.status !== "Get")&& <div class="input-group">
                                                                 <input
                                                                     type="number"
                                                                     className="form-control"
-                                                                    id="numberRate"
-                                                                    name="numberRate"
+                                                                    id="theNnumberOfDigitsRroundingTheRate"
+                                                                    name="theNnumberOfDigitsRroundingTheRate"
                                                                     onChange={(e)=> {
                                                                         setData({...data , theNnumberOfDigitsRroundingTheRate :parseInt( e.target.value)})
                                                                     }}
+                                                                    value={data.theNnumberOfDigitsRroundingTheRate}
                                                                 />
-                                                            </div>
+                                                            </div>}
+
+                                                            { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="theNnumberOfDigitsRroundingTheRate" id="theNnumberOfDigitsRroundingTheRate" placeholder={data.theNnumberOfDigitsRroundingTheRate } />
+                                                        }
                                                         </div>
                                                     </div>
                                                 </span>
                                             </div>
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="rateReduction">
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="reducingTheRateUponImprovement">
                                                         تخفيض المعدل عند التحسين
                                                     </label>
                                                     <div class="col-lg-6 ">
-                                                        <div className="form-group mb-3 row">
+                                                       { (state.status !== "Get")&&<div className="form-group mb-3 row">
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="rateReduction" id="reduction" value={false} onChange={(e)=> {
+                                                                <input className="form-check-input  m-1 mt-2" type="radio" name="reducingTheRateUponImprovement" id="reduction" checked={data.reducingTheRateUponImprovement=== false} value={false} onChange={(e)=> {
                                                                     setData({...data , reducingTheRateUponImprovement : false})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="reduction">عدم تخفيض المعدل</label>
                                                             </div>
                                                             <div className="col-lg-4">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="rateReduction" id="reduction" value={true} onChange={(e)=> {
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="reducingTheRateUponImprovement" id="reduction"checked={data.reducingTheRateUponImprovement=== true}  value={true} onChange={(e)=> {
                                                                     setData({...data , reducingTheRateUponImprovement : true})
                                                                 }} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="reduction">تخفيض المعدل</label>
                                                             </div>
-                                                        </div>
+                                                        </div>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="reducingTheRateUponImprovement" id="reducingTheRateUponImprovement" placeholder={data.reducingTheRateUponImprovement === true ? "تخفيض المعدل" :"عدم تخفيض المعدل" } />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -485,16 +567,19 @@ const GpaPage = () => {
                                                         أقصى عدد لإضافة للمقررات الرسوب(بدون نجاح)
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="maximumNumberOfAdditionsToFailedCoursesWithoutSuccess" onChange={(e)=> {
+                                                        {(state.status !== "Get")&&<select className="form-select fs-5 custom-select-start" id="maximumNumberOfAdditionsToFailedCoursesWithoutSuccess" onChange={(e)=> {
                                                             setData({...data , maximumNumberOfAdditionsToFailedCoursesWithoutSuccess : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>اضافه الجميع </option>
-                                                            <option value={1}>عدم اضافه مقررات</option>
-                                                            <option value={2}> اضافه مقرر</option>
-                                                            <option value={3}> اضافه مقرران</option>
-                                                            <option value={4}> اضافه 3 مقررات</option>
-                                                        </select>
+                                                            <option value={0} selected={data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess ===0}>اضافه الجميع </option>
+                                                            <option value={1}selected={data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess ===1}>عدم اضافه مقررات</option>
+                                                            <option value={2}selected={data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess ===2}> اضافه مقرر</option>
+                                                            <option value={3}selected={data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess ===3}> اضافه مقرران</option>
+                                                            <option value={4}selected={data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess ===4}> اضافه 3 مقررات</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="maximumNumberOfAdditionsToFailedCoursesWithoutSuccess" id="maximumNumberOfAdditionsToFailedCoursesWithoutSuccess" placeholder={Options.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess[data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -504,17 +589,20 @@ const GpaPage = () => {
                                                         حذف مقررات الرسوب (بعد نجاح)
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="deleteFailedCoursesAfterSuccess" required onChange={(e)=> {
+                                                        {(state.status !== "Get")&&<select className="form-select fs-5 custom-select-start" id="deleteFailedCoursesAfterSuccess" required onChange={(e)=> {
                                                             setData({...data , deleteFailedCoursesAfterSuccess : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option  value={0}>حذف مقرر واحد من المقام </option>
-                                                            <option  value={1}>حذف جميع المقررات</option>
-                                                            <option  value={2}> عدم حذف المقررات </option>
-                                                            <option  value={3}>حساب مقرر في المقام</option>
-                                                            <option  value={4}> حساب مقرران في المقام</option>
-                                                            <option  value={5}> حساب 3 مقررات في المقام</option>
-                                                        </select>
+                                                            <option  value={0}selected={data.deleteFailedCoursesAfterSuccess ===0}>حذف مقرر واحد من المقام </option>
+                                                            <option  value={1}selected={data.deleteFailedCoursesAfterSuccess ===1}>حذف جميع المقررات</option>
+                                                            <option  value={2}selected={data.deleteFailedCoursesAfterSuccess ===2}> عدم حذف المقررات </option>
+                                                            <option  value={3}selected={data.deleteFailedCoursesAfterSuccess ===3}>حساب مقرر في المقام</option>
+                                                            <option  value={4}selected={data.deleteFailedCoursesAfterSuccess ===4}> حساب مقرران في المقام</option>
+                                                            <option  value={5}selected={data.deleteFailedCoursesAfterSuccess ===5}> حساب 3 مقررات في المقام</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="deleteFailedCoursesAfterSuccess" id="deleteFailedCoursesAfterSuccess" placeholder={Options.deleteFailedCoursesAfterSuccess[data.deleteFailedCoursesAfterSuccess]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -524,15 +612,18 @@ const GpaPage = () => {
                                                         حد الأقصى للمعدل التراكمى
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" required id="maximumCumulativeGPA" onChange={(e)=> {
+                                                       {(state.status !== "Get")&& <select className="form-select fs-5 custom-select-start" required id="maximumCumulativeGPA" onChange={(e)=> {
                                                             setData({...data , maximumCumulativeGPA : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>GPA 3.5</option>
-                                                            <option value={1}>GPA 4</option>
-                                                            <option value={2}>GPA 5</option>
-                                                            <option value={3}>GPA 6</option>
-                                                        </select>
+                                                            <option value={0} selected={data.maximumCumulativeGPA ===0}>GPA 3.5</option>
+                                                            <option value={1}selected={data.maximumCumulativeGPA ===1}>GPA 4</option>
+                                                            <option value={2}selected={data.maximumCumulativeGPA ===2}>GPA 5</option>
+                                                            <option value={3}selected={data.maximumCumulativeGPA ===3}>GPA 6</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="maximumCumulativeGPA" id="maximumCumulativeGPA" placeholder={Options.maximumCumulativeGPA[data.maximumCumulativeGPA]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -542,15 +633,18 @@ const GpaPage = () => {
                                                         حساب التقدير التراكمى
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="calculateTheCumulativeEstimate" onChange={(e)=> {
+                                                       {(state.status !== "Get")&& <select className="form-select fs-5 custom-select-start" id="calculateTheCumulativeEstimate" onChange={(e)=> {
                                                             setData({...data , calculateTheCumulativeEstimate : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>بناء علي المعدل</option>
-                                                            <option value={1}>بناء علي النسبة</option>
-                                                            <option value={2}>بناء علي المعدل وفقا للتقديرات العامة</option>
-                                                            <option value={3}>بناء علي النسبة وفقا للتقديرات العامة</option>
-                                                        </select>
+                                                            <option value={0}selected={data.calculateTheCumulativeEstimate ===0}>بناء علي المعدل</option>
+                                                            <option value={1}selected={data.calculateTheCumulativeEstimate ===1}>بناء علي النسبة</option>
+                                                            <option value={2}selected={data.calculateTheCumulativeEstimate ===2}>بناء علي المعدل وفقا للتقديرات العامة</option>
+                                                            <option value={3}selected={data.calculateTheCumulativeEstimate ===3}>بناء علي النسبة وفقا للتقديرات العامة</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="calculateTheCumulativeEstimate" id="maximumNumberOfAdditionsToFailedCoursesWithoutSuccess" placeholder={Options.calculateTheCumulativeEstimate[data.calculateTheCumulativeEstimate]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -560,14 +654,17 @@ const GpaPage = () => {
                                                         كيفية حساب المعدل
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="howToCalculateTheRate" onChange={(e)=> {
+                                                       { (state.status !== "Get")&& <select  className="form-select fs-5 custom-select-start" id="howToCalculateTheRate" onChange={(e)=> {
                                                             setData({...data , howToCalculateTheRate : parseInt(e.target.value)})
                                                         }}>
                                                             <option selected disabled>  </option>
-                                                            <option value={0}>بالقسمة علي الساعات الفعلية  </option>
-                                                            <option value={1}>بالقسمه علي الساعات المكتسبة  </option>
-                                                            <option value={2}>قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25</option>
-                                                        </select>
+                                                            <option value={0}selected={data.howToCalculateTheRate ===0}>بالقسمة علي الساعات الفعلية  </option>
+                                                            <option value={1}selected={data.howToCalculateTheRate ===1}>بالقسمه علي الساعات المكتسبة  </option>
+                                                            <option value={2}selected={data.howToCalculateTheRate ===2}>قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25</option>
+                                                        </select>}
+                                                        { ((state.status === "Get")) &&
+                                                            <input  style={{ width: '300%' }} className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="howToCalculateTheRate" id="howToCalculateTheRate" placeholder={Options.howToCalculateTheRate[data.howToCalculateTheRate]} />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -578,7 +675,7 @@ const GpaPage = () => {
                                                             عدد ارقام تقريب النقاط
                                                         </label>
                                                         <div class="col-lg-2 ">
-                                                            <div class="input-group">
+                                                           {(state.status !== "Get")&& <div class="input-group">
                                                                 <input
                                                                     type="number"
                                                                     className="form-control"
@@ -587,8 +684,12 @@ const GpaPage = () => {
                                                                     onChange={(e)=> {
                                                                         setData({...data , theNumberOfDigitsRoundinPoints :parseInt(e.target.value) })
                                                                     }}
+                                                                    value={data.theNumberOfDigitsRoundinPoints}
                                                                 />
-                                                            </div>
+                                                            </div>}
+                                                            { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="theNumberOfDigitsRoundinPoints" id="theNumberOfDigitsRoundinPoints" placeholder={data.theNumberOfDigitsRoundinPoints } />
+                                                            }
                                                         </div>
                                                     </div>
                                                 </span>
@@ -602,7 +703,7 @@ const GpaPage = () => {
                                                             عدد ارقام تقريب النسبة
                                                         </label>
                                                         <div class="col-lg-2 ">
-                                                            <div class="input-group">
+                                                            {(state.status !== "Get")&& <div class="input-group">
                                                                 <input
                                                                     type="number"
                                                                     className="form-control"
@@ -611,8 +712,12 @@ const GpaPage = () => {
                                                                     onChange={(e)=> {
                                                                         setData({...data , numberOfDigitsRoundingTheRatio :parseInt(e.target.value) })
                                                                     }}
+                                                                    value={data.numberOfDigitsRoundingTheRatio}
                                                                 />
-                                                            </div>
+                                                            </div>}
+                                                            { ((state.status === "Get")) &&
+                                                            <input   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="numberOfDigitsRoundingTheRatio" id="numberOfDigitsRoundingTheRatio" placeholder={data.numberOfDigitsRoundingTheRatio } />
+                                                            }
                                                         </div>
                                                     </div>
                                                 </span>
@@ -620,41 +725,56 @@ const GpaPage = () => {
 
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="annualRate" value={true}  onChange={(e)=> {
+                                             {(state.status !== "Get")&&        <input className="form-check-input mt-2 fs-5" type="checkbox" id="annualRate" checked={data.summerIsNotExcludedInCalculatingTheAnnualAverage} value={true}  onChange={(e)=> {
                                                                         setData({...data , summerIsNotExcludedInCalculatingTheAnnualAverage : e.target.checked})
-                                                                    }} />
+                                                                    }} />}
+                                                                    {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="annualRate" disabled   checked={data.summerIsNotExcludedInCalculatingTheAnnualAverage === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="annualRate">عدم استثناء الصيفى فى حساب المعدل السنوى</label>
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="rateAppear" value={true}  onChange={(e)=> {
+                                                    {(state.status !== "Get")&& <input className="form-check-input mt-2 fs-5" type="checkbox" checked={data.theCumulativeAverageDoesNotAppearInTheStudentGradesPortal} id="rateAppear" value={true}  onChange={(e)=> {
                                                                         setData({...data , theCumulativeAverageDoesNotAppearInTheStudentGradesPortal : e.target.checked})
-                                                                    }}  />
+                                                                    }}  />}
+                                                                     {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="annualRate" disabled   checked={data.theCumulativeAverageDoesNotAppearInTheStudentGradesPortal === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="rateAppear">عدم ظهور المعدل التراكمى فى بورتال طالب تقديرات المواد</label>
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal" value={true}  onChange={(e)=> {
+                                                  { (state.status !== "Get")&& <input className="form-check-input mt-2 fs-5" type="checkbox"  id="showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal"checked={data.theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades} value={true}  onChange={(e)=> {
                                                                         setData({...data , theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades : e.target.checked})
-                                                                    }} />
+                                                                    }} />}
+                                                                     {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="annualRate" disabled   checked={data.theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal">ظهور النسبه الفصليه و التراكمية فى بورتال الطالب تقديرات المواد</label>
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="quarterlyGrade" value={true}  onChange={(e)=> {
+                                                   {(state.status !== "Get")&& <input className="form-check-input mt-2 fs-5" type="checkbox" id="showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal" checked={data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal} value={true}  onChange={(e)=> {
                                                                         setData({...data , showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal : e.target.checked})
-                                                                    }}  />
+                                                                    }}  />}
+                                                                     {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal" disabled   checked={data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="quarterlyGrade">اظهار التقدير الفصلى والتراكمى فى بورتال الطالب تقديرات المواد</label>
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="calculateFail" value={true}  onChange={(e)=> {
+                                                   {(state.status !== "Get")&& <input className="form-check-input mt-2 fs-5" type="checkbox" id="calculateFail" checked={data.calculatingFailingGradePoints} value={true}  onChange={(e)=> {
                                                                         setData({...data ,  calculatingFailingGradePoints : e.target.checked})
-                                                                    }}  />
+                                                                    }}  />}
+                                                                     {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="calculatingFailingGradePoints" disabled   checked={data.calculatingFailingGradePoints === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="calculateFail">حساب نقاط تقديرات الرسوب</label>
                                                 </div>
                                             </div>
@@ -663,9 +783,12 @@ const GpaPage = () => {
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage"  value={true}  onChange={(e)=> {
+                                                    {(state.status !== "Get")&&<input className="form-check-input mt-2 fs-5" type="checkbox" id="calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage" checked={data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage} value={true}  onChange={(e)=> {
                                                                         setData({...data , calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage : e.target.checked})
-                                                                    }} />
+                                                                    }} />}
+                                                                     {(state.status == "Get")&&    <div class="form-check form-switch">
+                                                                    <input className="form-check-input mt-2 fs-5" type="checkbox" id="calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage" disabled   checked={data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage === true} />
+                                                                        </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage">حساب مرات الرسوب بعد المره الاولي في المعدل الفصلي</label>
                                                 </div>
                                             </div>
@@ -675,14 +798,17 @@ const GpaPage = () => {
                                                         كيفية حساب المعدل الفصلي
                                                     </label>
                                                         <div className="col-lg-3">
-                                                            <select className="form-select fs-5 custom-select-start" id="calculateTermRate" onChange={(e)=>{
-                                                                setData({...data , howToCalculateTheSemesterAverage : parseInt(e.target.checked)})
+                                                            {(state.status !== "Get")&& <select className="form-select fs-5 custom-select-start" id="calculateTermRate" onChange={(e)=>{
+                                                                setData({...data , howToCalculateTheSemesterAverage : parseInt(e.target.value)})
                                                             }}>
                                                                 <option selected disabled>  </option>
-                                                                <option value={0}>بالقسمة علي الساعات الفعلية  </option>
-                                                                <option value={1}>بالقسمه علي الساعات المكتسبة  </option>
-                                                                <option value={2}>قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25</option>
-                                                            </select>
+                                                                <option value={0}selected={data.howToCalculateTheSemesterAverage ===0}>بالقسمة علي الساعات الفعلية  </option>
+                                                                <option value={1}selected={data.howToCalculateTheSemesterAverage ===1}>بالقسمه علي الساعات المكتسبة  </option>
+                                                                <option value={2}selected={data.howToCalculateTheSemesterAverage ===2}>قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25</option>
+                                                            </select>}
+                                                            { ((state.status === "Get")) &&
+                                                            <input  style={{ width: '220%' }}   className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="howToCalculateTheSemesterAverage" id="howToCalculateTheSemesterAverage" placeholder={Options.howToCalculateTheRate[data.howToCalculateTheSemesterAverage]} />
+                                                        }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -695,11 +821,11 @@ const GpaPage = () => {
                                                   {  (state.status !== "Get")&&  <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                                                         <i className="fa-regular fa-bookmark"></i> حفظ
                                                     </button>}
-                                                    { state.status !== "Get" && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Close"})}}>
+                                                    { (state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Get"})}}>
                                                         <i className="fa-solid fa-lock"></i> غلق
                                                     </button>}
                                                     {
-                                                        state.status !=="Add" &&
+                                                        (state.status !=="Add" && state.status ==="Get")&&
                                                         <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=>{dispatch({type : "Update"})}}>
                                                         <i className="fa-solid fa-lock-open"></i> تعديل
                                                          </button>

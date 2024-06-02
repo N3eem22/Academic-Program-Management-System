@@ -11,8 +11,10 @@ import { AcademicloadPage } from "./pages/programs/edit/academicload";
 import { GeneralestimatesPage } from "./pages/programs/edit/generalestimates";
 import { GraduationPage } from "./pages/programs/edit/graduation";
 import { ManageUsersPage } from "./pages/superadmin/manageusers";
+import { UpdateUsersPage } from "./pages/superadmin/manageusers/updateusers";
 import { ManageUniPage } from "./pages/superadmin/manageuni";
 import { ManageFacultyPage } from "./pages/admin/managefaculty";
+import { UpdatefacultyPage } from "./pages/admin/managefaculty/updatefaculty";
 import { ControlsPage } from "./pages/controls";
 import { CoursesPage } from "./pages/programs/edit/courses";
 import { GpaPage } from "./pages/programs/edit/gpa";
@@ -68,6 +70,7 @@ function App() {
       }
     >
       <Routes>
+
       <Route path="/summer" element={<SummerFees />}/>
       <Route path="/absentee" element={<AbsenteeEstimateCalculation />}/>
       <Route path="/degree" element={<TheAcademicDegree />}/>
@@ -89,21 +92,35 @@ function App() {
       <Route path="/bloresultappearckproof" element={<TheResultAppears />}/>
       <Route path="/systemtype" element={<SystemType />}/>
 
+
+      
         <Route element={<Layout />}>
+        <Route path="/graduation" element={<GraduationPage />} />
+
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
+
             {/* <Route path="/lookups" element={<ManageLookUps />}/> */}
             <Route path="/dataTable" element={<DataTable />}/>
             <Route path="/programs" element={<ProgramsComp />}/>
             <Route path="/logFiles" element={<LogFiles />}/>
 
 
+
+            <Route
+              path="/updatefaculty/:id"
+              element={<UpdateFacultyWrapper />}
+            />
           </Route>
           <Route element={<SuperAdmin />}>
             <Route path="/manageuni" element={<ManageUniPage />} />
             <Route path="/addUniversity" element={<AddUniversity />} />
             <Route path="/manageusers" element={<ManageUsersPage />} />
+            {/* <Route path="/updateusers/:id" element={<UpdateUsersPage />} /> */}
+
+            <Route path="/updateusers/:id" element={<UpdateUsersWrapper />} />
+
             <Route path="/register" element={<RegisterPage />} />
             {/* Pass id to UpdateUniversity */}
             <Route
@@ -114,8 +131,10 @@ function App() {
           <Route element={<User />}>
             <Route path="/control" element={<ControlPage />} />
             <Route path="/gpa" element={<GpaPage />} />
-            <Route path="/graduation" element={<GraduationPage />} />
-            <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
+            <Route
+              path="/Generalestimates"
+              element={<GeneralestimatesPage />}
+            />
             <Route path="/levels" element={<LevelsPage />} />
             <Route path="/estimates" element={<EstimatesPage />} />
             <Route path="/academicload" element={<AcademicloadPage />} />
@@ -125,7 +144,10 @@ function App() {
 
 
 
+
             
+
+
             <Route path="/courses" element={<CoursesPage />} />
           </Route>
         </Route>
@@ -141,10 +163,19 @@ function UpdateUniversityWrapper() {
   return <UpdateUniversity id={id} />;
 }
 
+function UpdateUsersWrapper() {
+  let { id } = useParams();
+  return <UpdateUsersPage id={id} />;
+}
+function UpdateFacultyWrapper() {
+  let { id } = useParams();
+  return <UpdatefacultyPage id={id} />;
+}
+
 export default App;
 
-
-{/* <Routes>
+{
+  /* <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -164,4 +195,5 @@ export default App;
         <Route path="/home" element={<HomePage />} />
 
         
-      </Routes> */}
+      </Routes> */
+}

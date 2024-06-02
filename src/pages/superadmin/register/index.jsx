@@ -26,44 +26,104 @@ const RegisterPage = React.memo(() => {
     //   headers: {
     //     'Authorization': `Bearer ${userToken.token}`
     //   }
-    useEffect(() => {
-        const userToken = getAuthUser(); 
-        axios.get('https://localhost:7095/api/University', {
+  useEffect(() => {
+    const userToken = getAuthUser(); 
+    axios.get('https://localhost:7095/api/University', {
+      headers: {
+        'Authorization': `Bearer ${userToken.token}`
+      }
+    })
+    .then(response => {
+      setRegister({ ...register, universities: response.data });
+      console.log(response.data);
+    })
+    .catch(err => {
+      setRegister({
+        ...register,
+        loading: false,
+        err: [{ message: err.response.data.message }]
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (register.university.length === 1) {
+        const userToken = getAuthUser();
+        axios.get(`https://localhost:7095/api/faculty?UniversityId=${register.university[0]}`,   { 
           headers: {
             'Authorization': `Bearer ${userToken.token}`
-          }
+          } 
+        }  )
+        .then((response) => {
+            setRegister({ ...register, faculties: response.data });
+             console.log(register.university[0]);
+            console.log(response)
+            console.log(response.data);
         })
-        .then(response => {
-          setRegister({ ...register, universities: response.data });
-          console.log(response.data);
-        })
-        .catch(err => {
-          setRegister({
-            ...register,
-            loading: false,
-            err: [{ message: err.response.data.message }]
-          });
+        .catch((err) => {
+            setRegister({
+                ...register,
+                loading: false,
+                err: [{ message: err.response.data.message }],
+            });
         });
-      }, []);
-      
-    useEffect(() => {
-        if (register.university.length === 1) {
-            axios
-                .get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`)
-                .then((response) => {
-                    setRegister({ ...register, faculties: response.data });
-                    console.log(response.data);
-                    console.log(register.university[0]);
-                })
-                .catch((err) => {
-                    setRegister({
-                        ...register,
-                        loading: false,
-                        err: [{ message: err.response.data.message }],
-                    });
-                });
-        }
-    }, [register.university]);
+    }
+  }, [register.university]);
+// useEffect(() => {
+//     if (register.university.length === 1) {
+//         const userToken = getAuthUser();
+//         axios.get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`, {
+//             headers: {
+//                 'Authorization': `Bearer ${userToken.token}`
+//             }
+//         })
+//         .then((response) => {
+//             // Filter faculties to include only those belonging to the selected university
+//             const filteredFaculties = response.data.filter(faculty => faculty.universityId === register.university[0]);
+//             setRegister({ ...register, faculties: filteredFaculties });
+//             console.log(filteredFaculties);
+//             console.log(register.university[0]);
+//         })
+//         .catch((err) => {
+//             setRegister({
+//                 ...register,
+//                 loading: false,
+//                 err: [{ message: err.response.data.message }],
+//             });
+//         });
+//     }
+// }, [register.university]);
+
+     
+//   useEffect(() => {
+//     if (register.university.length === 1) {
+//         const userToken = getAuthUser();
+//         axios.get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`, {
+//             headers: {
+//                 'Authorization': `Bearer ${userToken.token}`
+//             }
+//         })
+//         .then((response) => {
+//             // Filter faculties to include only those belonging to the selected university
+//             const facultiesForSelectedUniversity = response.data.filter(faculty => faculty.universityId === register.university[0]);
+//             setRegister(prevState => ({ ...prevState, faculty: facultiesForSelectedUniversity }));
+//             console.log(" faculty:  ", response.data);
+//             console.log(" faculty:  ", register.university[0]);
+//             console.log(facultiesForSelectedUniversity);
+//         })
+        
+//         .catch((err) => {
+//             setRegister({
+//                 ...register,
+//                 loading: false,
+//                 err: [{ message: err.response.data.message }],
+//             });
+//         });
+//     }
+// }, [register.university]);
+
+
+    
 
 
 
@@ -235,7 +295,7 @@ const RegisterPage = React.memo(() => {
                                             }
                                         >
                                             <option value="null">No faculty</option>
-                                            {register.faculties.map((faculty) => (
+                                            {register.faculties && register.faculties.map((faculty) => (
                                                 <option key={faculty.id} value={faculty.id}>
                                                     {faculty.facultyName}
                                                 </option>
