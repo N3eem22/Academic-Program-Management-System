@@ -62,6 +62,7 @@ namespace Grad.APIs.Controllers
         {
             bool exists = await _unitOfWork.Repository<CumulativeAverage>().ExistAsync(
                 x => x.ProgramId == cumulativeAverageRequest.ProgramId && x.IsDeleted == false);
+            //await Console.Out.WriteLineAsync("programmmmmmmmmmm "+cumulativeAverageRequest.ProgramId);
             if (exists)
             {
                 return StatusCode(409, new ApiResponse(409));

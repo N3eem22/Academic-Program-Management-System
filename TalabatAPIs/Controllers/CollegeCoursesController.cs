@@ -3,6 +3,7 @@ using Grad.APIs.DTO;
 using Grad.APIs.DTO.Lockups_Dto;
 using Grad.APIs.Helpers;
 using Grad.Core.Specifications;
+using Grad.Core.Specifications.Enities_Spec;
 using Grad.Core.Specifications.LockUps_spec;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace Grad.APIs.Controllers
             var collegeCourseDTOs = _mapper.Map<IEnumerable<CollegeCourses>, IEnumerable<CollegeCoursesDTO>>(collegeCourses);
             return Ok(collegeCourseDTOs);
         }
-
+        
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CollegeCoursesDTO), 200)]
         [ProducesResponseType(typeof(ApiResponse), 404)]
@@ -50,6 +51,25 @@ namespace Grad.APIs.Controllers
             var collegeCourseDTO = _mapper.Map<CollegeCourses, CollegeCoursesDTO>(collegeCourse);
             return Ok(collegeCourseDTO);
         }
+        [HttpGet("search")]
+        [ProducesResponseType(typeof(IEnumerable<CollegeCoursesDTO>), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 404)]
+        public async Task<ActionResult<IEnumerable<CollegeCoursesDTO>>> SearchCollegeCourses(
+          [FromQuery] int courseCode,
+          [FromQuery] int facultyId)
+        {
+            var spec = new CollegeCoursesSearchSpecification(courseCode, facultyId);
+            var collegeCourses = await _unitOfWork.Repository<CollegeCourses>().GetEntityWithSpecAsync(spec);
+
+            if (collegeCourses == null)
+                return NotFound(new ApiResponse(404));
+
+            var collegeCourseDTO = _mapper.Map<CollegeCourses, CollegeCoursesDTO>(collegeCourses);
+            return Ok(collegeCourseDTO);
+        }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult<CollegeCoursesReq>> AddCollegeCourse(CollegeCoursesReq collegeCourseReq)
