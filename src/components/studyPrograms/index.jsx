@@ -73,7 +73,7 @@ const ProgramsComp = () => {
                           </div> 
                           <div className="form-floating mb-3">
                             <input
-                              ref={(el) => (inputRefs.current[index] = el)}
+                              ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
                               type="text"
                               className="form-control text-end"
                               placeholder=""
@@ -89,28 +89,28 @@ const ProgramsComp = () => {
                               className="form-control text-end"
                               placeholder=""
                               value={info.programNameInEnglish || ''}
-                              onChange={(e) => handleInputChange(index, 'programNameInEnglishe', e.target.value)}
+                              onChange={(e) => handleInputChange(index, 'programNameInEnglish', e.target.value)}
                             />
                             <label htmlFor="">اسم البرنامج باللغة الانجليزية</label>
                           </div>  
                           <div className="form-floating mb-3">
                             <input
-                              ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+                              ref={(el) => (inputRefs.current[index + programInfo.length]= el)}
                               type="text"
                               className="form-control text-end"
                               placeholder=""
-                              value={info.programNameInEnglish || ''}
+                              value={info.majorNameInArabic || ''}
                               onChange={(e) => handleInputChange(index, 'majorNameInArabic', e.target.value)}
                             />
                             <label htmlFor="">اسم التخصص باللغة العربية</label>
                           </div>
                           <div className="form-floating mb-3">
                             <input
-                              ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+                              ref={(el) => (inputRefs.current[index + programInfo.length]= el)}
                               type="text"
                               className="form-control text-end"
                               placeholder=""
-                              value={info.programNameInEnglish || ''}
+                              value={info.majorNameInEnglish || ''}
                               onChange={(e) => handleInputChange(index, 'majorNameInEnglish', e.target.value)}
                             />
                             <label htmlFor="">اسم التخصص باللغة الانجليزية</label>
@@ -187,7 +187,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.systemTypeId || ''}
                               onChange={(e) => handleInputChange(index, 'systemTypeId', e.target.value)}>
-   <option selected >نوع النظام</option>
+   <option defaultValue >نوع النظام</option>
    <option >One</option>
    <option >Two</option>
    <option >Three</option>
@@ -211,8 +211,7 @@ const ProgramsComp = () => {
    <label htmlFor="" class="position-absolute ms-100% " >كود الفرقة</label>
  </div>
  </div>
-                      ))}
-
+ ))}
   </form>
        </div>
       </div>
@@ -309,28 +308,39 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.burdanCalculationId || ''}
                               onChange={(e) => handleInputChange(index, 'burdanCalculationId', e.target.value)}>
-  <option selected>حساب العبء</option>
+  <option defaultValue>حساب العبء</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
 </select>
 <div class="form-check py-3">
-  <input ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-                              type="text"
-                              className="form-control text-end"
-                              placeholder=""
-                              value={info.excludingTheBudgetTermWhenCalculatingTheGPA|| ''}
-                              onChange={(e) => handleInputChange(index, 'excludingTheBudgetTermWhenCalculatingTheGPA', e.target.value)}/>
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+    ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+    value={info.excludingTheBudgetTermWhenCalculatingTheGPA|| ''}
+    onChange={(e) => handleInputChange(index, 'excludingTheBudgetTermWhenCalculatingTheGPA', e.target.value)}
+  />
   <label class="form-check-label" for="flexCheckDefault">
-  استثناء ترم الموازنة عند حساب العبء
+    استثناء ترم الموازنة عند حساب العبء
   </label>
 </div>
+{/* <div class="form-check py-2">
+  <input class="form-check ms-2  mt-2 fw-bold fs-5  track-order-change label-to-bold-if-checked" type="checkbox" id="flexCheckDefault"
+      className="form-control text-end"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+
+                              value={info.excludingTheBudgetTermWhenCalculatingTheGPA|| ''}
+                              checked={info.excludingTheBudgetTermWhenCalculatingTheGPA}
+                              onChange={(e) => handleInputChange(index, 'excludingTheBudgetTermWhenCalculatingTheGPA', e.target.value)}/>
+<label class="form-check-label" for="flexCheckDefault">
+  استثناء ترم الموازنة عند حساب العبء
+  </label>
+  </div> */}
 <select  ref={(el) => (inputRefs.current[index + programInfo.length * 6] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.passingTheElectiveGroupBasedOnId || ''}
                               onChange={(e) => handleInputChange(index, 'passingTheElectiveGroupBasedOnId', e.target.value)}>
-  <option selected>اجتياز المجموعه الاختياريه بناءا علي</option>
+  <option defaultValue>اجتياز المجموعه الاختياريه بناءا علي</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
@@ -340,7 +350,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.pre_Requisite || ''}
                               onChange={(e) => handleInputChange(index, 'pre_Requisite', e.target.value)}>
-  <option selected>المتطلب السابق</option>
+  <option defaultValue>المتطلب السابق</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
@@ -350,7 +360,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.pI_DivisionTypes || ''}
                               onChange={(e) => handleInputChange(index, 'pI_DivisionTypes', e.target.value)}>
-  <option selected>نوع الشعبة</option>
+  <option defaultValue>نوع الشعبة</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
@@ -360,7 +370,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.editTheStudentLevelId || ''}
                               onChange={(e) => handleInputChange(index, 'editTheStudentLevelId', e.target.value)}>
-  <option selected>	تعديل مستوى الطالب</option>
+  <option defaultValue>	تعديل مستوى الطالب</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
@@ -408,16 +418,14 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.blockingProofOfRegistrationId || ''}
                               onChange={(e) => handleInputChange(index, 'blockingProofOfRegistrationId', e.target.value)}>
-  <option selected>حجب إثبات القيد</option>
+  <option defaultValue>حجب إثبات القيد</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Three</option>
 </select>
 </div>
 ))}
-<button type="submit" className="btn btn-primary">Submit</button>
 </form>
-
         </div>
       </div>
     </div>
@@ -439,7 +447,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.typeOfFinancialStatementInTheProgramId || ''}
                               onChange={(e) => handleInputChange(index, 'typeOfFinancialStatementInTheProgramId', e.target.value)}>
-  <option selected>نوع البيان المالى بالبرنامج</option>
+  <option defaultValue>نوع البيان المالى بالبرنامج</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
@@ -449,7 +457,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.typeOfProgramFeesId || ''}
                               onChange={(e) => handleInputChange(index, 'typeOfProgramFeesId', e.target.value)}>
-  <option selected>نوع رسوم البرنامج</option>
+  <option defaultValue>نوع رسوم البرنامج</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
@@ -459,29 +467,36 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.typeOfSummerFeesId || ''}
                               onChange={(e) => handleInputChange(index, 'typeOfSummerFeesId', e.target.value)}>
-  <option selected>نوع رسوم الصيفى</option>
+  <option defaultValue>نوع رسوم الصيفى</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
 </select>
-{/* <select ref={(el) => (inputRefs.current[index + programInfo.length * 14] = el)}
+<select ref={(el) => (inputRefs.current[index + programInfo.length * 14] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info. || ''}
-                              onChange={(e) => handleInputChange(index, '', e.target.value)}>
-  <option selected>تقديرات الاعفاء من رسم المقرر</option>
+                              value={info.pI_EstimatesOfCourseFeeExemptions || ''}
+                              onChange={(e) => handleInputChange(index, 'pI_EstimatesOfCourseFeeExemptions', e.target.value)}>
+  <option defaultValue>تقديرات الاعفاء من رسم المقرر</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
-</select> */}
-<div class="form-check">
-  <input class="form-check-input border border-primary" type="checkbox" value="" id="flexCheckDefault"/>
+</select>
+<div class="form-check py-2">
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={info.calculatingaSpecialRegistrationFeeForaCourseIfaPreviousAssessmentOfTheCourseIsIncomplete|| ''}
+  onChange={(e) => handleInputChange(index, 'registrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly', e.target.checked)} />
   <label class="form-check-label" for="flexCheckDefault">
   إحتساب رسوم تسجيل خاصه للمقرر فى حالة تقدير سابق للمقرر غير مكتمل
   </label>
 </div>
-<div class="form-check">
-  <input class="form-check-input border border-primary" type="checkbox" value="" id="flexCheckDefault"/>
+<div class="form-check py-2">
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+  ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+  value={info.bookFeeIsCalculatedForTheFirstTimeOfRegistrationOnly|| ''}
+  onChange={(e) => handleInputChange(index, 'registrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly', e.target.checked)}
+/>
   <label class="form-check-label" for="flexCheckDefault">
   إحتساب رسم الكتاب للمقرر في اول مرة تسجيل فقط
   </label>
@@ -512,7 +527,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.result || ''}
                               onChange={(e) => handleInputChange(index, 'result', e.target.value)}>
-  <option selected>النتيجة</option>
+  <option defaultValue>النتيجة</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
@@ -522,7 +537,7 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.theResultToTheGuidId || ''}
                               onChange={(e) => handleInputChange(index, 'theResultToTheGuidId', e.target.value)}>
-  <option selected>ظهور النتيجة للمرشد</option>
+  <option defaultValue>ظهور النتيجة للمرشد</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
@@ -532,31 +547,44 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.theReasonForHiddingTheResultId || ''}
                               onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', e.target.value)}>
-  <option selected>سبب حجب التسجيل</option>
+  <option defaultValue>سبب حجب التسجيل</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
 </select>
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="checkbox" value="" id="flexCheckDefault"/>
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+  ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+  value={info.linkingTheAppearanceOfDocumentsToTheReasonForWithholdingRegistration|| ''}
+  onChange={(e) => handleInputChange(index, 'linkingTheAppearanceOfDocumentsToTheReasonForWithholdingRegistration', e.target.checked)}/>
   <label class="form-check-label" for="flexCheckDefault">
   ربط ظهور الوثائق بسبب حجب التسجيل
   </label>
 </div>
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="checkbox" value="" id="flexCheckDefault"/>
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={info.linkingTheAppearanceOfTheExaminationScheduleToThePaymentOfFees|| ''}
+     onChange={(e) => handleInputChange(index, 'linkingTheAppearanceOfTheExaminationScheduleToThePaymentOfFees', e.target.checked)}/>
   <label class="form-check-label" for="flexCheckDefault">
   ربط ظهور جدول الامتحانات بسداد الرسوم
   </label>
 </div>
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="checkbox" value="" id="flexCheckDefault"/>
-  <label class="form-check-label" for="flexCheckDefault">
+  <input class="form-check-input" type="checkbox"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={info.registrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly|| ''}
+  onChange={(e) => handleInputChange(index, 'registrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly', e.target.checked)}  />
+ <label class="form-check-label" htmlFor="flexCheckDefault">
   تسجيل المقررات المطروحة للطالب من نفس الفصل الحالى فقط بمدخل الطالب فقط
   </label>
 </div>
 <div class="form-floating mb-3 ">
-  <input type="number" class=" form-control text-end fs-4" placeholder="" />
+  <input type="number" class=" form-control text-end fs-4" placeholder=""
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   className="form-control text-end"
+   value={info.numberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects|| ''}
+   onChange={(e) => handleInputChange(index, 'numberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects', e.target.value)} />
   <label htmlFor="" class="">عدد مرات الرسوب لإلزام تسجيل مواد الرسوب الاجباريه</label>
 </div>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 18] = el)}
@@ -564,14 +592,14 @@ const ProgramsComp = () => {
                               aria-label=".form-select-lg example"
                               value={info.theReasonForHiddingTheResultId || ''}
                               onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', e.target.value)}>
-  <option selected>سبب حجب النتيجة</option>
+  <option defaultValue>سبب حجب النتيجة</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
 </select>
 <div className="div">
 </div>
-<div class="form-check py-2">
+{/* <div class="form-check py-2">
   <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
   <label class="form-check-label" for="exampleRadios1">
   متضمن الاستبيان العام 
@@ -582,19 +610,19 @@ const ProgramsComp = () => {
   <label class="form-check-label" for="exampleRadios1">
   غير متضمن الاستبيان العام
   </label>
-</div>
+</div> */}
 
-{/* <select ref={(el) => (inputRefs.current[index + programInfo.length * 19] = el)}
+<select ref={(el) => (inputRefs.current[index + programInfo.length * 19] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info. || ''}
-                              onChange={(e) => handleInputChange(index, '', e.target.value)}>
-  <option selected>تقديرات مقررات الصيفى</option>
+                              value={info.pI_AllGradesSummerEstimates || ''}
+                              onChange={(e) => handleInputChange(index, 'pI_AllGradesSummerEstimates', e.target.value)}>
+  <option defaultValue>تقديرات مقررات الصيفى</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
-</select> */}
-<div className="">
+</select>
+{/* <div className="">
 <div class="form-check py-2">
   <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
   <label class="form-check-label" for="exampleRadios1">   
@@ -606,20 +634,22 @@ const ProgramsComp = () => {
   <label class="form-check-label" for="exampleRadios1">
   استبيان الفارابى
   </label>
-</div>
-</div>
-{/* <select ref={(el) => (inputRefs.current[index + programInfo.length * 9] = el)}
+</div> */}
+{/* </div> */}
+<select ref={(el) => (inputRefs.current[index + programInfo.length * 20] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info. || ''}
-                              onChange={(e) => handleInputChange(index, '', e.target.value)}>
-  <option selected>الدرجات التفصلية المراد اعلانها</option>
+                              value={info.pI_DetailedGradesToBeAnnounced || ''}
+                              onChange={(e) => handleInputChange(index, 'pI_DetailedGradesToBeAnnounced', e.target.value)}>
+  <option defaultValue>الدرجات التفصلية المراد اعلانها</option>
   <option value="1"> التقدير</option>
   <option value="2"> الدرجة والتقدير</option>
   <option value="3">الدرجة والتقدير المكافئ</option>
-</select> */}
+</select>
 </div>
 ))}
+<button type="submit" className="btn btn-primary">Submit</button>
+
 </form>
         </div>
       </div>

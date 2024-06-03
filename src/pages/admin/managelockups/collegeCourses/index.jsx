@@ -9,10 +9,10 @@ function CollegeCourses() {
 
   return (
     <div className="App">
-      <DataTable  apiUri={`=${universityId}`}
+      <DataTable  apiUri={`https://localhost:7095/api/CollegeCourses?FacultyId=${universityId}`}
         apiUriPut = {(id,value) => `/${id}?=${value}`}
-        apiUriDelete={(id) => `/${id}`}
-        apiUriPost={``}
+        apiUriDelete={(id) => `https://localhost:7095/api/CollegeCourses/${id}`}
+        apiUriPost={`https://localhost:7095/api/CollegeCourses`}
         nameOfLU={nameOfLU}
         property= {property}/>
        
