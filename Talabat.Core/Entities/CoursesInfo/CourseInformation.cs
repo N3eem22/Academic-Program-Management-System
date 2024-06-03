@@ -63,7 +63,6 @@ using Talabat.Core.Entities;
             public ICollection<CoursesAndHours> coursesAndHours { get; set; } = new HashSet<CoursesAndHours>();
             public ICollection<DetailsOfFailingGrades> detailsOfFailingGrades { get; set; } = new HashSet<DetailsOfFailingGrades>();
             public ICollection<PreRequisiteCourses> preRequisiteCourses { get; set; } = new HashSet<PreRequisiteCourses>();
-            public ICollection<Students_Courses> Students_Courses { get; set; } = new HashSet<Students_Courses>();
 
         }
     }

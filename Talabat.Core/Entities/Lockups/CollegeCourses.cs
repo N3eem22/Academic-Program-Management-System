@@ -1,4 +1,5 @@
 ﻿using Grad.Core.Entities.CoursesInfo;
+using Grad.Core.Entities.Test;
 
 namespace Talabat.Core.Entities.Lockups
 {
@@ -23,6 +24,7 @@ namespace Talabat.Core.Entities.Lockups
 
         public ICollection<CourseInformation> CourseInformations { get; set; } = new HashSet<CourseInformation>();
         public ICollection<CourseInformation> PartOneCourse { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<Students_Courses> Students_Courses { get; set; } = new HashSet<Students_Courses>();
 
 
     }
