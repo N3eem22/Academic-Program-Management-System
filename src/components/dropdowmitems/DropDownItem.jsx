@@ -1,41 +1,50 @@
+import { useEffect, useState } from "react";
 import { useGlobalState } from "./Context";
 import "bootstrap/dist/css/bootstrap.min.css"
-
+import axios from "axios";
 const DropDownItem = ({ index }) => {
   const { globalState, setGlobalState } = useGlobalState();
+  
   const updateGlobalState = (fieldName, value) => {
     const temp = [...globalState];
     temp[index][fieldName] = value;
     setGlobalState(temp);
+    console.log(globalState);
+    
   };
+  const[details , setDetails] = useState([]);
+  useEffect(() => {
+    const fetchGrades = axios.get(`https://localhost:7095/api/EquivalentGrade?${1}`).then((res)=>{console.log(res.data); setDetails(res.data) ;});
+  }, []);
+  
   return (
     <div>
-      <p style={{ display: "inline" }}>{globalState[index].tag}</p>
+      <p style={{ display: "inline" }}>{globalState[index].GradeName}</p>
       <input
-        type="text"
-        id="input1"
+        type="number"
+        id="value"
         onChange={(e) => {
-          updateGlobalState("input1", e.target.value);
+          updateGlobalState("value", e.target.value);
         }}
       ></input>
 
       <select
-        id="input2"
+        id="equivalentGradeId"
         onChange={(e) => {
-          updateGlobalState("input2", e.target.value);
+          updateGlobalState("equivalentGradeId", e.target.value);
         }}
       >
         <option value="">---</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        {details && details.map((detail, index) => (
+        <option key={index} value={detail.id}> {detail.equivalentGrade}</option>
+      ))}
       </select>
 
       <input
         type="text"
-        id="input3"
+        id="yearValue"
         onChange={(e) => {
-          updateGlobalState("input3", e.target.value);
+          updateGlobalState("yearValue", e.target.value);
         }}
       ></input>
       <button

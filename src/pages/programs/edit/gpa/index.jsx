@@ -31,7 +31,7 @@ const GpaPage = () => {
     const initialState = {
         status: '',
     };
-    const [state , dispatch] = useReducer(reducer,initialState);
+
   var Options = {
     howToCalculateTheRatio : ["الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100", "الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات" , "المعدل التراكمي المكتسب مقسوم علي الاجمالي" , "معادلة خاصه علوم" , "معادلة خاصه (اكاديميه طيبه)" , "حساب النسبة مقربة","الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100" , "الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية" , "حساب النسبة بناء علي التقديرات العامة"]
     ,
@@ -112,7 +112,7 @@ const GpaPage = () => {
 
     useEffect(() => {
         const fetchData =async (programId) =>{
-                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then( (resp)=> {
+                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${17}`).then( (resp)=> {
                     dispatch({ type: 'Get'});
                     setData({...data , utmostGrade: resp.data.utmostGrade,
                         changingCourses: resp.data.changingCourses,
@@ -164,12 +164,12 @@ const GpaPage = () => {
             setData({...data , programId : 45 })
             const dataToSend = { cumulativeAverageRequest: data }; 
             if (state.status === "Add") {
-                const res = await axios.post(   'https://localhost:7095/api/CumulativeAverage', {
+                const res = await axios.post( `https://localhost:7095/api/CumulativeAverage`, {
                     "programId":48,
                     "improvingCourses": data.improvingCourses,
                     "keepFailing": true,
                     "maintainingStudentSuccess": false,
-                    "utmostGrade": data.utmostGrade,
+                    "utmostGrade": 3,
                     "changingCourses": data.changingCourses,
                     "someOfGrades": data.someOfGrades,
                     "howToCalculateTheRatio": data.howToCalculateTheRatio,
@@ -242,7 +242,7 @@ const GpaPage = () => {
               }
     
             // Logging the response data for debugging
-            console.log(dataToSend);
+            //console.log(dataToSend);
             console.log('Response:', res.data);
             if (res.status === 200) {
                 dispatch({ type: 'Get' }); 
