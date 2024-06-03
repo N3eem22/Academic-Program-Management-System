@@ -34,7 +34,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
   // Save the updated data
   const handleSaveClick = () => {
     console.log(editFormData);
-    axios.put(apiUriPut(editItemId), editFormData)
+    axios.put(apiUriPut(editItemId), editFormData[nameOfLU])
       .then(() => {
         const updatedItems = items.map((item) => {
           if (item.id === editItemId) {

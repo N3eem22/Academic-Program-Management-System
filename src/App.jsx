@@ -52,10 +52,10 @@ import {PreviousQualification} from "./pages/admin/managelockups/previousQualifi
 import {TypeOfProgramFees}  from "./pages/admin/managelockups/programFees";
 import {TheResultAppears} from "./pages/admin/managelockups/resultAppears";
 import {SystemType} from "./pages/admin/managelockups/systemType";
-// import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
 import{Semesters} from "./pages/admin/managelockups/semesters";
 import {GradesDetails} from "./pages/admin/managelockups/gradesDetails";
 import { ManagingHome } from "./pages/admin/managelockups/managing";
+import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
 
 
 
@@ -96,7 +96,7 @@ function App() {
       <Route path="/programfees" element={<TypeOfProgramFees />}/>
       <Route path="/bloresultappearckproof" element={<TheResultAppears />}/>
       <Route path="/systemtype" element={<SystemType />}/>
-      {/* <Route path="/equivalent" element={<EquivalentGrade />}/> */}
+      <Route path="/equivalent" element={<EquivalentGrade />}/>
       <Route path="/semesters" element={<Semesters />}/>
       <Route path="/gradesdetails" element={<GradesDetails />}/>
       <Route path="/programs" element={<ProgramsComp />}/>
