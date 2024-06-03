@@ -47,11 +47,7 @@ namespace Grad.APIs.Controllers
             {
 
                 var specWithUNiID = new FacultywithUniSpecifications(UniversityId);
-
-
                 var faculty = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(specWithUNiID);
-               // faculty = faculty.Where(u => !u.IsDeleted);
-
                 var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
                 return Ok(facultyDTO);
             }

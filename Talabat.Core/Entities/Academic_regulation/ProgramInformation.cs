@@ -123,7 +123,8 @@ namespace Talabat.Core.Entities.Academic_regulation
         public ReasonForBlockingAcademicResult TheReasonForHiddingTheResult { get; set; }
         [Required]
         [DefaultValue("استبيان النظام الداخلي")]
-        public string Questionnaire { get; set; }
+        public bool Questionnaire { get; set; }
+        public bool TheQuestionnaireIsIncluded { get; set; }
         public ICollection<PI_DivisionType> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionType>();
         public ICollection<PI_AllGradesSummerEstimate> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimate>();
         public ICollection<PI_EstimatesOfCourseFeeExemption> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemption>();

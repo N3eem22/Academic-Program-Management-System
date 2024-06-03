@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data.Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data.Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240603153646_edit test2")]
+    partial class edittest2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1333,8 +1335,9 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("ProjectHours")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Questionnaire")
-                        .HasColumnType("bit");
+                    b.Property<string>("Questionnaire")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ReasonForBlockingRegistrationId")
                         .HasColumnType("int");
@@ -1354,9 +1357,6 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("TeamCode")
                         .HasColumnType("int");
-
-                    b.Property<bool>("TheQuestionnaireIsIncluded")
-                        .HasColumnType("bit");
 
                     b.Property<int>("TheReasonForHiddingTheResultId")
                         .HasColumnType("int");

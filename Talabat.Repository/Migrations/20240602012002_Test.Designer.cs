@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talabat.Repository.Data.Talabat.Repository.Data;
 
@@ -11,9 +12,10 @@ using Talabat.Repository.Data.Talabat.Repository.Data;
 namespace Grad.Repository.Migrations
 {
     [DbContext(typeof(GradContext))]
-    partial class GradContextModelSnapshot : ModelSnapshot
+    [Migration("20240602012002_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1022,9 +1024,6 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("NationalId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StudentName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1048,8 +1047,6 @@ namespace Grad.Repository.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.HasIndex("ProgramsId");
-
                     b.HasIndex("UniversityId");
 
                     b.ToTable("Students", (string)null);
@@ -1057,7 +1054,7 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Test.Students_Courses", b =>
                 {
-                    b.Property<int>("CollegeCoursesId")
+                    b.Property<int>("CourseInformationId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentsId")
@@ -1072,11 +1069,26 @@ namespace Grad.Repository.Migrations
                     b.Property<float>("percentage")
                         .HasColumnType("real");
 
-                    b.HasKey("CollegeCoursesId", "StudentsId");
+                    b.HasKey("CourseInformationId", "StudentsId");
 
                     b.HasIndex("StudentsId");
 
                     b.ToTable("Students_Courses");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.Test.Students_Programs", b =>
+                {
+                    b.Property<int>("ProgramsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProgramsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("Students_Programs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1333,8 +1345,9 @@ namespace Grad.Repository.Migrations
                     b.Property<int>("ProjectHours")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Questionnaire")
-                        .HasColumnType("bit");
+                    b.Property<string>("Questionnaire")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ReasonForBlockingRegistrationId")
                         .HasColumnType("int");
@@ -1354,9 +1367,6 @@ namespace Grad.Repository.Migrations
 
                     b.Property<int>("TeamCode")
                         .HasColumnType("int");
-
-                    b.Property<bool>("TheQuestionnaireIsIncluded")
-                        .HasColumnType("bit");
 
                     b.Property<int>("TheReasonForHiddingTheResultId")
                         .HasColumnType("int");
@@ -3054,19 +3064,11 @@ namespace Grad.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Talabat.Core.Entities.Entities.Programs", "Programs")
-                        .WithMany("Students")
-                        .HasForeignKey("ProgramsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Talabat.Core.Entities.Entities.University", "University")
                         .WithMany("Students")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Programs");
 
                     b.Navigation("University");
 
@@ -3075,9 +3077,9 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.Test.Students_Courses", b =>
                 {
-                    b.HasOne("Talabat.Core.Entities.Lockups.CollegeCourses", "Courses")
+                    b.HasOne("Grad.Core.Entities.CoursesInfo.CourseInformation", "Courses")
                         .WithMany("Students_Courses")
-                        .HasForeignKey("CollegeCoursesId")
+                        .HasForeignKey("CourseInformationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -3088,6 +3090,25 @@ namespace Grad.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Courses");
+
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Grad.Core.Entities.Test.Students_Programs", b =>
+                {
+                    b.HasOne("Talabat.Core.Entities.Entities.Programs", "Programs")
+                        .WithMany("Students_Programs")
+                        .HasForeignKey("ProgramsId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Grad.Core.Entities.Test.Students", "Students")
+                        .WithMany("Programs")
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Programs");
 
                     b.Navigation("Students");
                 });
@@ -3588,6 +3609,8 @@ namespace Grad.Repository.Migrations
 
             modelBuilder.Entity("Grad.Core.Entities.CoursesInfo.CourseInformation", b =>
                 {
+                    b.Navigation("Students_Courses");
+
                     b.Navigation("coursesAndHours");
 
                     b.Navigation("coursesandGradesDetails");
@@ -3619,6 +3642,8 @@ namespace Grad.Repository.Migrations
             modelBuilder.Entity("Grad.Core.Entities.Test.Students", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("Programs");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Academic_regulation.ProgramInformation", b =>
@@ -3665,7 +3690,7 @@ namespace Grad.Repository.Migrations
 
                     b.Navigation("Program_Information");
 
-                    b.Navigation("Students");
+                    b.Navigation("Students_Programs");
                 });
 
             modelBuilder.Entity("Talabat.Core.Entities.Entities.University", b =>
@@ -3793,8 +3818,6 @@ namespace Grad.Repository.Migrations
                     b.Navigation("CourseInformations");
 
                     b.Navigation("PartOneCourse");
-
-                    b.Navigation("Students_Courses");
 
                     b.Navigation("preRequisiteCourses");
                 });

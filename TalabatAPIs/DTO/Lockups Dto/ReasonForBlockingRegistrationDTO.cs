@@ -5,7 +5,7 @@
 
         public int Id { get; set; }
 
-        public string semesters { get; set; }
+        public string TheReasonForBlockingRegistration { get; set; }
         public int? UniversityId { get; set; }
 
 

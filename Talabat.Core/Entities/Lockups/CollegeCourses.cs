@@ -1,6 +1,5 @@
-﻿
-
-using Grad.Core.Entities.CoursesInfo;
+﻿using Grad.Core.Entities.CoursesInfo;
+using Grad.Core.Entities.Test;
 
 namespace Talabat.Core.Entities.Lockups
 {
@@ -18,7 +17,6 @@ namespace Talabat.Core.Entities.Lockups
         public string CourseNickname { get; set; }
         public string ContentSummaryInArabic { get; set; }
         public string ContentSummaryInEnglish { get; set; }
-
         public int? FacultyId { get; set; }
         [ForeignKey(nameof(FacultyId))]
         public Faculty Faculty { get; set; }
@@ -26,6 +24,7 @@ namespace Talabat.Core.Entities.Lockups
 
         public ICollection<CourseInformation> CourseInformations { get; set; } = new HashSet<CourseInformation>();
         public ICollection<CourseInformation> PartOneCourse { get; set; } = new HashSet<CourseInformation>();
+        public ICollection<Students_Courses> Students_Courses { get; set; } = new HashSet<Students_Courses>();
 
 
     }

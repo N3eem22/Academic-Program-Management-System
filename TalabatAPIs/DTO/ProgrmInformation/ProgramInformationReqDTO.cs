@@ -60,8 +60,9 @@ namespace Grad.APIs.DTO.ProgrmInformation
             public bool RegistrationOfCoursesOfferedToStudentsFromTheSameCurrentSemesterOnlyThroughTheStudentPortalOnly { get; set; }
             public int NumberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects { get; set; }
             public int TheReasonForHiddingTheResultId { get; set; }
-            public string Questionnaire { get; set; }
-            public ICollection<PI_DivisionTypeReqDTO> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionTypeReqDTO>();
+            public bool Questionnaire { get; set; }
+            public bool TheQuestionnaireIsIncluded { get; set; }
+        public ICollection<PI_DivisionTypeReqDTO> pI_DivisionTypes { get; set; } = new HashSet<PI_DivisionTypeReqDTO>();
             public ICollection<PI_AllGradesSummerEstimateReqDTO> pI_AllGradesSummerEstimates { get; set; } = new HashSet<PI_AllGradesSummerEstimateReqDTO>();
             public ICollection<PI_EstimatesOfCourseFeeExemptionReqDTO> PI_EstimatesOfCourseFeeExemptions { get; set; } = new HashSet<PI_EstimatesOfCourseFeeExemptionReqDTO>();
             public ICollection<PI_DetailedGradesToBeAnnouncedReqDTO> pI_DetailedGradesToBeAnnounced { get; set; } = new HashSet<PI_DetailedGradesToBeAnnouncedReqDTO>();

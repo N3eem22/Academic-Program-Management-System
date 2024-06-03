@@ -1,4 +1,5 @@
-﻿    using Talabat.Core.Entities;
+﻿using Grad.Core.Entities.Test;
+using Talabat.Core.Entities;
 
     namespace Grad.Core.Entities.CoursesInfo
     {
