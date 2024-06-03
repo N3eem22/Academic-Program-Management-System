@@ -24,7 +24,11 @@ namespace Grad.Core.Entities.Test
         public int FacultyId { get; set; }
         [ForeignKey(nameof(FacultyId))]
         public Faculty faculty { get; set; }
-        public ICollection<Students_Programs> Programs { get; set; } = new List<Students_Programs>();
+
+        public int ProgramsId {  get; set; }
+        [ForeignKey(nameof(ProgramsId))]
+        public Programs Programs { get; set; }
+
         public ICollection<Students_Courses> Courses { get; set; } = new HashSet<Students_Courses>();
 
     }

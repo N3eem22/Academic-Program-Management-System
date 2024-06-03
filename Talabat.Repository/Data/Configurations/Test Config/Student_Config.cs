@@ -25,6 +25,10 @@ namespace Grad.Repository.Data.Configurations.Test_Config
                   .WithMany(s => s.Students)
                   .HasForeignKey(s => s.UniversityId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(s => s.Programs)
+                .WithMany(s => s.Students)
+                .HasForeignKey(s => s.ProgramsId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }
