@@ -132,9 +132,6 @@ public class Program
         #endregion
 
 
-        #region DataSeed
-       
-        #endregion
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
