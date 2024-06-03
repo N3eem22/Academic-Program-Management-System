@@ -14,7 +14,7 @@ namespace Grad.Repository.Data.Configurations.Test_Config
         public void Configure(EntityTypeBuilder<Students_Courses> builder)
         {
 
-            builder.HasKey(s => new { s.CourseInformationId, s.StudentsId });
+            builder.HasKey(s => new { s.CollegeCoursesId, s.StudentsId });
 
 
             builder.HasOne(s => s.Students)
@@ -23,7 +23,7 @@ namespace Grad.Repository.Data.Configurations.Test_Config
 
             builder.HasOne(s => s.Courses)
                    .WithMany(s => s.Students_Courses)
-                   .HasForeignKey(s => s.CourseInformationId).OnDelete(DeleteBehavior.NoAction);
+                   .HasForeignKey(s => s.CollegeCoursesId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

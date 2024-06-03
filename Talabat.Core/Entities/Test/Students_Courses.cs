@@ -9,9 +9,9 @@ namespace Grad.Core.Entities.Test
 {
     public class Students_Courses
     {
-        public int CourseInformationId { get; set; }
-        [ForeignKey(nameof(CourseInformationId))]
-        public CourseInformation Courses { get; set; }
+        public int CollegeCoursesId { get; set; }
+        [ForeignKey(nameof(CollegeCoursesId))]
+        public CollegeCourses Courses { get; set; }
 
         public int StudentsId { get; set; }
         [ForeignKey(nameof(StudentsId))]
