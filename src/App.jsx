@@ -42,45 +42,31 @@ function App() {
       }
     >
       <Routes>
-      
+        <Route path="/" element={<LoginPage />} />
         <Route element={<Layout />}>
-        <Route path="/graduation" element={<GraduationPage />} />
-
-          <Route path="/" element={<LoginPage />} />
+          
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
-            <Route
-              path="/updatefaculty/:id"
-              element={<UpdateFacultyWrapper />}
-            />
+            <Route path="/updatefaculty/:id" element={<UpdateFacultyWrapper />} />
           </Route>
           <Route element={<SuperAdmin />}>
             <Route path="/manageuni" element={<ManageUniPage />} />
             <Route path="/addUniversity" element={<AddUniversity />} />
             <Route path="/manageusers" element={<ManageUsersPage />} />
-            {/* <Route path="/updateusers/:id" element={<UpdateUsersPage />} /> */}
-
             <Route path="/updateusers/:id" element={<UpdateUsersWrapper />} />
-
             <Route path="/register" element={<RegisterPage />} />
-            {/* Pass id to UpdateUniversity */}
-            <Route
-              path="/editUniversity/:id"
-              element={<UpdateUniversityWrapper />}
-            />
+            <Route path="/editUniversity/:id" element={<UpdateUniversityWrapper />} />
           </Route>
           <Route element={<User />}>
             <Route path="/control" element={<ControlPage />} />
             <Route path="/gpa" element={<GpaPage />} />
-            <Route
-              path="/Generalestimates"
-              element={<GeneralestimatesPage />}
-            />
+            <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
             <Route path="/levels" element={<LevelsPage />} />
             <Route path="/estimates" element={<EstimatesPage />} />
+            <Route path="/graduation" element={<GraduationPage />} />
             <Route path="/academicload" element={<AcademicloadPage />} />
-
             <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/controls" element={<ControlsPage />} />
           </Route>
         </Route>
       </Routes>
