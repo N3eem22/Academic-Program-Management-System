@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.label {
+  position: relative;
+}
+.label .hoverText {
+  display: none;
+  color: #5d8828;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f1fbe5;
+  padding: 5px;
+  border: 1px solid #8cce3b;
+}
+.label:hover .hoverText {
+  display: block;
+}
+
+.border {
+  display: block;
+  border: 1px solid #000;
+  padding: 3px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.save {
+  background-color: #19355a;
+}
+
+.save:hover {
+  background-color: #244d82;
+}/*# sourceMappingURL=index.module.css.map */

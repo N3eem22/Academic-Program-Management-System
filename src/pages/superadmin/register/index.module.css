@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.button {
+  background-color: #19355a;
+  font-size: 12px;
+  border-radius: 12px;
+  border: transparent;
+  color: white;
+  width: 100px;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.radio {
+  display: flex;
+  justify-content: space-between;
+}/*# sourceMappingURL=index.module.css.map */
