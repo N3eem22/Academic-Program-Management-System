@@ -10,6 +10,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
   const [addLU, setAddLU] = useState({
     nameOfLU: "",
     universityId: '',
+    loading : ""
 });
   useEffect(() => {
      
@@ -18,7 +19,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
       .catch(error => console.error('Error fetching data:', error));
 
 
-  }, [apiUri]);
+  }, [addLU.loading]);
   const handleEditClick = (item) => {
     setEditItemId(item.id);
     setEditFormData({ ...item });
@@ -33,8 +34,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
 
   // Save the updated data
   const handleSaveClick = () => {
-    console.log(editFormData);
-    axios.put(apiUriPut(editItemId), editFormData)
+    axios.put(apiUriPut(editItemId,editFormData[nameOfLU] ))
       .then(() => {
         const updatedItems = items.map((item) => {
           if (item.id === editItemId) {
@@ -44,6 +44,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
         });
         setItems(updatedItems);
         setEditItemId(null);
+        
         console.log('Update successful');
       })
       .catch((error) => console.error('Error updating item:', error));
@@ -74,7 +75,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
       // const newItem = response.data;
       // setItems([...items, newItem]);
       setAddLU({...addLU, loading: false, err: [] });
-    
+    clearData();
     })
    .catch((err) => {
       console.error('Error:', err.response.data);
@@ -84,6 +85,14 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
         err: [{ message: err.response.data.message }],
       });
     });
+};
+const clearData = () => {
+  setAddLU({
+      nameOfLU: '',
+      universityId: '',
+      loading: false,
+      err: []
+  });
 };
   return (
     <Fragment>
