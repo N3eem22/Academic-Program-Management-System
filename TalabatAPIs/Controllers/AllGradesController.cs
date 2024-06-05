@@ -62,14 +62,14 @@ namespace Grad.APIs.Controllers
         public async Task<ActionResult<AllGradesDTO>> GetGradeById(int id)
         {
             var spec = new GradeswithUniSpecifications(id);
-            var grade = await _unitOfWork.Repository<AllGrades>().GetEntityWithSpecAsync(spec);
+            var grade = await _unitOfWork.Repository<AllGrades>().GetAllWithSpecAsync(spec);
 
             if (grade == null)
             {
                return  NotFound(new ApiResponse(404));
             }
 
-            var gradeDTO = _mapper.Map<AllGrades, AllGradesDTO>(grade);
+            var gradeDTO = _mapper.Map<IEnumerable<AllGrades>, IEnumerable<AllGradesDTO> >(grade);
 
             return Ok(gradeDTO);
         }
