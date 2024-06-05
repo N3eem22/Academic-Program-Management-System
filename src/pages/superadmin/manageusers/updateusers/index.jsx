@@ -23,9 +23,7 @@ const UpdateUsersPage = () => {
     reload: false,
     success: null,
   });
-  useEffect(() => {
-    console.log(updateusers.faculties[0]);
-  }, [updateusers]);
+  
 
   const [uniname, setUniName] = useState([]);
   const [facultyname, setFacultyName] = useState([]);
@@ -42,7 +40,7 @@ const UpdateUsersPage = () => {
         }
       );
       setUniName(response.data);
-      // console.log(response.data);
+      //console.log(response.data);
       // console.log(uniname);
     } catch (err) {
       console.log("hiiiiiiiii");
@@ -52,12 +50,15 @@ const UpdateUsersPage = () => {
   useEffect(() => {
     GetUniData();
   }, []);
+  useEffect(() => {
+    console.log(updateusers);
+  }, [updateusers]);
   ///////////////////////////////////////////////////
-  async function GetFacultyData() {
+  async function GetFacultyData(id) {
     // const userToken = getAuthUser();
     try {
       const response = await axios.get(
-        `https://localhost:7095/api/Faculty`,
+        `https://localhost:7095/api/Faculty?UniversityId=${id}`,
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
@@ -65,7 +66,7 @@ const UpdateUsersPage = () => {
         }
       );
       setFacultyName(response.data);
-      // console.log(response.data);
+       console.log(facultyname);
       // console.log(uniname);
     } catch (err) {
       console.log("hiiiiiiiii");
@@ -73,9 +74,13 @@ const UpdateUsersPage = () => {
   }
 
   useEffect(() => {
-    GetFacultyData();
-  }, []);
+    console.log(updateusers.universities);
+    GetFacultyData(updateusers.universities[0]);
+  }, [updateusers.universities]);
 
+  useEffect(() => {
+    console.log(facultyname);
+  }, [facultyname]);
 
   // useEffect(() => {
   //   const userToken = getAuthUser();
@@ -112,8 +117,8 @@ const UpdateUsersPage = () => {
           universities: resp.data.universities,
           role: resp.data.role,
         });
-        // console.log(resp.data);
-      })
+        console.log(resp.data.faculties[0]);     
+       })
       .catch((err) => {
         setUpdateUsers({
           ...updateusers,
@@ -151,15 +156,14 @@ const UpdateUsersPage = () => {
 
       } )
       .then((resp) => {
-        console.log(resp);
+       
         
         setUpdateUsers({
           ...updateusers,
           loading: false,
           success: "Users updated successfully!",
-          reload: users.reload + 1,
-        });
-        // navigate("/manageusers");
+          });
+        navigate("/manageusers");
       })
 
       .catch((err) => {
@@ -168,7 +172,7 @@ const UpdateUsersPage = () => {
           ...updateusers,
           loading: false,
           success: null,
-          err: [{ message: err.response.data.message }],
+          err: [{ message: err.response }],
         });
 
 
@@ -291,38 +295,23 @@ const UpdateUsersPage = () => {
 
 
                           <div className="col-md-3">
-                            <input
-                              value={updateusers.faculties}
-                              onChange={(e) =>
-                                setUpdateUsers({
-                                  ...updateusers,
-                                  faculties: e.target.value,
-                                })
-                              }
-                              id="faculties"
-                              name="faculties"
-                              type="text "
-                              disabled
-                              className="form-control"
-                              placeholder="الجامعات"
-                              
-                            />
+                           
                           </div>
                           <select
-                            multiple
+                            multiple = {updateusers.role === "User" ? false : true}
                             className="form-select custom-select-start fs-6 mb-4 "
                             id="floatingUni"
-                            value={
-                              Array.isArray(updateusers.faculties)
-                                ? updateusers.faculties
-                                : []
-                            }
+                            // value={
+                            //   Array.isArray(updateusers.faculties)
+                            //     ? updateusers.faculties
+                            //     : []
+                            // }
                             onChange={(e) =>
                               setUpdateUsers({
                                 ...updateusers,
                                 faculties: Array.from(
                                   e.target.selectedOptions,
-                                  (option) => option.value
+                                  (option) => parseInt(option.value) 
                                 ),
                               })
                             }
@@ -330,13 +319,13 @@ const UpdateUsersPage = () => {
                             <option value="" disabled>
                               اختر الكليه
                             </option>
-                            {facultyname.map((faculties) => (
+                            {facultyname.map((faculties , index) => (
                               <option
-                              selected={updateusers.faculties[0]===faculties.facultyname}
+                              selected={updateusers.faculties[index] === faculties.facultyName} 
                                 key={faculties.id}
                                 value={faculties.id}
                               >
-                                {faculties.facultyName}
+                                {faculties.facultyName} 
                               </option>
                             ))}
                           </select>
@@ -374,37 +363,23 @@ const UpdateUsersPage = () => {
                           </label>
                           <div className="col-md-4">
                           <div className="col-md-3">
-                            <input
-                              value={updateusers.universities}
-                              onChange={(e) =>
-                                setUpdateUsers({
-                                  ...updateusers,
-                                  universities: e.target.value,
-                                })
-                              }
-                              id="universities"
-                              name="universities"
-                              type="text"
-                              disabled
-                              className="form-control"
-                              placeholder="الجامعات"
-                            />
+                            
                           </div>
                           <select
-                            multiple
+                            multiple = {updateusers.role === "User" || "Admin" ? false : true}
                             className="form-select custom-select-start fs-6 mb-4 "
                             id="floatingUni"
-                            value={
-                              Array.isArray(updateusers.universities)
-                                ? updateusers.universities
-                                : []
-                            }
+                            // value={
+                            //   Array.isArray(updateusers.universities)
+                            //     ? updateusers.universities
+                            //     : []
+                            // }
                             onChange={(e) =>
                               setUpdateUsers({
                                 ...updateusers,
                                 universities: Array.from(
                                   e.target.selectedOptions,
-                                  (option) => option.value
+                                  (option) =>parseInt(option.value) 
                                 ),
                               })
                             }
@@ -412,12 +387,13 @@ const UpdateUsersPage = () => {
                             <option value="" disabled>
                               اختر الجامعة
                             </option>
-                            {uniname.map((universities) => (
+                            {uniname.map((universities , index) => (
                               <option
+                              selected={updateusers.universities[0]=== universities.name} 
                                 key={universities.id}
                                 value={universities.id}
                               >
-                                {universities.name}
+                                {universities.name} 
                               </option>
                             ))}
                           </select>
