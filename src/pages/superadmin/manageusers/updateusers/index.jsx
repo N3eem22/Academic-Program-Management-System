@@ -25,6 +25,8 @@ const UpdateUsersPage = () => {
   });
 
   const [uniname, setUniName] = useState([]);
+  const [facultyname, setFacultyName] = useState([]);
+
   async function GetUniData() {
     // const userToken = getAuthUser();
     try {
@@ -47,6 +49,30 @@ const UpdateUsersPage = () => {
   useEffect(() => {
     GetUniData();
   }, []);
+  ///////////////////////////////////////////////////
+  async function GetFacultyData() {
+    // const userToken = getAuthUser();
+    try {
+      const response = await axios.get(
+        `https://localhost:7095/api/Faculty`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+      setFacultyName(response.data);
+      // console.log(response.data);
+      // console.log(uniname);
+    } catch (err) {
+      console.log("hiiiiiiiii");
+    }
+  }
+
+  useEffect(() => {
+    GetFacultyData();
+  }, []);
+
 
   // useEffect(() => {
   //   const userToken = getAuthUser();
@@ -109,31 +135,32 @@ const UpdateUsersPage = () => {
     formData.append("faculties", updateusers.faculties);
     formData.append("university", updateusers.universities);
     formData.append("role", updateusers.role);
+    console.log(updateusers.faculties);
     axios
-      .put(`https://localhost:7095/api/Users/Update?id=${id}`, formData , {
-        headers: {
-          // displayName: updateUser.displayName,
-          // phoneNumber: updateUser.phoneNumber,
-          // email: updateUser.email,
-          // faculties: updateUser.faculties,
-          // university: updateUser.university,
-          // role: updateUser.role,
+      .put(`https://localhost:7095/api/Users/Update?id=${id}`, {
+        id: id,
+        email: updateusers.email,
+        displayName: updateusers.displayName  ,
+        phoneNumber: updateusers.phoneNumber ,
+        role: updateusers.role,
+        faculties: updateusers.faculties,
+        universities: updateusers.universities,
 
-          token: auth.token,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      } )
       .then((resp) => {
+        console.log(resp);
+        
         setUpdateUsers({
           ...updateusers,
           loading: false,
           success: "Users updated successfully!",
           reload: users.reload + 1,
         });
-        navigate("/manageusers");
+        // navigate("/manageusers");
       })
 
       .catch((err) => {
+        console.log(err);
         setUpdateUsers({
           ...updateusers,
           loading: false,
@@ -176,7 +203,7 @@ const UpdateUsersPage = () => {
                   </div>
                   <div className="card-body">
                     <div className="basic-form">
-                      <form className="col-md-12">
+                      <form className="col-md-12" >
                         <div className="mb-3 row">
                           <label
                             className="col-md-1 col-form-label"
@@ -256,6 +283,10 @@ const UpdateUsersPage = () => {
                           >
                             الكليات
                           </label>
+                          <div className="col-md-4">
+
+
+
                           <div className="col-md-3">
                             <input
                               value={updateusers.faculties}
@@ -269,8 +300,63 @@ const UpdateUsersPage = () => {
                               name="faculties"
                               type="text"
                               className="form-control"
-                              placeholder="الكليات"
+                              placeholder="الجامعات"
                             />
+                          </div>
+                          <select
+                            multiple
+                            className="form-select custom-select-start fs-6 mb-4 "
+                            id="floatingUni"
+                            value={
+                              Array.isArray(updateusers.faculties)
+                                ? updateusers.faculties
+                                : []
+                            }
+                            onChange={(e) =>
+                              setUpdateUsers({
+                                ...updateusers,
+                                faculties: Array.from(
+                                  e.target.selectedOptions,
+                                  (option) => option.value
+                                ),
+                              })
+                            }
+                          >
+                            <option value="" disabled>
+                              اختر الكليه
+                            </option>
+                            {facultyname.map((faculties) => (
+                              <option
+                                key={faculties.id}
+                                value={faculties.id}
+                              >
+                                {faculties.facultyName}
+                              </option>
+                            ))}
+                          </select>
+
+
+
+
+
+
+
+
+
+                            {/* <input
+                              value={updateusers.faculties}
+                              onChange={(e) =>
+                                setUpdateUsers({
+                                  ...updateusers,
+                                  faculties: e.target.value,
+                                })
+                              }
+                              id="faculties"
+                              name="faculties"
+                              type="text"
+                              className="form-control"
+                              placeholder="الكليات"
+                            /> */}
                           </div>
                         </div>
                         <div className="col-lg-12 row">
@@ -280,6 +366,7 @@ const UpdateUsersPage = () => {
                           >
                             الجامعات
                           </label>
+                          <div className="col-md-4">
                           <div className="col-md-3">
                             <input
                               value={updateusers.universities}
@@ -328,6 +415,7 @@ const UpdateUsersPage = () => {
                             ))}
                           </select>
                         </div>
+                        </div>
 
                         <div className="mb-3 row">
                           <label
@@ -359,7 +447,7 @@ const UpdateUsersPage = () => {
                             <button
                               type="submit"
                               className="btn btn-primary"
-                              onSubmit={updateUser}
+                              onClick={updateUser}
                             >
                               تعديل
                             </button>

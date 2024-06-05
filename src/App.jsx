@@ -43,6 +43,8 @@ function App() {
     >
       <Routes>
         <Route element={<Layout />}>
+          <Route path="/graduation" element={<GraduationPage />} />
+
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
@@ -72,9 +74,12 @@ function App() {
             <Route path="/graduation" element={<GraduationPage />} />
             <Route path="/controls" element={<ControlsPage />} />
             <Route path="/estimates" element={<EstimatesPage />} />
-          <Route path="/academicload" element={<AcademicloadPage />} />
-          <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
-          <Route path="/graduation" element={<GraduationPage />} />
+            <Route path="/academicload" element={<AcademicloadPage />} />
+            <Route
+              path="/Generalestimates"
+              element={<GeneralestimatesPage />}
+            />
+            <Route path="/graduation" element={<GraduationPage />} />
             <Route
               path="/Generalestimates"
               element={<GeneralestimatesPage />}

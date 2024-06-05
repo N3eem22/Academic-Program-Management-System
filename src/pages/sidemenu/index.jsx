@@ -3,7 +3,6 @@ import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
 
-
 const SideMenu = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [activeItem, setActiveItem] = useState("");
@@ -12,14 +11,10 @@ const SideMenu = () => {
     const authUser = getAuthUser();
     setIsSuperAdmin(authUser && authUser.userRole === "SuperAdmin");
   }, [getAuthUser()]);
-  
-  
-  
 
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
-
 
   return (
     <div className="container-fluid" dir="rtl">
@@ -32,30 +27,47 @@ const SideMenu = () => {
               }`}
               onClick={() => handleItemClick("dashboard")}
             >
-              البرامج الدراسيه
+              <div className="accordion" id="accordionExample">
+                <div className="accordion-item">
+                  <strong className="accordion-header">
+                    <button
+                      className="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      البرامج الدراسيه
+                    </button>
+                  </strong>
+                  <div
+                    id="collapseOne"
+                    className="accordion-collapse collapse "
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div className="accordion-body">
+                      <h5>بيانات البرنامج</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+           
             </div>
-            <div
-              className={`${styles.menuItem} ${
-                activeItem === "reports" && styles.active
-              }`}
-              onClick={() => handleItemClick("reports")}
-            >
-              التقارير
-            </div>
+
             {isSuperAdmin && (
               <div
-
-//                 className={`${styles.menuItem} ${
-//                   activeItem === "controlUni" && styles.active
-//                 }`}
-//                 onClick={() => handleItemClick("controlUni")}
+                //                 className={`${styles.menuItem} ${
+                //                   activeItem === "controlUni" && styles.active
+                //                 }`}
+                //                 onClick={() => handleItemClick("controlUni")}
 
                 className={` ${styles.menuItem} ${
                   activeItem === "controlUni" && styles.active
                 }`}
-                onClick={() => (setActiveItem("controlUni") )}
+                onClick={() => setActiveItem("controlUni")}
                 style={{ textDecoration: "none" }}
-
               >
                 <Link to="/manageuni">ادارة الجامعات </Link>
               </div>
@@ -64,7 +76,7 @@ const SideMenu = () => {
               <div
                 className={`${styles.menuItem} ${
                   activeItem === "userManagement" && styles.active
-                }`} 
+                }`}
                 onClick={() => handleItemClick("userManagement")}
               >
                 <Link to="/manageusers">إدارة المستخدمين</Link>
