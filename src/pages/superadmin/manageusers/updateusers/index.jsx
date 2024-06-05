@@ -23,6 +23,9 @@ const UpdateUsersPage = () => {
     reload: false,
     success: null,
   });
+  useEffect(() => {
+    console.log(updateusers.faculties[0]);
+  }, [updateusers]);
 
   const [uniname, setUniName] = useState([]);
   const [facultyname, setFacultyName] = useState([]);
@@ -298,9 +301,11 @@ const UpdateUsersPage = () => {
                               }
                               id="faculties"
                               name="faculties"
-                              type="text"
+                              type="text "
+                              disabled
                               className="form-control"
                               placeholder="الجامعات"
+                              
                             />
                           </div>
                           <select
@@ -327,6 +332,7 @@ const UpdateUsersPage = () => {
                             </option>
                             {facultyname.map((faculties) => (
                               <option
+                              selected={updateusers.faculties[0]===faculties.facultyname}
                                 key={faculties.id}
                                 value={faculties.id}
                               >
@@ -379,6 +385,7 @@ const UpdateUsersPage = () => {
                               id="universities"
                               name="universities"
                               type="text"
+                              disabled
                               className="form-control"
                               placeholder="الجامعات"
                             />

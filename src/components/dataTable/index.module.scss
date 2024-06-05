@@ -1,0 +1,7 @@
+@import "../../sass/main.scss";
+.rtl-label {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+  }

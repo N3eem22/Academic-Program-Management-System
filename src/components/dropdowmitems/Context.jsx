@@ -14,5 +14,4 @@ const Context = () => {
   );
 };
 export const useGlobalState = () => useContext(GlobalStateContext);
-
 export default Context;
