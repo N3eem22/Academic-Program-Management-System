@@ -12,13 +12,15 @@ const [graduation , setGraduation] = useState([]);
 useEffect(() => {
 
       setGraduation(data);
-    
+      //console.log(globalState);
     }, [data]);
     useEffect(() => {
 
-       console.log(graduation);
+       //console.log(graduation);
       
       }, [graduation]);
+      const { globalState, setGlobalState } = useGlobalState();
+    
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -41,21 +43,27 @@ useEffect(() => {
                           <div className="my-3 ">
                            
                           {
-                          graduation.rate === true && 
-                          <label
-                              className="form-check-label fw-semibold fs-6 "
-                              htmlFor="value"
-                            >
-                              نسبه{" "}
-                            </label>}
+  graduation.ratio && (
+    <label
+      className="form-check-label fw-semibold fs-5 me-4"
+      htmlFor="value"
+    >
+      نسبه
+    </label>
+  )
+}
 
-                          { graduation.ratio === true && 
-                            <label
-                              className="form-check-label fw-semibold fs-6  "
-                              htmlFor="value"
-                            >
-                              معدل{" "}
-                            </label>}
+{
+  graduation.rate && (
+    <label
+      className="form-check-label fw-semibold fs-5 me-4"
+      htmlFor="value"
+    >
+      معدل
+    </label>
+  )
+}
+
 
                             <label
                               className="form-check-label   fw-semibold fs-5 me-4 "
@@ -421,28 +429,28 @@ useEffect(() => {
                       </div>
                     </div>
                     <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                    {  (state.status !== "Get")&&  <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
+                                                    {  globalState.State !== "Get" && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                                                         <i className="fa-regular fa-bookmark"></i> حفظ
                                                     </button>}
-                                                    { (state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Get"})}}>
+                                                    { (globalState.State !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Get"})}}>
                                                         <i className="fa-solid fa-lock"></i> غلق
                                                     </button>}
                                                    
-                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=>{dispatch({type : "Update"});
+                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=>{
                                                         
                                                         setGlobalState({...globalState , State : "Update"});
                                                         }}>
                                                         <i className="fa-solid fa-lock-open"></i> تعديل
                                                          </button>
-                                                    
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                                                                                  
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
     </Fragment>
   );
 };

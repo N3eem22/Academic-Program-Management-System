@@ -23,7 +23,7 @@ function reducer(state, action) {
   }
 }
 
-const AddGraduation = () => {
+const AddGraduation = ({data}) => {
   const initialState = {
     status: '',
 };
@@ -54,13 +54,7 @@ const [graduation, setgraduation] = useState({
   averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
 });
 
-  function getGradutionData(eventinfo) {
-    let myGradution = { ...graduation };
-    myGradution[eventinfo.target.name] = eventinfo.target.value;
-    setgraduation(myGradution);
   
-    console.log(myGradution);
-  }
 
   const handleChange = (event) => {
     const { name, selectedOptions } = event.target;
@@ -83,18 +77,54 @@ console.log(options);
   useEffect(() => {
     console.log('Updated selectedValues:', graduation);
   }, [graduation]);
+  useEffect(() => {
+    console.log(data);
+    if (globalState.State === "Update") {
+      setgraduation(prevGraduation => ({
+        ...prevGraduation,
+        ProgramId: data.programId,
+        rate: data.rate,
+        ratio: data.ratio,
+        value : data.value,
+        levelsTobePassed: data.graduationLevels,
+        semestersTobePssed: data.graduationSemesters,
+        compulsoryCourses: data.compulsoryCourses,
+        summerTraining: data.summerTraining,
+        verifyPaymentOfFees: data.verifyPaymentOfFees,
+        makeSureToPassTheOptionalGroups: data.makeSureToPassTheOptionalGroups,
+        passingMilitaryEducation: data.passingMilitaryEducation,
+        successInEveryCourse: data.successInEveryCourse,
+        determineTheRankBasedOn: data.determineTheRankBasedOn,
+        rateBase: data.rateBase,
+        comparingCumulativeAverageForEachYear: data.comparingCumulativeAverageForEachYear,
+        theMinimumGradeForTheCourseId: data.theMinimumGradeForTheCourse,
+        averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
+      }));
+    }
+  
+  }, [data]);
+  useEffect(() => {
+  const selectedGrade = grades.find(grade => graduation.theMinimumGradeForTheCourseId === grade.theGrade);
+  if (selectedGrade) {
+    setgraduation(prevGraduation => ({
+      ...prevGraduation,
+      theMinimumGradeForTheCourseId: parseInt(selectedGrade.id)
+    }));
+  }
+}, [graduation.theMinimumGradeForTheCourseId, grades]);
+  
 
   useEffect(() => {
-    // console.log(data.improvingCourses);
-    // console.log(data.changingCourses);  
-    // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
-    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
-    const fetchLevels = axios.get(`https://localhost:7095/api/Level?${1}`).then((res)=>{console.log(res.data); setLevels(res.data)});
-    const fetchSems = axios.get(`https://localhost:7095/api/Semesters?${1}`).then((res)=>{console.log(res.data);setSemss(res.data)});
+
+    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
+    const fetchLevels = axios.get(`https://localhost:7095/api/Level?UniversityId=${1}`).then((res)=>{console.log(res.data); setLevels(res.data)});
+    const fetchSems = axios.get(`https://localhost:7095/api/Semesters?UniversityId=${1}`).then((res)=>{console.log(res.data);setSemss(res.data)});
   
       console.log(globalState);
     }, []);
- 
+    useEffect(() => {
+   console.log(graduation);
+      }, [graduation]);
   async function sendDataToApi() {
         
       const dataToSend = { graduationReq: graduation }; 
@@ -103,6 +133,7 @@ console.log(options);
         ProgramId : graduation.programId ,
         rate : graduation.rate ,
         ratio : graduation.ratio ,
+        value : graduation.value ,
         levelsTobePassed : graduation.levelsTobePassed ,
         semestersTobePssed : graduation.semestersTobePssed , 
         compulsoryCourses: graduation.compulsoryCourses,
@@ -121,10 +152,42 @@ console.log(options);
         setGlobalState({...globalState , State : "Get"});
       }).catch((err)=>console.log(err.response.data));    
   }
-
+  async function UpdateAPI() {
+        
+    const dataToSend = { graduationReq: graduation }; 
+    console.log("Sending request with payload:", dataToSend);
+    await axios.put(`https://localhost:7095/api/Graduation/${49}`,{
+      ProgramId : graduation.programId ,
+      rate : graduation.rate ,
+      ratio : graduation.ratio ,
+      value : graduation.value ,
+      levelsTobePassed : graduation.levelsTobePassed ,
+      semestersTobePssed : graduation.semestersTobePssed , 
+      compulsoryCourses: graduation.compulsoryCourses,
+      summerTraining: graduation.summerTraining,
+      verifyPaymentOfFees: graduation.verifyPaymentOfFees,
+      makeSureToPassTheOptionalGroups: graduation.makeSureToPassTheOptionalGroups,
+      passingMilitaryEducation: graduation.passingMilitaryEducation,
+      successInEveryCourse: graduation.successInEveryCourse,
+      determineTheRankBasedOn: graduation.determineTheRankBasedOn,
+      rateBase: graduation.rateBase,
+      comparingCumulativeAverageForEachYear: graduation.comparingCumulativeAverageForEachYear,
+      theMinimumGradeForTheCourseId: graduation.theMinimumGradeForTheCourseId,
+      averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
+    } ).then((res)=>{
+      console.log(res)
+      setGlobalState({...globalState , State : "Get"});
+    }).catch((err)=>console.log(err.response.data));    
+}
   function submit(e) {
     e.preventDefault();
+    if(globalState.State === "Update")
+      {
+        UpdateAPI();
+      }
+      else{
     sendDataToApi();
+  }
   }
 
  
@@ -149,12 +212,13 @@ console.log(options);
                         <div className="form-group d-flex">
                           <div className="my-3 ">
                             <input
-                              onChange={getGradutionData}
+                              onChange={(e)=>setgraduation({...graduation , ratio : e.target.checked , rate : !e.target.checked})}
                               className="form-check-input ms-3 mt-2 "
                               type="radio"
                               name="value"
                               id="ratio"
                               value="نسبه"
+                              checked={graduation.ratio === true}
                             />
                             <label
                               className="form-check-label fw-semibold fs-6 "
@@ -164,12 +228,14 @@ console.log(options);
                             </label>
 
                             <input
-                              onChange={getGradutionData}
+                             onChange={(e)=>setgraduation({...graduation , rate : e.target.checked , ratio : !e.target.checked})}
                               className="form-check-input  mx-3 me-5  mt-2"
                               type="radio"
                               name="value"
                               id="rate"
                               value="معدل"
+                              checked={graduation.rate === true}
+
                             />
                             <label
                               className="form-check-label fw-semibold fs-6  "
@@ -188,11 +254,13 @@ console.log(options);
 
                           <div className="col-md-2 mx-4 my-3 me-5  pe-3">
                             <input
-                              onChange={(e)=> {setgraduation({...graduation , value : parent(e.target.value)})}}
+                              onChange={(e)=> {setgraduation({...graduation , value : parseInt(e.target.value)})}}
                               type="number"
                               className="form-control"
                               id="value"
                               name="value"
+                              value={graduation.value}
+                              placeholder={graduation.value}
                            
                             />
                           </div>
@@ -655,7 +723,7 @@ console.log(options);
                             //value={graduation.levelsTobePassed}
                           >
                             {levels && levels.map((level, index) => (
-                                <option key={index} value={level.id}> {level.levels}</option>
+                                <option key={index} value={level.id} selected = {graduation.levelsTobePassed.includes(level.levels)}> {level.levels}</option>
                               ))}
                           </select>
                         </div>
@@ -681,9 +749,16 @@ console.log(options);
                               aria-label="Multiple select example"
                             >
                            
-                              {Sems && Sems.map((sem, index) => (
-                                <option key={index} value={sem.id} selected = {graduation.semestersTobePssed.semesterId === sem.id}> {sem.semesters}</option>
-                              ))}
+                                 {Sems && Sems.map((sem, index) => (
+                                  <option 
+                                    key={index} 
+                                    value={sem.id} 
+                                    selected={graduation.semestersTobePssed.includes(sem.semesters)}
+                                  >
+                                    {sem.semesters}
+                                  </option>
+                                ))}
+
                               </select>
 
                         </div>
@@ -706,13 +781,16 @@ console.log(options);
                             id="theMinimumGradeForTheCourseId"
                             name="theMinimumGradeForTheCourseId"
                             onChange={(e)=>{setgraduation({...graduation , theMinimumGradeForTheCourseId : parseInt(e.target.value)})}}
-                            value={graduation.theMinimumGradeForTheCourseId}
+                            //value={graduation.theMinimumGradeForTheCourseId}
                             required
                           >
-                            <option></option>
+                            <option disabled></option>
                             {grades && grades.map((grade, index) => (
-                              <option key={index} value={grade.id}> {grade.theGrade}</option>
-                            ))}
+      <option key={index} value={grade.id} selected={graduation.theMinimumGradeForTheCourseId === grade.id}>
+        {grade.theGrade}
+      </option>
+    ))}
+
                         </select>
 
                           </div>
