@@ -58,6 +58,23 @@ useEffect(() => {
   console.log(globalState.State);
 
   dispatch({ type: `${globalState.State}`})
+  if (globalState.State === "Get") {
+    const fetchData = axios.get(`https://localhost:7095/api/Graduation/48`)
+    .then( (res) => {
+      console.log(res.data); 
+      setgraduation(res.data)
+
+      
+    }
+  )
+    .catch(
+      (err)=>{
+        console.log(err);
+      
+      });
+     
+    
+  }
     //console.log(globalState);
   }, [globalState]);
   useEffect(() => {
@@ -71,10 +88,12 @@ console.log(state.status);
     // console.log(data.changingCourses);  
     // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
     const fetchData = axios.get(`https://localhost:7095/api/Graduation/48`)
-    .then((res)=>{
-      console.log(res); 
+    .then( (res) => {
+      console.log(res.data); 
       setgraduation(res.data)
-      dispatch({ type: 'Get'});
+        setGlobalState({...globalState , State : "Get"})
+        dispatch({ type: 'Get'});
+      
     }
   )
     .catch(
@@ -95,7 +114,7 @@ console.log(state.status);
       <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>
       { 
       (state && (state.status === "Add" || state.status===  "Update") ) &&
-      <AddGraduation data = {graduation} state = {state.status} />
+      <AddGraduation data = {graduation} />
       }
       { 
       (state && (state.status === "Get") ) &&
