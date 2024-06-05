@@ -1,417 +1,398 @@
-import React, { Fragment , useState} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import styles from "./index.module.scss";
+
 const ControlsPage = () => {
-    const [code, setCode] = useState('');
-    const [arabicName, setArabicName] = useState('');
-    const [arabicSubCourseName, setArabicSubCourseName] = useState('');
-    const [englishName, setEnglishName] = useState('');
-    const [englishSubCourseName, setEnglishSubCourseName] = useState('');
-    const [arabicCourseCode, setArabicCourseCode] = useState('');
-    const [arabicSubCourseCode, setArabicSubCourseCode] = useState('');
-    const [englishCourseCode, setEnglishCourseCode] = useState('');
-    const [englishSubCourseCode, setEnglishSubCourseCode] = useState('');
-    const [invalidData, setInvalidData] = useState(false);
-    const handleChange = (event) => {
-        const { value } = event.target;
-        const sanitizedValue = value.replace(/\D/g, '');
-        setCode(sanitizedValue);
+    const [formData, setFormData] = useState({
+        courseNameInArabic: "",
+        courseNameInEnglish: "",
+        sub_CourseNameInArabic: "",
+        sub_CourseNameInEnglish: "",
+        courseCodeInArabic: "",
+        courseCodeInEnglish: "",
+        sub_CourseCodeInArabic: "",
+        sub_CourseCodeInEnglish: "",
+        courseNickname: "",
+        contentSummaryInArabic: "",
+        contentSummaryInEnglish: "",
+        facultyId: ""
+    });
+
+    const [submittedData, setSubmittedData] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://localhost:7095/api/CollegeCourses");
+            setSubmittedData(response.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     };
 
-    const handleArabicNameChange = (event) => {
-        const { value } = event.target;
-        const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-        setArabicName(value);
-        if (!arabicRegex.test(value)) {
-                setInvalidData(true);
-                if (value === '') {
-                    setArabicName('');
-                }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (isEditing) {
+                await updateData();
             } else {
-                setArabicName(value);
-                setInvalidData(false);
+                await addData();
             }
-    };
-    const handleArabicSubCourseNameChange = (event) => {
-        const { value } = event.target;
-        const arabicRegex = /^[\u0600-\u06FF\s]+$/;
-        setArabicSubCourseName(value);
-        if (!arabicRegex.test(value)) {
-            setInvalidData(true);
-            if (value === '') {
-                setArabicSubCourseName('');
-            }
-        } else {
-            setArabicSubCourseName(value);
-            setInvalidData(false);
+        } catch (error) {
+            console.error("There was an error submitting the form!", error);
         }
     };
 
-    const handleEnglishNameChange = (event) => {
-        let value = event.target.value;
-        const englishRegex = /^[A-Za-z\s]+$/;
-        // If the input contains any invalid characters or is empty, set invalidData to true
-        if (!englishRegex.test(value)) {
-            setInvalidData(true);
-            // If the input is empty, clear the input field
-            if (value === '') {
-                setEnglishName('');
-            }
-        } else {
-            // If the input is valid, update the state and set invalidData to false
-            setEnglishName(value);
-            setInvalidData(false);
-        }
-    };
-    
-
-    const handleEnglishSubCourseNameChange = (event) => {
-        const { value } = event.target;
-        const englishRegex = /^[A-Za-z\s]+$/;
-        if (!englishRegex.test(value) ) {
-            setInvalidData(true);
-           if (value === '') {
-            setEnglishSubCourseName('');
-           }
-        }
-        else{
-            setEnglishSubCourseName(value);
-            setInvalidData(false)
+    const addData = async () => {
+        try {
+            const response = await axios.post("https://localhost:7095/api/CollegeCourses", formData);
+            console.log("Response from server:", response.data);
+            setSubmittedData([...submittedData, formData]);
+            resetForm();
+        } catch (error) {
+            console.error("Error adding data:", error);
         }
     };
 
-    const handleArabicCourseCodeChange = (event) => {
-        const { value } = event.target;
-        const arabicNumbersRegex = /^[\u0660-\u0669]+$/;
-        if (!arabicNumbersRegex.test(value) ) {
-            setInvalidData(true);
-            if (value === '')
-            setArabicCourseCode('');
-        }   
-        else{
-            setArabicCourseCode(value);
-            setInvalidData(false)
+    const [selectedItemId, setSelectedItemId] = useState(null);
+
+    const handleUpdate = (item) => {
+        setSelectedItemId(item.id);
+        setFormData(item);
+        setIsEditing(true);
+    };
+
+    const updateData = async (id) => {
+        try {
+            const response = await axios.put(`https://localhost:7095/api/CollegeCourses/${id}`, formData);
+            console.log("Updated data:", response.data);
+            fetchData();
+            resetForm();
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Error updating data:", error);
         }
     };
-    const handleArabicSubCourseCodeChange = (event) => {
-        const { value } = event.target;
-        const arabicNumbersRegex = /^[\u0660-\u0669]+$/;
-        if (!arabicNumbersRegex.test(value) ) {
-            setInvalidData(true)
-            if (value === '') {
-                setArabicSubCourseCode('')
-            }
-        }
-        else{
-            setArabicSubCourseCode(value);
-            setInvalidData(false)
+
+
+    const resetForm = () => {
+        setFormData({
+            courseNameInArabic: "",
+            courseNameInEnglish: "",
+            sub_CourseNameInArabic: "",
+            sub_CourseNameInEnglish: "",
+            courseCodeInArabic: "",
+            courseCodeInEnglish: "",
+            sub_CourseCodeInArabic: "",
+            sub_CourseCodeInEnglish: "",
+            courseNickname: "",
+            contentSummaryInArabic: "",
+            contentSummaryInEnglish: "",
+            facultyId: ""
+        });
+    };
+    const deleteItem = async (id) => {
+        try {
+            await axios.delete(`https://localhost:7095/api/CollegeCourses/${id}`);
+            fetchData(); 
+        } catch (error) {
+            console.error("Error deleting item:", error);
         }
     };
-    const handleEnglishCourseCodeChange = (event) => {
-        let value = event.target.value;
-        value = value.replace(/[^0-9]/g, '');
-        // If the input contains any invalid characters, set invalidData to true
-        if (value !== event.target.value) {
-            setInvalidData(true);
-        } else {
-            setEnglishCourseCode(value);
-            setInvalidData(false);
-        }
-    };
-        
-    const handleEnglishSubCourseCodeChange = (event) => {
-        let value = event.target.value;
-        value = value.replace(/[^0-9]/g, '');
-        // If the input contains any invalid characters, set invalidData to true
-        if (value !== event.target.value) {
-            setInvalidData(true);
-        } else {
-            setEnglishSubCourseCode(value);
-            setInvalidData(false);
-        }
-    };
-    
 
     return (
-        <Fragment>
-            <div className="container " dir="rtl">
+        <>
+            <div className="container" dir="rtl">
                 <div className="row mt-3">
                     <div className="col-md-2"></div>
-
-
                     <div className="col-md-10">
                         <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
                         <br />
-                        <div className="inputs-card  ">
-
+                        <div className="inputs-card">
                             <div className="card-body">
-                            {invalidData && ( // Conditionally render the paragraph if data is invalid
-                                    <p className="alert alert-danger text-center  w-50 fw-bolder fs-4 ">البيانات غير صحيحه ' من فضلك ادخل بيانات صحيحه</p>
-                                )}
                                 <div className="form-validation">
-                                    <form className="form-valide" method="post">
+                                    <form className="form-valide" onSubmit={handleSubmit} method="post">
                                         <div className="row">
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4 col-form-label"
-                                                        htmlFor="code"
-                                                    >
-                                                        كود الكلية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="facultyId">
+                                                        كود الكلية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="code"
-                                                            name="code"
-                                                            required
-                                                            value={code}
+                                                            id="facultyId"
+                                                            name="facultyId"
+                                                            value={formData.facultyId}
                                                             onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 col-form-label" htmlFor="arabicName">
-                                                        اسم المقرر باللغة العربية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="courseNameInArabic">
+                                                        اسم المقرر باللغة العربية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="arabicName"
-                                                            name="arabicName"
-                                                            value={arabicName}
-                                                            onChange={handleArabicNameChange}
-                                                            required
+                                                            id="courseNameInArabic"
+                                                            name="courseNameInArabic"
+                                                            value={formData.courseNameInArabic}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="englishName"
-                                                    >
-                                                        اسم المقرر باللغةالانجليزية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="courseNameInEnglish">
+                                                        اسم المقرر باللغة الانجليزية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="englishName"
-                                                            name="englishName"
-                                                            value={englishName}
-                                                            onChange={handleEnglishNameChange}
-                                                            required
+                                                            id="courseNameInEnglish"
+                                                            name="courseNameInEnglish"
+                                                            value={formData.courseNameInEnglish}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="arabicNameF"
-                                                    >
-                                                        اسم المقرر الفرعي باللغة العربية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="sub_CourseNameInArabic">
+                                                        اسم المقرر الفرعي باللغة العربية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="arabicNameF"
-                                                            name="arabicNameF"
-                                                            value={arabicSubCourseName}
-                                                            onChange={handleArabicSubCourseNameChange}
-                                                            required
+                                                            id="sub_CourseNameInArabic"
+                                                            name="sub_CourseNameInArabic"
+                                                            value={formData.sub_CourseNameInArabic}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="englishNameF"
-                                                    >
-                                                        اسم المقرر الفرعي باللغة الانجليزية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="sub_CourseNameInEnglish">
+                                                        اسم المقرر الفرعي باللغة الانجليزية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="englishNameF"
-                                                            name="englishNameF"
-                                                            value={englishSubCourseName}
-                                                            onChange={handleEnglishSubCourseNameChange}
-                                                            required
+                                                            id="sub_CourseNameInEnglish"
+                                                            name="sub_CourseNameInEnglish"
+                                                            value={formData.sub_CourseNameInEnglish}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="arabicCourseCode"
-                                                    >
-                                                        كود المقرر باللغة العربية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="courseCodeInArabic">
+                                                        كود المقرر باللغة العربية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="arabicCourseCode"
-                                                            name="arabicCourseCode"
-                                                            value={arabicCourseCode}
-                                                            onChange={handleArabicCourseCodeChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-xl-6">
-
-                                                <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4 col-form-label"
-                                                        htmlFor="englishCourseCode"
-                                                    >
-                                                        كود المقرر باللغة الانجليزية<span className="text-danger">*</span>
-                                                    </label>
-                                                    <div className="col-lg-6">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="englishCourseCode"
-                                                            name="englishCourseCode"
-                                                            value={englishCourseCode}
-                                                            onChange={handleEnglishCourseCodeChange}
-                                                            required
-                                                        />
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div className="col-xl-6">
-                                                <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="arabicCodeF"
-                                                    >
-                                                        كود المقرر الفرعي باللغة العربية<span className="text-danger">*</span>
-                                                    </label>
-                                                    <div className="col-lg-6">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="arabicCodeF"
-                                                            name="arabicCodeF"
-                                                            value={arabicSubCourseCode}
-                                                            onChange={handleArabicSubCourseCodeChange}
-                                                            required
+                                                            id="courseCodeInArabic"
+                                                            name="courseCodeInArabic"
+                                                            value={formData.courseCodeInArabic}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4 col-form-label"
-                                                        htmlFor="englishSubCourseCode"
-                                                    >
-                                                        كود المقرر الفرعي باللغة الانجليزية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="courseCodeInEnglish">
+                                                        كود المقرر باللغة الانجليزية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="englishSubCourseCode"
-                                                            name="englishSubCourseCode"
-                                                            value={englishSubCourseCode}
-                                                            onChange={handleEnglishSubCourseCodeChange}
-                                                            required
+                                                            id="courseCodeInEnglish"
+                                                            name="courseCodeInEnglish"
+                                                            value={formData.courseCodeInEnglish}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="famousName"
-                                                    >
-                                                        اسم الشهرة<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="sub_CourseCodeInArabic">
+                                                        كود المقرر الفرعي باللغة العربية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="famousName"
-                                                            name="famousName"
-                                                            required
+                                                            id="sub_CourseCodeInArabic"
+                                                            name="sub_CourseCodeInArabic"
+                                                            value={formData.sub_CourseCodeInArabic}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="arabicContent"
-                                                    >
-                                                        ملخص المحتوي باللغة العربية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="sub_CourseCodeInEnglish">
+                                                        كود المقرر الفرعي باللغة الانجليزية
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="arabicContent"
-                                                            name="arabicContent"
-                                                            required
+                                                            id="sub_CourseCodeInEnglish"
+                                                            name="sub_CourseCodeInEnglish"
+                                                            value={formData.sub_CourseCodeInEnglish}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4  col-form-label"
-                                                        htmlFor="englishContent"
-                                                    >
-                                                        ملخص المحتوي باللغة الانجليزية<span className="text-danger">*</span>
+                                                    <label className="col-lg-4 col-form-label" htmlFor="courseNickname">
+                                                        اسم الشهرة
                                                     </label>
                                                     <div className="col-lg-6">
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="englishContent"
-                                                            name="englishContent"
-                                                            required
+                                                            id="courseNickname"
+                                                            name="courseNickname"
+                                                            value={formData.courseNickname}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
-
-
+                                            <div className="col-xl-6">
+                                                <div className="form-group mb-3 row">
+                                                    <label className="col-lg-4 col-form-label" htmlFor="contentSummaryInArabic">
+                                                        ملخص المحتوي باللغة العربية
+                                                    </label>
+                                                    <div className="col-lg-6">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="contentSummaryInArabic"
+                                                            name="contentSummaryInArabic"
+                                                            value={formData.contentSummaryInArabic}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-xl-6">
+                                                <div className="form-group mb-3 row">
+                                                    <label className="col-lg-4 col-form-label" htmlFor="contentSummaryInEnglish">
+                                                        ملخص المحتوي باللغة الانجليزية
+                                                    </label>
+                                                    <div className="col-lg-6">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            id="contentSummaryInEnglish"
+                                                            name="contentSummaryInEnglish"
+                                                            value={formData.contentSummaryInEnglish}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row justify-content-center text-center">
+                                                <div className="col-md-6">
+                                                    <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => updateData(selectedItemId)}>
+                                                        <i className="fa-regular fa-bookmark"></i> {isEditing ? 'تعديل' : 'حفظ'}
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-
-
+                        {submittedData.length > 0 && (
+                            <table className="table mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>كود الكلية</th>
+                                        <th>اسم المقرر باللغة العربية</th>
+                                        <th>اسم المقرر باللغة الانجليزية</th>
+                                        <th>اسم المقرر الفرعي باللغة العربية</th>
+                                        <th>اسم المقرر الفرعي باللغة الانجليزية</th>
+                                        <th>كود المقرر باللغة العربية</th>
+                                        <th>كود المقرر باللغة الانجليزية</th>
+                                        <th>كود المقرر الفرعي باللغة العربية</th>
+                                        <th>كود المقرر الفرعي باللغة الانجليزية</th>
+                                        <th>اسم الشهرة</th>
+                                        <th>ملخص المحتوي باللغة العربية</th>
+                                        <th>ملخص المحتوي باللغة الانجليزية</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {submittedData.map((data, index) => (
+                                        <tr key={index}>
+                                            <td>{data.facultyId}</td>
+                                            <td>{data.courseNameInArabic}</td>
+                                            <td>{data.courseNameInEnglish}</td>
+                                            <td>{data.sub_CourseNameInArabic}</td>
+                                            <td>{data.sub_CourseNameInEnglish}</td>
+                                            <td>{data.courseCodeInArabic}</td>
+                                            <td>{data.courseCodeInEnglish}</td>
+                                            <td>{data.sub_CourseCodeInArabic}</td>
+                                            <td>{data.sub_CourseCodeInEnglish}</td>
+                                            <td>{data.courseNickname}</td>
+                                            <td>{data.contentSummaryInArabic}</td>
+                                            <td>{data.contentSummaryInEnglish}</td>
+                                            <td>
+                                                <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(data)}>نعديل</button>
+                                            </td>
+                                            <td>
+                                            <button className="btn btn-danger btn-sm" onClick={() => deleteItem(data.id)}>حذف</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
                     </div>
                 </div>
             </div>
-        </Fragment>
+
+        </>
     );
 };
 
