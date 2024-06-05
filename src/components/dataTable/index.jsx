@@ -10,6 +10,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
   const [addLU, setAddLU] = useState({
     nameOfLU: "",
     universityId: '',
+    loading : ""
 });
   useEffect(() => {
      
@@ -18,7 +19,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
       .catch(error => console.error('Error fetching data:', error));
 
 
-  }, [apiUri]);
+  }, [addLU.loading]);
   const handleEditClick = (item) => {
     setEditItemId(item.id);
     setEditFormData({ ...item });
@@ -33,8 +34,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
 
   // Save the updated data
   const handleSaveClick = () => {
-    console.log(editFormData);
-    axios.put(apiUriPut(editItemId), editFormData[nameOfLU])
+    axios.put(apiUriPut(editItemId,editFormData[nameOfLU] ))
       .then(() => {
         const updatedItems = items.map((item) => {
           if (item.id === editItemId) {
@@ -44,6 +44,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
         });
         setItems(updatedItems);
         setEditItemId(null);
+        
         console.log('Update successful');
       })
       .catch((error) => console.error('Error updating item:', error));
@@ -74,7 +75,7 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
       // const newItem = response.data;
       // setItems([...items, newItem]);
       setAddLU({...addLU, loading: false, err: [] });
-    
+    clearData();
     })
    .catch((err) => {
       console.error('Error:', err.response.data);
@@ -84,6 +85,14 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
         err: [{ message: err.response.data.message }],
       });
     });
+};
+const clearData = () => {
+  setAddLU({
+      nameOfLU: '',
+      universityId: '',
+      loading: false,
+      err: []
+  });
 };
   return (
     <Fragment>
@@ -163,10 +172,10 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
       type="text"
       value={addLU.nameOfLU}
       onChange={(e) => setAddLU({...addLU, nameOfLU: e.target.value })}
-      placeholder="Enter name of LU"
+      placeholder=""
       required
     />
-    {addLU.nameOfLU === '' && <div style={{ color: 'ed' }}>Please enter a name</div>}
+    {addLU.nameOfLU === '' && <div style={{ color: 'ed' }}></div>}
   </div>
 </div>
 
@@ -182,10 +191,10 @@ const DataTable = ({ apiUri,apiUriPut, apiUriDelete,apiUriPost, nameOfLU, proper
         id="universityId"
         value={addLU.universityId}
         onChange={(e) => setAddLU({...addLU, universityId: e.target.value })}
-        placeholder="Enter university ID"
+        placeholder=""
         required
       />
-       {addLU.universityId === '' && <div style={{ color: 'ed' }}>Please enter a university ID</div>}
+       {addLU.universityId === '' && <div style={{ color: 'ed' }}></div>}
     </div>
   </div>
 </div>

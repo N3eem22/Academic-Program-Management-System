@@ -1,9 +1,27 @@
 import React, { Fragment, useState, useEffect, useRef, useReducer } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Renderer } from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import Joi from "joi";
+function reducer(state, action) {
+  switch (action.type) {
+      case "Get":
+          return { ...state, status: "Get"};
+      case "Update":
+          return { ...state, status: "Update" };
+      case "Open":
+          return { ...state, status: "Open" };
+      case "Close":
+          return { ...state, status: "Close" };
+      case "Add":
+          return { ...state, status: "Add" };
+      default:
+          return state;
+  }
+}
+
 // const programReducer = (state, action) => {
 //   switch (action.type) {
 //     case 'UPDATE_PROGRAM_INFO':
@@ -19,28 +37,158 @@ import Joi from "joi";
 //   programInfo: [{ SummerCourseGpa: [] }],
 // };
 const ProgramsComp = () => {
-  const [programInfo, setProgramInfo] = useState([{ SummerCourseGpa:[] }]);
+  const initialState = {
+    status: '',
+};
+  const [programInfo, setProgramInfo] = useState([{}]);
   const inputRefs = useRef([]);
+  const [academicDegree, setAcademicDegree] = useState([]);
+  const [systemType, setSystemType] = useState([]);
+  const [burdenCalculation, setBurdenCalculation] = useState([]);
+  const [passingTheElectiveGroupBasedOn, setPassingTheElectiveGroupBasedOn] = useState([]);
+  const [editTheStudentLevel, setEditTheStudentLevel] = useState([]);
+  const [blockProof, setBlockProof] = useState([]);
+  const [financial, setFinancial] = useState([]);
+  const [programFees, setProgramFees] = useState([]);
+  const [summerFees, setSummerFees] = useState([]);
+  const [resultAppears, setResultAppears] = useState([]);
+  const [blockRegister, setBlockRegister] = useState([]);
+  const [hidingResult, setHidingResult] = useState([]);
+  const [divisionType, setDivisionType] = useState([{}]);
+  const [grades, setGrades] = useState([{}]);
+  const [gDetails, setGDetails] = useState([{}]);
+  const universityId = 1;
+  useEffect(() => {
+    const fetchDegree = axios.get(`https://localhost:7095/api/TheAcademicDegree?${1}`).then((res)=>{console.log(res.data); setAcademicDegree(res.data)});
+    const fetchSystem = axios.get(`https://localhost:7095/api/SystemType?UniversityId=${universityId}`).then((res)=>{console.log(res.data); setSystemType(res.data)});
+    const fetchBurden= axios.get(`https://localhost:7095/api/BurdenCalculation?${1}`).then((res)=>{console.log(res.data);setBurdenCalculation(res.data)});
+    const fetchPassing= axios.get(`https://localhost:7095/api/PassingTheElectiveGroupBasedOn?${1}`).then((res)=>{console.log(res.data);setPassingTheElectiveGroupBasedOn(res.data)})  
+    const fetchEdits= axios.get(`https://localhost:7095/api/EditTheStudentLevel?${1}`).then((res)=>{console.log(res.data);setEditTheStudentLevel(res.data)});
+    const fetchProof= axios.get(`https://localhost:7095/api/BlockingProofOfRegistration?${1}`).then((res)=>{console.log(res.data);setBlockProof(res.data)});
+    const fetchFStatement= axios.get(`https://localhost:7095/api/TypeOfFinancialStatementInTheProgram?${1}`).then((res)=>{console.log(res.data);setFinancial(res.data)});
+    const fetchProgramF= axios.get(`https://localhost:7095/api/TypeOfProgramFees?${1}`).then((res)=>{console.log(res.data);setProgramFees(res.data)});
+    const fetchSummerF= axios.get(`https://localhost:7095/api/TypeOfSummerFees?${1}`).then((res)=>{console.log(res.data);setSummerFees(res.data)});
+    const fetchResult= axios.get(`https://localhost:7095/api/TheResultAppears?${1}`).then((res)=>{console.log(res.data);setResultAppears(res.data)});
+    const fetchBRegister= axios.get(`https://localhost:7095/api/ReasonForBlockingRegistration?${1}`).then((res)=>{console.log(res.data);setBlockRegister(res.data)});
+    const fetchHResult= axios.get(`https://localhost:7095/api/ReasonForBlockingAcademicResult?${1}`).then((res)=>{console.log(res.data);setHidingResult(res.data)});
+    const fetchDivision= axios.get(`https://localhost:7095/api/DivisionType?${1}`).then((res)=>{console.log(res.data);setDivisionType(res.data)});
+    const fetchGrade= axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${universityId}`).then((res)=>{console.log(res.data);setGrades(res.data)});
+    const fetchDetails= axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${universityId}`).then((res)=>{console.log(res.data);setGDetails(res.data)});
+
+    }, []);
+  // const handleInputChange = (index, fieldName, value) => {
+  //   const updatedProgramInfo = [...programInfo];
+    // if (Array.isArray(updatedProgramInfo[index][fieldName])) {
+    //   // If the field is an array (multi-valued)
+    //   updatedProgramInfo[index][fieldName] = value.split(","); // Split the value into an array
+    // } else {
+  //     updatedProgramInfo[index][fieldName] = value; // Single value
+  
+  //   setProgramInfo(updatedProgramInfo);
+  // };
+  const fieldToPropertyMap = {
+    "pI_DivisionTypes": "divisionTypeId",
+    "pI_AllGradesSummerEstimates": "allGradesId",
+    "pI_EstimatesOfCourseFeeExemptions": "allGradesId",
+    "pI_DetailedGradesToBeAnnounced": "gradesDetailsId",
+  };
+  
+  // const handleInputChange = (index, fieldName, value) => {
+  //   const updatedProgramInfo = [...programInfo];
+  
+  //   if (fieldToPropertyMap[fieldName]) {
+  //     const propertyKey = fieldToPropertyMap[fieldName];
+  //     const arrayOfObjects = Array.isArray(value)
+  //      ? value.map((value) => ({ [propertyKey]: value }))
+  //       : [{ [propertyKey]: value }]; // If value is a single value, create an array with a single object
+  //     updatedProgramInfo[index][fieldName] = arrayOfObjects;
+  //   } else if (Array.isArray(updatedProgramInfo[index][fieldName])) {
+  //     // If the field is an array (multi-valued)
+  //     updatedProgramInfo[index][fieldName] = value.split(",").map(Number); // Split the value into an array and convert strings to numbers
+  //   } else {
+  //     updatedProgramInfo[index][fieldName] = value; // Single value
+  //   }
+  
+  //   setProgramInfo(updatedProgramInfo);
+  // };
   const handleInputChange = (index, fieldName, value) => {
     const updatedProgramInfo = [...programInfo];
-    if (Array.isArray(updatedProgramInfo[index][fieldName])) {
+  
+    if (fieldToPropertyMap[fieldName]) {
+      const propertyKey = fieldToPropertyMap[fieldName];
+      const arrayOfObjects = value.map((value) => ({ [propertyKey]: parseInt(value) }));
+      console.log(arrayOfObjects);
+      updatedProgramInfo[index][fieldName] = arrayOfObjects;
+    } else if (Array.isArray(updatedProgramInfo[index][fieldName])) {
       // If the field is an array (multi-valued)
-      updatedProgramInfo[index][fieldName] = value.split(","); // Split the value into an array
+      updatedProgramInfo[index][fieldName] = value; // Assign the selectedValues array directly
     } else {
       updatedProgramInfo[index][fieldName] = value; // Single value
     }
+  
     setProgramInfo(updatedProgramInfo);
   };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log('Program Info:', programInfo);
   };
- 
+
+const handlePlusIconClick = () => {
+    if (selectedValue) {
+        const selectedGrade = grades.find(grade => grade.id === parseInt(selectedValue));
+        if (selectedGrade) {
+            const newSectionId = sections.length + 1;
+            const newSection = {
+                id: newSectionId,
+                value: selectedGrade.theGrade,
+            };
+            setSections([...sections, newSection]);
+
+            setData((prevData) => {
+                const isFirstAddition = sections.length === 0;
+
+                return {
+                    ...prevData,
+                    pI_AllGradesSummerEstimates: isFirstAddition
+                        ? [
+                            {
+                              "allGradesId": 0
+                            }
+                        ]
+                        : [
+                            ...prevData.pI_AllGradesSummerEstimates,
+                            {
+                              "allGradesId": 0
+                            }
+                        ]
+                };
+            });
+        }
+    }
+};
+
+const handleRemoveSection = (id) => {
+    const updatedSections = sections.filter((section) => section.id !== id);
+    setSections(updatedSections);
+
+    const indexToRemove = sections.findIndex((section) => section.id === id);
+
+    setData((prevData) => ({
+        ...prevData,
+        pI_AllGradesSummerEstimates: prevData.pI_AllGradesSummerEstimates.filter((_, index) => index !== indexToRemove)
+    }));
+
+    setCustomValues((prevValues) => {
+        const newValues = { ...prevValues };
+        delete newValues[id];
+        return newValues;
+    });
+};
+
   const addInputField = () => {
     setProgramInfo([...programInfo, {}]);
   };
- 
+  
     return ( 
       
         <Fragment>
@@ -140,9 +288,9 @@ const ProgramsComp = () => {
                               value={info.academicDegreeId || ''}
                               onChange={(e) => handleInputChange(index, 'academicDegreeId', e.target.value)} >
    <option >الدرجة العلمية</option>
-   <option>One</option>
-   <option>Two</option>
-   <option>Three</option>
+   {academicDegree.map((degree) => (
+  <option key={degree.id}>{degree.academicDegreeName}</option>
+ ))}
  </select>
 
  </div>
@@ -166,7 +314,7 @@ const ProgramsComp = () => {
  </div>
  <div class="form-floating mb-3 fw-primary">
    <input ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-                              type="text"
+                              type="number"
                               className="form-control text-end"
                               placeholder=""
                               value={info.beginningOfTheProgram || ''}
@@ -175,7 +323,7 @@ const ProgramsComp = () => {
  </div>
  <div class="form-floating mb-3">
    <input ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-                              type="date"
+                              type="text"
                               className="form-control text-end"
                               placeholder=""
                               value={info.endOfTheProgram || ''}
@@ -186,24 +334,25 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.systemTypeId || ''}
-                              onChange={(e) => handleInputChange(index, 'systemTypeId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'systemTypeId',parseInt(e.target.value))}>
    <option defaultValue >نوع النظام</option>
-   <option >One</option>
-   <option >Two</option>
-   <option >Three</option>
+     {systemType.map((type) => (
+  <option key={type.id} value={type.id}>{type.systemName}</option>
+))}
  </select>
  <div class="form-floating mb-3">
    <input ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-                              type="date"
+                              type="number"
                               className="form-control text-end"
                               placeholder=""
                               value={info.institutionCode || ''}
-                              onChange={(e) => handleInputChange(index, 'institutionCode', e.target.value)}/>
+                              onChange={(e) => handleInputChange(index, 'institutionCode', e.target.value)}
+                              />
    <label htmlFor="">كود المؤسسة</label>
  </div>
  <div class="form-floating mb-3 position-relative ">
    <input ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-                              type="date"
+                              type="number"
                               className="form-control text-end"
                               placeholder=""
                               value={info.teamCode || ''}
@@ -307,11 +456,11 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.burdanCalculationId || ''}
-                              onChange={(e) => handleInputChange(index, 'burdanCalculationId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'burdanCalculationId', parseInt(e.target.value))}>
   <option defaultValue>حساب العبء</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  {burdenCalculation.map((BurdenCalculation) => (
+  <option key={BurdenCalculation.id} value={BurdenCalculation.id}>{BurdenCalculation.burdenCalculationAS}</option>
+))}
 </select>
 <div class="form-check py-3">
   <input class="form-check-input" type="checkbox" id="flexCheckDefault"
@@ -323,27 +472,15 @@ const ProgramsComp = () => {
     استثناء ترم الموازنة عند حساب العبء
   </label>
 </div>
-{/* <div class="form-check py-2">
-  <input class="form-check ms-2  mt-2 fw-bold fs-5  track-order-change label-to-bold-if-checked" type="checkbox" id="flexCheckDefault"
-      className="form-control text-end"
-   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
-
-                              value={info.excludingTheBudgetTermWhenCalculatingTheGPA|| ''}
-                              checked={info.excludingTheBudgetTermWhenCalculatingTheGPA}
-                              onChange={(e) => handleInputChange(index, 'excludingTheBudgetTermWhenCalculatingTheGPA', e.target.value)}/>
-<label class="form-check-label" for="flexCheckDefault">
-  استثناء ترم الموازنة عند حساب العبء
-  </label>
-  </div> */}
 <select  ref={(el) => (inputRefs.current[index + programInfo.length * 6] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.passingTheElectiveGroupBasedOnId || ''}
-                              onChange={(e) => handleInputChange(index, 'passingTheElectiveGroupBasedOnId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'passingTheElectiveGroupBasedOnId', parseInt(e.target.value))}>
   <option defaultValue>اجتياز المجموعه الاختياريه بناءا علي</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  {passingTheElectiveGroupBasedOn.map((passing) => (
+  <option key={passing.id} value={passing.id} >{passing.passingTheElectiveGroup}</option>
+))}
 </select>
 <select  ref={(el) => (inputRefs.current[index + programInfo.length * 7] = el)}
                               className="form-select form-select-lg mb-3 py-2"
@@ -351,29 +488,32 @@ const ProgramsComp = () => {
                               value={info.pre_Requisite || ''}
                               onChange={(e) => handleInputChange(index, 'pre_Requisite', e.target.value)}>
   <option defaultValue>المتطلب السابق</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  
 </select>
 <select  ref={(el) => (inputRefs.current[index + programInfo.length * 8] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info.pI_DivisionTypes || ''}
-                              onChange={(e) => handleInputChange(index, 'pI_DivisionTypes', e.target.value)}>
+                              multiple
+                              // value={info.pI_DivisionTypes || ''}
+                              onChange={(e) => {
+                                const selectedOptions = Array.from(e.target.selectedOptions);
+                                const selectedValues = selectedOptions.map((option) => option.value);
+                                handleInputChange(index, 'pI_DivisionTypes', selectedValues);
+                              }}>
   <option defaultValue>نوع الشعبة</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  {divisionType.map((typeD) => (
+  <option key={typeD.id} value={typeD.id}>{typeD.division_Type}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 9] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.editTheStudentLevelId || ''}
-                              onChange={(e) => handleInputChange(index, 'editTheStudentLevelId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'editTheStudentLevelId', parseInt(e.target.value))}>
   <option defaultValue>	تعديل مستوى الطالب</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  {editTheStudentLevel.map((Slevel) => (
+  <option key={Slevel.id} value={Slevel.id}>{Slevel.editTheStudentLevel}</option>
+))}
 </select>
 </div>
 ))}
@@ -417,11 +557,11 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.blockingProofOfRegistrationId || ''}
-                              onChange={(e) => handleInputChange(index, 'blockingProofOfRegistrationId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'blockingProofOfRegistrationId', parseInt(e.target.value))}>
   <option defaultValue>حجب إثبات القيد</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+  {blockProof.map((block) => (
+  <option key={block.id} value={block.id}>{block.reasonsOfBlocking}</option>
+))}
 </select>
 </div>
 ))}
@@ -446,41 +586,46 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.typeOfFinancialStatementInTheProgramId || ''}
-                              onChange={(e) => handleInputChange(index, 'typeOfFinancialStatementInTheProgramId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'typeOfFinancialStatementInTheProgramId', parseInt(e.target.value))}>
   <option defaultValue>نوع البيان المالى بالبرنامج</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {financial.map((statement) => (
+  <option key={statement.id} value={statement.id}>{statement.theType}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 12] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.typeOfProgramFeesId || ''}
-                              onChange={(e) => handleInputChange(index, 'typeOfProgramFeesId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'typeOfProgramFeesId',parseInt (e.target.value))}>
   <option defaultValue>نوع رسوم البرنامج</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {programFees.map((programfee) => (
+  <option key={programfee.id} value={programfee.id}>{programfee.typeOfFees}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 13] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.typeOfSummerFeesId || ''}
-                              onChange={(e) => handleInputChange(index, 'typeOfSummerFeesId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'typeOfSummerFeesId', parseInt(e.target.value))}>
   <option defaultValue>نوع رسوم الصيفى</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {summerFees.map((summerfee) => (
+  <option key={summerfee.id} value={summerfee.id}>{summerfee.theTypeOfSummerFees}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 14] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info.pI_EstimatesOfCourseFeeExemptions || ''}
-                              onChange={(e) => handleInputChange(index, 'pI_EstimatesOfCourseFeeExemptions', e.target.value)}>
+                              multiple
+                              // value={info.pI_EstimatesOfCourseFeeExemptions || ''}
+                              onChange={(e) => {
+                                const selectedOptions = Array.from(e.target.selectedOptions);
+                                const selectedValues = selectedOptions.map((option) => option.value);
+                                handleInputChange(index, 'pI_EstimatesOfCourseFeeExemptions', selectedValues);
+                              }}>
   <option defaultValue>تقديرات الاعفاء من رسم المقرر</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {grades.map((grade) => (
+  <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+))}
 </select>
 <div class="form-check py-2">
   <input class="form-check-input" type="checkbox" id="flexCheckDefault"
@@ -526,31 +671,31 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.result || ''}
-                              onChange={(e) => handleInputChange(index, 'result', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'result', parseInt (e.target.value))}>
   <option defaultValue>النتيجة</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {resultAppears.map((result) => (
+  <option key={result.id} value={result.id}>{result.resultAppears}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 16] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.theResultToTheGuidId || ''}
-                              onChange={(e) => handleInputChange(index, 'theResultToTheGuidId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'theResultToTheGuidId', parseInt (e.target.value))}>
   <option defaultValue>ظهور النتيجة للمرشد</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {resultAppears.map((result) => (
+  <option key={result.id} value={result.id}>{result.resultAppears}</option>
+))}
 </select>
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 17] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.theReasonForHiddingTheResultId || ''}
-                              onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', parseInt(e.target.value))}>
   <option defaultValue>سبب حجب التسجيل</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {blockRegister.map((Bregister) => (
+  <option key={Bregister.id} value={Bregister.id}>{Bregister.theReasonForBlockingRegistration}</option>
+))}
 </select>
 <div class="form-check py-2">
   <input class="form-check-input" type="checkbox" id="flexCheckDefault"
@@ -591,60 +736,85 @@ const ProgramsComp = () => {
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
                               value={info.theReasonForHiddingTheResultId || ''}
-                              onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', e.target.value)}>
+                              onChange={(e) => handleInputChange(index, 'theReasonForHiddingTheResultId', parseInt(e.target.value))}>
   <option defaultValue>سبب حجب النتيجة</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {hidingResult.map((bresult) => (
+  <option key={bresult.id} value={bresult.id}>{bresult.theReasonForBlockingAcademicResult}</option>
+))}
 </select>
 <div className="div">
 </div>
-{/* <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
+<div class="form-check py-2">
+  <input class="form-check-input border border-primary" type="radio" name="theQuestionnaireIsIncluded"  id="theQuestionnaireIsIncluded"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={true}
+   onChange={(e) => handleInputChange(index, 'theQuestionnaireIsIncluded', true)}/>
   <label class="form-check-label" for="exampleRadios1">
   متضمن الاستبيان العام 
   </label>
 </div>
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
+  <input class="form-check-input border border-primary" type="radio" name="theQuestionnaireIsIncluded" id="theQuestionnaireIsIncluded"
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={false}
+   onChange={(e) => handleInputChange(index, 'theQuestionnaireIsIncluded', false)}/>
   <label class="form-check-label" for="exampleRadios1">
   غير متضمن الاستبيان العام
   </label>
-</div> */}
+</div>
 
 <select ref={(el) => (inputRefs.current[index + programInfo.length * 19] = el)}
                               className="form-select form-select-lg mb-3 py-2"
                               aria-label=".form-select-lg example"
-                              value={info.pI_AllGradesSummerEstimates || ''}
-                              onChange={(e) => handleInputChange(index, 'pI_AllGradesSummerEstimates', e.target.value)}>
+                              multiple
+                              // value={info.pI_AllGradesSummerEstimates || ''}
+                              onChange={(e) => {
+                                const selectedOptions = Array.from(e.target.selectedOptions);
+                                const selectedValues = selectedOptions.map((option) => option.value);
+                                handleInputChange(index, 'pI_AllGradesSummerEstimates', selectedValues);
+                              }}>
   <option defaultValue>تقديرات مقررات الصيفى</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+  {grades.map((grade) => (
+  <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+))}
 </select>
-{/* <div className="">
+{programInfo.theQuestionnaireIsIncluded === true && 
+(<div className="">
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
-  <label class="form-check-label" for="exampleRadios1">   
-  استبيان النظام الداخلى
-    </label>
+<input 
+  class="form-check-input border border-primary" type="radio" name="questionnaire" id="questionnaire"
+    ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+  value={true}
+  onChange={(e) => handleInputChange(index, 'questionnaire', true )}/>
+<label class="form-check-label" htmlFor="questionnaire">   
+استبيان النظام الداخلى
+  </label>
 </div>
 <div class="form-check py-2">
-  <input class="form-check-input border border-primary" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
-  <label class="form-check-label" for="exampleRadios1">
+  <input class="form-check-input border border-primary" type="radio" name="questionnaire" id="questionnaire" 
+   ref={(el) => (inputRefs.current[index + programInfo.length] = el)}
+   value={false}
+   onChange={(e) => handleInputChange(index, 'questionnaire', false)}/>
+  <label class="form-check-label" htmlFor="questionnaire">
   استبيان الفارابى
   </label>
-</div> */}
-{/* </div> */}
-<select ref={(el) => (inputRefs.current[index + programInfo.length * 20] = el)}
-                              className="form-select form-select-lg mb-3 py-2"
-                              aria-label=".form-select-lg example"
-                              value={info.pI_DetailedGradesToBeAnnounced || ''}
-                              onChange={(e) => handleInputChange(index, 'pI_DetailedGradesToBeAnnounced', e.target.value)}>
-  <option defaultValue>الدرجات التفصلية المراد اعلانها</option>
-  <option value="1"> التقدير</option>
-  <option value="2"> الدرجة والتقدير</option>
-  <option value="3">الدرجة والتقدير المكافئ</option>
+</div> 
+ </div>)}
+ <select
+  ref={(el) => (inputRefs.current[index + programInfo.length * 20] = el)}
+  className="form-select form-select-lg mb-3 py-2"
+  aria-label=".form-select-lg example"
+  multiple
+  // value={info.pI_DetailedGradesToBeAnnounced || []}
+  onChange={(e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions);
+    const selectedValues = selectedOptions.map((option) => option.value);
+    handleInputChange(index, 'pI_DetailedGradesToBeAnnounced', selectedValues);
+  }}>
+  <option >الدرجات التفصلية المراد اعلانها</option>
+  {gDetails.map((detail) => (
+    <option key={detail.id} value={detail.id}>{detail.theDetails}</option>
+  ))}
 </select>
 </div>
 ))}

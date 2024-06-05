@@ -3,7 +3,7 @@ import { DataTable } from '../../../../components/dataTable';
 
 function AllGrades() {
   const universityId = 1;
-    const nameOfLU= 'TheGrade';
+    const nameOfLU= 'theGrade';
     const property ='الدرجات';
 
   return (

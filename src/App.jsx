@@ -56,6 +56,7 @@ import{Semesters} from "./pages/admin/managelockups/semesters";
 import {GradesDetails} from "./pages/admin/managelockups/gradesDetails";
 import { ManagingHome } from "./pages/admin/managelockups/managing";
 import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
+import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentLevel";
 
 
 
@@ -97,9 +98,9 @@ function App() {
       <Route path="/bloresultappearckproof" element={<TheResultAppears />}/>
       <Route path="/systemtype" element={<SystemType />}/>
       <Route path="/equivalent" element={<EquivalentGrade />}/>
+      <Route path="/studentlevel" element={<EditTheStudentLevel />}/>
       <Route path="/semesters" element={<Semesters />}/>
       <Route path="/gradesdetails" element={<GradesDetails />}/>
-      <Route path="/programs" element={<ProgramsComp />}/>
 
 
 
@@ -113,10 +114,11 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
-
             {/* <Route path="/lookups" element={<ManageLookUps />}/> */}
             <Route path="/dataTable" element={<DataTable />}/>
             <Route path="/logFiles" element={<LogFiles />}/>
+            <Route path="/programs" element={<ProgramsComp />}/>
+
 
 
 
