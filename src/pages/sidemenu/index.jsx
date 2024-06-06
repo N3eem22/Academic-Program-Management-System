@@ -122,7 +122,7 @@ const SideMenu = () => {
         </div>
 
         <div className="col-md-10">
-          <nav className={`${styles["navbar"]} border border-2 shadow p-2 `}>
+          <nav className={`${styles["navbar"]} border border-2  rounded-top-5  shadow pb-3  `}>
             <div className="nav-content fs-5 fw-semibold p-2">
               {isSuperAdmin && (
                 <Link className="navbar-brand fs-5 fw-semibold" to="/manageuni">
@@ -195,32 +195,110 @@ const SideMenu = () => {
               )}
             </div>
 
-            <div className="nav-content fs-5 fw-semibold p-2">
-              {isUser && (
-                <Link
-                  className="navbar-brand fs-5 fw-semibold"
-                  to="/AdminLookUps"
-                >
-                  <img
-                    src="../src\assets\imgs\gear-wide-connected.svg"
-                    alt="Logo"
-                    width="25"
-                    height="20"
-                    className=" ms-3 d-inline-block align-text-center"
-                  />
-                  نظام التحكم
+            <div className="nav-content fs-6  fw-semibold">
+            {isUser && (
+                <Link className="navbar-brand fs-6   fw-semibold" to="/Levelsuser">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"  
+                  >
+البرامج الدراسيه                  </button>
                 </Link>
               )}
               {isUser && (
-                <a className="navbar-brand" href="/managefaculty">
-                  <img
-                    src="../src\assets\imgs\book.svg"
-                    alt="Logo"
-                    width="25"
-                    height="20"
-                    className="d-inline-block align-text-center"
-                  />
-                  اداره الكليات{" "}
+                <Link className="navbar-brand fs-5 fw-semibold" to="/Levelsuser">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    المستويات
+                  </button>
+                </Link>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/estimates">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1 "
+                  >
+                    التقديرات
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/academicload">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    العبء الدراسي حسب المستوي
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="courses">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    مقررات البرنامج
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/gpa">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    المعدل التراكمي
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/control">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light  btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    الكنترول
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/graduation">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    التخرج
+                  </button>
+                </a>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/Generalestimates">
+                  <button
+                    type="button"
+                    style={{  borderLeftColor: "#19355a" , borderTopColor: "#19355a" , borderRightColor : "#19355a" ,}}
+
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    التقديرات العامه
+                  </button>
                 </a>
               )}
             </div>

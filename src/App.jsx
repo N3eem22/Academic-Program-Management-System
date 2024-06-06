@@ -54,6 +54,11 @@ import { TypeOfProgramFees } from "./pages/admin/managelockups/programFees";
 import { TheResultAppears } from "./pages/admin/managelockups/resultAppears";
 import { SystemType } from "./pages/admin/managelockups/systemType";
 import { HomeUserPage } from "./pages/programs/home";
+import { Faculty } from "./pages/admin/managelockups/faculty";
+import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentLevel";
+import { Semesters } from "./pages/admin/managelockups/semesters";
+import { GradesDetails } from "./pages/admin/managelockups/gradesDetails";
+import { EquivalentGrade } from "./pages/admin/managelockups/equivalentGrade";
 
 function App() {
   useEffect(() => {}, []);
@@ -77,58 +82,36 @@ function App() {
             <Route element={<Admin />}>
               <Route path="/AdminLookUps" element={<AdminLookUpsPage />} />
               <Route path="/managefaculty" element={<ManageFacultyPage />} />
-              <Route
-                path="/updatefaculty/:id"
-                element={<UpdateFacultyWrapper />}
-              />
+              <Route path="/updatefaculty/:id"  element={<UpdateFacultyWrapper />}  />
               <Route path="/dataTable" element={<DataTable />} />
               <Route path="/programs" element={<ProgramsComp />} />
               <Route path="/logFiles" element={<LogFiles />} />
-              <Route
-                path="/updatefaculty/:id"
-                element={<UpdateFacultyWrapper />}
-              />
+              <Route path="/updatefaculty/:id"element={<UpdateFacultyWrapper />}    />
               <Route path="/summer" element={<SummerFees />} />
-              <Route
-                path="/absentee"
-                element={<AbsenteeEstimateCalculation />}
-              />
+              <Route path="/absentee" element={<AbsenteeEstimateCalculation />} />
               <Route path="/degree" element={<TheAcademicDegree />} />
               <Route path="/grades" element={<AllGrades />} />
-              <Route
-                path="/blockresult"
-                element={<ReasonForBlockingAcademicResult />}
-              />
-              <Route
-                path="/blockregister"
-                element={<ReasonForBlockingRegistration />}
-              />
-              <Route
-                path="/blockproof"
-                element={<BlockingProofOfRegistration />}
-              />
+              <Route path="/blockresult" element={<ReasonForBlockingAcademicResult />} />
+              <Route path="/blockregister" element={<ReasonForBlockingRegistration />} />
+              <Route path="/blockproof" element={<BlockingProofOfRegistration />}/>
               <Route path="/burden" element={<BurdenCalculation />} />
               <Route path="/courseReq" element={<CourseRequirement />} />
               <Route path="/coursetype" element={<CourseType />} />
               <Route path="/divisiontype" element={<DivisionType />} />
-              <Route
-                path="/financialstatement"
-                element={<TypeOfFinancialStatementInTheProgram />}
-              />
+              <Route path="/financialstatement" element={<TypeOfFinancialStatementInTheProgram />}  />
               <Route path="/hours" element={<Hours />} />
               <Route path="/levels" element={<Levels />} />
-              <Route
-                path="/passingelective"
-                element={<PassingTheElectiveGroupBasedOn />}
-              />
+              <Route path="/passingelective" element={<PassingTheElectiveGroupBasedOn />} />
               <Route path="/prerequisites" element={<Prerequisites />} />
               <Route path="/prevqual" element={<PreviousQualification />} />
               <Route path="/programfees" element={<TypeOfProgramFees />} />
-              <Route
-                path="/bloresultappearckproof"
-                element={<TheResultAppears />}
-              />
+              <Route path="/bloresultappearckproof"element={<TheResultAppears />} />
               <Route path="/systemtype" element={<SystemType />} />
+              <Route path="/faculty" element={<Faculty />}/>
+              <Route path="/studentlevel" element={<EditTheStudentLevel />}/>
+              <Route path="/semesters" element={<Semesters />}/>
+              <Route path="/gradesdetails" element={<GradesDetails />}/>
+              <Route path="/equivalent" element={<EquivalentGrade />}/>
             </Route>
 
             <Route element={<SuperAdmin />}>
@@ -145,12 +128,11 @@ function App() {
             <Route element={<User />}>
               <Route path="/control" element={<ControlPage />} />
               <Route path="/homeuser" element={<HomeUserPage />} />
-
               <Route
                 path="/Generalestimates"
                 element={<GeneralestimatesPage />}
               />
-              <Route path="/levels" element={<LevelsPage />} />
+              <Route path="/Levelsuser" element={<LevelsPage />} />
               <Route path="/estimates" element={<EstimatesPage />} />
               <Route path="/academicload" element={<AcademicloadPage />} />
               <Route path="/courses" element={<CoursesPage />} />
