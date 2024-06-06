@@ -172,10 +172,10 @@ const clearData = () => {
       type="text"
       value={addLU.nameOfLU}
       onChange={(e) => setAddLU({...addLU, nameOfLU: e.target.value })}
-      placeholder="Enter name of LU"
+      placeholder=""
       required
     />
-    {addLU.nameOfLU === '' && <div style={{ color: 'ed' }}>Please enter a name</div>}
+    {addLU.nameOfLU === '' && <div style={{ color: 'ed' }}></div>}
   </div>
 </div>
 
@@ -191,10 +191,10 @@ const clearData = () => {
         id="universityId"
         value={addLU.universityId}
         onChange={(e) => setAddLU({...addLU, universityId: e.target.value })}
-        placeholder="Enter university ID"
+        placeholder=""
         required
       />
-       {addLU.universityId === '' && <div style={{ color: 'ed' }}>Please enter a university ID</div>}
+       {addLU.universityId === '' && <div style={{ color: 'ed' }}></div>}
     </div>
   </div>
 </div>

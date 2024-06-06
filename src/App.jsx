@@ -32,34 +32,41 @@ import { ProgramsComp } from "./components/studyPrograms";
 import { AdminLookUpsPage } from "../src/pages/admin/AdminLookUps/index";
 // import { ManageLookUps } from "./pages/admin/managelookups";
 import { LogFiles } from "./pages/superadmin/logFiles";
-import { DataTable } from "./components/dataTable/index";
-import { SummerFees } from "./pages/admin/managelockups/summerfees";
-import { AbsenteeEstimateCalculation } from "./pages/admin/managelockups/absenteeEstimateCalculation";
-import { TheAcademicDegree } from "./pages/admin/managelockups/academicDegree";
-import { AllGrades } from "./pages/admin/managelockups/allGrades";
-import { ReasonForBlockingAcademicResult } from "./pages/admin/managelockups/blockingAcademicResult";
-import { BlockingProofOfRegistration } from "./pages/admin/managelockups/blockingProofOfRegistration";
-import { ReasonForBlockingRegistration } from "./pages/admin/managelockups/blockingRegistration";
-import { BurdenCalculation } from "./pages/admin/managelockups/burdenCalculation";
-import { CourseRequirement } from "./pages/admin/managelockups/courseRequirement";
-import { CourseType } from "./pages/admin/managelockups/courseType";
-import { DivisionType } from "./pages/admin/managelockups/divisionType";
-import { TypeOfFinancialStatementInTheProgram } from "./pages/admin/managelockups/financialStatement";
-import { Hours } from "./pages/admin/managelockups/hours";
-import { Levels } from "./pages/admin/managelockups/levels";
-import { PassingTheElectiveGroupBasedOn } from "./pages/admin/managelockups/passingTheElectiveGroupBasedOn";
-import { Prerequisites } from "./pages/admin/managelockups/prerequisites";
-import { PreviousQualification } from "./pages/admin/managelockups/previousQualification";
-import { TypeOfProgramFees } from "./pages/admin/managelockups/programFees";
-import { TheResultAppears } from "./pages/admin/managelockups/resultAppears";
-import { SystemType } from "./pages/admin/managelockups/systemType";
-import { HomeUserPage } from "./pages/programs/home";
+
+import {DataTable} from "./components/dataTable/index";
+import {SummerFees} from "./pages/admin/managelockups/summerfees";
+import{TheAcademicDegree} from "./pages/admin/managelockups/academicDegree";
+import {AllGrades} from "./pages/admin/managelockups/allGrades";
+import {ReasonForBlockingAcademicResult} from "./pages/admin/managelockups/blockingAcademicResult";
+import {BlockingProofOfRegistration} from "./pages/admin/managelockups/blockingProofOfRegistration";
+import {ReasonForBlockingRegistration} from "./pages/admin/managelockups/blockingRegistration";
+import {BurdenCalculation} from "./pages/admin/managelockups/burdenCalculation";
+import {CourseType} from "./pages/admin/managelockups/courseType";
+import {DivisionType} from "./pages/admin/managelockups/divisionType";
+import {TypeOfFinancialStatementInTheProgram} from "./pages/admin/managelockups/financialStatement";
+import {Hours} from "./pages/admin/managelockups/hours";
+import {Levels} from "./pages/admin/managelockups/levels";
+import {PassingTheElectiveGroupBasedOn} from "./pages/admin/managelockups/passingTheElectiveGroupBasedOn";
+import{Prerequisites} from "./pages/admin/managelockups/prerequisites";
+import {PreviousQualification} from "./pages/admin/managelockups/previousQualification";
+import {TypeOfProgramFees}  from "./pages/admin/managelockups/programFees";
+import {TheResultAppears} from "./pages/admin/managelockups/resultAppears";
+import {SystemType} from "./pages/admin/managelockups/systemType";
+import{Semesters} from "./pages/admin/managelockups/semesters";
+import {GradesDetails} from "./pages/admin/managelockups/gradesDetails";
+import { ManagingHome } from "./pages/admin/managelockups/managing";
+import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
+import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentLevel";
+import { Faculty } from "./pages/admin/managelockups/faculty";
+
+
 
 function App() {
   useEffect(() => {}, []);
 
   return (
     <Provider store={store}>
+
       <Suspense
         fallback={
           <CircularProgress
@@ -71,6 +78,7 @@ function App() {
         }
       >
         <Routes>
+          
           <Route path="/" element={<LoginPage />} />
 
           <Route element={<Layout />}>

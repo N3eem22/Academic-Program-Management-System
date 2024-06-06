@@ -43,13 +43,15 @@ const UpdateUsersPage = () => {
       //console.log(response.data);
       // console.log(uniname);
     } catch (err) {
-      console.log("hiiiiiiiii");
+      console.log("error");
     }
   }
 
   useEffect(() => {
     GetUniData();
   }, []);
+
+
   useEffect(() => {
     console.log(updateusers);
   }, [updateusers]);
@@ -145,6 +147,13 @@ const UpdateUsersPage = () => {
     formData.append("role", updateusers.role);
     console.log(updateusers.faculties);
     axios
+      .put(`https://localhost:7095/api/Users/Update?id=${id}`, formData , {
+        headers: {
+          token: auth.token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+
       .put(`https://localhost:7095/api/Users/Update?id=${id}`, {
         id: id,
         email: updateusers.email,
@@ -178,11 +187,6 @@ const UpdateUsersPage = () => {
 
       });
   };
-
-  //   // const updateUsers = (id) =>{
-  //   //   alert(id)
-
-  //   // }
 
   return (
     <Fragment>
