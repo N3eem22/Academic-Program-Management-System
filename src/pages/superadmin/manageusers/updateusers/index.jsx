@@ -318,7 +318,7 @@ const UpdateUsersPage = () => {
                           >
                             <option value="" disabled>
                               اختر الكليه
-                            </option>
+                            </option> 
                             {facultyname.map((faculties , index) => (
                               <option
                               selected={updateusers.faculties[index] === faculties.facultyName} 

@@ -88,7 +88,6 @@ function App() {
                 path="/updatefaculty/:id"
                 element={<UpdateFacultyWrapper />}
               />
-
               <Route path="/summer" element={<SummerFees />} />
               <Route
                 path="/absentee"
@@ -147,18 +146,17 @@ function App() {
               <Route path="/control" element={<ControlPage />} />
               <Route path="/homeuser" element={<HomeUserPage />} />
 
-
-              <Route path="/gpa" element={<GpaPage />} />
               <Route
                 path="/Generalestimates"
                 element={<GeneralestimatesPage />}
               />
               <Route path="/levels" element={<LevelsPage />} />
               <Route path="/estimates" element={<EstimatesPage />} />
-              <Route path="/graduation" element={<GraduationPage />} />
               <Route path="/academicload" element={<AcademicloadPage />} />
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/controls" element={<ControlsPage />} />
+              <Route path="/gpa" element={<GpaPage />} />
+              <Route path="/graduation" element={<GraduationPage />} />
             </Route>
           </Route>
         </Routes>
