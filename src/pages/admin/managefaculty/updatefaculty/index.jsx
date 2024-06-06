@@ -28,17 +28,18 @@ const UpdatefacultyPage = () => {
           universityId,
           university,
         });
+        console.log(Updatefaculty);
       })
       .catch((error) => {
         console.error("Error fetching university data:", error);
       });
-  }, [id]);
+  }, [Updatefaculty.loading]);
   const handleUpdatefaculty = (e) => {
     e.preventDefault();
     setUpdatefaculty({ ...Updatefaculty, loading: true, err: [] });
     axios
       .put(
-        `https://localhost:7095/api/Faculty/1?updatedFacultyName=${Updatefaculty.facultyName}`,
+        `https://localhost:7095/api/Faculty/${id}?updatedFacultyName=${Updatefaculty.facultyName}`,
         {
           facultyName: Updatefaculty.facultyName,
         }
@@ -90,81 +91,6 @@ const UpdatefacultyPage = () => {
                   <div className="card-body">
                     <div className="basic-form">
                       <form className="col-md-12">
-                        {/* <div className="mb-3 row">
-                          <label
-                            className="col-md-2 col-form-label"
-                            htmlFor="id"
-                          >
-                            id of Faculty
-                          </label>
-                          <div className="col-md-3">
-                            <input
-                              value={Updatefaculty.id}
-                              onChange={(e) =>
-                                setUpdatefaculty({
-                                  ...Updatefaculty,
-                                  id: e.target.value,
-                                })
-                              }
-                              id="id"
-                              name="id"
-                              type="number"
-                              className="form-control"
-                              placeholder="الموبايل"
-                            />
-                          </div>
-                        </div>
-                     
-                      <div className="mb-3 row">
-                          <label
-                            className="col-md-2 col-form-label"
-                            htmlFor="universityId"
-                          >
-                            id of uni
-                          </label>
-                          <div className="col-md-3">
-                            <input
-                              value={Updatefaculty.universityId}
-                              onChange={(e) =>
-                                setUpdatefaculty({
-                                  ...Updatefaculty,
-                                  universityId: e.target.value,
-                                })
-                              }
-                              id="iduniversityId"
-                              name="universityId"
-                              type="number"
-                              className="form-control"
-                              placeholder="الموبايل"
-                            />
-                          </div>
-                        </div>
-                     
-                        <div className="mb-3 row">
-                          <label
-                            className="col-md-2 col-form-label"
-                            htmlFor="displayName"
-                          >
-                            اسم الجامعه
-                          </label>
-                          <div className="col-md-3">
-                            <input
-                              value={Updatefaculty.university}
-                              onChange={(e) =>
-                                setUpdatefaculty({
-                                  ...Updatefaculty,
-                                  university: e.target.value,
-                                })
-                              }
-                              id="university"
-                              name="university"
-                              type="text"
-                              className="form-control"
-                              placeholder="الاسم"
-                            />
-                          </div>
-                        </div>
-                        */}
                         <div className="mb-3 row">
                           <label
                             className="col-md-2 col-form-label"

@@ -7,11 +7,11 @@ import { useParams } from "react-router-dom";
 import { getAuthUser } from "../../../helpers/storage";
 
 const ManageUsersPage = () => {
-
+ 
 
   let { id } = useParams();
-  const auth = getAuthUser();
-  const [users, setUsers] = useState({
+  const userToken = getAuthUser();
+    const [users, setUsers] = useState({
     loading: true,
     results: [],
     err: null,
@@ -35,17 +35,23 @@ const ManageUsersPage = () => {
 
  
 
-  const deleteUser = (id) => {
+  const deleteUser = (id ,e) => {
+    //console.log(id);
+    e.preventDefault();
+    //console.log(userToken.token);
     axios
-      .delete("https://localhost:7095/api/Users?id= " + id, {
+      .delete(`https://localhost:7095/api/Users?id=${id}` ,{
         headers: {
-          token: auth.token,
-        },
+          'Authorization': `Bearer ${userToken.token}`
+        }
       })
       .then((resp) => {
+        console.log(resp);
         setUsers({ ...users, reload: users.reload + 1 });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // const updateUsers = (id) =>{
@@ -145,7 +151,7 @@ const ManageUsersPage = () => {
                                 <div className="d-flex">
                                   <button
                                     onClick={(e) => {
-                                      deleteUser(users.id);
+                                      deleteUser(users.id ,e);
                                     }}
                                     className="btn btn-danger shadow btn-xs sharp"
                                     href=""

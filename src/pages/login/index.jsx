@@ -42,10 +42,10 @@ const LoginPage = React.memo(() => {
             navigate("/manageuni");
             break;
           case "Admin":
-            navigate("/managefaculty");
+            navigate("/AdminLookUps");
             break;
           case "User":
-            navigate("/control");
+            navigate("/homeuser");
             break;
           default:
             navigate("/");
@@ -186,7 +186,5 @@ const LoginPage = React.memo(() => {
 });
 
 LoginPage.displayName = "LoginPage";
-
 LoginPage.propTypes = {};
-
 export { LoginPage };
