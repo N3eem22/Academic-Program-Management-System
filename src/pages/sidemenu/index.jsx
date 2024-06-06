@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
+import { ProgramComponent } from "../../components/ProgramComponent";
 
 const SideMenu = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
@@ -10,21 +11,22 @@ const SideMenu = () => {
 
   const [activeItem, setActiveItem] = useState("");
 
-  useEffect(() => {
-    const authUser = getAuthUser();
-    setIsSuperAdmin(authUser && authUser.userRole === "SuperAdmin");
-  }, [getAuthUser()]);
+const [showProgramComponent, setShowProgramComponent] = useState(false);
 
+    const handleClick = () => {
+        setShowProgramComponent(!showProgramComponent);
+    };
   useEffect(() => {
     const authUser = getAuthUser();
+    setIsSuperAdmin(authUser && authUser.userRole === "SuperAdmin");    
     setIsAdmin(authUser && authUser.userRole === "Admin");
-  }, [getAuthUser()]);
-
-  useEffect(() => {
-    const authUser = getAuthUser();
     setIsUser(authUser && authUser.userRole === "User");
-  }, [getAuthUser()]);
-
+  }, []);
+  // useEffect(() => {
+  //   console.log('isAdmin:', isAdmin); 
+  //   console.log('isUser:', isUser);
+  // }, [isAdmin ,isUser]);
+ 
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
@@ -54,6 +56,7 @@ const SideMenu = () => {
                       >
                         البرامج الدراسيه
                       </button>
+                     
                     </strong>
                     <div
                       id="collapseOne"
@@ -61,8 +64,9 @@ const SideMenu = () => {
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body">
-                        <h5>بيانات البرنامج</h5>
+                        <button className="btn" onClick={(e)=>handleClick(e)}>بيانات البرنامج</button>
                       </div>
+                      {showProgramComponent && <ProgramComponent />} 
                     </div>
                   </div>
                 </div>
@@ -80,6 +84,7 @@ const SideMenu = () => {
                 <Link to="/AdminLookUps"> نظام التحكم </Link>
               </div>
             )}
+            
             {isAdmin && (
               <div
                 className={` ${styles.menuItem} ${
@@ -196,33 +201,8 @@ const SideMenu = () => {
             </div>
 
             <div className="nav-content fs-5 fw-semibold p-2">
-              {isUser && (
-                <Link
-                  className="navbar-brand fs-5 fw-semibold"
-                  to="/AdminLookUps"
-                >
-                  <img
-                    src="../src\assets\imgs\gear-wide-connected.svg"
-                    alt="Logo"
-                    width="25"
-                    height="20"
-                    className=" ms-3 d-inline-block align-text-center"
-                  />
-                  نظام التحكم
-                </Link>
-              )}
-              {isUser && (
-                <a className="navbar-brand" href="/managefaculty">
-                  <img
-                    src="../src\assets\imgs\book.svg"
-                    alt="Logo"
-                    width="25"
-                    height="20"
-                    className="d-inline-block align-text-center"
-                  />
-                  اداره الكليات{" "}
-                </a>
-              )}
+              {isUser}
+              
             </div>
           </nav>
         </div>
