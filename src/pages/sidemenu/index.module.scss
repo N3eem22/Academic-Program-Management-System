@@ -25,7 +25,7 @@
     color: #fff !important;
     text-decoration: none !important; // Remove decoration from links
     &:hover {
-      background-color: gray;
+      background-color: rgb(156, 156, 156);
     }
 
     a { // Style the link inside .menuItem
@@ -35,6 +35,6 @@
   }
 
   .active {
-    background-color: #555;
+    background-color: rgb(156, 156, 156);
   }
 }

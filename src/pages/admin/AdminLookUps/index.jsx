@@ -8,7 +8,7 @@
 // // import { getsummerFees } from "../../../redux/lookupsslice";
 // // import { store } from "../../../redux/store";
 
-// const ManageLookUps = () => { 
+// const ManageLookUps = () => {
 // //  const {summerFees}=  useSelector((state)=> state.summerfee);
 // //   let dispatch = useDispatch();
 // const[sems, setSems] = useState([]);
@@ -35,7 +35,7 @@
 
 //   useEffect(()=>{
 
-    // axios.get('https://localhost:7095/api/TypeOfSummerFees?UniversityId=')
+// axios.get('https://localhost:7095/api/TypeOfSummerFees?UniversityId=')
 //   //   .then(Response => setSummerFees(Response.data))
 //   //   .catch(err => console.log(err));
 //   //   axios.get('https://localhost:7095/api/BurdenCalculation?UniversityId')
@@ -271,14 +271,13 @@
 //       });
 //   };
 
-
 // return (
 
 //     <Fragment>
 //       <div dir="rtl"></div>
-//         <div className="col-md-10"> 
+//         <div className="col-md-10">
 //         <div  lang="ar" dir="rtl" className="container py-5 position-relative">
-//             <div className="-flex justify-content-end m-auto">  
+//             <div className="-flex justify-content-end m-auto">
 //  <div className="position-relative">
 //  <select className="form-select form-select-lg mb-3 py-2 w-50 m-auto" aria-label=".form-select-lg example">
 //  <option >الدرجة العلمية</option>
@@ -535,15 +534,89 @@
 // </div>
 // </div>
 //       </div>
-      
+
 //         </div>
-      
+
 //     </Fragment>
 //     );
 // };
- 
+
 // ManageLookUps.displayName = "ManageLookUps";
 
 // ManageLookUps.propTypes = {};
 
 // export { ManageLookUps };
+
+import React, { Fragment } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+const AdminLookUpsPage = () => {
+  return (
+    <Fragment>
+      <div className="container" dir="rtl">
+        <div className="row mt-3">
+          <div className="col-md-2"></div>
+          <div className="col-md-10 row">
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p><a href="/degree" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">الدرجة العلمية </a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p><a href="/grades" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"> الدرجات </a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p><a href="/blockresult" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب النتيجة</a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p><a href="/blockproof" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب اثبات القيد </a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p><a href="/blockproof" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب اثبات القيد </a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+
+AdminLookUpsPage.displayName = "AdminLookUpsPage";
+
+AdminLookUpsPage.propTypes = {};
+
+export { AdminLookUpsPage };
