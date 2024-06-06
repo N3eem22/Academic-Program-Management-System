@@ -32,41 +32,32 @@ import { ProgramsComp } from "./components/studyPrograms";
 import { AdminLookUpsPage } from "../src/pages/admin/AdminLookUps/index";
 // import { ManageLookUps } from "./pages/admin/managelookups";
 import { LogFiles } from "./pages/superadmin/logFiles";
-
-import {DataTable} from "./components/dataTable/index";
-import {SummerFees} from "./pages/admin/managelockups/summerfees";
-import{TheAcademicDegree} from "./pages/admin/managelockups/academicDegree";
-import {AllGrades} from "./pages/admin/managelockups/allGrades";
-import {ReasonForBlockingAcademicResult} from "./pages/admin/managelockups/blockingAcademicResult";
-import {BlockingProofOfRegistration} from "./pages/admin/managelockups/blockingProofOfRegistration";
-import {ReasonForBlockingRegistration} from "./pages/admin/managelockups/blockingRegistration";
-import {BurdenCalculation} from "./pages/admin/managelockups/burdenCalculation";
-import {CourseType} from "./pages/admin/managelockups/courseType";
-import {DivisionType} from "./pages/admin/managelockups/divisionType";
-import {TypeOfFinancialStatementInTheProgram} from "./pages/admin/managelockups/financialStatement";
-import {Hours} from "./pages/admin/managelockups/hours";
-import {Levels} from "./pages/admin/managelockups/levels";
-import {PassingTheElectiveGroupBasedOn} from "./pages/admin/managelockups/passingTheElectiveGroupBasedOn";
-import{Prerequisites} from "./pages/admin/managelockups/prerequisites";
-import {PreviousQualification} from "./pages/admin/managelockups/previousQualification";
-import {TypeOfProgramFees}  from "./pages/admin/managelockups/programFees";
-import {TheResultAppears} from "./pages/admin/managelockups/resultAppears";
-import {SystemType} from "./pages/admin/managelockups/systemType";
-import{Semesters} from "./pages/admin/managelockups/semesters";
-import {GradesDetails} from "./pages/admin/managelockups/gradesDetails";
-import { ManagingHome } from "./pages/admin/managelockups/managing";
-import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
-import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentLevel";
-import { Faculty } from "./pages/admin/managelockups/faculty";
-
-
+import { DataTable } from "./components/dataTable/index";
+import { SummerFees } from "./pages/admin/managelockups/summerfees";
+import { TheAcademicDegree } from "./pages/admin/managelockups/academicDegree";
+import { AllGrades } from "./pages/admin/managelockups/allGrades";
+import { ReasonForBlockingAcademicResult } from "./pages/admin/managelockups/blockingAcademicResult";
+import { BlockingProofOfRegistration } from "./pages/admin/managelockups/blockingProofOfRegistration";
+import { ReasonForBlockingRegistration } from "./pages/admin/managelockups/blockingRegistration";
+import { BurdenCalculation } from "./pages/admin/managelockups/burdenCalculation";
+import { CourseType } from "./pages/admin/managelockups/courseType";
+import { DivisionType } from "./pages/admin/managelockups/divisionType";
+import { TypeOfFinancialStatementInTheProgram } from "./pages/admin/managelockups/financialStatement";
+import { Hours } from "./pages/admin/managelockups/hours";
+import { Levels } from "./pages/admin/managelockups/levels";
+import { PassingTheElectiveGroupBasedOn } from "./pages/admin/managelockups/passingTheElectiveGroupBasedOn";
+import { Prerequisites } from "./pages/admin/managelockups/prerequisites";
+import { PreviousQualification } from "./pages/admin/managelockups/previousQualification";
+import { TypeOfProgramFees } from "./pages/admin/managelockups/programFees";
+import { TheResultAppears } from "./pages/admin/managelockups/resultAppears";
+import { SystemType } from "./pages/admin/managelockups/systemType";
+import { HomeUserPage } from "./pages/programs/home";
 
 function App() {
   useEffect(() => {}, []);
 
   return (
     <Provider store={store}>
-
       <Suspense
         fallback={
           <CircularProgress
@@ -78,7 +69,6 @@ function App() {
         }
       >
         <Routes>
-          
           <Route path="/" element={<LoginPage />} />
 
           <Route element={<Layout />}>
@@ -97,10 +87,7 @@ function App() {
                 element={<UpdateFacultyWrapper />}
               />
               <Route path="/summer" element={<SummerFees />} />
-              <Route
-                path="/absentee"
-                element={<AbsenteeEstimateCalculation />}
-              />
+              
               <Route path="/degree" element={<TheAcademicDegree />} />
               <Route path="/grades" element={<AllGrades />} />
               <Route
@@ -116,7 +103,6 @@ function App() {
                 element={<BlockingProofOfRegistration />}
               />
               <Route path="/burden" element={<BurdenCalculation />} />
-              <Route path="/courseReq" element={<CourseRequirement />} />
               <Route path="/coursetype" element={<CourseType />} />
               <Route path="/divisiontype" element={<DivisionType />} />
               <Route
@@ -189,27 +175,3 @@ function UpdateFacultyWrapper() {
 }
 
 export default App;
-
-{
-  /* <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/levels" element={<LevelsPage />} />
-          <Route path="/estimates" element={<EstimatesPage />} />
-          <Route path="/academicload" element={<AcademicloadPage />} />
-          <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
-          <Route path="/graduation" element={<GraduationPage />} />
-          <Route path="/manageusers" element={<ManageUsersPage />} />
-          <Route path="/manageuni" element={<ManageUniPage />} />
-          <Route path="/managefaculty" element={<ManageFacultyPage />} />
-          <Route path="/controls" element={<ControlsPage />} />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/gpa" element={<GpaPage />} />
-          <Route path="/control" element={<ControlPage />} />
-        </Route>
-        <Route path="/home" element={<HomePage />} />
-
-        
-      </Routes> */
-}

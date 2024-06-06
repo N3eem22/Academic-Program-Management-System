@@ -63,8 +63,7 @@ const AddGraduation = ({ data }) => {
     console.log(options);
     if (name === "semestersTobePssed" || name === "levelsTobePassed") {
       selectedValues = options.map(option => ({
-        [${ name === "semestersTobePssed" ? "semesterId" : "levelId"
-      }]: parseInt(option.value),
+        [`${name === "semestersTobePssed" ? "semesterId" : "levelId"}`]: parseInt(option.value),
         graduationId: 0 } ));
   } else {
     selectedValues = options.map(option => option.value);
@@ -77,9 +76,10 @@ setgraduation(prevState => ({
   };
 useEffect(() => {
   console.log('Updated selectedValues:', graduation);
+  console.log(data);
 }, [graduation]);
 useEffect(() => {
-  console.log(data);
+ 
   if (globalState.State === "Update") {
     setgraduation(prevGraduation => ({
       ...prevGraduation,
@@ -88,7 +88,7 @@ useEffect(() => {
       ratio: data.ratio,
       value: data.value,
       levelsTobePassed: data.graduationLevels,
-      semestersTobePssed: data.graduationSemesters,
+      semestersTobePssed: data.graduationSemesters ,
       compulsoryCourses: data.compulsoryCourses,
       summerTraining: data.summerTraining,
       verifyPaymentOfFees: data.verifyPaymentOfFees,
@@ -102,7 +102,7 @@ useEffect(() => {
       averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
     }));
   }
-
+console.log(data);
 }, [data]);
 useEffect(() => {
   const selectedGrade = grades.find(grade => graduation.theMinimumGradeForTheCourseId === grade.theGrade);
@@ -117,7 +117,7 @@ useEffect(() => {
 
 useEffect(() => {
 
-  const fetchGrades = axios.get(https://localhost:7095/api/AllGrades?UniversityId=${1}).then((res)=>{console.log(res.data); setGrades(res.data)});
+  const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
     const fetchLevels = axios.get('https://localhost:7095/api/Level?UniversityId=1')
     .then((res) => {
       console.log(res.data);
@@ -166,12 +166,13 @@ useEffect(() => {
 }, [globalState,]);
 useEffect(() => {
   console.log(graduation);
+
 }, [graduation]);
 async function sendDataToApi() {
 
   const dataToSend = { graduationReq: graduation };
   console.log("Sending request with payload:", dataToSend);
-  await axios.post(https://localhost:7095/api/Graduation,{
+  await axios.post(`https://localhost:7095/api/Graduation`,{
     ProgramId : graduation.programId,
     rate : graduation.rate,
     ratio : graduation.ratio,
@@ -198,7 +199,7 @@ async function UpdateAPI() {
 
   const dataToSend = { graduationReq: graduation };
   console.log("Sending request with payload:", dataToSend);
-  await axios.put(https://localhost:7095/api/Graduation/${49},{
+  await axios.put(`https://localhost:7095/api/Graduation/${49}`,{
     ProgramId : graduation.programId,
     rate : graduation.rate,
     ratio : graduation.ratio,
@@ -767,8 +768,15 @@ return (
                           aria-label="Multiple select example"
                         //value={graduation.levelsTobePassed}
                         >
-                          {levels && levels.map((level, index) => (
-                            <option key={index} value={level.id} selected={data.graduationLevels.includes(level.levels)}> {level.levels}</option>
+                          {globalState.State !=="Add" && levels && levels.map((level, index) => (
+                            <option key={index} 
+                            value={level.id} 
+                            selected={data.graduationLevels.includes(level.levels)}> {level.levels}</option>
+                          ))}
+                          {globalState.State ==="Add" && levels && levels.map((level, index) => (
+                            <option key={index} 
+                            value={level.id} 
+                            > {level.levels}</option>
                           ))}
                         </select>
                       </div>
@@ -794,7 +802,7 @@ return (
                         // value={graduation.semestersTobePssed}
                         >
 
-                          {Sems && Sems.map((sem, index) => (
+                          {globalState.State !=="Add" && Sems && Sems.map((sem, index) => (
                             <option
                               key={index}
                               value={sem.id}
@@ -803,7 +811,14 @@ return (
                               {sem.semesters}
                             </option>
                           ))}
-
+   {globalState.State ==="Add" && Sems && Sems.map((sem, index) => (
+                            <option
+                              key={index}
+                              value={sem.id}
+                            >
+                              {sem.semesters}
+                            </option>
+                          ))}
                         </select>
 
                       </div>
@@ -844,14 +859,14 @@ return (
                     </div>
                   </div>
                   <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                    {(state.status !== "Get") && <button className={btn fs-4 fw-semibold px-4 text-white ${styles.save}} type="submit">
+                    {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}` } type="submit">
                     <i className="fa-regular fa-bookmark"></i> حفظ
                   </button>}
-                  {(state.status !== "Get") && <button className={btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
+                  {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
                   <i className="fa-solid fa-lock"></i> غلق
                 </button>}
 
-                <button className={btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}} type="button" onClick={() => {
+                <button className={`tn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
                   dispatch({ type: "Update" });
 
                   setGlobalState({ ...globalState, State: "Update" });
