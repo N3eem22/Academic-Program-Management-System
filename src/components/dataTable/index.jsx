@@ -211,6 +211,67 @@ const DataTable = ({
                           <div style={{ color: "ed" }}>Please enter a name</div>
                         )}
                       </div>
+
+                      <label className="col-lg-3 fw-semibold fs-5 col-form-label">
+                        الاسم
+                      </label>
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          value={addLU.nameOfLU}
+                          onChange={(e) =>
+                            setAddLU({ ...addLU, nameOfLU: e.target.value })
+                          }
+                          placeholder=""
+                          required
+                        />
+                        {addLU.nameOfLU === "" && (
+                          <div style={{ color: "ed" }}></div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="form-group m-auto  row">
+                      <label
+                        className="col-lg-3 fw-semibold fs-5 col-form-label"
+                        htmlFor="universityId"
+                      >
+                        كود الجامعة
+                      </label>
+                      <div className="col-lg-5 ">
+                        <div className="input-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="universityId"
+                            value={addLU.universityId}
+                            onChange={(e) =>
+                              setAddLU({
+                                ...addLU,
+                                universityId: e.target.value,
+                              })
+                            }
+                            placeholder=""
+                            required
+                          />
+                          {addLU.universityId === "" && (
+                            <div style={{ color: "ed" }}></div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-5 m-auto">
+                      <button
+                        type="submit"
+                        onClick={handleAddClick}
+                        className="px-4 mt-3 fw-semibold fs-5 btn btn-primary"
+                      >
+                        إضافة
+                      </button>
                     </div>
 
                     <div className="form-group m-auto  row">

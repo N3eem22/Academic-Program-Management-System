@@ -34,14 +34,12 @@ import { AdminLookUpsPage } from "../src/pages/admin/AdminLookUps/index";
 import { LogFiles } from "./pages/superadmin/logFiles";
 import { DataTable } from "./components/dataTable/index";
 import { SummerFees } from "./pages/admin/managelockups/summerfees";
-import { AbsenteeEstimateCalculation } from "./pages/admin/managelockups/absenteeEstimateCalculation";
 import { TheAcademicDegree } from "./pages/admin/managelockups/academicDegree";
 import { AllGrades } from "./pages/admin/managelockups/allGrades";
 import { ReasonForBlockingAcademicResult } from "./pages/admin/managelockups/blockingAcademicResult";
 import { BlockingProofOfRegistration } from "./pages/admin/managelockups/blockingProofOfRegistration";
 import { ReasonForBlockingRegistration } from "./pages/admin/managelockups/blockingRegistration";
 import { BurdenCalculation } from "./pages/admin/managelockups/burdenCalculation";
-import { CourseRequirement } from "./pages/admin/managelockups/courseRequirement";
 import { CourseType } from "./pages/admin/managelockups/courseType";
 import { DivisionType } from "./pages/admin/managelockups/divisionType";
 import { TypeOfFinancialStatementInTheProgram } from "./pages/admin/managelockups/financialStatement";
@@ -88,14 +86,13 @@ function App() {
               <Route path="/logFiles" element={<LogFiles />} />
               <Route path="/updatefaculty/:id"element={<UpdateFacultyWrapper />}    />
               <Route path="/summer" element={<SummerFees />} />
-              <Route path="/absentee" element={<AbsenteeEstimateCalculation />} />
+      
               <Route path="/degree" element={<TheAcademicDegree />} />
               <Route path="/grades" element={<AllGrades />} />
               <Route path="/blockresult" element={<ReasonForBlockingAcademicResult />} />
               <Route path="/blockregister" element={<ReasonForBlockingRegistration />} />
               <Route path="/blockproof" element={<BlockingProofOfRegistration />}/>
               <Route path="/burden" element={<BurdenCalculation />} />
-              <Route path="/courseReq" element={<CourseRequirement />} />
               <Route path="/coursetype" element={<CourseType />} />
               <Route path="/divisiontype" element={<DivisionType />} />
               <Route path="/financialstatement" element={<TypeOfFinancialStatementInTheProgram />}  />
@@ -163,27 +160,3 @@ function UpdateFacultyWrapper() {
 }
 
 export default App;
-
-{
-  /* <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/levels" element={<LevelsPage />} />
-          <Route path="/estimates" element={<EstimatesPage />} />
-          <Route path="/academicload" element={<AcademicloadPage />} />
-          <Route path="/Generalestimates" element={<GeneralestimatesPage />} />
-          <Route path="/graduation" element={<GraduationPage />} />
-          <Route path="/manageusers" element={<ManageUsersPage />} />
-          <Route path="/manageuni" element={<ManageUniPage />} />
-          <Route path="/managefaculty" element={<ManageFacultyPage />} />
-          <Route path="/controls" element={<ControlsPage />} />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/gpa" element={<GpaPage />} />
-          <Route path="/control" element={<ControlPage />} />
-        </Route>
-        <Route path="/home" element={<HomePage />} />
-
-        
-      </Routes> */
-}

@@ -23,42 +23,20 @@ const CoursesPage = () => {
         previousQualification: "", //المؤهل السابق
         gender: "",
         addingCourse: "",
-        passOrFailSubject: "",
-        registrationForTheCourseInTheSummerTerm: 2,
+        passOrFailSubject: false,
+        registrationForTheCourseInTheSummerTerm: false,
         firstReductionEstimatesForFailureTimes: "",
         percentageForFristGrade: "",
-        secondReductionEstimatesForFailureTimes: 2,
+        secondReductionEstimatesForFailureTimes: "",
         percentageForSecondGrade: "",
-        thirdReductionEstimatesForFailureTimes: 2,
+        thirdReductionEstimatesForFailureTimes: "",
         percentageForThirdGrade: "",
         numberOfPreviousPreRequisiteCourses: "", // عدد المتطلب السابق
         partOneCourse: "",
-        coursesandGradesDetails: [
-            {
-                courseInfoId: 31,
-                gradeDetailsId: 1,
-                value: 0
-            }
-        ],
-        coursesAndHours: [
-            {
-                courseInfoId: 31,
-                hourId: 1
-            }
-        ],
-        detailsOfFailingGrades: [
-            {
-                courseInfoId: 31,
-                failedGradeId: 1,
-                value: 0
-            }
-        ],
-        preRequisiteCourses: [
-            {
-                preRequisiteCourseId: 3,  //college courses
-                courseInfoId: 31
-            }
-        ]
+        coursesandGradesDetails: [],
+        coursesAndHours: [],
+        detailsOfFailingGrades: [],
+        preRequisiteCourses: []
 
     });
     useEffect(() => {
@@ -73,7 +51,7 @@ const CoursesPage = () => {
                 preRequisiteCourses: [
                     {
                         preRequisiteCourseId: value,
-                        courseInfoId: 31
+
                     }
                 ]
             }));
@@ -84,8 +62,53 @@ const CoursesPage = () => {
             }));
         }
     };
+    const handleChangePreviousQualification = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            previousQualification: value
+        }));
+    };
+    const [selectedValue, setSelectedValue] = useState("");
+    const [customValues, setCustomValues] = useState({});
+    const [sections, setSections] = useState([]);
+    const [gradesDetails, setGradesDetails] = useState([]);
+    const [allGrades, setAllGrades] = useState([]);
+    const [prerequisites, setPrerequisites] = useState([]);
+    const [previousQualifications, setPreviousQualifications] = useState([]);
+    const [levels, setLevels] = useState([]);
+    const [semesters, setSemesters] = useState([]);
+    const [selectedGrades, setSelectedGrades] = useState([]);
+    const [gradeInput, setGradeInput] = useState("");
+    const [hoursOptions, setHoursOptions] = useState([]);
+    const [courseTypes, setCourseTypes] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const gradesDetailsResponse = await axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${1}`);
+                const allGradesResponse = await axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`);
+                const prerequisitesResponse = await axios.get(`https://localhost:7095/api/Prerequisites?UniversityId=${1}`);
+                const previousQualificationsResponse = await axios.get(`https://localhost:7095/api/PreviousQualification?UniversityId=${1}`);
+                const levelsResponse = await axios.get(`https://localhost:7095/api/Level?UniversityId=${1}`);
+                const semestersResponse = await axios.get(`https://localhost:7095/api/Semesters?UniversityId=${1}`);
+                const hoursResponse = await axios.get(`https://localhost:7095/api/Hours?UniversityId=${3}`);
+                const courseTypesResponse = await axios.get(`https://localhost:7095/api/CourseType?UniversityId=${1}`);
 
+                setGradesDetails(Array.isArray(gradesDetailsResponse.data) ? gradesDetailsResponse.data : [gradesDetailsResponse.data]);
+                setAllGrades(Array.isArray(allGradesResponse.data) ? allGradesResponse.data : [allGradesResponse.data]);
+                setPrerequisites(Array.isArray(prerequisitesResponse.data) ? prerequisitesResponse.data : [prerequisitesResponse.data]);
+                setPreviousQualifications(Array.isArray(previousQualificationsResponse.data) ? previousQualificationsResponse.data : [previousQualificationsResponse.data]);
+                setLevels(Array.isArray(levelsResponse.data) ? levelsResponse.data : [levelsResponse.data]);
+                setSemesters(Array.isArray(semestersResponse.data) ? semestersResponse.data : [semestersResponse.data]);
+                setHoursOptions(hoursResponse.data);
+                setCourseTypes(courseTypesResponse.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
+        fetchData();
+    }, []);
     const sendDataToApi = async () => {
         try {
             setData({ ...data, programId: 1002 })
@@ -114,38 +137,19 @@ const CoursesPage = () => {
                 percentageForThirdGrade: data.percentageForThirdGrade,
                 numberOfPreviousPreRequisiteCourses: data.numberOfPreviousPreRequisiteCourses,
                 partOneCourse: data.partOneCourse,
-                coursesandGradesDetails: [
-                    {
-                        courseInfoId: 31,
-                        gradeDetailsId: 1,
-                        value: 0
-                    }
-                ],
-                coursesAndHours: [
-                    {
-                        courseInfoId: 31,
-                        hourId: 1
-                    }
-                ],
-                detailsOfFailingGrades: [
-                    {
-                        courseInfoId: 31,
-                        failedGradeId: 1,
-                        value: 0
-                    }
-                ],
-                preRequisiteCourses: [
-                    {
-                        preRequisiteCourseId: 3,
-                        courseInfoId: 31
-                    }
-                ]
+                coursesandGradesDetails: data.coursesandGradesDetails,
+                coursesAndHours: data.coursesAndHours,
+                detailsOfFailingGrades: data.detailsOfFailingGrades,
+                preRequisiteCourses: data.preRequisiteCourses
             });
 
             console.log('Response:', res.data);
         } catch (err) {
-            console.log('Error data:', err.response.data);
-            return err;
+            setData({
+                ...data,
+                loading: false,
+                err: [{ message: err.response.data.message }],
+            });
         }
     }
     function submit(e) {
@@ -154,38 +158,10 @@ const CoursesPage = () => {
 
         sendDataToApi();
     }
-
-
-
-
-
-    const [selectedValue, setSelectedValue] = useState("");
-    const [customValues, setCustomValues] = useState({});
-    const [sections, setSections] = useState([]);
-    const [gradesDetails, setGradesDetails] = useState([]);
-
-    useEffect(() => {
-        axios.get('https://localhost:7095/api/GradesDetails/1')
-            .then(response => {
-                if (Array.isArray(response.data)) {
-                    setGradesDetails(response.data);
-                } else if (typeof response.data === 'object') {
-                    setGradesDetails([response.data]); // Convert object to array
-                } else {
-                    console.error('Unexpected response format:', response.data);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching grades details:', error);
-            });
-    }, []);
-
-
     const handleSelectChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedValue(selectedValue);
     };
-
     const handleCustomInputChange = (event, id) => {
         const value = event.target.value;
         setCustomValues((prevValues) => {
@@ -194,7 +170,6 @@ const CoursesPage = () => {
                 [id]: value,
             };
 
-            // Update the backend data only if the new custom value is not empty
             if (value.trim() !== "") {
                 setData((prevData) => {
                     const updatedGrades = prevData.coursesandGradesDetails.map((grade) =>
@@ -211,45 +186,43 @@ const CoursesPage = () => {
             return newValues;
         });
     };
-
     const handlePlusIconClick = () => {
         if (selectedValue) {
-            const newSectionId = sections.length + 1;
-            const newSection = {
-                id: newSectionId,
-                value: selectedValue,
-            };
-            setSections([...sections, newSection]);
-
-            setData((prevData) => {
-                const isFirstAddition = sections.length === 0;
-
-                return {
-                    ...prevData,
-                    coursesandGradesDetails: isFirstAddition
-                        ? [
-                            {
-                                // gradeId: newSectionId,
-                                // controlId: 0,
-                                // value: "",
-                                courseInfoId: 0,
-                                gradeDetailsId: newSectionId,
-                                value: ""
-                            }
-                        ]
-                        : [
-                            ...prevData.coursesandGradesDetails,
-                            {
-                                gradeDetailsId: newSectionId,
-                                courseInfoId: 0,
-                                value: "",
-                            }
-                        ]
+            const selectedDetail = gradesDetails.find(detail => detail.id === parseInt(selectedValue));
+            if (selectedDetail) {
+                const newSectionId = sections.length + 1;
+                const newSection = {
+                    id: newSectionId,
+                    value: selectedDetail.theDetails,
                 };
-            });
+                setSections([...sections, newSection]);
+
+                setData((prevData) => {
+                    const isFirstAddition = sections.length === 0;
+
+                    return {
+                        ...prevData,
+                        coursesandGradesDetails: isFirstAddition
+                            ? [
+                                {
+
+                                    gradeDetailsId: newSectionId,
+                                    value: ""
+                                }
+                            ]
+                            : [
+                                ...prevData.coursesandGradesDetails,
+                                {
+                                    gradeDetailsId: newSectionId,
+
+                                    value: "",
+                                }
+                            ]
+                    };
+                });
+            }
         }
     };
-
     const handleRemoveSection = (id) => {
         const updatedSections = sections.filter((section) => section.id !== id);
         setSections(updatedSections);
@@ -266,84 +239,6 @@ const CoursesPage = () => {
             delete newValues[id];
             return newValues;
         });
-    };
-
-    const [showCheckbox, setShowCheckbox] = useState(false);
-    const handleChange = (event) => {
-        const selectedValue = parseInt(event.target.value);
-        setData({ ...data, courseTypeId: selectedValue });
-        if (selectedValue === 2) {
-            setShowCheckbox(true);
-        } else {
-            setShowCheckbox(false);
-        }
-    };
-    const [level, setLevel] = useState(""); // State to hold the fetched level
-
-    useEffect(() => {
-        axios.get(`https://localhost:7095/api/Level/2`)
-            .then(response => {
-                setLevel(response.data.levels); // Assuming response.data.levels contains the level name
-            })
-            .catch(error => {
-                console.error('Error fetching level:', error);
-            });
-    }, []);
-
-    const handleLevelChange = (event) => {
-        const selectedValue = event.target.value;
-        setData({ ...data, levelId: selectedValue });
-    };
-    const [detailsOfFailingGrades, setDetailsOfFailingGrades] = useState([]);
-
-    useEffect(() => {
-        axios.get('https://localhost:7095/api/AllGrades/1')
-            .then(response => {
-                const gradesArray = Array.isArray(response.data) ? response.data : [response.data];
-                setDetailsOfFailingGrades(gradesArray);
-            })
-            .catch(error => {
-                console.error('Error fetching details of failing grades:', error);
-            });
-    }, []);
-
-
-    const handleDetailsOfFailingGradesChange = (event) => {
-        const selectedValues = Array.from(event.target.selectedOptions, option => option.value);
-        setData({ ...data, detailsOfFailingGrades: selectedValues });
-    };
-
-    const [previousQualification, setPreviousQualification] = useState(""); // State to hold the fetched previous qualification
-
-    useEffect(() => {
-        axios.get(`https://localhost:7095/api/PreviousQualification/2`)
-            .then(response => {
-                setPreviousQualification(response.data.previousQualification); // Assuming response.data.previousQualification contains the qualification name
-            })
-            .catch(error => {
-                console.error('Error fetching previous qualification:', error);
-            });
-    }, []);
-
-    const handlePreviousQualificationChange = (event) => {
-        const selectedValue = event.target.value;
-        setData({ ...data, previousQualification: parseInt(selectedValue) });
-    };
-    const [prerequisites, setPrerequisites] = useState([])
-
-    useEffect(() => {
-        axios.get(`https://localhost:7095/api/Prerequisites`)
-            .then(response => {
-                setPrerequisites(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching prerequisites:', error);
-            });
-    }, []);
-
-    const handlePrerequisiteChange = (event) => {
-        const selectedValue = event.target.value;
-        setData({ ...data, prerequisiteId: parseInt(selectedValue) });
     };
     const handleSearch = async () => {
         try {
@@ -409,7 +304,6 @@ const CoursesPage = () => {
             console.error('Error fetching data:', error);
         }
     };
-    // concurrentCourses
     const handleSearchConcurrentCourses = async () => {
         try {
             const response = await axios.get('https://localhost:7095/api/CollegeCourses');
@@ -430,9 +324,77 @@ const CoursesPage = () => {
             console.error('Error fetching data:', error);
         }
     };
-    
+    const handleSelectChangeFirstReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            firstReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeSeconedReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            secondReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeThirdReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            thirdReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeLevelId = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            levelId: value
+        }));
+    };
+    const handleSelectChangeSemesterId = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            semesterId: value
+        }));
+    };
+    const updateData = () => {
+        setData(prevData => ({
+            ...prevData,
+            detailsOfFailingGrades: selectedGrades.map(gradeId => ({
 
-
+                failedGradeId: gradeId,
+                value: gradeInput
+            }))
+        }));
+    };
+    const handleSelectChangeFailingGrades = (event) => {
+        const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
+        setSelectedGrades(selectedOptions);
+        updateData();
+    };
+    const handleInputChange = (event) => {
+        setGradeInput(event.target.value);
+        updateData();
+    };
+    useEffect(() => {
+        updateData();
+    }, [selectedGrades, gradeInput]);
+    const handleSelectChangeCoursesAndHours = (e) => {
+        const selectedValue = e.target.value;
+        setData(prevData => ({
+            ...prevData,
+            coursesAndHours: [{ hourId: selectedValue }]
+        }));
+    };
+    const handleSelectChangeCourseTypeId = (e) => {
+        const selectedValue = e.target.value;
+        setData(prevData => ({
+            ...prevData,
+            courseTypeId: selectedValue
+        }));
+    };
     return (
         <Fragment>
             <div className="container " dir="rtl">
@@ -441,6 +403,18 @@ const CoursesPage = () => {
                     <div className="col-md-10">
                         <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
                         <br />
+                        {data.err && data.err.length > 0 && (
+                                    <div className="col-md-12 mb-3 w-25 m-auto alert alert-danger">
+                                        <ul
+                                            className="fw-semibold fs-5 text-center"
+                                            style={{ listStyleType: "none", padding: 0, margin: 0 }}
+                                        >
+                                            {data.err.map((error, index) => (
+                                                <li key={index}>{error.message}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
                         <div className="inputs-card  ">
 
                             <div className="card-body">
@@ -453,8 +427,6 @@ const CoursesPage = () => {
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="courseId">
                                                         كود المقرر
                                                     </label>
-
-
                                                     <div class="col-lg-6 input-with-icon">
                                                         <div class="input-group">
                                                             <input
@@ -544,14 +516,17 @@ const CoursesPage = () => {
                                                         الفصل الدراسي
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select semesterId" aria-label="semesterId" id="semesterId" onChange={(e) => {
-                                                            setData({ ...data, semesterId: parseInt(e.target.value) })
-                                                        }}>
-                                                            <option selected disabled ></option>
-                                                            <option value={0} selected={data.semesterId === 0}> الفصل الدراسي الاول</option>
-                                                            <option value={1} selected={data.semesterId === 1}> الفصل الدراسي الثاني</option>
-                                                            <option value={2} selected={data.semesterId === 2}> الصيفي</option>
-                                                            <option value={3} selected={data.semesterId === 3}> الموازنة</option>
+                                                        <select className="form-select semesterId"
+                                                            aria-label="semesterId"
+                                                            id="semesterId"
+                                                            value={data.semesterId}
+                                                            onChange={handleSelectChangeSemesterId}
+                                                        >
+                                                            <option selected disabled></option>
+                                                            {semesters.map((semester) => (
+                                                                <option key={semester.id} value={semester.id}>{semester.semesters}</option>
+                                                            ))}
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -566,75 +541,50 @@ const CoursesPage = () => {
                                                             className="form-select custom-select-start"
                                                             aria-label="Select an option"
                                                             id="levelId"
-                                                            onChange={handleLevelChange}
                                                             value={data.levelId}
+                                                            onChange={handleSelectChangeLevelId}
                                                         >
                                                             <option selected disabled></option>
-                                                            {/* Render the single option */}
-                                                            <option value="1">{level}</option>
+                                                            {levels.map((level) => (
+                                                                <option key={level.id} value={level.id}>{level.levels}</option>
+                                                            ))}
+
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* <div className="col-xl-12">
+                                            <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="coursesAndHours">
                                                         الساعات
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="coursesAndHours" onChange={handleSelectChangeHours} value={selectedValueHours}>
+                                                        <select
+                                                            className="form-select fs-5 custom-select-start"
+                                                            id="coursesAndHours"
+                                                            onChange={handleSelectChangeCoursesAndHours}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="الساعات المعتمدة">الساعات المعتمدة </option>
-                                                            <option value="ساعات المحاضرة">ساعات المحاضرة </option>
+                                                            {hoursOptions.map(hour => (
+                                                                <option key={hour.id} value={hour.id}>{hour.hoursName}</option>
+                                                            ))}
                                                         </select>
                                                     </div>
-                                                    <div className="col-md-1">
-                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handlePlusIconClick("hours")}>
-                                                            <span className="input-group-text">
-                                                                <i className="fa-solid fa-plus fw-bold fs-5"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    {hoursSections.map((section) => (
-                                                        <div className="col-md-2" key={section.id}>
-                                                            <span className={`border ${styles.border}`}>
-                                                                <div className="form-group row">
-                                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label">
-                                                                        {section.selectedValue}
-                                                                    </label>
-                                                                    <div className="col-lg-4">
-                                                                        <div className="input-group">
-                                                                            <input
-                                                                                type="text"
-                                                                                className="form-control"
-                                                                                style={{ textAlign: "center" }}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-md-3">
-                                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id, "hours")}>
-                                                                            <span className="input-group-text">
-                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    ))}
                                                 </div>
-                                            </div> */}
+                                            </div>
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="coursesandGradesDetails">
                                                         الدرجات التفصيلية للمقرر
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="coursesandGradesDetails" onChange={handleSelectChange} value={selectedValue}>
+                                                        <select className="form-select fs-5 custom-select-start" id="coursesandGradesDetails" onChange={handleSelectChange}>
                                                             <option selected disabled> </option>
-                                                            {gradesDetails.map(grade => (
-                                                                <option key={grade.id} value={grade.theDetails}>{grade.theDetails}</option>
+                                                            {gradesDetails.map(detail => (
+                                                                <option key={detail.id} value={detail.id}>
+                                                                    {detail.theDetails}
+                                                                </option>
                                                             ))}
                                                         </select>
                                                     </div>
@@ -647,13 +597,12 @@ const CoursesPage = () => {
                                                     </div>
                                                     {sections.map((section) => (
                                                         <div className="col-md-4" key={section.id}>
-
                                                             <div className="form-group row">
                                                                 <div className="col-lg-8">
-                                                                    <div className="input-group" >
+                                                                    <div className="input-group">
                                                                         <input
                                                                             type="text"
-                                                                            className="form-control mt-2 "
+                                                                            className="form-control mt-2"
                                                                             style={{ textAlign: "center" }}
                                                                             value={section.value}
                                                                             disabled
@@ -675,27 +624,49 @@ const CoursesPage = () => {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     ))}
                                                 </div>
                                             </div>
-
-
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailsOfFailingGrades">
                                                         تفاصيل درجات الرسوب النظري
                                                     </label>
                                                     <div className="col-lg-4">
-                                                        <select className="form-select custom-select-start fs-5" aria-label="Select options" id="detailsOfFailingGrades" multiple onChange={handleDetailsOfFailingGradesChange}>
-                                                            {detailsOfFailingGrades.map(grade => (
-                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                        <select className="form-select custom-select-start fs-5"
+                                                            aria-label="Select options"
+                                                            id="detailsOfFailingGrades"
+                                                            onChange={handleSelectChangeFailingGrades}
+                                                            multiple>
+                                                            {gradesDetails.map(detail => (
+                                                                <option key={detail.id} value={detail.id}>
+                                                                    {detail.theDetails}
+                                                                </option>
                                                             ))}
+
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+                                            {selectedGrades.length > 0 &&
+                                                <div className="mt-4 col-xl-3">
+                                                    <div className="form-group mb-3 row">
+                                                        <label className="col-lg-4 fw-semibold fs-5 col-form-label">
+                                                            {selectedGrades.length > 0 ? 'الدرجة المحددة:' : ''}
+                                                        </label>
+                                                        <div className="col-lg-4">
+                                                            <input
+                                                                type="number"
+                                                                className="form-control fs-5"
+                                                                value={gradeInput}
+                                                                onChange={handleInputChange}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
 
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
@@ -775,26 +746,20 @@ const CoursesPage = () => {
                                                         نوع المقرر
                                                     </label>
                                                     <div className="col-lg-3">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="courseTypeId" onChange={handleChange}>
+                                                        <select
+                                                            className="form-select custom-select-start"
+                                                            aria-label="Select an option"
+                                                            id="courseTypeId"
+                                                            onChange={handleSelectChangeCourseTypeId}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value={0} selected={data.courseTypeId === 0}>اجباري</option>
-                                                            <option value={1} selected={data.courseTypeId === 1}>اختيارى</option>
-                                                            <option value={2} selected={data.courseTypeId === 2}>مشروع</option>
-                                                            <option value={3} selected={data.courseTypeId === 3}>تدريب</option>
-                                                            <option value={4} selected={data.courseTypeId === 4}>اختياري حر</option>
+                                                            {courseTypes.map(type => (
+                                                                <option key={type.id} value={type.id}>{type.courseType}</option>
+                                                            ))}
                                                         </select>
                                                     </div>
-                                                    {showCheckbox && (
-                                                        <div className="col-lg-6">
-                                                            <div className="form-check form-check-inline d-flex">
-                                                                <input className="form-check-input mt-2 fs-5" type="checkbox" id="degree" value="ظهور المقرر بالشهادة" />
-                                                                <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="degree">ظهور المقرر بالشهاده</label>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
-
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="prerequisiteId">
@@ -805,11 +770,12 @@ const CoursesPage = () => {
                                                             className="form-select custom-select-start fs-5"
                                                             aria-label="Select options"
                                                             id="prerequisiteId"
-                                                            onChange={handlePrerequisiteChange}
+                                                            name="prerequisiteId"
                                                             value={data.prerequisiteId}
+                                                            onChange={handleChangepreRequisiteCourses}
                                                         >
-                                                            <option disabled></option>
-                                                            {prerequisites.map((prerequisite) => (
+                                                            <option disabled value=""></option>
+                                                            {prerequisites.map(prerequisite => (
                                                                 <option key={prerequisite.id} value={prerequisite.id}>
                                                                     {prerequisite.prerequisite}
                                                                 </option>
@@ -823,17 +789,21 @@ const CoursesPage = () => {
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="previousQualification">
                                                         المؤهل السابق
                                                     </label>
-
-                                                    <div className="col-lg-4">
+                                                    <div className="col-lg-6">
                                                         <select
                                                             className="form-select custom-select-start fs-5"
                                                             aria-label="Select options"
                                                             id="previousQualification"
-                                                            onChange={handlePreviousQualificationChange}
+                                                            name="previousQualification"
                                                             value={data.previousQualification}
+                                                            onChange={handleChangePreviousQualification}
                                                         >
-                                                            <option disabled></option>
-                                                            <option value="2">{previousQualification}</option>
+                                                            <option disabled value="">اختر المؤهل السابق</option>
+                                                            {previousQualifications.map(qualification => (
+                                                                <option key={qualification.id} value={qualification.id}>
+                                                                    {qualification.previousQualification}
+                                                                </option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -1001,10 +971,16 @@ const CoursesPage = () => {
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="firstReductionEstimatesForFailureTimes">
+                                                        <select className="form-select custom-select-start"
+                                                            aria-label="Select an option"
+                                                            id="firstReductionEstimatesForFailureTimes"
+                                                            value={data.firstReductionEstimatesForFailureTimes}
+                                                            onChange={handleSelectChangeFirstReduction}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="option1">ثانوي عام علوم</option>
-                                                            <option value="option2"> ثانوي زراعي 3 </option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-1">
@@ -1034,10 +1010,16 @@ const CoursesPage = () => {
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="secondReductionEstimatesForFailureTimes">
+                                                        <select className="form-select custom-select-start"
+                                                            aria-label="Select an option"
+                                                            id="secondReductionEstimatesForFailureTimes"
+                                                            value={data.secondReductionEstimatesForFailureTimes}
+                                                            onChange={handleSelectChangeSeconedReduction}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="option1">ثانوي عام علوم</option>
-                                                            <option value="option2"> ثانوي زراعي 3 </option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-1">
@@ -1066,10 +1048,15 @@ const CoursesPage = () => {
                                                         </label>
                                                     </div>
                                                     <div className="col-lg-1">
-                                                        <select className="form-select custom-select-start" aria-label="Select an option" id="thirdReductionEstimatesForFailureTimes">
+                                                        <select className="form-select custom-select-start"
+                                                            id="thirdReductionEstimatesForFailureTimes"
+                                                            value={data.thirdReductionEstimatesForFailureTimes}
+                                                            onChange={handleSelectChangeThirdReduction}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="option1">ثانوي عام علوم</option>
-                                                            <option value="option2"> ثانوي زراعي 3 </option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>
                                                     </div>
                                                     <div className="col-lg-1">

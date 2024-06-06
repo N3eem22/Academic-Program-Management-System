@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.save {
+  background-color: #19355a;
+}
+
+.save:hover {
+  background-color: #244d82;
+}
+
+.bold-and-large-text-input {
+  font-weight: bold; /* Makes the text bold */
+  font-size: 16px; /* Sets the font size to 16 pixels */
+}/*# sourceMappingURL=index.module.css.map */

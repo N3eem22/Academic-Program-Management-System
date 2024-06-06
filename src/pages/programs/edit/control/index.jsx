@@ -1,3 +1,4 @@
+// DESKTOP-N5LVV8M
 import React, { Fragment, useState, useEffect, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -49,60 +50,22 @@ const ControlPage = () => {
         theGrade: "",
         placementOfStudentsInTheCourse: "",
         estimatingTheTheoreticalFailure: "",
-        "failureEstimatesInTheLists": [
-            {
-                "gradeId": 2,
-                "controlId": 0
-            }
-        ],
+        failureEstimatesInTheLists: [],
         detailsOfTheoreticalFailingGrades: "",
-        "detailsOfTheoreticalFailingGradesNav": [
-            {
-                "gradeDetailId": 2,
-                "controlId": 0,
-                "value": 0
-            }
-        ],
+        detailsOfTheoreticalFailingGradesNav: [],
         chooseTheDetailsOfTheoreticalFailureBasedOn: "",
         calculateEstimate: "",
-        "aCaseOfAbsenceInTheDetailedGrades": [
-            {
-                "gradeDetailId": 2,
-                "controlId": 0
-            }
-        ],
+        aCaseOfAbsenceInTheDetailedGrades: [],
         allDetailOrNo: "",
-        'detailsOfExceptionalLetters': [
-            {
-
-                "gradeDetailId": 2,
-                "controlId": 0
-            }
-        ],
+        detailsOfExceptionalLetters: [],
         addingExciptionLetters: "",
-        'exceptionalLetterGrades': [
-            {
-                "gradeId": 2,
-                "controlId": 0,
-                "value": 0
-            }
-        ],
-        'estimatesNotDefinedInTheLists': [
-            {
-                "gradeId": 2,
-                "controlId": 0
-            }
-        ],
+        exceptionalLetterGrades: [],
+        estimatesNotDefinedInTheLists: [],
         successGrades: "",
         failingGrades: "",
         estimateDeprivationBeforeTheExamId: "",
         estimateDeprivationAfterTheExamId: "",
-        'aSuccessRatingDoesNotAddHours': [
-            {
-                "gradeId": 2,
-                "controlId": 0
-            }
-        ],
+        aSuccessRatingDoesNotAddHours: [],
     });
     useEffect(() => {
 
@@ -136,7 +99,6 @@ const ControlPage = () => {
                     detailsOfExceptionalLetters: resp.data.detailsOfExceptionalLetters || prevData.detailsOfExceptionalLetters,
                     addingExciptionLetters: resp.data.addingExciptionLetters,
                     exceptionalLetterGrades: resp.data.exceptionalLetterGrades || prevData.exceptionalLetterGrades,
-                    // exceptionalLetterGrades: resp.data.exceptionalLetterGrades || [],
                     estimatesNotDefinedInTheLists: resp.data.estimatesNotDefinedInTheLists || prevData.estimatesNotDefinedInTheLists,
                     successGrades: resp.data.successGrades,
                     failingGrades: resp.data.failingGrades,
@@ -163,154 +125,80 @@ const ControlPage = () => {
             const dataToSend = { controlReq: data };
             if (state.status === "Add") {
                 const res = await axios.post('https://localhost:7095/api/Control', {
-                    "programId": 1002,
-                    "subtractFromTheDiscountRate": data.subtractFromTheDiscountRate,
-                    "exceptionToDiscountEstimates": data.exceptionToDiscountEstimates,
-                    "firstReductionEstimatesForFailureTimes": data.firstReductionEstimatesForFailureTimes,
-                    "percentageForFristGrade": data.percentageForFristGrade,
-                    "secondReductionEstimatesForFailureTimes": data.secondReductionEstimatesForFailureTimes,
-                    "percentageForSecondGrade": data.percentageForSecondGrade,
-                    "thirdReductionEstimatesForFailureTimes": data.thirdReductionEstimatesForFailureTimes,
-                    "percentageForThirdGrade": data.percentageForThirdGrade,
-                    "calculatingTheBudgetEstimateFromTheReductionEstimates": data.calculatingTheBudgetEstimateFromTheReductionEstimates,
-                    "theGrade": data.theGrade,
-                    "placementOfStudentsInTheCourse": data.placementOfStudentsInTheCourse,
-                    "estimatingTheTheoreticalFailure": data.estimatingTheTheoreticalFailure,
-                    "failureEstimatesInTheLists": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "detailsOfTheoreticalFailingGrades": data.detailsOfTheoreticalFailingGrades,
-                    "detailsOfTheoreticalFailingGradesNav": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0,
-                            "value": 0
-                        }
-                    ],
-                    "chooseTheDetailsOfTheoreticalFailureBasedOn": data.chooseTheDetailsOfTheoreticalFailureBasedOn,
-                    "calculateEstimate": data.calculateEstimate,
-                    "aCaseOfAbsenceInTheDetailedGrades": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "allDetailOrNo": data.allDetailOrNo,
-                    "detailsOfExceptionalLetters": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "addingExciptionLetters": data.addingExciptionLetters,
-                    "exceptionalLetterGrades": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0,
-                            "value": 0
-                        }
-                    ],
-                    "estimatesNotDefinedInTheLists": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "successGrades": data.successGrades,
-                    "failingGrades": data.failingGrades,
-                    "estimateDeprivationBeforeTheExamId": data.estimateDeprivationBeforeTheExamId,
-                    "estimateDeprivationAfterTheExamId": data.estimateDeprivationAfterTheExamId,
-                    "aSuccessRatingDoesNotAddHours": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ]
+                    programId: 1002,
+                    subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
+                    exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
+                    firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
+                    percentageForFristGrade: data.percentageForFristGrade,
+                    secondReductionEstimatesForFailureTimes: data.secondReductionEstimatesForFailureTimes,
+                    percentageForSecondGrade: data.percentageForSecondGrade,
+                    thirdReductionEstimatesForFailureTimes: data.thirdReductionEstimatesForFailureTimes,
+                    percentageForThirdGrade: data.percentageForThirdGrade,
+                    calculatingTheBudgetEstimateFromTheReductionEstimates: data.calculatingTheBudgetEstimateFromTheReductionEstimates,
+                    theGrade: data.theGrade,
+                    placementOfStudentsInTheCourse: data.placementOfStudentsInTheCourse,
+                    estimatingTheTheoreticalFailure: data.estimatingTheTheoreticalFailure,
+                    failureEstimatesInTheLists: data.failureEstimatesInTheLists,
+                    detailsOfTheoreticalFailingGrades: data.detailsOfTheoreticalFailingGrades,
+                    detailsOfTheoreticalFailingGradesNav: data.detailsOfTheoreticalFailingGradesNav,
+                    chooseTheDetailsOfTheoreticalFailureBasedOn: data.chooseTheDetailsOfTheoreticalFailureBasedOn,
+                    calculateEstimate: data.calculateEstimate,
+                    aCaseOfAbsenceInTheDetailedGrades: data.aCaseOfAbsenceInTheDetailedGrades,
+                    allDetailOrNo: data.allDetailOrNo,
+                    detailsOfExceptionalLetters: data.detailsOfExceptionalLetters,
+                    addingExciptionLetters: data.addingExciptionLetters,
+                    exceptionalLetterGrades: data.exceptionalLetterGrades,
+                    estimatesNotDefinedInTheLists: data.estimatesNotDefinedInTheLists,
+                    successGrades: data.successGrades,
+                    failingGrades: data.failingGrades,
+                    estimateDeprivationBeforeTheExamId: data.estimateDeprivationBeforeTheExamId,
+                    estimateDeprivationAfterTheExamId: data.estimateDeprivationAfterTheExamId,
+                    aSuccessRatingDoesNotAddHours: data.aSuccessRatingDoesNotAddHours
                 });
             }
             else if (state.status === "Update") {
                 const res = await axios.put(`https://localhost:7095/api/Control/${1}`, {
-                    "programId": 1002,
-                    "subtractFromTheDiscountRate": data.subtractFromTheDiscountRate,
-                    "exceptionToDiscountEstimates": data.exceptionToDiscountEstimates,
-                    "firstReductionEstimatesForFailureTimes": data.firstReductionEstimatesForFailureTimes,
-                    "percentageForFristGrade": data.percentageForFristGrade,
-                    "secondReductionEstimatesForFailureTimes": data.secondReductionEstimatesForFailureTimes,
-                    "percentageForSecondGrade": data.percentageForSecondGrade,
-                    "thirdReductionEstimatesForFailureTimes": data.thirdReductionEstimatesForFailureTimes,
-                    "percentageForThirdGrade": data.percentageForThirdGrade,
-                    "calculatingTheBudgetEstimateFromTheReductionEstimates": data.calculatingTheBudgetEstimateFromTheReductionEstimates,
-                    "theGrade": data.theGrade,
-                    "placementOfStudentsInTheCourse": data.placementOfStudentsInTheCourse,
-                    "estimatingTheTheoreticalFailure": data.estimatingTheTheoreticalFailure,
-                    "failureEstimatesInTheLists": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "detailsOfTheoreticalFailingGrades": data.detailsOfTheoreticalFailingGrades,
-                    "detailsOfTheoreticalFailingGradesNav": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0,
-                            "value": 0
-                        }
-                    ],
-                    "chooseTheDetailsOfTheoreticalFailureBasedOn": data.chooseTheDetailsOfTheoreticalFailureBasedOn,
-                    "calculateEstimate": data.calculateEstimate,
-                    "aCaseOfAbsenceInTheDetailedGrades": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "allDetailOrNo": data.allDetailOrNo,
-                    "detailsOfExceptionalLetters": [
-                        {
-                            "gradeDetailId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "addingExciptionLetters": data.addingExciptionLetters,
-                    "exceptionalLetterGrades": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0,
-                            "value": 0
-                        }
-                    ],
-                    "estimatesNotDefinedInTheLists": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ],
-                    "successGrades": data.successGrades,
-                    "failingGrades": data.failingGrades,
-                    "estimateDeprivationBeforeTheExamId": data.estimateDeprivationBeforeTheExamId,
-                    "estimateDeprivationAfterTheExamId": data.estimateDeprivationAfterTheExamId,
-                    "aSuccessRatingDoesNotAddHours": [
-                        {
-                            "gradeId": 2,
-                            "controlId": 0
-                        }
-                    ]
+                    programId: 1002,
+                    subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
+                    exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
+                    firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
+                    percentageForFristGrade: data.percentageForFristGrade,
+                    secondReductionEstimatesForFailureTimes: data.secondReductionEstimatesForFailureTimes,
+                    percentageForSecondGrade: data.percentageForSecondGrade,
+                    thirdReductionEstimatesForFailureTimes: data.thirdReductionEstimatesForFailureTimes,
+                    percentageForThirdGrade: data.percentageForThirdGrade,
+                    calculatingTheBudgetEstimateFromTheReductionEstimates: data.calculatingTheBudgetEstimateFromTheReductionEstimates,
+                    theGrade: data.theGrade,
+                    placementOfStudentsInTheCourse: data.placementOfStudentsInTheCourse,
+                    estimatingTheTheoreticalFailure: data.estimatingTheTheoreticalFailure,
+                    failureEstimatesInTheLists: data.failureEstimatesInTheLists,
+                    detailsOfTheoreticalFailingGrades: data.detailsOfTheoreticalFailingGrades,
+                    detailsOfTheoreticalFailingGradesNav: data.detailsOfTheoreticalFailingGradesNav,
+                    chooseTheDetailsOfTheoreticalFailureBasedOn: data.chooseTheDetailsOfTheoreticalFailureBasedOn,
+                    calculateEstimate: data.calculateEstimate,
+                    aCaseOfAbsenceInTheDetailedGrades: data.aCaseOfAbsenceInTheDetailedGrades,
+                    allDetailOrNo: data.allDetailOrNo,
+                    detailsOfExceptionalLetters: data.detailsOfExceptionalLetters,
+                    addingExciptionLetters: data.addingExciptionLetters,
+                    exceptionalLetterGrades: data.exceptionalLetterGrades,
+                    estimatesNotDefinedInTheLists: data.estimatesNotDefinedInTheLists,
+                    successGrades: data.successGrades,
+                    failingGrades: data.failingGrades,
+                    estimateDeprivationBeforeTheExamId: data.estimateDeprivationBeforeTheExamId,
+                    estimateDeprivationAfterTheExamId: data.estimateDeprivationAfterTheExamId,
+                    aSuccessRatingDoesNotAddHours: data.aSuccessRatingDoesNotAddHours
                 });
                 dispatch({ type: 'Get' });
             }
-            console.log(dataToSend);
-            console.log('Response:', res.data);
+
+            console.log('Response:', res);
             if (res.status === 200) {
                 dispatch({ type: 'Get' });
                 console.log(state);
             }
         } catch (err) {
             console.log('Error data:', err.response.data);
-            return err; 
+            return err;
         }
     }
     function submit(e) {
@@ -324,7 +212,7 @@ const ControlPage = () => {
 
 
     const [selectedValue, setSelectedValue] = useState("");
-    const [customValues, setCustomValues] = useState({});  
+    const [customValues, setCustomValues] = useState({});
     const [sections, setSections] = useState([]);
 
 
@@ -361,10 +249,11 @@ const ControlPage = () => {
 
     const handlePlusIconClick = () => {
         if (selectedValue) {
+            const selectedGrade = allGrades.find(grade => grade.id === parseInt(selectedValue));
             const newSectionId = sections.length + 1;
             const newSection = {
-                id: newSectionId,
-                value: selectedValue,
+                id: selectedGrade.id,
+                value: selectedGrade.theGrade,
             };
             setSections([...sections, newSection]);
 
@@ -376,17 +265,17 @@ const ControlPage = () => {
                     exceptionalLetterGrades: isFirstAddition
                         ? [
                             {
-                                gradeId: newSectionId,
+                                gradeId: selectedGrade.id,
                                 controlId: 0,
-                                value: "",  
+                                value: "",
                             }
                         ]
                         : [
                             ...prevData.exceptionalLetterGrades,
                             {
-                                gradeId: newSectionId,
+                                gradeId: selectedGrade.id,
                                 controlId: 0,
-                                value: "",  
+                                value: "",
                             }
                         ]
                 };
@@ -410,6 +299,227 @@ const ControlPage = () => {
             return newValues;
         });
     };
+
+
+
+
+
+
+    const [allGrades, setAllGrades] = useState([]);
+    const [gradesDetails, setGradesDetails] = useState([]);
+    const [prerequisites, setPrerequisites] = useState([]);
+    const [previousQualifications, setPreviousQualifications] = useState([]);
+    const [levels, setLevels] = useState([]);
+    const [semesters, setSemesters] = useState([]);
+
+
+    useEffect(() => {
+
+
+        axios.get('https://localhost:7095/api/AllGrades?UniversityId=1')
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setAllGrades(response.data);
+                } else if (typeof response.data === 'object') {
+                    setAllGrades([response.data]);
+                } else {
+                    console.error('Unexpected response format:', response.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching all grades:', error);
+            });
+        axios.get('https://localhost:7095/api/GradesDetails/1')
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setGradesDetails(response.data);
+                } else if (typeof response.data === 'object') {
+                    setGradesDetails([response.data]);
+                } else {
+                    console.error('Unexpected response format:', response.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching grades details:', error);
+            });
+
+
+        // axios.get('https://localhost:7095/api/Prerequisites/1')
+        //     .then(response => {
+        //         if (Array.isArray(response.data)) {
+        //             setPrerequisites(response.data);
+        //         } else if (typeof response.data === 'object') {
+        //             setPrerequisites([response.data]);
+        //         } else {
+        //             console.error('Unexpected response format:', response.data);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching prerequisites:', error);
+        //     });
+
+        // axios.get('https://localhost:7095/api/PreviousQualification/1')
+        //     .then(response => {
+        //         if (Array.isArray(response.data)) {
+        //             setPreviousQualifications(response.data);
+        //         } else if (typeof response.data === 'object') {
+        //             setPreviousQualifications([response.data]);
+        //         } else {
+        //             console.error('Unexpected response format:', response.data);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching previous qualifications:', error);
+        //     });
+        // axios.get('https://localhost:7095/api/Level/1')
+        //     .then(response => {
+        //         if (Array.isArray(response.data)) {
+        //             setLevels(response.data);
+        //         } else if (typeof response.data === 'object') {
+        //             setLevels([response.data]);
+        //         } else {
+        //             console.error('Unexpected response format:', response.data);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching levels:', error);
+        //     });
+        // axios.get('https://localhost:7095/api/Semesters/1')
+        //     .then(response => {
+        //         if (Array.isArray(response.data)) {
+        //             setSemesters(response.data);
+        //         } else if (typeof response.data === 'object') {
+        //             setSemesters([response.data]);
+        //         } else {
+        //             console.error('Unexpected response format:', response.data);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching semesters:', error);
+        //     });
+    }, []);
+
+    const handleSelectChangeFirstReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            firstReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeSeconedReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            secondReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeThirdReduction = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            thirdReductionEstimatesForFailureTimes: value
+        }));
+    };
+    const handleSelectChangeFailureEstimatesInTheLists = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, option => ({
+            gradeId: parseInt(option.value),
+            controlId: 0
+        }));
+        setData(prevData => ({
+            ...prevData,
+            failureEstimatesInTheLists: selectedOptions
+        }));
+    };
+    const handleSelectChangeEstimatesNotDefinedInTheLists = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, option => ({
+            gradeId: parseInt(option.value),
+            controlId: 0
+        }));
+        setData(prevData => ({
+            ...prevData,
+            estimatesNotDefinedInTheLists: selectedOptions
+        }));
+    };
+    const handleSelectChangeACaseOfAbsenceInTheDetailedGrades = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, option => ({
+            gradeDetailId: option.value,
+            controlId: 0,
+        }));
+        setData(prevData => ({
+            ...prevData,
+            aCaseOfAbsenceInTheDetailedGrades: selectedOptions
+        }));
+    };
+    const handleSelectChangeDetailsOfExceptionalLetters = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, option => ({
+            gradeDetailId: option.value,
+            controlId: 0,
+        }));
+        setData(prevData => ({
+            ...prevData,
+            detailsOfExceptionalLetters: selectedOptions
+        }));
+    };
+    const [selectedGrades, setSelectedGrades] = useState([]);
+    const [gradeInput, setGradeInput] = useState("");
+
+    const updateData = () => {
+        setData(prevData => ({
+            ...prevData,
+            detailsOfTheoreticalFailingGradesNav: selectedGrades.map(gradeId => ({
+                gradeDetailId: gradeId,
+                value: gradeInput
+            }))
+        }));
+    };
+
+    const handleSelectChangeOfTheoreticalFailingGradesNav = (event) => {
+        const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
+        setSelectedGrades(selectedOptions);
+        updateData();
+    };
+
+    const handleInputChange = (event) => {
+        setGradeInput(event.target.value);
+        updateData();
+    };
+
+    useEffect(() => {
+        updateData();
+    }, [selectedGrades, gradeInput]);
+    const handleSelectChangeEstimateDeprivationBeforeTheExamId = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            estimateDeprivationBeforeTheExamId: value
+        }));
+    };
+    const handleSelectChangeEstimateDeprivationAfterTheExamId = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            estimateDeprivationAfterTheExamId: value
+        }));
+    };
+    const handleSelectChangeASuccessRatingDoesNotAddHours = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, option => ({
+            gradeId: parseInt(option.value),
+        }));
+        setData(prevData => ({
+            ...prevData,
+            aSuccessRatingDoesNotAddHours: selectedOptions
+        }));
+    };
+    const handleSelectChangeEstimatingTheTheoreticalFailure = (e) => {
+        const { value } = e.target;
+        setData(prevData => ({
+            ...prevData,
+            estimatingTheTheoreticalFailure: value
+        }));
+    };
+
+
+
 
 
 
@@ -498,7 +608,12 @@ const ControlPage = () => {
                                                             />
                                                         </div>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="subtractFromTheDiscountRate" id="subtractFromTheDiscountRate" placeholder={data.subtractFromTheDiscountRate} />
+                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`}
+                                                                disabled
+                                                                type="text"
+                                                                name="subtractFromTheDiscountRate"
+                                                                id="subtractFromTheDiscountRate"
+                                                                placeholder={data.subtractFromTheDiscountRate} />
                                                         }
                                                     </div>
                                                     <div className="col-1"><p className="fw-semibold fs-5">درجة</p></div>
@@ -519,10 +634,16 @@ const ControlPage = () => {
                                                                         <p className="fw-semibold fs-5">ألاولي</p>
                                                                     </div>
                                                                     <div className="col-lg-5">
-                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start" aria-label="Select an option" id="firstReductionEstimatesForFailureTimes">
-                                                                            <option selected disabled>  </option>
-                                                                            <option value="option1">أ </option>
-                                                                            <option value="option2">ب</option>
+                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start"
+                                                                            aria-label="Select an option"
+                                                                            id="firstReductionEstimatesForFailureTimes"
+                                                                            value={data.firstReductionEstimatesForFailureTimes}
+                                                                            onChange={handleSelectChangeFirstReduction}
+                                                                        >
+                                                                            <option selected disabled> </option>
+                                                                            {allGrades.map((grade) => (
+                                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                                            ))}
                                                                         </select>}
                                                                         {((state.status === "Get")) &&
                                                                             <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="firstReductionEstimatesForFailureTimes" id="firstReductionEstimatesForFailureTimes" placeholder={data.firstReductionEstimatesForFailureTimes} />
@@ -562,10 +683,16 @@ const ControlPage = () => {
                                                                         <p className="fw-semibold fs-5" htmlFor="secondReductionEstimatesForFailureTimes" >الثانية</p>
                                                                     </div>
                                                                     <div className="col-lg-5">
-                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start" aria-label="Select an option" id="secondReductionEstimatesForFailureTimes">
-                                                                            <option selected disabled>  </option>
-                                                                            <option value="option1">أ </option>
-                                                                            <option value="option2">ب</option>
+                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start"
+                                                                            aria-label="Select an option"
+                                                                            id="secondReductionEstimatesForFailureTimes"
+                                                                            value={data.secondReductionEstimatesForFailureTimes}
+                                                                            onChange={handleSelectChangeSeconedReduction}
+                                                                        >
+                                                                            <option selected disabled> </option>
+                                                                            {allGrades.map((grade) => (
+                                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                                            ))}
                                                                         </select>}
                                                                         {((state.status === "Get")) &&
                                                                             <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="secondReductionEstimatesForFailureTimes" id="secondReductionEstimatesForFailureTimes" placeholder={data.secondReductionEstimatesForFailureTimes} />
@@ -605,10 +732,17 @@ const ControlPage = () => {
                                                                         <span className="fw-semibold fs-5  " htmlFor="thirdReductionEstimatesForFailureTimes">الثالثة فاكثر</span>
                                                                     </div>
                                                                     <div className="col-lg-4">
-                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start" aria-label="Select an option" name="thirdReductionEstimatesForFailureTimes" id="thirdReductionEstimatesForFailureTimes">
-                                                                            <option selected disabled>  </option>
-                                                                            <option value="option1">أ </option>
-                                                                            <option value="option2">ب</option>
+                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start"
+                                                                            aria-label="Select an option"
+                                                                            name="thirdReductionEstimatesForFailureTimes"
+                                                                            id="thirdReductionEstimatesForFailureTimes"
+                                                                            value={data.thirdReductionEstimatesForFailureTimes}
+                                                                            onChange={handleSelectChangeThirdReduction}
+                                                                        >
+                                                                            <option selected disabled> </option>
+                                                                            {allGrades.map((grade) => (
+                                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                                            ))}
                                                                         </select>}
                                                                         {((state.status === "Get")) &&
                                                                             <input className={`form m-1 mt-2 col-lg-10 ${styles['bold-and-large-text-input']}`} disabled type="text" name="thirdReductionEstimatesForFailureTimes" id="thirdReductionEstimatesForFailureTimes" placeholder={data.thirdReductionEstimatesForFailureTimes} />
@@ -649,11 +783,19 @@ const ControlPage = () => {
 
                                             <div className="col-lg-4 ">
                                                 <div className="form-check form-check-inline d-flex ">
-                                                    {(state.status !== "Get") && <input className="form-check-input mt-2 fs-5" type="checkbox" id="exceptionToDiscountEstimates" name="exceptionToDiscountEstimates" checked={data.exceptionToDiscountEstimates} value={true} onChange={(e) => {
-                                                        setData({ ...data, exceptionToDiscountEstimates: e.target.checked })
-                                                    }} />}
+                                                    {(state.status !== "Get") && <input className="form-check-input mt-2 fs-5"
+                                                        type="checkbox" id="exceptionToDiscountEstimates"
+                                                        name="exceptionToDiscountEstimates"
+                                                        checked={data.exceptionToDiscountEstimates}
+                                                        value={true}
+                                                        onChange={(e) => {
+                                                            setData({ ...data, exceptionToDiscountEstimates: e.target.checked })
+                                                        }} />}
                                                     {(state.status == "Get") && <div class="form-check form-switch">
-                                                        <input className="form-check-input mt-2 fs-5" type="checkbox" id="exceptionToDiscountEstimates" disabled checked={data.exceptionToDiscountEstimates === true} />
+                                                        <input className="form-check-input mt-2 fs-5" type="checkbox"
+                                                            id="exceptionToDiscountEstimates"
+                                                            disabled
+                                                            checked={data.exceptionToDiscountEstimates === true} />
                                                     </div>}
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="exceptionToDiscountEstimates"> استثناء من تقديرات التخفيض تقدير fc</label>
                                                 </div>
@@ -707,12 +849,16 @@ const ControlPage = () => {
                                                         تقدير الراسب النظري
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start" id="estimatingTheTheoreticalFailure" name="estimatingTheTheoreticalFailure">
-                                                            <option selected disabled>  </option>
-                                                            <option value="option1">ا </option>
-                                                            <option value="option2">د</option>
-                                                            <option value="option1">ج </option>
-                                                            <option value="option2">ر</option>
+                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start"
+                                                            id="estimatingTheTheoreticalFailure"
+                                                            name="estimatingTheTheoreticalFailure"
+                                                            value={data.estimatingTheTheoreticalFailure}
+                                                            onChange={handleSelectChangeEstimatingTheTheoreticalFailure}
+                                                        >
+                                                            <option selected disabled> </option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimatingTheTheoreticalFailure" id="estimatingTheTheoreticalFailure" placeholder={data.estimatingTheTheoreticalFailure} />
@@ -731,9 +877,14 @@ const ControlPage = () => {
                                                     </label>
                                                     <div className="col-lg-2">
                                                         {(state.status !== "Get") && <select
-                                                            className="form-select custom-select-start fs-5" id="failureEstimatesInTheLists" multiple >
-                                                            <option value="أ">أ</option>
-                                                            <option value="ب">ب</option>
+                                                            className="form-select custom-select-start fs-5"
+                                                            id="failureEstimatesInTheLists"
+                                                            multiple
+                                                            onChange={handleSelectChangeFailureEstimatesInTheLists}
+                                                        >
+                                                            {allGrades.map(grade => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="failureEstimatesInTheLists" id="failureEstimatesInTheLists" placeholder={data.failureEstimatesInTheLists} />
@@ -767,15 +918,21 @@ const ControlPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-12">
+                                            <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="detailsOfTheoreticalFailingGradesNav">
                                                         تفاصيل درجات الرسوب النظري
                                                     </label>
-                                                    <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5" id="detailsOfTheoreticalFailingGradesNav" multiple >
-                                                            <option value="منتصف الفصل ">منتصف الفصل  </option>
-                                                            <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
+                                                    <div className="col-lg-4">
+                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5"
+                                                            id="detailsOfTheoreticalFailingGradesNav"
+                                                            onChange={handleSelectChangeOfTheoreticalFailingGradesNav}
+                                                            multiple>
+                                                            {gradesDetails.map(detail => (
+                                                                <option key={detail.id} value={detail.id}>
+                                                                    {detail.theDetails}
+                                                                </option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="detailsOfTheoreticalFailingGradesNav" id="detailsOfTheoreticalFailingGradesNav" placeholder={data.detailsOfTheoreticalFailingGradesNav} />
@@ -783,6 +940,25 @@ const ControlPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {selectedGrades.length > 0 &&
+                                                <div className="mt-4 col-xl-3">
+                                                    <div className="form-group mb-3 row">
+                                                        <label className="col-lg-4 fw-semibold fs-5 col-form-label">
+                                                            {selectedGrades.length > 0 ? 'الدرجة المحددة:' : ''}
+                                                        </label>
+                                                        <div className="col-lg-4">
+                                                            <input
+                                                                type="number"
+                                                                className="form-control fs-5"
+                                                                value={gradeInput}
+                                                                onChange={handleInputChange}
+                                                                disabled={state.status === "Get"}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="anyDetails">
@@ -873,9 +1049,17 @@ const ControlPage = () => {
 
                                                     <div className="col-lg-2">
                                                         {(state.status !== "Get") && <select
-                                                            className="form-select custom-select-start fs-5" aria-label="Select options" id="aCaseOfAbsenceInTheDetailedGrades" multiple name="aCaseOfAbsenceInTheDetailedGrades" >
-                                                            <option value="منتصف الفصل ">منتصف الفصل  </option>
-                                                            <option value="منتصف الفصل 2 ">منتصف الفصل 2 </option>
+                                                            className="form-select custom-select-start fs-5" aria-label="Select options"
+                                                            id="aCaseOfAbsenceInTheDetailedGrades"
+                                                            multiple
+                                                            name="aCaseOfAbsenceInTheDetailedGrades"
+                                                            onChange={handleSelectChangeACaseOfAbsenceInTheDetailedGrades}
+                                                        >
+                                                            {gradesDetails.map(detail => (
+                                                                <option key={detail.id} value={detail.id}>
+                                                                    {detail.theDetails}
+                                                                </option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="aCaseOfAbsenceInTheDetailedGrades" id="aCaseOfAbsenceInTheDetailedGrades" placeholder={data.aCaseOfAbsenceInTheDetailedGrades} />
@@ -911,9 +1095,16 @@ const ControlPage = () => {
                                                         تفاصيل الحروف الاستثانئية
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5" aria-label="Select options" id="detailsOfExceptionalLetters" multiple name="detailsOfExceptionalLetters" >
-                                                            <option value="منتصف الفصل">منتصف الفصل</option>
-                                                            <option value="منتصف الفصل 2">منتصف الفصل 2</option>
+                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5"
+                                                            id="detailsOfExceptionalLetters"
+                                                            multiple name="detailsOfExceptionalLetters"
+                                                            onChange={handleSelectChangeDetailsOfExceptionalLetters}
+                                                        >
+                                                            {gradesDetails.map(detail => (
+                                                                <option key={detail.id} value={detail.id}>
+                                                                    {detail.theDetails}
+                                                                </option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="detailsOfExceptionalLetters" id="detailsOfExceptionalLetters" placeholder={data.detailsOfExceptionalLetters} />
@@ -960,9 +1151,12 @@ const ControlPage = () => {
                                                     <div className="col-lg-2">
                                                         {(state.status !== "Get") && (
                                                             <select className="form-select fs-5 custom-select-start" id="exceptionalLetterGrades" onChange={handleSelectChange} value={selectedValue}>
-                                                                <option selected disabled>  </option>
-                                                                <option value="أ">أ</option>
-                                                                <option value="ب">ب</option>
+                                                                <option disabled></option>
+                                                                {allGrades.map((grade) => (
+                                                                    <option key={grade.id} value={grade.id}>
+                                                                        {grade.theGrade}
+                                                                    </option>
+                                                                ))}
                                                             </select>
                                                         )}
 
@@ -1154,9 +1348,12 @@ const ControlPage = () => {
                                                         تقديرات غير معرفة باللائحة
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5" aria-label="Select options" id="estimatesNotDefinedInTheLists" multiple name="estimatesNotDefinedInTheLists"  >
-                                                            <option value="منتصف الفصل">منتصف الفصل</option>
-                                                            <option value="منتصف الفصل 2">منتصف الفصل 2</option>
+                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5" aria-label="Select options" id="estimatesNotDefinedInTheLists" multiple name="estimatesNotDefinedInTheLists"
+                                                            onChange={handleSelectChangeEstimatesNotDefinedInTheLists}
+                                                        >
+                                                            {allGrades.map(grade => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimatesNotDefinedInTheLists" id="estimatesNotDefinedInTheLists" placeholder={data.estimatesNotDefinedInTheLists} />
@@ -1208,10 +1405,16 @@ const ControlPage = () => {
                                                         تقدير الحرمان قبل الامتحان
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start" id="estimateDeprivationBeforeTheExamId" name="estimateDeprivationBeforeTheExamId">
+                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start"
+                                                            id="estimateDeprivationBeforeTheExamId"
+                                                            name="estimateDeprivationBeforeTheExamId"
+                                                            value={data.estimateDeprivationBeforeTheExamId}
+                                                            onChange={handleSelectChangeEstimateDeprivationBeforeTheExamId}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="أ">أ</option>
-                                                            <option value="د">د</option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationBeforeTheExamId" id="estimateDeprivationBeforeTheExamId" placeholder={data.estimateDeprivationBeforeTheExamId} />
@@ -1225,10 +1428,16 @@ const ControlPage = () => {
                                                         تقدير الحرمان بعد الامتحان
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start" id="estimateDeprivationAfterTheExamId" name="estimateDeprivationAfterTheExamId">
+                                                        {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start"
+                                                            id="estimateDeprivationAfterTheExamId"
+                                                            name="estimateDeprivationAfterTheExamId"
+                                                            value={data.estimateDeprivationAfterTheExamId}
+                                                            onChange={handleSelectChangeEstimateDeprivationAfterTheExamId}
+                                                        >
                                                             <option selected disabled> </option>
-                                                            <option value="أ">أ</option>
-                                                            <option value="د">د</option>
+                                                            {allGrades.map((grade) => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationAfterTheExamId" id="estimateDeprivationAfterTheExamId" placeholder={data.estimateDeprivationAfterTheExamId} />
@@ -1243,9 +1452,18 @@ const ControlPage = () => {
                                                         تقدير نجاح لا يضاف للساعات ولا للمعدل
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5" aria-label="Select options" id="aSuccessRatingDoesNotAddHours" name="aSuccessRatingDoesNotAddHours" multiple>
-                                                            <option value="أ">أ</option>
-                                                            <option value="د">د</option>
+                                                        {(state.status !== "Get") && <select className="form-select custom-select-start fs-5"
+                                                            aria-label="Select options"
+                                                            id="aSuccessRatingDoesNotAddHours"
+                                                            name="aSuccessRatingDoesNotAddHours"
+                                                            multiple
+
+                                                            onChange={handleSelectChangeASuccessRatingDoesNotAddHours}
+                                                        >
+
+                                                            {allGrades.map(grade => (
+                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                            ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="aSuccessRatingDoesNotAddHours" id="aSuccessRatingDoesNotAddHours" placeholder={data.aSuccessRatingDoesNotAddHours} />

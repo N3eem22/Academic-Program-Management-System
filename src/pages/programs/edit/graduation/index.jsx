@@ -49,8 +49,8 @@ const [graduation, setgraduation] = useState({
   rateBase: null,
   comparingCumulativeAverageForEachYear: false,
   theMinimumGradeForTheCourseId: null,
-  levelsTobePassed: [],
-  semestersTobePssed: [],
+  graduationLevels: "",
+  graduationSemesters: "",
   averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
 });
 useEffect(() => {

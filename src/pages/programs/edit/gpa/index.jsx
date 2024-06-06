@@ -32,7 +32,36 @@ const GpaPage = () => {
     };
     const [state , dispatch] = useReducer(reducer,initialState);
     const [grades, setGrades] = useState([]);
-    const [GetData, setGetData] = useState([]);
+    const [GetData, setGetData] = useState({
+        programId: 48,
+        improvingCourses:"" ,
+        keepFailing: "",
+        maintainingStudentSuccess: "",
+        utmostGrade: "",
+        changingCourses: "",
+        someOfGrades: "",
+        howToCalculateTheRatio: "",
+        multiplyingTheHoursByTheStudentsGrades: "",
+        calculateTheTermOfTheEquationInTheRate: "",
+        calculatingTheSemesterEquationInHourseEarned: "",
+        rateApproximation: "",
+        theNnumberOfDigitsRroundingTheRate: "",
+        reducingTheRateUponImprovement: "",
+        maximumNumberOfAdditionsToFailedCoursesWithoutSuccess: "",
+        deleteFailedCoursesAfterSuccess: "",
+        maximumCumulativeGPA: "",
+        calculateTheCumulativeEstimate: "",
+        howToCalculateTheRate: "",
+        theNumberOfDigitsRoundinPoints: "",
+        numberOfDigitsRoundingTheRatio: "",
+        summerIsNotExcludedInCalculatingTheAnnualAverage: "",
+        theCumulativeAverageDoesNotAppearInTheStudentGradesPortal: "",
+        theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades: "",
+        calculatingFailingGradePoints: "",
+        calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: "", 
+        showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal : "",
+        howToCalculateTheSemesterAverage: "",
+        "gadesOfEstimatesThatDoesNotCount":""});
 
   var Options = {
     howToCalculateTheRatio : ["الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100", "الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات" , "المعدل التراكمي المكتسب مقسوم علي الاجمالي" , "معادلة خاصه علوم" , "معادلة خاصه (اكاديميه طيبه)" , "حساب النسبة مقربة","الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100" , "الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية" , "حساب النسبة بناء علي التقديرات العامة"]
@@ -407,6 +436,7 @@ console.log(options);
                                                         { ((state.status === "Get")) &&
                                                             <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={GetData.utmostGrade} />
                                                         }
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
