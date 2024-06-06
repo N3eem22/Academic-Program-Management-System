@@ -69,64 +69,6 @@ const RegisterPage = React.memo(() => {
         });
     }
   }, [register.university]);
-// useEffect(() => {
-//     if (register.university.length === 1) {
-//         const userToken = getAuthUser();
-//         axios.get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`, {
-//             headers: {
-//                 'Authorization': `Bearer ${userToken.token}`
-//             }
-//         })
-//         .then((response) => {
-//             // Filter faculties to include only those belonging to the selected university
-//             const filteredFaculties = response.data.filter(faculty => faculty.universityId === register.university[0]);
-//             setRegister({ ...register, faculties: filteredFaculties });
-//             console.log(filteredFaculties);
-//             console.log(register.university[0]);
-//         })
-//         .catch((err) => {
-//             setRegister({
-//                 ...register,
-//                 loading: false,
-//                 err: [{ message: err.response.data.message }],
-//             });
-//         });
-//     }
-// }, [register.university]);
-
-     
-//   useEffect(() => {
-//     if (register.university.length === 1) {
-//         const userToken = getAuthUser();
-//         axios.get(`https://localhost:7095/api/faculty?universityId=${register.university[0]}`, {
-//             headers: {
-//                 'Authorization': `Bearer ${userToken.token}`
-//             }
-//         })
-//         .then((response) => {
-//             // Filter faculties to include only those belonging to the selected university
-//             const facultiesForSelectedUniversity = response.data.filter(faculty => faculty.universityId === register.university[0]);
-//             setRegister(prevState => ({ ...prevState, faculty: facultiesForSelectedUniversity }));
-//             console.log(" faculty:  ", response.data);
-//             console.log(" faculty:  ", register.university[0]);
-//             console.log(facultiesForSelectedUniversity);
-//         })
-        
-//         .catch((err) => {
-//             setRegister({
-//                 ...register,
-//                 loading: false,
-//                 err: [{ message: err.response.data.message }],
-//             });
-//         });
-//     }
-// }, [register.university]);
-
-
-    
-
-
-
     const RegisterFun = (e) => {
         e.preventDefault();
         setRegister({ ...register, loading: true, err: [] });

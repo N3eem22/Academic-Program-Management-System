@@ -186,7 +186,5 @@ const LoginPage = React.memo(() => {
 });
 
 LoginPage.displayName = "LoginPage";
-
 LoginPage.propTypes = {};
-
 export { LoginPage };

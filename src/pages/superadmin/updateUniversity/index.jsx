@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateUniversity = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // نقوم بإستخدام hook useParams للوصول إلى الـ ID من رابط الصفحة
+  const { id } = useParams(); 
 
   const [updateUni, setUpdateUni] = useState({
     name: "",
@@ -15,7 +15,6 @@ const UpdateUniversity = () => {
   });
 
   useEffect(() => {
-    // استعلام البيانات الحالية للجامعة المحددة عبر طلب GET قبل تحميل الصفحة
     axios
       .get(`https://localhost:7095/api/University/${id}`)
       .then((response) => {
@@ -25,7 +24,7 @@ const UpdateUniversity = () => {
       .catch((error) => {
         console.error("Error fetching university data:", error);
       });
-  }, [id]); // نحدد id كـ dependency لتحميل البيانات فقط عندما يتغير الـ ID
+  }, [id]); 
 
   const handleUpdateUniversity = (e) => {
     e.preventDefault();

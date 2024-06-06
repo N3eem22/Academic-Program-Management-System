@@ -40,35 +40,13 @@ const UpdateUsersPage = () => {
       // console.log(response.data);
       // console.log(uniname);
     } catch (err) {
-      console.log("hiiiiiiiii");
+      console.log("error");
     }
   }
 
   useEffect(() => {
     GetUniData();
   }, []);
-
-  // useEffect(() => {
-  //   const userToken = getAuthUser();
-  //   axios
-  //     .get(`https://localhost:7095/api/University`, {
-  //       headers: {
-  //         Authorization: `Bearer ${userToken.token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setUpdateUsers({ ...updateusers, universities: response.data });
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => {
-  //       setUpdateUsers({
-  //         ...updateusers,
-  //         loading: false,
-  //         err: [{ message: err.response.data.message }],
-  //       });
-  //     });
-  // }, []);
-
   useEffect(() => {
     const userToken = getAuthUser();
     axios
@@ -112,13 +90,6 @@ const UpdateUsersPage = () => {
     axios
       .put(`https://localhost:7095/api/Users/Update?id=${id}`, formData , {
         headers: {
-          // displayName: updateUser.displayName,
-          // phoneNumber: updateUser.phoneNumber,
-          // email: updateUser.email,
-          // faculties: updateUser.faculties,
-          // university: updateUser.university,
-          // role: updateUser.role,
-
           token: auth.token,
           "Content-Type": "multipart/form-data",
         },
@@ -144,11 +115,6 @@ const UpdateUsersPage = () => {
 
       });
   };
-
-  //   // const updateUsers = (id) =>{
-  //   //   alert(id)
-
-  //   // }
 
   return (
     <Fragment>

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // استيراد مكتبة axios
+import axios from 'axios'; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { getAuthUser } from "../../../helpers/storage";
@@ -31,7 +31,6 @@ const ManageUniPage = () => {
   const handleDeleteUniversity = (id) => {
     axios.delete(`https://localhost:7095/api/University/${id}`)
       .then(response => {
-        // بعد الحذف بنجاح، يمكننا تحديث الحالة لإزالة الجامعة المحذوفة من القائمة
         setUniversities(universities.filter(university => university.id !== id));
       })
       .catch(error => {
@@ -39,7 +38,6 @@ const ManageUniPage = () => {
       });
   };
   const handleEditUniversity = (id) => {
-    // هنا يمكنك تنفيذ الإجراءات الخاصة بك لتحميل بيانات الجامعة المحددة والتحول إلى صفحة التعديل
     navigate(`/editUniversity/${id}`);
   };
 
