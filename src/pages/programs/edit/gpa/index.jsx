@@ -321,7 +321,8 @@ const GpaPage = () => {
                                                     </label>
                                                   
                                                     <div className="col-lg-2">
-                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start" id="utmostGrade">
+                                                       {(state.status !== "Get")&& 
+                                                       <select className="form-select custom-select-start" id="utmostGrade">
                                                             <option selected disabled>  </option>
                                                             <option value="option1">أ </option>
                                                             <option value="option2">ب</option>
@@ -329,6 +330,7 @@ const GpaPage = () => {
                                                         { ((state.status === "Get")) &&
                                                             <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.utmostGrade} />
                                                         }
+                                                        
                                                     </div>
                                                 </div>
                                             </div>

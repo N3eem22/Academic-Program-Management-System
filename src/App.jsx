@@ -33,14 +33,12 @@ import { ProgramsComp } from "./components/studyPrograms";
 import { LogFiles } from "./pages/superadmin/logFiles";
 import {DataTable} from "./components/dataTable/index";
 import {SummerFees} from "./pages/admin/managelockups/summerfees";
-import {AbsenteeEstimateCalculation} from "./pages/admin/managelockups/absenteeEstimateCalculation";
 import{TheAcademicDegree} from "./pages/admin/managelockups/academicDegree";
 import {AllGrades} from "./pages/admin/managelockups/allGrades";
 import {ReasonForBlockingAcademicResult} from "./pages/admin/managelockups/blockingAcademicResult";
 import {BlockingProofOfRegistration} from "./pages/admin/managelockups/blockingProofOfRegistration";
 import {ReasonForBlockingRegistration} from "./pages/admin/managelockups/blockingRegistration";
 import {BurdenCalculation} from "./pages/admin/managelockups/burdenCalculation";
-import {CourseRequirement} from "./pages/admin/managelockups/courseRequirement";
 import {CourseType} from "./pages/admin/managelockups/courseType";
 import {DivisionType} from "./pages/admin/managelockups/divisionType";
 import {TypeOfFinancialStatementInTheProgram} from "./pages/admin/managelockups/financialStatement";
@@ -57,6 +55,8 @@ import {GradesDetails} from "./pages/admin/managelockups/gradesDetails";
 import { ManagingHome } from "./pages/admin/managelockups/managing";
 import {EquivalentGrade} from "./pages/admin/managelockups/equivalentGrade";
 import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentLevel";
+import { Faculty } from "./pages/admin/managelockups/faculty";
+
 
 
 
@@ -78,14 +78,12 @@ function App() {
       <Routes>
       <Route path="/managehome" element={<ManagingHome />}/>
       <Route path="/summer" element={<SummerFees />}/>
-      <Route path="/absentee" element={<AbsenteeEstimateCalculation />}/>
       <Route path="/degree" element={<TheAcademicDegree />}/>
       <Route path="/grades" element={<AllGrades />}/>
       <Route path="/blockresult" element={<ReasonForBlockingAcademicResult />}/>
       <Route path="/blockregister" element={<ReasonForBlockingRegistration />}/>
       <Route path="/blockproof" element={<BlockingProofOfRegistration />}/>
       <Route path="/burden" element={<BurdenCalculation />}/>
-      <Route path="/courseReq" element={<CourseRequirement />}/>
       <Route path="/coursetype" element={<CourseType />}/>
       <Route path="/divisiontype" element={<DivisionType />}/>
       <Route path="/financialstatement" element={<TypeOfFinancialStatementInTheProgram />}/>
@@ -101,6 +99,9 @@ function App() {
       <Route path="/studentlevel" element={<EditTheStudentLevel />}/>
       <Route path="/semesters" element={<Semesters />}/>
       <Route path="/gradesdetails" element={<GradesDetails />}/>
+      <Route path="/faculty" element={<Faculty />}/>
+
+
 
 
 
