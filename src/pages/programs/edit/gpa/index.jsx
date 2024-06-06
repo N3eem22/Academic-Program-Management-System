@@ -2,7 +2,6 @@ import React, { Fragment, useState ,useEffect , useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
-import { GetGPA, AddGPA } from '../gpa/GpaAPIs';
 import axios from "axios";
 
 
@@ -31,6 +30,9 @@ const GpaPage = () => {
     const initialState = {
         status: '',
     };
+    const [state , dispatch] = useReducer(reducer,initialState);
+    const [grades, setGrades] = useState([]);
+
 
   var Options = {
     howToCalculateTheRatio : ["الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100", "الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات" , "المعدل التراكمي المكتسب مقسوم علي الاجمالي" , "معادلة خاصه علوم" , "معادلة خاصه (اكاديميه طيبه)" , "حساب النسبة مقربة","الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100" , "الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية" , "حساب النسبة بناء علي التقديرات العامة"]
@@ -47,14 +49,31 @@ const GpaPage = () => {
     ,
     howToCalculateTheRate : ["بالقسمة علي الساعات الفعلية" , "بالقسمه علي الساعات المكتسبة" , "قسمة مجموع الدرجات المكتسبة علي اجمالي المجموع الفعلي مضروبا * 0.25"]
 }
-    
+const handleChange = (event) => {
+    const { name, selectedOptions } = event.target;
+    const options = Array.from(selectedOptions);
+    let selectedValues;
+console.log(options);
+    if (name === "gadesOfEstimatesThatDoesNotCount" || name === "levelsTobePassed") {
+      selectedValues = options.map(option => ({
+        [`${name === "gadesOfEstimatesThatDoesNotCount" ? "gradeId" : "levelId"}`]: parseInt(option.value),
+        cumulativeAverageId: 0 } ));
+    } else {
+      selectedValues = options.map(option => option.value);
+    }
+
+    setData(prevState => ({
+      ...prevState,
+      [name]: selectedValues,
+    }));
+  };
     const[data, setData] = useState({
         
             programId: 48,
             improvingCourses:"" ,
             keepFailing: "",
             maintainingStudentSuccess: "",
-            utmostGrade: 3,
+            utmostGrade: "",
             changingCourses: "",
             someOfGrades: "",
             howToCalculateTheRatio: "",
@@ -78,12 +97,7 @@ const GpaPage = () => {
             calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: "", 
             showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal : "",
             howToCalculateTheSemesterAverage: "",
-            "gadesOfEstimatesThatDoesNotCount": [
-              {
-                "gradeId": 0,
-                "cumulativeAverageId": 0
-              }
-            ]
+            "gadesOfEstimatesThatDoesNotCount":""
           
     });
     const handleRadioChange = (event) => {
@@ -112,7 +126,7 @@ const GpaPage = () => {
 
     useEffect(() => {
         const fetchData =async (programId) =>{
-                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${17}`).then( (resp)=> {
+                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then( (resp)=> {
                     dispatch({ type: 'Get'});
                     setData({...data , utmostGrade: resp.data.utmostGrade,
                         changingCourses: resp.data.changingCourses,
@@ -141,10 +155,11 @@ const GpaPage = () => {
                         calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: resp.data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
                         showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal: resp.data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
                         howToCalculateTheSemesterAverage: resp.data.howToCalculateTheSemesterAverage,
-                        gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount || prevData.gadesOfEstimatesThatDoesNotCount });
+                        gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount });
                   console.log(resp.data);
                 }).catch((err)=>{
                     dispatch({ type: 'Add' }); 
+                    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
                     console.log(err);
                 });
                 
@@ -169,7 +184,7 @@ const GpaPage = () => {
                     "improvingCourses": data.improvingCourses,
                     "keepFailing": true,
                     "maintainingStudentSuccess": false,
-                    "utmostGrade": 3,
+                    "utmostGrade": data.utmostGrade,
                     "changingCourses": data.changingCourses,
                     "someOfGrades": data.someOfGrades,
                     "howToCalculateTheRatio": data.howToCalculateTheRatio,
@@ -207,7 +222,7 @@ const GpaPage = () => {
                     "improvingCourses": data.improvingCourses,
                     "keepFailing": true,
                     "maintainingStudentSuccess": false,
-                    "utmostGrade": 3,
+                    "utmostGrade": data.utmostGrade,
                     "changingCourses": data.changingCourses,
                     "someOfGrades": data.someOfGrades,
                     "howToCalculateTheRatio": data.howToCalculateTheRatio,
@@ -231,12 +246,7 @@ const GpaPage = () => {
                     "calculatingFailingGradePoints": data.calculatingFailingGradePoints,
                     "calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage": data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
                     "howToCalculateTheSemesterAverage": data.howToCalculateTheSemesterAverage,
-                    "gadesOfEstimatesThatDoesNotCount": [
-                      {
-                        "gradeId": 3,
-                        "cumulativeAverageId": 0
-                      }
-                    ]
+                    "gadesOfEstimatesThatDoesNotCount": data.gadesOfEstimatesThatDoesNotCount,
                   } );
                   dispatch({ type: 'Get' }); 
               }
@@ -321,11 +331,20 @@ const GpaPage = () => {
                                                     </label>
                                                   
                                                     <div className="col-lg-2">
-                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start" id="utmostGrade">
-                                                            <option selected disabled>  </option>
-                                                            <option value="option1">أ </option>
-                                                            <option value="option2">ب</option>
-                                                        </select>}
+                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start" id="utmostGrade"
+                                                                                   onChange={(e)=>{setData({...data , utmostGrade : parseInt(e.target.value)})}}
+                                                                                   value={data.utmostGrade}
+                                                                                   required
+                                                       
+                                                       >
+                                                       <option disabled></option>
+                                                  {grades && grades.map((grade, index) => (
+                                                    <option key={index} value={grade.id} selected={data.utmostGrade === grade.id}>
+                                                        {grade.theGrade} 
+                                                    </option>
+                                                    ))}
+                                                        </select>
+                                                        }
                                                         { ((state.status === "Get")) &&
                                                             <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.utmostGrade} />
                                                         }
@@ -338,9 +357,24 @@ const GpaPage = () => {
                                                         تقديرات المحاولات التي لا تحتسب
                                                     </label>
                                                     <div className="col-lg-2">
-                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start fs-5" aria-label="Select options" id="try" multiple>
-                                                            <option value="option1">أ</option>
-                                                            <option value="option2">ب</option>
+                                                       {(state.status !== "Get")&& <select className="form-select custom-select-start fs-5" aria-label="Select options"
+                                                        name="gadesOfEstimatesThatDoesNotCount"
+                                                         id="gadesOfEstimatesThatDoesNotCount"
+                                                          multiple
+                                                          onChange={handleChange}
+
+                                                          >
+                                                                            
+                                                    {grades && grades.map((grade, index) => (
+                                                    <option 
+                                                        key={index} 
+                                                        value={grade.id} 
+                                                        selected={data.gadesOfEstimatesThatDoesNotCount.includes(grade.theGrade)}
+                                                    >
+                                                        {grade.theGrade}
+                                                            </option>
+                                                                             ))} 
+
                                                         </select>}
                                                         { ((state.status === "Get")) &&
                                                             <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.gadesOfEstimatesThatDoesNotCount} />

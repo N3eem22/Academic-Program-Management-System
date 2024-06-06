@@ -16,7 +16,7 @@ useEffect(() => {
     }, [data]);
     useEffect(() => {
 
-       //console.log(graduation);
+       console.log(graduation);
       
       }, [graduation]);
       const { globalState, setGlobalState } = useGlobalState();
@@ -98,7 +98,7 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4 bold">
                           <input
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`}
+                            className={`form m-1 mt-2 `}
                             type="text"
                             name="compulsoryCourses"
                             id="compulsoryCourses"
@@ -122,7 +122,7 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4">
                           <input
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`}                            
+                            className={`form m-1 mt-2 `}                            
                             type="text"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
@@ -143,7 +143,9 @@ useEffect(() => {
                         </div>
                         <div className="col-md-6">
                           <input
-                           className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`}
+                          style={{ width: '60%' }} 
+
+                           className={`form m-1 mt-2 ]}`}
                             type="text"
                             name="passingMilitaryEducation"
                             id="passingMilitaryEducation"
@@ -165,8 +167,8 @@ useEffect(() => {
                         </div>
                         <div className="col-md-9">
                           <input
-                           style={{ width: '50%' }} 
-                           className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                           style={{ width: '30%' }} 
+                           className={`form m-1 mt-2  `}
                             type="text"
                             name="summerTraining"
                             disabled
@@ -187,20 +189,20 @@ useEffect(() => {
                         </div>
                         <div className="col-md-3">
                           <div className="input-group mb-3 ">
-                            <select
+                          <select
                               className="form-select"
                               id="verifyPaymentOfFees"
                               name="verifyPaymentOfFees"
-                              value={()=>{graduation.verifyPaymentOfFees === 0 ? " ضرورة سداد الرسوم قبل التخرج" : "عدم ضرورة سداد الرسوم قبل التخرج"}}
-                                disabled
-                             >
-                              <option value={0} >
+                              disabled
+                              >
+                              <option  selected = {graduation.verifyPaymentOfFees === true} >
                                 ضرورة سداد الرسوم قبل التخرج
                               </option>
-                              <option value={1} >
+                              <option  selected = {graduation.verifyPaymentOfFees === false}>
                                 عدم ضرورة سداد الرسوم قبل التخرج
                               </option>
                             </select>
+                             
                           </div>
                         </div>
                       </div>
@@ -220,10 +222,10 @@ useEffect(() => {
                               id="makeSureToPassTheOptionalGroups"
                               name="makeSureToPassTheOptionalGroups"
                               disabled                              >
-                              <option value={0} selected={()=>{graduation.makeSureToPassTheOptionalGroups === 0 } }>
+                              <option  selected={graduation.makeSureToPassTheOptionalGroups === 0 } >
                                 المجموعات التي درس منها الطالب{" "}
                               </option>
-                              <option value={1}  selected={()=>{graduation.makeSureToPassTheOptionalGroups === 1 } }>
+                              <option   selected={graduation.makeSureToPassTheOptionalGroups === 1 } >
                                 كل المجموعات الاختياريه{" "}
                               </option>
                             </select>
@@ -243,7 +245,7 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4">
                           <input
-                             className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                             className={`form m-1 mt-2  `}
                             type="text"
                             name="determineTheRankBasedOn"
                             id="determineTheRankBasedOn"
@@ -258,7 +260,7 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4">
                           <input
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="rateBase"
                             id="rateBase"
@@ -269,22 +271,23 @@ useEffect(() => {
                       </div>
 
                       <div className="form-group  mt-2 d-flex  ">
-                        <table>
-                          <tr className="col-md-6 form-group   fw-semibold fs-5  ">
-                            <td>
+                 
                               <label
                                 className="col-form-label"
                                 htmlFor="val-number"
                               >
                                 قيمة المعدل/النسبه للمرتبة
                               </label>
-                            </td>
                             <div className="input-group mb-3 ">
-                              {/* <Context /> */}
+                            {data.averageValues.map((value, index) => (
+        <div key={index}>
+          <p>السنوي : {value.yearValue}</p>
+          <p>التراكمي: {value.value}</p>
+          <p>الدرجه: {value.grades}</p>
+        </div>
+      ))}
+
                             </div>
-                           
-                          </tr>
-                        </table>
                       </div>
                 
                   
@@ -324,7 +327,7 @@ useEffect(() => {
 
                           <div className="col-md-2  my-2 ">
                             <input
-                            value={graduation.studyYears}
+                            value={graduation.studyYears === null ? 0 : graduation.studyYears}
                             type="text"
                             disabled
                             className="form-control "
@@ -348,7 +351,7 @@ useEffect(() => {
                         <div className="col-md-4 mt-3">
                           <input
                             value={graduation.successInEveryCourse === true ? "التاكد من النجاح" : " عدم التاكد من النجاح"}
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                            className={`form m-1 mt-2 } `}
                             type="text"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
@@ -372,7 +375,7 @@ useEffect(() => {
                           
                           <input
                             value={graduation.graduationLevels}
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="levelsTobePassed"
                             id="levelsTobePassed"
@@ -394,7 +397,7 @@ useEffect(() => {
                         
                               <input
                             value={graduation.graduationSemesters}
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="levelsTobePassed"
                             id="levelsTobePassed"
@@ -418,7 +421,7 @@ useEffect(() => {
                     
                         <input
                             value={graduation.theMinimumGradeForTheCourse}
-                            className={`form m-1 mt-2 ${styles['bold-and-large-text-input']} `}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="semestersTobePssed"
                             id="semestersTobePssed"

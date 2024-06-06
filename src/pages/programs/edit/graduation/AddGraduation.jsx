@@ -117,11 +117,52 @@ console.log(options);
   useEffect(() => {
 
     const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
-    const fetchLevels = axios.get(`https://localhost:7095/api/Level?UniversityId=${1}`).then((res)=>{console.log(res.data); setLevels(res.data)});
-    const fetchSems = axios.get(`https://localhost:7095/api/Semesters?UniversityId=${1}`).then((res)=>{console.log(res.data);setSemss(res.data)});
-  
+    const fetchLevels = axios.get('https://localhost:7095/api/Level?UniversityId=1')
+      .then((res) => {
+        console.log(res.data);
+        setLevels(res.data);
+
+        // Transform levelsTobePassed based on fetched levels
+        if (globalState.State === "Update") {
+          console.log(data);
+          const updatedLevelsTobePassed = res.data
+            .filter(level => data.graduationLevels.includes(level.levels))
+            .map(level => ({
+              levelId: level.id,
+              graduationId: 0
+            }));
+           console.log(updatedLevelsTobePassed);
+            setgraduation(prevState => ({
+            ...prevState,
+            levelsTobePassed: updatedLevelsTobePassed
+          }));
+        }
+      });
+
+    const fetchSemesters = axios.get('https://localhost:7095/api/Semesters?UniversityId=1')
+      .then((res) => {
+        console.log(res.data);
+        setSemss(res.data);
+
+        // Transform semestersTobePassed based on fetched semesters
+        if (globalState.State === "Update") {
+          const updatedSemestersTobePassed = res.data
+            .filter(semester => data.graduationSemesters.includes(semester.semesters))
+            .map(semester => ({
+              semesterId: semester.id,
+              graduationId: 0
+            }));
+
+          setgraduation(prevState => ({
+            ...prevState,
+            semestersTobePssed: updatedSemestersTobePassed
+          }));
+        }
+      });
+      Promise.all([fetchGrades, fetchLevels, fetchSemesters])
+      .catch(err => console.error(err));
       console.log(globalState);
-    }, []);
+    }, [globalState , ]);
     useEffect(() => {
    console.log(graduation);
       }, [graduation]);
@@ -161,6 +202,7 @@ console.log(options);
       rate : graduation.rate ,
       ratio : graduation.ratio ,
       value : graduation.value ,
+      studyYears :graduation.studyYears ,
       levelsTobePassed : graduation.levelsTobePassed ,
       semestersTobePssed : graduation.semestersTobePssed , 
       compulsoryCourses: graduation.compulsoryCourses,
@@ -296,6 +338,8 @@ console.log(options);
 
                           <input
                             onChange={(e)=>{setgraduation({...graduation , compulsoryCourses : true})}}
+                            checked={graduation.compulsoryCourses === true  }
+
                             className="form-check-input  mx-3 me-5 "
                             type="radio"
                             name="compulsoryCourses"
@@ -460,13 +504,13 @@ console.log(options);
                               className="form-select"
                               id="verifyPaymentOfFees"
                               name="verifyPaymentOfFees"
-                              onChange={(e)=>{setgraduation({...graduation , verifyPaymentOfFees : e.target.value === 0 ? true : false })}}
-                              value={graduation.verifyPaymentOfFees}
+                              onChange={(e)=>{setgraduation({...graduation , verifyPaymentOfFees :parseInt(e.target.value)   === 0 ? true : false })}}
+                              //value={graduation.verifyPaymentOfFees}
                               >
-                              <option value={0} >
+                              <option value={0} selected = {data.verifyPaymentOfFees === true} >
                                 ضرورة سداد الرسوم قبل التخرج
                               </option>
-                              <option value={1} >
+                              <option value={1} selected = {data.verifyPaymentOfFees === false}>
                                 عدم ضرورة سداد الرسوم قبل التخرج
                               </option>
                             </select>
@@ -491,10 +535,10 @@ console.log(options);
                               onChange={(e)=>{setgraduation({...graduation , makeSureToPassTheOptionalGroups : parseInt(e.target.value)})}}
                               value={graduation.makeSureToPassTheOptionalGroups}
                             >
-                              <option value={0} >
+                              <option value={0} selected = {data.makeSureToPassTheOptionalGroups === 0}>
                                 المجموعات التي درس منها الطالب{" "}
                               </option>
-                              <option value={1} >
+                              <option value={1} selected = {data.makeSureToPassTheOptionalGroups === 1}>
                                 كل المجموعات الاختياريه{" "}
                               </option>
                             </select>
@@ -723,7 +767,7 @@ console.log(options);
                             //value={graduation.levelsTobePassed}
                           >
                             {levels && levels.map((level, index) => (
-                                <option key={index} value={level.id} selected = {graduation.levelsTobePassed.includes(level.levels)}> {level.levels}</option>
+                                <option key={index} value={level.id} selected = {data.graduationLevels.includes(level.levels)}> {level.levels}</option>
                               ))}
                           </select>
                         </div>
@@ -742,18 +786,18 @@ console.log(options);
                         <select
                               id="semestersTobePssed"
                               name="semestersTobePssed"
-                              // onChange={getGradutionData}
                               onChange={handleChange}
                               className="form-select"
                               multiple
                               aria-label="Multiple select example"
+                              // value={graduation.semestersTobePssed}
                             >
                            
                                  {Sems && Sems.map((sem, index) => (
                                   <option 
                                     key={index} 
                                     value={sem.id} 
-                                    selected={graduation.semestersTobePssed.includes(sem.semesters)}
+                                    selected={data.graduationSemesters.includes(sem.semesters)}
                                   >
                                     {sem.semesters}
                                   </option>
@@ -781,13 +825,14 @@ console.log(options);
                             id="theMinimumGradeForTheCourseId"
                             name="theMinimumGradeForTheCourseId"
                             onChange={(e)=>{setgraduation({...graduation , theMinimumGradeForTheCourseId : parseInt(e.target.value)})}}
-                            //value={graduation.theMinimumGradeForTheCourseId}
+                            value={graduation.theMinimumGradeForTheCourseId}
                             required
                           >
                             <option disabled></option>
                             {grades && grades.map((grade, index) => (
       <option key={index} value={grade.id} selected={graduation.theMinimumGradeForTheCourseId === grade.id}>
-        {grade.theGrade}
+        {grade.theGrade} 
+        {/* {graduation.theMinimumGradeForTheCourseId === grade.id ? setgraduation({...graduation ,theMinimumGradeForTheCourseId : grade.id }) :''} */}
       </option>
     ))}
 

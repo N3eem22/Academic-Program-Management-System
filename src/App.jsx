@@ -97,7 +97,9 @@ function App() {
       
 
         <Route element={<Layout />}>
-          
+        <Route path="/gpa" element={<GpaPage />} />
+        <Route path="/graduation" element={<GraduationPage />} />
+
           <Route element={<Admin />}>
             <Route path="/managefaculty" element={<ManageFacultyPage />} />
             <Route path="/updatefaculty/:id" element={<UpdateFacultyWrapper />} />
