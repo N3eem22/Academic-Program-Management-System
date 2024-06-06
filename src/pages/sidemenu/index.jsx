@@ -3,59 +3,107 @@ import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { getAuthUser } from "../../helpers/storage";
 
-
 const SideMenu = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isUser, setIsUser] = useState(false);
+
   const [activeItem, setActiveItem] = useState("");
 
   useEffect(() => {
     const authUser = getAuthUser();
     setIsSuperAdmin(authUser && authUser.userRole === "SuperAdmin");
   }, [getAuthUser()]);
-  
-  
-  
+
+  useEffect(() => {
+    const authUser = getAuthUser();
+    setIsAdmin(authUser && authUser.userRole === "Admin");
+  }, [getAuthUser()]);
+
+  useEffect(() => {
+    const authUser = getAuthUser();
+    setIsUser(authUser && authUser.userRole === "User");
+  }, [getAuthUser()]);
 
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
-
 
   return (
     <div className="container-fluid" dir="rtl">
       <div className="row">
         <div className="col-md-2">
           <div className={styles.sideMenu}>
-            <div
-              className={`${styles.menuItem} ${
-                activeItem === "dashboard" && styles.active
-              }`}
-              onClick={() => handleItemClick("dashboard")}
-            >
-              البرامج الدراسيه
-            </div>
-            <div
-              className={`${styles.menuItem} ${
-                activeItem === "reports" && styles.active
-              }`}
-              onClick={() => handleItemClick("reports")}
-            >
-              التقارير
-            </div>
+            {isUser && (
+              <div
+                className={`${styles.menuItem} ${
+                  activeItem === "dashboard" && styles.active
+                }`}
+                onClick={() => handleItemClick("dashboard")}
+              >
+                <div className="accordion" id="accordionExample">
+                  <div className="accordion-item">
+                    <strong className="accordion-header">
+                      <button
+                        className="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        البرامج الدراسيه
+                      </button>
+                    </strong>
+                    <div
+                      id="collapseOne"
+                      className="accordion-collapse collapse "
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div className="accordion-body">
+                        <h5>بيانات البرنامج</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isAdmin && (
+              <div
+                className={` ${styles.menuItem} ${
+                  activeItem === "controlLookups" && styles.active
+                }`}
+                onClick={() => setActiveItem("controlLookups")}
+                style={{ textDecoration: "none" }}
+              >
+                <Link to="/AdminLookUps"> نظام التحكم </Link>
+              </div>
+            )}
+            {isAdmin && (
+              <div
+                className={` ${styles.menuItem} ${
+                  activeItem === "controlUni" && styles.active
+                }`}
+                onClick={() => setActiveItem("controlUni")}
+                style={{ textDecoration: "none" }}
+              >
+                <Link to="/managefaculty"> اداره الكليات</Link>
+              </div>
+            )}
+
             {isSuperAdmin && (
               <div
-
-//                 className={`${styles.menuItem} ${
-//                   activeItem === "controlUni" && styles.active
-//                 }`}
-//                 onClick={() => handleItemClick("controlUni")}
+                //                 className={`${styles.menuItem} ${
+                //                   activeItem === "controlUni" && styles.active
+                //                 }`}
+                //                 onClick={() => handleItemClick("controlUni")}
 
                 className={` ${styles.menuItem} ${
                   activeItem === "controlUni" && styles.active
                 }`}
-                onClick={() => (setActiveItem("controlUni") )}
+                onClick={() => setActiveItem("controlUni")}
                 style={{ textDecoration: "none" }}
-
               >
                 <Link to="/manageuni">ادارة الجامعات </Link>
               </div>
@@ -64,47 +112,26 @@ const SideMenu = () => {
               <div
                 className={`${styles.menuItem} ${
                   activeItem === "userManagement" && styles.active
-                }`} 
+                }`}
                 onClick={() => handleItemClick("userManagement")}
               >
                 <Link to="/manageusers">إدارة المستخدمين</Link>
               </div>
             )}
-            {isSuperAdmin && (
-              <div
-                className={`${styles.menuItem} ${
-                  activeItem === "controlSystem" && styles.active
-                }`}
-                onClick={() => handleItemClick("controlSystem")}
-              >
-                <Link to="/controls">نظام التحكم</Link>
-              </div>
-            )}
           </div>
         </div>
+
         <div className="col-md-10">
-          <nav
-            className={`${styles["navbar"]} border border-2 shadow p-2 mb-1  `}
-          >
-            <div className="nav-content fs-5 fw-semibold p-3">
-              <a className="navbar-brand" href="#">
-                <img
-                  src="../src\assets\imgs\book.svg"
-                  alt="Logo"
-                  width="25"
-                  height="20"
-                  className="d-inline-block align-text-center"
-                />
-                البرامج الدراسيه
-              </a>
+          <nav className={`${styles["navbar"]} border border-2 shadow p-2 `}>
+            <div className="nav-content fs-5 fw-semibold p-2">
               {isSuperAdmin && (
                 <Link className="navbar-brand fs-5 fw-semibold" to="/manageuni">
                   <img
                     src="../src\assets\imgs\gear-wide-connected.svg"
                     alt="Logo"
                     width="25"
-                    height="20"
-                    className=" ms-3 d-inline-block align-text-center"
+                    // height="20"
+                    className=" d-inline-block align-text-center"
                   />
                   إدارة الجامعات
                 </Link>
@@ -118,13 +145,13 @@ const SideMenu = () => {
                     src="../src\assets\imgs\gear-wide-connected.svg"
                     alt="Logo"
                     width="25"
-                    height="20"
-                    className=" ms-3  d-inline-block align-text-center"
+                    // height="20"
+                    className="  d-inline-block align-text-center"
                   />
                   إدارة المستخدمين
                 </Link>
               )}
-              {isSuperAdmin && (
+              {/* {isSuperAdmin && (
                 <Link className="navbar-brand fs-5 fw-semibold" to="/controls">
                   <img
                     src="../src\assets\imgs\gear-wide-connected.svg"
@@ -135,6 +162,66 @@ const SideMenu = () => {
                   />
                   نظام التحكم
                 </Link>
+              )} */}
+            </div>
+
+            <div className="nav-content fs-5 fw-semibold p-2">
+              {isAdmin && (
+                <Link
+                  className="navbar-brand fs-5 fw-semibold"
+                  to="/AdminLookUps"
+                >
+                  <img
+                    src="../src\assets\imgs\gear-wide-connected.svg"
+                    alt="Logo"
+                    width="25"
+                    height="20"
+                    className=" ms-3 d-inline-block align-text-center"
+                  />
+                  نظام التحكم
+                </Link>
+              )}
+              {isAdmin && (
+                <a className="navbar-brand" href="/managefaculty">
+                  <img
+                    src="../src\assets\imgs\book.svg"
+                    alt="Logo"
+                    width="25"
+                    height="20"
+                    className="d-inline-block align-text-center"
+                  />
+                  اداره الكليات{" "}
+                </a>
+              )}
+            </div>
+
+            <div className="nav-content fs-5 fw-semibold p-2">
+              {isUser && (
+                <Link
+                  className="navbar-brand fs-5 fw-semibold"
+                  to="/AdminLookUps"
+                >
+                  <img
+                    src="../src\assets\imgs\gear-wide-connected.svg"
+                    alt="Logo"
+                    width="25"
+                    height="20"
+                    className=" ms-3 d-inline-block align-text-center"
+                  />
+                  نظام التحكم
+                </Link>
+              )}
+              {isUser && (
+                <a className="navbar-brand" href="/managefaculty">
+                  <img
+                    src="../src\assets\imgs\book.svg"
+                    alt="Logo"
+                    width="25"
+                    height="20"
+                    className="d-inline-block align-text-center"
+                  />
+                  اداره الكليات{" "}
+                </a>
               )}
             </div>
           </nav>

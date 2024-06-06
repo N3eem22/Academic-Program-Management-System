@@ -29,7 +29,7 @@ const HeaderPage = () => {
               <p>العام الاكاديمى 2023-2024 - الفصل الدراسي الأول</p>
             </div>
             <div className={`${styles["header-icon"]} col-md-2   `}>
-              <Link to="login">
+              <Link to="/">
                 <button className="border border-transparent  rounded-2 p-2">
                   <img src="..\src\assets\imgs\box-arrow-left.svg" alt="" />
                 </button>
