@@ -117,7 +117,7 @@ const UpdateUsersPage = () => {
           universities: resp.data.universities,
           role: resp.data.role,
         });
-        console.log(resp.data.faculties[0]);     
+     
        })
       .catch((err) => {
         setUpdateUsers({
