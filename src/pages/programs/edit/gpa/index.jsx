@@ -32,7 +32,7 @@ const GpaPage = () => {
     };
     const [state , dispatch] = useReducer(reducer,initialState);
     const [grades, setGrades] = useState([]);
-
+    const [GetData, setGetData] = useState([]);
 
   var Options = {
     howToCalculateTheRatio : ["الدرجة المكتسبة مقسومة علي اجمالي عدد الدرجات * 100", "الدرجة المكتسبة مقسومه علي اجمالي عدد الدرجات" , "المعدل التراكمي المكتسب مقسوم علي الاجمالي" , "معادلة خاصه علوم" , "معادلة خاصه (اكاديميه طيبه)" , "حساب النسبة مقربة","الدرجة الفعلية مقسومة علي اجمالي الدرجات الفعلية * 100" , "الدرجة الفعلية مقسومة علي اجمالي الساعات الفعلية" , "حساب النسبة بناء علي التقديرات العامة"]
@@ -128,7 +128,7 @@ console.log(options);
         const fetchData =async (programId) =>{
                 const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then( (resp)=> {
                     dispatch({ type: 'Get'});
-                    setData({...data , utmostGrade: resp.data.utmostGrade,
+                    setData({...data , 
                         changingCourses: resp.data.changingCourses,
                         improvingCourses: resp.data.improvingCourses,
                         keepFailing: resp.data.keepFailing,
@@ -156,10 +156,10 @@ console.log(options);
                         showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal: resp.data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
                         howToCalculateTheSemesterAverage: resp.data.howToCalculateTheSemesterAverage,
                         gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount });
+                        setGetData(resp.data);
                   console.log(resp.data);
                 }).catch((err)=>{
                     dispatch({ type: 'Add' }); 
-                    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
                     console.log(err);
                 });
                 
@@ -168,9 +168,68 @@ console.log(options);
     fetchData(ProgramId);
     }, []);
     useEffect(() => {
-    if(state.status === "Update")
-        console.log("we are on udate");    
-    }, [state]);
+        if (state.status === "Get") {
+            const fetchData =async (programId) =>{
+                const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then( (resp)=> {
+                    setData({...data , 
+                        changingCourses: resp.data.changingCourses,
+                        improvingCourses: resp.data.improvingCourses,
+                        keepFailing: resp.data.keepFailing,
+                        maintainingStudentSuccess: resp.data.maintainingStudentSuccess,
+                        someOfGrades: resp.data.someOfGrades,
+                        howToCalculateTheRatio: resp.data.howToCalculateTheRatio,
+                        multiplyingTheHoursByTheStudentsGrades: resp.data.multiplyingTheHoursByTheStudentsGrades,
+                        calculateTheTermOfTheEquationInTheRate: resp.data.calculateTheTermOfTheEquationInTheRate,
+                        calculatingTheSemesterEquationInHourseEarned: resp.data.calculatingTheSemesterEquationInHourseEarned,
+                        rateApproximation: resp.data.rateApproximation,
+                        theNnumberOfDigitsRroundingTheRate: resp.data.theNnumberOfDigitsRroundingTheRate,
+                        reducingTheRateUponImprovement: resp.data.reducingTheRateUponImprovement,
+                        maximumNumberOfAdditionsToFailedCoursesWithoutSuccess: resp.data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess,
+                        deleteFailedCoursesAfterSuccess: resp.data.deleteFailedCoursesAfterSuccess,
+                        maximumCumulativeGPA: resp.data.maximumCumulativeGPA,
+                        calculateTheCumulativeEstimate: resp.data.calculateTheCumulativeEstimate,
+                        howToCalculateTheRate: resp.data.howToCalculateTheRate,
+                        theNumberOfDigitsRoundinPoints: resp.data.theNumberOfDigitsRoundinPoints,
+                        numberOfDigitsRoundingTheRatio: resp.data.numberOfDigitsRoundingTheRatio,
+                        summerIsNotExcludedInCalculatingTheAnnualAverage: resp.data.summerIsNotExcludedInCalculatingTheAnnualAverage,
+                        theCumulativeAverageDoesNotAppearInTheStudentGradesPortal: resp.data.theCumulativeAverageDoesNotAppearInTheStudentGradesPortal,
+                        theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades: resp.data.theSemesterAndCumulativePercentagesAppearInTheStudentsPortalForSubjectGrades,
+                        calculatingFailingGradePoints: resp.data.calculatingFailingGradePoints,
+                        calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: resp.data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
+                        showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal: resp.data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
+                        howToCalculateTheSemesterAverage: resp.data.howToCalculateTheSemesterAverage,
+                        gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount });
+                        setGetData(resp.data);
+                  console.log(resp.data);
+                }).catch((err)=>{                   
+                     console.log(err);
+                });
+                
+    
+        }
+    fetchData(ProgramId);
+        }
+        const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{
+            console.log(res.data);
+             setGrades(res.data) ;
+             if (state.status === "Update") {
+                //console.log(data);
+                const updatedGrades = res.data
+                  .filter(grade => data.gadesOfEstimatesThatDoesNotCount.includes(grade.theGrade))
+                  .map(grade => ({
+                    gradeId: grade.id,
+                    cumulativeAverageId: 0
+                  }));
+                 console.log(updatedGrades);
+                  setData(prevState => ({
+                  ...prevState,
+                    gadesOfEstimatesThatDoesNotCount: updatedGrades
+                }));
+              }
+
+        });
+    }, [state])
+
     // useEffect(() => {
     //     console.log(state);
     // }, [state]);
@@ -346,7 +405,7 @@ console.log(options);
                                                         </select>
                                                         }
                                                         { ((state.status === "Get")) &&
-                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.utmostGrade} />
+                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={GetData.utmostGrade} />
                                                         }
                                                     </div>
                                                 </div>
@@ -369,15 +428,15 @@ console.log(options);
                                                     <option 
                                                         key={index} 
                                                         value={grade.id} 
-                                                        selected={data.gadesOfEstimatesThatDoesNotCount.includes(grade.theGrade)}
+                                                        selected={GetData.gadesOfEstimatesThatDoesNotCount.includes(grade.theGrade)}
                                                     >
                                                         {grade.theGrade}
                                                             </option>
-                                                                             ))} 
+                                                                        ))} 
 
                                                         </select>}
                                                         { ((state.status === "Get")) &&
-                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.gadesOfEstimatesThatDoesNotCount} />
+                                                            <input     className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={GetData.gadesOfEstimatesThatDoesNotCount} />
                                                         }
                                                     </div>
                                                 </div>
