@@ -63,8 +63,8 @@ const AddGraduation = ({ data }) => {
     console.log(options);
     if (name === "semestersTobePssed" || name === "levelsTobePassed") {
       selectedValues = options.map(option => ({
-        [${ name === "semestersTobePssed" ? "semesterId" : "levelId"
-      }]: parseInt(option.value),
+        [`${ name === "semestersTobePssed" ? "semesterId" : "levelId"
+      }`]: parseInt(option.value),
         graduationId: 0 } ));
   } else {
     selectedValues = options.map(option => option.value);
@@ -117,7 +117,7 @@ useEffect(() => {
 
 useEffect(() => {
 
-  const fetchGrades = axios.get(https://localhost:7095/api/AllGrades?UniversityId=${1}).then((res)=>{console.log(res.data); setGrades(res.data)});
+  const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res)=>{console.log(res.data); setGrades(res.data)});
     const fetchLevels = axios.get('https://localhost:7095/api/Level?UniversityId=1')
     .then((res) => {
       console.log(res.data);
@@ -171,7 +171,7 @@ async function sendDataToApi() {
 
   const dataToSend = { graduationReq: graduation };
   console.log("Sending request with payload:", dataToSend);
-  await axios.post(https://localhost:7095/api/Graduation,{
+  await axios.post(`https://localhost:7095/api/Graduation`,{
     ProgramId : graduation.programId,
     rate : graduation.rate,
     ratio : graduation.ratio,
@@ -198,7 +198,7 @@ async function UpdateAPI() {
 
   const dataToSend = { graduationReq: graduation };
   console.log("Sending request with payload:", dataToSend);
-  await axios.put(https://localhost:7095/api/Graduation/${49},{
+  await axios.put(`https://localhost:7095/api/Graduation/${49}`,{
     ProgramId : graduation.programId,
     rate : graduation.rate,
     ratio : graduation.ratio,
@@ -844,14 +844,14 @@ return (
                     </div>
                   </div>
                   <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                    {(state.status !== "Get") && <button className={btn fs-4 fw-semibold px-4 text-white ${styles.save}} type="submit">
+                    {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                     <i className="fa-regular fa-bookmark"></i> حفظ
                   </button>}
-                  {(state.status !== "Get") && <button className={btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
+                  {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
                   <i className="fa-solid fa-lock"></i> غلق
                 </button>}
 
-                <button className={btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}} type="button" onClick={() => {
+                <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
                   dispatch({ type: "Update" });
 
                   setGlobalState({ ...globalState, State: "Update" });
@@ -875,4 +875,4 @@ AddGraduation.displayName = "AddGraduation";
 
 AddGraduation.propTypes = {};
 
-export { AddGraduation };
+export { AddGraduation }; 
