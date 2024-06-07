@@ -581,7 +581,8 @@ const ControlPage = () => {
                 <div className="row mt-3">
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
-                        <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
+                        <h2 style={{ color: "red" }}        >      برنامج :  التربيه الفنيه
+</h2>
                         <br />
                         <div className="inputs-card  ">
 

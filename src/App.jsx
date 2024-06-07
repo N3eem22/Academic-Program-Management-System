@@ -58,6 +58,7 @@ import { Semesters } from "./pages/admin/managelockups/semesters";
 import { GradesDetails } from "./pages/admin/managelockups/gradesDetails";
 import { EquivalentGrade } from "./pages/admin/managelockups/equivalentGrade";
 
+
 function App() {
   useEffect(() => {}, []);
 
@@ -82,8 +83,6 @@ function App() {
               <Route path="/managefaculty" element={<ManageFacultyPage />} />
               <Route path="/updatefaculty/:id"  element={<UpdateFacultyWrapper />}  />
               <Route path="/dataTable" element={<DataTable />} />
-              <Route path="/programs" element={<ProgramsComp />} />
-              <Route path="/logFiles" element={<LogFiles />} />
               <Route path="/updatefaculty/:id"element={<UpdateFacultyWrapper />}    />
               <Route path="/summer" element={<SummerFees />} />
       
@@ -117,25 +116,36 @@ function App() {
               <Route path="/manageusers" element={<ManageUsersPage />} />
               <Route path="/updateusers/:id" element={<UpdateUsersWrapper />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/logFiles" element={<LogFiles />} />
+
               <Route
                 path="/editUniversity/:id"
                 element={<UpdateUniversityWrapper />}
               />
+
             </Route>
             <Route element={<User />}>
-              <Route path="/control" element={<ControlPage />} />
+              <Route path="/control/:id" element={<ControlPage />} />
               <Route path="/homeuser" element={<HomeUserPage />} />
               <Route
-                path="/Generalestimates"
+                path="/Generalestimates/:id"
                 element={<GeneralestimatesPage />}
               />
-              <Route path="/Levelsuser" element={<LevelsPage />} />
-              <Route path="/estimates" element={<EstimatesPage />} />
-              <Route path="/academicload" element={<AcademicloadPage />} />
-              <Route path="/courses" element={<CoursesPage />} />
+              <Route path="/programs/:id" element={<ProgramsComp />} />
+              <Route path="/Levelsuser/:id" element={<LevelsPage />} />
+              <Route path="/estimates/:id" element={<EstimatesPage />} />
+              <Route path="/academicload/:id" element={<AcademicloadPage />} />
+              <Route path="/courses/:id" element={<CoursesPage />} />
+              <Route path="/gpa/:id" element={<GpaPage />} />
+              <Route path="/graduation/:id" element={<GraduationPage />} />
+
+
+
+
+
+
               <Route path="/controls" element={<ControlsPage />} />
-              <Route path="/gpa" element={<GpaPage />} />
-              <Route path="/graduation" element={<GraduationPage />} />
+
             </Route>
           </Route>
         </Routes>

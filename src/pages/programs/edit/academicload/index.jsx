@@ -171,7 +171,7 @@ const AcademicloadPage = () => {
           <div className="col-md-2"></div>
           <div className="col-md-10">
             <h2 style={{ color: "red", paddingBottom: "15px" }}>
-              برنامج : التثقيف بالفن
+              برنامج :  التربيه الفنيه
             </h2>
             <div className="inputs-card  ">
               <div className="col-md-12 ">
