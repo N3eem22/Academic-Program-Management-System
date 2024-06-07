@@ -3,7 +3,7 @@ import { DataTable } from '../../../../components/dataTable';
 
 function ReasonForBlockingRegistration() {
   const universityId = 1;
-    const nameOfLU= '';
+    const nameOfLU= 'theReasonForBlockingRegistration';
     const property = 'سبب حجب التسجيل';
     
 

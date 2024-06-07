@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { TablePage } from "../../../../components/tables";
 import { headers2 } from "../../../../helpers/headers";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const EstimatesPage = () => {
   let [reload, setReload] = useState(false);
@@ -17,6 +18,10 @@ const EstimatesPage = () => {
   let [theGrade, setTheGrade] = useState([]);
   let [theGradeId, setTheGradeId] = useState([]);
   let [data, setData] = useState([]);
+  const {id} = useParams() ;
+  useEffect(() => {
+    console.log(id);;
+  }, [id]);
 
   async function getgradesfromapi() {
     let { data } = await axios.get("https://localhost:7095/api/AllGrades?2");
@@ -34,7 +39,7 @@ const EstimatesPage = () => {
 
   async function getgraduationEstimatefromapi() {
     let { data } = await axios.get(
-      "https://localhost:7095/api/EquivalentGrade?2"
+      "https://localhost:7095/api/EquivalentGrade?UniversityId=2"
     );
     console.log(data);
     setgraduationEstimate(data);
@@ -48,7 +53,7 @@ const EstimatesPage = () => {
     getgradesfromapi();
     getgraduationEstimatefromapi();
     axios
-      .get("https://localhost:7095/api/Program_TheGrade/17")
+      .get(`https://localhost:7095/api/Program_TheGrade/${17}`)
       .then((res) => {
         console.log(res);
         setData(res.data);
@@ -63,7 +68,7 @@ const EstimatesPage = () => {
     event.preventDefault();
     axios
       .post("https://localhost:7095/api/Program_TheGrade", {
-        prog_InfoId: 17,
+        prog_InfoId:programInfoId,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -94,7 +99,7 @@ const EstimatesPage = () => {
     // console.log(levelid);
     axios
       .put(`https://localhost:7095/api/Program_TheGrade/${selectedRow.id}`, {
-        prog_InfoId: 17,
+        prog_InfoId: programInfoId,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -157,6 +162,22 @@ const EstimatesPage = () => {
       });
   };
 
+  const [programInfoId, setProgramInfoId] = useState("");
+
+  
+  useEffect(() => {
+    axios.get(`https://localhost:7095/api/ProgramInformation/${id}`)
+
+            .then((resp) => {
+              setProgramInfoId(resp.data.Id)
+                console.log(resp);
+            })
+            .catch((err) => {
+              setShow(false);
+                console.log(err);
+            });
+  }, []);
+
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -164,7 +185,7 @@ const EstimatesPage = () => {
           <div className="col-md-2"></div>
           <div className="col-md-10">
             <h2 style={{ color: "red", paddingBottom: "15px" }}>
-              برنامج : التثقيف بالفن
+            برنامج :  التربيه الفنيه
             </h2>
             <div className="inputs-card  ">
               <div className="col-md-6 ">

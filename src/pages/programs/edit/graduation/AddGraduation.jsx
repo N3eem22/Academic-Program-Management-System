@@ -63,8 +63,12 @@ const AddGraduation = ({ data }) => {
     console.log(options);
     if (name === "semestersTobePssed" || name === "levelsTobePassed") {
       selectedValues = options.map(option => ({
+<<<<<<< HEAD
         [`${ name === "semestersTobePssed" ? "semesterId" : "levelId"
       }`]: parseInt(option.value),
+=======
+        [`${name === "semestersTobePssed" ? "semesterId" : "levelId"}`]: parseInt(option.value),
+>>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
         graduationId: 0 } ));
   } else {
     selectedValues = options.map(option => option.value);
@@ -77,9 +81,10 @@ setgraduation(prevState => ({
   };
 useEffect(() => {
   console.log('Updated selectedValues:', graduation);
+  console.log(data);
 }, [graduation]);
 useEffect(() => {
-  console.log(data);
+ 
   if (globalState.State === "Update") {
     setgraduation(prevGraduation => ({
       ...prevGraduation,
@@ -88,7 +93,7 @@ useEffect(() => {
       ratio: data.ratio,
       value: data.value,
       levelsTobePassed: data.graduationLevels,
-      semestersTobePssed: data.graduationSemesters,
+      semestersTobePssed: data.graduationSemesters ,
       compulsoryCourses: data.compulsoryCourses,
       summerTraining: data.summerTraining,
       verifyPaymentOfFees: data.verifyPaymentOfFees,
@@ -102,7 +107,7 @@ useEffect(() => {
       averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
     }));
   }
-
+console.log(data);
 }, [data]);
 useEffect(() => {
   const selectedGrade = grades.find(grade => graduation.theMinimumGradeForTheCourseId === grade.theGrade);
@@ -166,6 +171,7 @@ useEffect(() => {
 }, [globalState,]);
 useEffect(() => {
   console.log(graduation);
+
 }, [graduation]);
 async function sendDataToApi() {
 
@@ -239,7 +245,9 @@ return (
       <div className="row mt-3">
         <div className="col-md-2"></div>
         <div className="col-md-10">
-          <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
+          <h2 style={{ color: "red" }}>
+          برنامج :  التربيه الفنيه
+          </h2>
           <div className="inputs-card  ">
             <div className="card-body">
               <div className="form-validation">
@@ -767,8 +775,15 @@ return (
                           aria-label="Multiple select example"
                         //value={graduation.levelsTobePassed}
                         >
-                          {levels && levels.map((level, index) => (
-                            <option key={index} value={level.id} selected={data.graduationLevels.includes(level.levels)}> {level.levels}</option>
+                          {globalState.State !=="Add" && levels && levels.map((level, index) => (
+                            <option key={index} 
+                            value={level.id} 
+                            selected={data.graduationLevels.includes(level.levels)}> {level.levels}</option>
+                          ))}
+                          {globalState.State ==="Add" && levels && levels.map((level, index) => (
+                            <option key={index} 
+                            value={level.id} 
+                            > {level.levels}</option>
                           ))}
                         </select>
                       </div>
@@ -794,7 +809,7 @@ return (
                         // value={graduation.semestersTobePssed}
                         >
 
-                          {Sems && Sems.map((sem, index) => (
+                          {globalState.State !=="Add" && Sems && Sems.map((sem, index) => (
                             <option
                               key={index}
                               value={sem.id}
@@ -803,7 +818,14 @@ return (
                               {sem.semesters}
                             </option>
                           ))}
-
+   {globalState.State ==="Add" && Sems && Sems.map((sem, index) => (
+                            <option
+                              key={index}
+                              value={sem.id}
+                            >
+                              {sem.semesters}
+                            </option>
+                          ))}
                         </select>
 
                       </div>
@@ -844,14 +866,22 @@ return (
                     </div>
                   </div>
                   <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
+<<<<<<< HEAD
                     {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
+=======
+                    {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}` } type="submit">
+>>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
                     <i className="fa-regular fa-bookmark"></i> حفظ
                   </button>}
                   {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
                   <i className="fa-solid fa-lock"></i> غلق
                 </button>}
 
+<<<<<<< HEAD
                 <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
+=======
+                <button className={`tn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
+>>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
                   dispatch({ type: "Update" });
 
                   setGlobalState({ ...globalState, State: "Update" });

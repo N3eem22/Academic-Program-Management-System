@@ -642,7 +642,8 @@ const ControlPage = () => {
                 <div className="row mt-3">
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
-                        <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
+                        <h2 style={{ color: "red" }}        >      برنامج :  التربيه الفنيه
+</h2>
                         <br />
                         {data.err && data.err.length > 0 && (
                             <div className="col-md-12 mb-3 w-25 m-auto alert alert-danger">
