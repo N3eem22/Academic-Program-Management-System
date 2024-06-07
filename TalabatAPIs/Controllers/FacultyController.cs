@@ -51,6 +51,14 @@ namespace Grad.APIs.Controllers
                 var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
                 return Ok(facultyDTO);
             }
+            if (role == "Admin")
+            {
+
+                var specWithUNiID = new FacultywithUniSpecifications(UniversityId);
+                var faculty = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(specWithUNiID);
+                var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
+                return Ok(facultyDTO);
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userFaculties = _IdentityHelper.GetUserFaculties(userId);
             if (!userFaculties.Any())
