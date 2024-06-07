@@ -127,7 +127,7 @@ namespace Talabat.APIs.Helpers
                 .ForMember(D => D.pI_DivisionTypes, o => o.MapFrom(s => string.Join(",", s.pI_DivisionTypes.Select(gl => gl.DivisionType.Division_Type))))
                 .ForMember(D => D.PI_EstimatesOfCourseFeeExemptions, o => o.MapFrom(s => string.Join(",", s.PI_EstimatesOfCourseFeeExemptions.Select(gl => gl.AllGrades.TheGrade))))
                 .ForMember(D => D.pI_DetailedGradesToBeAnnounced, o => o.MapFrom(s => string.Join(",", s.pI_DetailedGradesToBeAnnounced.Select(gl => gl.GradesDetails.TheDetails))))
-                .ForMember(D => D.pI_AllGradesSummerEstimates, o => o.MapFrom(s => string.Join(",", s.pI_AllGradesSummerEstimates.Select(gl => gl.AllGrades.TheGrade))));
+                .ForMember(D => D.pI_AllGradesSummerEstimates, o => o.MapFrom(s => string.Join(",", s.pI_AllGradesSummerEstimates.Select(gl => gl.AllGrades.TheGrade)))).ReverseMap();
 
 
 
