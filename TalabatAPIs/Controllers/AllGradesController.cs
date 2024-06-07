@@ -94,7 +94,7 @@ namespace Grad.APIs.Controllers
 
             var gradee = _unitOfWork.Repository<AllGrades>().Add(_mapper.Map<AllGradesReq, AllGrades>(gradeDTO));
 
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             string Done = AppMessage.Done;
 
@@ -136,7 +136,7 @@ namespace Grad.APIs.Controllers
             grade.TheGrade = Updatedgrade;
             _unitOfWork.Repository<AllGrades>().Update(grade);
 
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             return result ? Ok(new { Message = Update }) : BadRequest(new ApiResponse(500));
 
@@ -152,7 +152,7 @@ namespace Grad.APIs.Controllers
             if (grade == null)   
                 return NotFound(new ApiResponse(400));
          await _unitOfWork.Repository<AllGrades>().softDelete(id);
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
          return result ? Ok(new { message = AppMessage.Deleted }) : StatusCode(500, new { error = AppMessage.Error });
 
 

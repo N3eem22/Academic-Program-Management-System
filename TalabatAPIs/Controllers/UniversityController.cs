@@ -102,7 +102,7 @@ namespace Grad.APIs.Controllers
                 return StatusCode(409, new ApiResponse(409));
             var university = _mapper.Map<UniversityReq, University>(universityReq);
             await _unitOfWork.Repository<University>().Add(university);
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Done : AppMessage.Error;
             return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
         }
@@ -124,7 +124,7 @@ namespace Grad.APIs.Controllers
 
 
             _unitOfWork.Repository<University>().Update(university);
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Updated : AppMessage.Error;
             return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
         }
@@ -136,7 +136,7 @@ namespace Grad.APIs.Controllers
             if (university == null)
                 return NotFound(new ApiResponse(404));
           await  _unitOfWork.Repository<University>().softDelete(id);
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
         }
