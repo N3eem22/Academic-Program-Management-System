@@ -73,9 +73,9 @@ const [ProgramId, setProgramId] = useState(null);
               >
                 <div className="accordion" id="accordionExample">
                   <div className="accordion-item">
-                    <strong className="accordion-header">
+                    <h5 className="accordion-header text-xl-start">
                       <button
-                        className="accordion-button"
+                        className="accordion-button  fs-3"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#collapseOne"
@@ -85,14 +85,14 @@ const [ProgramId, setProgramId] = useState(null);
                       >
                         البرامج الدراسيه
                       </button>
-                    </strong>
+                    </h5>
                     <div
                       id="collapseOne"
                       className="accordion-collapse collapse "
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body">
-                        <button className="btn" onClick={(e) => handleClick(e)}>
+                        <button className="btn  fs-4" onClick={(e) => handleClick(e)}>
                           بيانات البرنامج
                         </button>
                       </div>
@@ -126,7 +126,16 @@ const [ProgramId, setProgramId] = useState(null);
                 <Link to="/managefaculty"> اداره الكليات</Link>
               </div>
             )}
-
+ {isSuperAdmin && (
+              <div
+                className={`${styles.menuItem} ${
+                  activeItem === "userManagement" && styles.active
+                }`}
+                onClick={() => handleItemClick("userManagement")}
+              >
+                <Link to="/manageusers">إدارة المستخدمين</Link>
+              </div>
+            )}
             {isSuperAdmin && (
               <div
                 className={` ${styles.menuItem} ${
@@ -138,16 +147,7 @@ const [ProgramId, setProgramId] = useState(null);
                 <Link to="/manageuni">إدارة الجامعات </Link>
               </div>
             )}
-            {isSuperAdmin && (
-              <div
-                className={`${styles.menuItem} ${
-                  activeItem === "userManagement" && styles.active
-                }`}
-                onClick={() => handleItemClick("userManagement")}
-              >
-                <Link to="/manageusers">إدارة المستخدمين</Link>
-              </div>
-            )}
+           
             {isSuperAdmin && (
               <div
                 className={`${styles.menuItem} ${
@@ -166,22 +166,7 @@ const [ProgramId, setProgramId] = useState(null);
             className={`${styles["navbar"]} border border-2  rounded-top-5  shadow pb-3  `}
           >
             <div className="nav-content fs-5 fw-semibold p-2">
-              {isSuperAdmin && (
-                <Link className="navbar-brand fs-5 fw-semibold" to="/manageuni">
-                  <button
-                    type="button"
-                    style={{
-                      borderLeftColor: "#19355a",
-                      borderTopColor: "#19355a",
-                      borderRightColor: "#19355a",
-                    }}
-                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
-                  >
-                    إدارة الجامعات
-                  </button>
-                </Link>
-              )}
-              {isSuperAdmin && (
+            {isSuperAdmin && (
                 <Link
                   className="navbar-brand fs-5 fw-semibold"
                   to="/manageusers"
@@ -199,6 +184,22 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </Link>
               )}
+              {isSuperAdmin && (
+                <Link className="navbar-brand fs-5 fw-semibold" to="/manageuni">
+                  <button
+                    type="button"
+                    style={{
+                      borderLeftColor: "#19355a",
+                      borderTopColor: "#19355a",
+                      borderRightColor: "#19355a",
+                    }}
+                    className="btn btn-light btn-lg border-2 rounded-5  rounded-bottom mx-1"
+                  >
+                    إدارة الجامعات
+                  </button>
+                </Link>
+              )}
+            
               {isSuperAdmin && (
                 <Link className="navbar-brand fs-5 fw-semibold" to="/logFiles">
                   <button
@@ -268,7 +269,7 @@ const [ProgramId, setProgramId] = useState(null);
 
               
 
-
+ 
               {isUser && (
                 <Link
                   className="navbar-brand fs-6   fw-semibold"
@@ -287,7 +288,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </Link>
               )}
-              {isUser &&  (
+              {isUser &&   show && (
                 <Link
                   className="navbar-brand fs-5 fw-semibold"
                   to={`/Levelsuser/${12}`}
@@ -305,7 +306,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </Link>
               )}
-              {isUser &&   (
+              {isUser && show &&  (
                 <a className="navbar-brand" href={`/estimates/${12}`}>
                   <button
                     type="button"
@@ -320,7 +321,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&  (
+              {isUser && show && (
                 <a className="navbar-brand" href= {`/academicload/${12}`}>
                   <button
                     type="button"
@@ -335,7 +336,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&  (
+              {isUser && show && (
                 <a className="navbar-brand" href={`/courses/${12}`}>
                   <button
                     type="button"
@@ -350,7 +351,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&   (
+              {isUser && show &&   (
                 <a className="navbar-brand" href= {`/gpa/${12}`}>
                   <button
                     type="button"
@@ -365,7 +366,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&   (
+              {isUser &&  show && (
                 <a className="navbar-brand" href= {`/control/${12}`}>
                   <button
                     type="button"
@@ -380,7 +381,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&   (
+              {isUser && show &&  (
                 <a className="navbar-brand" href=  {`/graduation/${12}`}>
                   <button
                     type="button"
@@ -395,7 +396,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&  (
+              {isUser &&  show && (
                 <a className="navbar-brand" href= {`/Generalestimates/${12}`}>
                   <button
                     type="button"
@@ -409,7 +410,7 @@ const [ProgramId, setProgramId] = useState(null);
                     التقديرات العامه
                   </button>
                 </a>
-              )}
+              )} 
               <div className="nav-content fs-5 fw-semibold p-2">{isUser}</div>
             </div>
           </nav>

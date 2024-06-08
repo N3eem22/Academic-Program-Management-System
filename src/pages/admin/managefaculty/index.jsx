@@ -46,9 +46,10 @@ const ManageFacultyPage = () => {
       });
   }, []);
 
+  
   const deleteFaculty = (id) => {
     axios
-      .delete(`https://localhost:7095/api/Faculty?id=${id}`)
+      .delete(`https://localhost:7095/api/Faculty/${id}`)
       .then((response) => {
         setReload(!reload); // Trigger reload of faculty data
       })
@@ -60,15 +61,29 @@ const ManageFacultyPage = () => {
     // هنا يمكنك تنفيذ الإجراءات الخاصة بك لتحميل بيانات الجامعة المحددة والتحول إلى صفحة التعديل
     navigate(`/updatefaculty/${id}`);
   };
+  
+  const handleAddFacultyClick = () => {
+    navigate('/addfaculty');
+  };
   return (
     <Fragment>
       <div className="container" dir="rtl">
         <div className="row mt-3">
           <div className="col-md-2"></div>
           <div className="col-md-10">
+            <div className="row ">
+            <div className="col-2">
             <h2 style={{ color: "red", paddingBottom: "15px" }}>
               اداره الكليات
             </h2>
+            </div>
+
+            <div className="col-md-2">
+                  <button className="btn btn-success py-3 fw-semibold fs-5 sharp" type="button" onClick={handleAddFacultyClick}>
+                    اضافة كليه
+                  </button>
+                </div>
+                </div>
             <div className="card">
               <div className="card-header">
                 <h4 className="card-title">اداره الكليات</h4>

@@ -558,7 +558,7 @@ const AdminLookUpsPage = () => {
         <div className="row mt-3">
           <div className="col-md-2"></div>
           <div className="col-md-10 row">
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -575,7 +575,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -592,7 +592,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -609,7 +609,24 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/burden"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      مقررات الكليه{" "}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -627,7 +644,7 @@ const AdminLookUpsPage = () => {
               </div>
             </div>
 
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -644,7 +661,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -661,7 +678,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -679,7 +696,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -696,7 +713,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -713,7 +730,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -730,7 +747,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -748,7 +765,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -766,7 +783,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -784,7 +801,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -802,7 +819,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -820,7 +837,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -838,7 +855,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -856,7 +873,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -874,7 +891,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -892,7 +909,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -910,7 +927,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -927,7 +944,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -944,7 +961,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-10 col-lg-4 col-sm-6">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
               <div
                 className="widget-stat card m-3 p-3 "
                 style={{ borderRadius: "50px" }}
@@ -961,6 +978,7 @@ const AdminLookUpsPage = () => {
                 </div>
               </div>
             </div>
+           
           </div>
         </div>
       </div>

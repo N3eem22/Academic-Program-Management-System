@@ -33,7 +33,6 @@ const GraduationPage = () => {
   const [globalState, setGlobalState] = useState(initialStates);
 
 
-<<<<<<< HEAD
   const [graduation, setgraduation] = useState({
     programId: 48,
     studyYears: null,
@@ -73,31 +72,7 @@ const GraduationPage = () => {
             console.log(err);
 
           });
-=======
-const [graduation, setgraduation] = useState({
-  programId: 48,
-  studyYears: null,
-  value: null,
-  rate: false,
-  ratio: false,
-  compulsoryCourses: null,
-  summerTraining: null,
-  verifyPaymentOfFees: true,
-  makeSureToPassTheOptionalGroups: 0,
-  passingMilitaryEducation: null,
-  successInEveryCourse: null,
-  determineTheRankBasedOn: null,
-  rateBase: null,
-  comparingCumulativeAverageForEachYear: false,
-  theMinimumGradeForTheCourseId: null,
-  graduationLevels: "",
-  graduationSemesters: "",
-  averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
-});
-useEffect(() => {
-  console.log(globalState);
-  console.log(globalState.State);
->>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
+
 
 
     }

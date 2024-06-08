@@ -63,12 +63,10 @@ const AddGraduation = ({ data }) => {
     console.log(options);
     if (name === "semestersTobePssed" || name === "levelsTobePassed") {
       selectedValues = options.map(option => ({
-<<<<<<< HEAD
+
         [`${ name === "semestersTobePssed" ? "semesterId" : "levelId"
       }`]: parseInt(option.value),
-=======
-        [`${name === "semestersTobePssed" ? "semesterId" : "levelId"}`]: parseInt(option.value),
->>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
+
         graduationId: 0 } ));
   } else {
     selectedValues = options.map(option => option.value);
@@ -866,22 +864,16 @@ return (
                     </div>
                   </div>
                   <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-<<<<<<< HEAD
                     {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
-=======
-                    {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}` } type="submit">
->>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
+
                     <i className="fa-regular fa-bookmark"></i> حفظ
                   </button>}
                   {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
                   <i className="fa-solid fa-lock"></i> غلق
                 </button>}
 
-<<<<<<< HEAD
-                <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
-=======
+
                 <button className={`tn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
->>>>>>> a9124287280e1ae45f2db5d04c94d9e9a63c82d4
                   dispatch({ type: "Update" });
 
                   setGlobalState({ ...globalState, State: "Update" });

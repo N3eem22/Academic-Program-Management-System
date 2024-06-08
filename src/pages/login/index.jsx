@@ -39,7 +39,7 @@ const LoginPage = React.memo(() => {
         // Navigate based on user role
         switch (resp.data.userRole) {
           case "SuperAdmin":
-            navigate("/manageuni");
+            navigate("/manageusers");
             break;
           case "Admin":
             navigate("/AdminLookUps");
@@ -117,14 +117,18 @@ const LoginPage = React.memo(() => {
                       onClick={togglePasswordVisibility}
                     >
                       <i
-                        className={`${login.showPassword ? "fas fa-eye-slash" : "fas fa-eye"} fs-5 me-3`}
+                        className={`${
+                          login.showPassword ? "fas fa-eye-slash" : "fas fa-eye"
+                        } fs-5 me-3`}
                         style={{ cursor: "pointer" }}
                       ></i>
                     </i>
                     <label htmlFor="floatingPassword">Password</label>
                   </div>
 
-                  <div className={`form-group radio-group mt-4 ${styles.radio} `}>
+                  <div
+                    className={`form-group radio-group mt-4 ${styles.radio} `}
+                  >
                     <div className="form-check">
                       <input
                         className="form-check-input"
@@ -133,9 +137,14 @@ const LoginPage = React.memo(() => {
                         name="role"
                         value="Admin"
                         checked={login.role === "Admin"}
-                        onChange={(e) => setLogin({ ...login, role: e.target.value })}
+                        onChange={(e) =>
+                          setLogin({ ...login, role: e.target.value })
+                        }
                       />
-                      <label className="form-check-label fw-semibold" htmlFor="adminRadio">
+                      <label
+                        className="form-check-label fw-semibold"
+                        htmlFor="adminRadio"
+                      >
                         Admin
                       </label>
                     </div>
@@ -147,9 +156,14 @@ const LoginPage = React.memo(() => {
                         name="role"
                         value="SuperAdmin"
                         checked={login.role === "SuperAdmin"}
-                        onChange={(e) => setLogin({ ...login, role: e.target.value })}
+                        onChange={(e) =>
+                          setLogin({ ...login, role: e.target.value })
+                        }
                       />
-                      <label className="form-check-label fw-semibold" htmlFor="superAdminRadio">
+                      <label
+                        className="form-check-label fw-semibold"
+                        htmlFor="superAdminRadio"
+                      >
                         Super Admin
                       </label>
                     </div>
@@ -161,9 +175,14 @@ const LoginPage = React.memo(() => {
                         name="role"
                         value="User"
                         checked={login.role === "User"}
-                        onChange={(e) => setLogin({ ...login, role: e.target.value })}
+                        onChange={(e) =>
+                          setLogin({ ...login, role: e.target.value })
+                        }
                       />
-                      <label className="form-check-label fw-semibold" htmlFor="userRadio">
+                      <label
+                        className="form-check-label fw-semibold"
+                        htmlFor="userRadio"
+                      >
                         User
                       </label>
                     </div>

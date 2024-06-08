@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import styles from "./index.module.scss";
+import styles from "../controls/index.module.scss";
 
 const ControlsPage = () => {
     const [formData, setFormData] = useState({

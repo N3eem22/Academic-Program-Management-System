@@ -135,7 +135,6 @@ const LevelsPage = () => {
                   <div className="form-validation">
                     <form className="form-valide" required method="post">
                       <div className="row">
-                        <div className="col-xl-6">
                           <div className="form-group mt-4 row">
                             <label
                               className="col-md-2 col-form-label"
@@ -167,8 +166,6 @@ const LevelsPage = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="col-xl-2">
                           <div className="form-group mb-3 row">
                             <label
                               className="col-md-2 col-form-label"
@@ -229,7 +226,6 @@ const LevelsPage = () => {
                               />
                             </div>
                           </div>
-                        </div>
 
                         <div className="btns d-flex justify-content-center align-items-center py-3">
                           <button
