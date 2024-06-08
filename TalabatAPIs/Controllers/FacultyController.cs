@@ -98,7 +98,7 @@ namespace Grad.APIs.Controllers
         [ProducesResponseType(typeof(ApiResponse), 404)]
         public async Task<ActionResult<FacultyDTO>> GetFacultyById(int id)
         {
-            var spec = new FacultywithUniSpecifications(id);
+            var spec = new FacultySpecifications(id);
             var faculty = await _unitOfWork.Repository<Faculty>().GetEntityWithSpecAsync(spec);
             if (faculty == null)
                 return NotFound(new ApiResponse(404));
