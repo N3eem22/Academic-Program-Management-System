@@ -8,9 +8,9 @@
         public string CourseNameInEnglish { get; set; }
         public string Sub_CourseNameInArabic { get; set; }
         public string Sub_CourseNameInEnglish { get; set; }
-        public int CourseCodeInArabic { get; set; }
+        public string CourseCodeInArabic { get; set; }
         public int CourseCodeInEnglish { get; set; }
-        public int Sub_CourseCodeInArabic { get; set; }
+        public string Sub_CourseCodeInArabic { get; set; }
         public int Sub_CourseCodeInEnglish { get; set; }
         public string CourseNickname { get; set; }
         public string ContentSummaryInArabic { get; set; }
