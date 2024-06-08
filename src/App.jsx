@@ -108,6 +108,8 @@ function App() {
               <Route path="/semesters" element={<Semesters />}/>
               <Route path="/gradesdetails" element={<GradesDetails />}/>
               <Route path="/equivalent" element={<EquivalentGrade />}/>
+              <Route path="/controls" element={<ControlsPage />} />
+
             </Route>
 
             <Route element={<SuperAdmin />}>
@@ -144,7 +146,6 @@ function App() {
 
 
 
-              <Route path="/controls" element={<ControlsPage />} />
 
             </Route>
           </Route>
