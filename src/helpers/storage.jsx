@@ -18,8 +18,11 @@ export const setAuthUser = (data) => {
 //   return user ? JSON.parse(user) : null;
 // };
 
-  export const removeAuthUser = () => {
-    if (localStorage.getItem("user")) {
-      localStorage.removeItem("user");
-    }
-  };
+export const removeAuthUser = () => {
+  if (localStorage.getItem("user")) {
+    localStorage.removeItem("user");
+  }
+  if (localStorage.getItem("Token")) {
+    localStorage.removeItem("Token");
+  }
+};

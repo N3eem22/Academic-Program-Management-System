@@ -126,7 +126,9 @@ const LevelsPage = () => {
         <div className="row mt-3">
           <div className="col-md-2"></div>
           <div className="col-md-10">
-            <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
+            <h2 style={{ color: "red" }}>
+            برنامج :  التربيه الفنيه
+            </h2>
             <div className="inputs-card">
               <div className="col-md-12">
                 <div className="card-body">

@@ -22,6 +22,7 @@ const ControlsPage = () => {
 
     const [submittedData, setSubmittedData] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState(null);
 
     useEffect(() => {
         fetchData();
@@ -48,7 +49,7 @@ const ControlsPage = () => {
         e.preventDefault();
         try {
             if (isEditing) {
-                await updateData();
+                await updateData(selectedItemId);
             } else {
                 await addData();
             }
@@ -59,16 +60,16 @@ const ControlsPage = () => {
 
     const addData = async () => {
         try {
+            console.log("Data to be sent:", formData);
             const response = await axios.post("https://localhost:7095/api/CollegeCourses", formData);
             console.log("Response from server:", response.data);
-            setSubmittedData([...submittedData, formData]);
+            fetchData(); // استدعاء fetchData هنا لتحديث البيانات على الفور بعد الإضافة
             resetForm();
         } catch (error) {
             console.error("Error adding data:", error);
         }
     };
-
-    const [selectedItemId, setSelectedItemId] = useState(null);
+    
 
     const handleUpdate = (item) => {
         setSelectedItemId(item.id);
@@ -83,11 +84,11 @@ const ControlsPage = () => {
             fetchData();
             resetForm();
             setIsEditing(false);
+            setSelectedItemId(null);
         } catch (error) {
             console.error("Error updating data:", error);
         }
     };
-
 
     const resetForm = () => {
         setFormData({
@@ -104,7 +105,10 @@ const ControlsPage = () => {
             contentSummaryInEnglish: "",
             facultyId: ""
         });
+        setIsEditing(false);
+        setSelectedItemId(null);
     };
+
     const deleteItem = async (id) => {
         try {
             await axios.delete(`https://localhost:7095/api/CollegeCourses/${id}`);
@@ -333,7 +337,7 @@ const ControlsPage = () => {
                                             </div>
                                             <div className="row justify-content-center text-center">
                                                 <div className="col-md-6">
-                                                    <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => updateData(selectedItemId)}>
+                                                    <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                                                         <i className="fa-regular fa-bookmark"></i> {isEditing ? 'تعديل' : 'حفظ'}
                                                     </button>
                                                 </div>
@@ -360,6 +364,8 @@ const ControlsPage = () => {
                                         <th>اسم الشهرة</th>
                                         <th>ملخص المحتوي باللغة العربية</th>
                                         <th>ملخص المحتوي باللغة الانجليزية</th>
+                                        <th>تعديل</th>
+                                        <th>حذف</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -378,10 +384,10 @@ const ControlsPage = () => {
                                             <td>{data.contentSummaryInArabic}</td>
                                             <td>{data.contentSummaryInEnglish}</td>
                                             <td>
-                                                <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(data)}>نعديل</button>
+                                                <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(data)}>تعديل</button>
                                             </td>
                                             <td>
-                                            <button className="btn btn-danger btn-sm" onClick={() => deleteItem(data.id)}>حذف</button>
+                                                <button className="btn btn-danger btn-sm" onClick={() => deleteItem(data.id)}>حذف</button>
                                             </td>
                                         </tr>
                                     ))}

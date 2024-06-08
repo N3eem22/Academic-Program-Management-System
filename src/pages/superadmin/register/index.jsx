@@ -84,10 +84,12 @@ const RegisterPage = React.memo(() => {
             })
 
             .then(() => {
+                
                 setRegister({ ...register, loading: false, err: [] });
                 navigate("/manageusers");
             })
             .catch((err) => {
+                console.log(err);
                 setRegister({
                     ...register,
                     loading: false,

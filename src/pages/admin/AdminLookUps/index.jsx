@@ -564,7 +564,14 @@ const AdminLookUpsPage = () => {
                 style={{ borderRadius: "50px" }}
               >
                 <div className="card-body p-4   m-auto">
-                  <p><a href="/degree" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">الدرجة العلمية </a></p>
+                  <p>
+                    <a
+                      href="/degree"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      الدرجة العلمية{" "}
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -574,7 +581,14 @@ const AdminLookUpsPage = () => {
                 style={{ borderRadius: "50px" }}
               >
                 <div className="card-body p-4   m-auto">
-                  <p><a href="/grades" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"> الدرجات </a></p>
+                  <p>
+                    <a
+                      href="/semesters"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      الفصل الدراسي{" "}
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -584,7 +598,14 @@ const AdminLookUpsPage = () => {
                 style={{ borderRadius: "50px" }}
               >
                 <div className="card-body p-4   m-auto">
-                  <p><a href="/blockresult" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب النتيجة</a></p>
+                  <p>
+                    <a
+                      href="/gradesdetails"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      الدرجات التفصيلية
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -594,7 +615,32 @@ const AdminLookUpsPage = () => {
                 style={{ borderRadius: "50px" }}
               >
                 <div className="card-body p-4   m-auto">
-                  <p><a href="/blockproof" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب اثبات القيد </a></p>
+                  <p>
+                    <a
+                      href="/equivalent"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      التقدير المكافئ
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/studentlevel"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      تعديل مستوي الطالب
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -604,7 +650,314 @@ const AdminLookUpsPage = () => {
                 style={{ borderRadius: "50px" }}
               >
                 <div className="card-body p-4   m-auto">
-                  <p><a href="/blockproof" class="link-underline link-underline-opacity-0 fw-bold text-black fs-5">سبب حجب اثبات القيد </a></p>
+                  <p>
+                    <a
+                      href="/faculty"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      المعهد
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/grades"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      الدرجات{" "}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/blockresult"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      سبب حجب النتيجة
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/blockproof"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      سبب حجب اثبات القيد{" "}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/blockregister"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      سبب حجب التسجيل{" "}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/coursetype"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      نوع المقرر
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/divisiontype"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      نوع الشعبة
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/financialstatement"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      نوع البيان المالي للبرنامج
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/hours"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      الساعات
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/levels"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      المستويات
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/passingelective"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      اجتياز المجموعة الاختيارية بناءا علي
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/prerequisites"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      المتطلب
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/prevqual"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      المؤهل السابق
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/programfees"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      نوع الرسوم البرنامج
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/bloresultappearckproof"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      {" "}
+                      ظهور النتيجة
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/summer"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      رسوم المقرر الصيفي
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/systemtype"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      نوع النظام
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-10 col-lg-4 col-sm-6">
+              <div
+                className="widget-stat card m-3 p-3 "
+                style={{ borderRadius: "50px" }}
+              >
+                <div className="card-body p-4   m-auto">
+                  <p>
+                    <a
+                      href="/burden"
+                      class="link-underline link-underline-opacity-0 fw-bold text-black fs-5"
+                    >
+                      حساب العبء{" "}
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>

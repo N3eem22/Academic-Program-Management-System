@@ -26,6 +26,8 @@ const ControlPage = () => {
     const ProgramId = 1002;
     const initialState = {
         status: '',
+        err: [],
+        validationErrors: {}
     };
     const [state, dispatch] = useReducer(reducer, initialState);
     var Options = {
@@ -34,21 +36,21 @@ const ControlPage = () => {
         chooseTheDetailsOfTheoreticalFailureBasedOn: ["كل التفاصيل", "ايا من التفاصيل", "مجموع التفاصيل"]
     }
 
-
+    const [GetData, setGetData] = useState([]);
     const [data, setData] = useState({
 
         programId: 1002,
         subtractFromTheDiscountRate: "",
-        exceptionToDiscountEstimates: "",
+        exceptionToDiscountEstimates: false,
         firstReductionEstimatesForFailureTimes: "",
         percentageForFristGrade: "",
         secondReductionEstimatesForFailureTimes: "",
         percentageForSecondGrade: "",
         thirdReductionEstimatesForFailureTimes: "",
         percentageForThirdGrade: "",
-        calculatingTheBudgetEstimateFromTheReductionEstimates: "",
+        calculatingTheBudgetEstimateFromTheReductionEstimates: false,
         theGrade: "",
-        placementOfStudentsInTheCourse: "",
+        placementOfStudentsInTheCourse: false,
         estimatingTheTheoreticalFailure: "",
         failureEstimatesInTheLists: [],
         detailsOfTheoreticalFailingGrades: "",
@@ -66,6 +68,10 @@ const ControlPage = () => {
         estimateDeprivationBeforeTheExamId: "",
         estimateDeprivationAfterTheExamId: "",
         aSuccessRatingDoesNotAddHours: [],
+        gradeThatSelected:"",
+       
+        err: [],
+        validationErrors: {}
     });
     useEffect(() => {
 
@@ -102,11 +108,15 @@ const ControlPage = () => {
                     estimatesNotDefinedInTheLists: resp.data.estimatesNotDefinedInTheLists || prevData.estimatesNotDefinedInTheLists,
                     successGrades: resp.data.successGrades,
                     failingGrades: resp.data.failingGrades,
-                    estimateDeprivationBeforeTheExamId: resp.data.estimateDeprivationBeforeTheExamId,
-                    estimateDeprivationAfterTheExamId: resp.data.estimateDeprivationAfterTheExamId,
-                    aSuccessRatingDoesNotAddHours: resp.data.aSuccessRatingDoesNotAddHours || prevData.aSuccessRatingDoesNotAddHours
+                    estimateDeprivationBeforeTheExamId: resp.data.estimateDeprivationBeforeTheExam,
+                    estimateDeprivationAfterTheExamId: resp.data.estimateDeprivationAfterTheExam,
+                    aSuccessRatingDoesNotAddHours: resp.data.aSuccessRatingDoesNotAddHours || prevData.aSuccessRatingDoesNotAddHours,
+                    
+
+
                 });
-                console.log(resp.data);
+                setGetData(resp.data);
+                console.log("reeee", resp.data);
             }).catch((err) => {
                 dispatch({ type: 'Add' });
                 console.log(err);
@@ -116,6 +126,7 @@ const ControlPage = () => {
         }
         fetchData(ProgramId);
     }, []);
+
 
 
 
@@ -187,26 +198,137 @@ const ControlPage = () => {
                     estimateDeprivationBeforeTheExamId: data.estimateDeprivationBeforeTheExamId,
                     estimateDeprivationAfterTheExamId: data.estimateDeprivationAfterTheExamId,
                     aSuccessRatingDoesNotAddHours: data.aSuccessRatingDoesNotAddHours
-                });
-                dispatch({ type: 'Get' });
-            }
+                })
 
-            console.log('Response:', res);
-            if (res.status === 200) {
-                dispatch({ type: 'Get' });
-                console.log(state);
+
+                console.log('Response:', res);
+                if (res.status === 200) {
+                    dispatch({ type: 'Get' });
+                    const getRes = await axios.get(`https://localhost:7095/api/control/${1002}`);
+                    const updatedData = getRes.data;
+                    setData({
+                        ...data,
+                        subtractFromTheDiscountRate: updatedData.subtractFromTheDiscountRate,
+                        exceptionToDiscountEstimates: updatedData.exceptionToDiscountEstimates,
+                        firstReductionEstimatesForFailureTimes: updatedData.firstReductionEstimatesForFailureTimes,
+                        percentageForFristGrade: updatedData.percentageForFristGrade,
+                        secondReductionEstimatesForFailureTimes: updatedData.secondReductionEstimatesForFailureTimes,
+                        percentageForSecondGrade: updatedData.percentageForSecondGrade,
+                        thirdReductionEstimatesForFailureTimes: updatedData.thirdReductionEstimatesForFailureTimes,
+                        percentageForThirdGrade: updatedData.percentageForThirdGrade,
+                        calculatingTheBudgetEstimateFromTheReductionEstimates: updatedData.calculatingTheBudgetEstimateFromTheReductionEstimates,
+                        theGrade: updatedData.theGrade,
+                        placementOfStudentsInTheCourse: updatedData.placementOfStudentsInTheCourse,
+                        estimatingTheTheoreticalFailure: updatedData.estimatingTheTheoreticalFailure,
+                        failureEstimatesInTheLists: updatedData.failureEstimatesInTheLists,
+                        detailsOfTheoreticalFailingGrades: updatedData.detailsOfTheoreticalFailingGrades,
+                        detailsOfTheoreticalFailingGradesNav: updatedData.detailsOfTheoreticalFailingGradesNav,
+                        chooseTheDetailsOfTheoreticalFailureBasedOn: updatedData.chooseTheDetailsOfTheoreticalFailureBasedOn,
+                        calculateEstimate: updatedData.calculateEstimate,
+                        aCaseOfAbsenceInTheDetailedGrades: updatedData.aCaseOfAbsenceInTheDetailedGrades,
+                        allDetailOrNo: updatedData.allDetailOrNo,
+                        detailsOfExceptionalLetters: updatedData.detailsOfExceptionalLetters,
+                        addingExciptionLetters: updatedData.addingExciptionLetters,
+                        exceptionalLetterGrades: updatedData.exceptionalLetterGrades,
+                        estimatesNotDefinedInTheLists: updatedData.estimatesNotDefinedInTheLists,
+                        successGrades: updatedData.successGrades,
+                        failingGrades: updatedData.failingGrades,
+                        estimateDeprivationBeforeTheExamId: updatedData.estimateDeprivationBeforeTheExam,
+                        estimateDeprivationAfterTheExamId: updatedData.estimateDeprivationAfterTheExam,
+                        aSuccessRatingDoesNotAddHours: updatedData.aSuccessRatingDoesNotAddHours,
+                        gradeThatSelected: gradeInput,
+                    });
+                }
             }
+            setData((prevState) => ({ ...prevState, err: [] }));
         } catch (err) {
-            console.log('Error data:', err.response.data);
-            return err;
+            setData({
+                ...data,
+                err: [{ message: err.response?.data?.message || err.message }],
+            });
         }
     }
+    const validateInputs = () => {
+        const errors = {};
+        if (!data.subtractFromTheDiscountRate) errors.subtractFromTheDiscountRate = "يجب عليك ادخال هذه القيمه";
+        if (!data.firstReductionEstimatesForFailureTimes) errors.firstReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        if (!data.percentageForFristGrade) errors.percentageForFristGrade = "يجب عليك ادخال هذه القيمه";
+        if (!data.secondReductionEstimatesForFailureTimes) errors.secondReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        if (!data.percentageForSecondGrade) errors.percentageForSecondGrade = "يجب عليك ادخال هذه القيمه";
+        if (!data.thirdReductionEstimatesForFailureTimes) errors.thirdReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        if (!data.percentageForThirdGrade) errors.percentageForThirdGrade = "يجب عليك ادخال هذه القيمه";
+        if (!data.theGrade) errors.theGrade = "يجب عليك ادخال هذه القيمه";
+        if (!data.estimateDeprivationBeforeTheExamId) errors.estimateDeprivationBeforeTheExamId = "يجب عليك ادخال هذه القيمه";
+        if (!data.estimateDeprivationAfterTheExamId) errors.estimateDeprivationAfterTheExamId = "يجب عليك ادخال هذه القيمه";
+    
+        return errors;
+    }
     function submit(e) {
-        console.log(data);
         e.preventDefault();
-
+        const validationErrors = validateInputs();
+        if (Object.keys(validationErrors).length > 0) {
+            setData((prevState) => ({ ...prevState, validationErrors }));
+            return;
+        }
         sendDataToApi();
     }
+    const [allGrades, setAllGrades] = useState([]);
+    const [gradesDetails, setGradesDetails] = useState([]);
+
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.firstReductionEstimatesForFailureTimes === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                firstReductionEstimatesForFailureTimes: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.firstReductionEstimatesForFailureTimes, allGrades]);
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.secondReductionEstimatesForFailureTimes === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                secondReductionEstimatesForFailureTimes: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.secondReductionEstimatesForFailureTimes, allGrades]);
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.thirdReductionEstimatesForFailureTimes === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                thirdReductionEstimatesForFailureTimes: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.thirdReductionEstimatesForFailureTimes, allGrades]);
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.estimatingTheTheoreticalFailure === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                estimatingTheTheoreticalFailure: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.estimatingTheTheoreticalFailure, allGrades]);
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.estimateDeprivationBeforeTheExamId === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                estimateDeprivationBeforeTheExamId: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.estimateDeprivationBeforeTheExamId, allGrades]);
+    useEffect(() => {
+        const selectedGrade = allGrades.find(grade => data.estimateDeprivationAfterTheExamId === grade.theGrade);
+        if (selectedGrade) {
+            setData(prevGraduation => ({
+                ...prevGraduation,
+                estimateDeprivationAfterTheExamId: parseInt(selectedGrade.id)
+            }));
+        }
+    }, [data.estimateDeprivationAfterTheExamId, allGrades]);
 
 
 
@@ -266,7 +388,6 @@ const ControlPage = () => {
                         ? [
                             {
                                 gradeId: selectedGrade.id,
-                                controlId: 0,
                                 value: "",
                             }
                         ]
@@ -274,7 +395,6 @@ const ControlPage = () => {
                             ...prevData.exceptionalLetterGrades,
                             {
                                 gradeId: selectedGrade.id,
-                                controlId: 0,
                                 value: "",
                             }
                         ]
@@ -305,18 +425,9 @@ const ControlPage = () => {
 
 
 
-    const [allGrades, setAllGrades] = useState([]);
-    const [gradesDetails, setGradesDetails] = useState([]);
-    const [prerequisites, setPrerequisites] = useState([]);
-    const [previousQualifications, setPreviousQualifications] = useState([]);
-    const [levels, setLevels] = useState([]);
-    const [semesters, setSemesters] = useState([]);
-
 
     useEffect(() => {
-
-
-        axios.get('https://localhost:7095/api/AllGrades?UniversityId=1')
+        axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setAllGrades(response.data);
@@ -325,11 +436,14 @@ const ControlPage = () => {
                 } else {
                     console.error('Unexpected response format:', response.data);
                 }
+
+
+
             })
             .catch(error => {
                 console.error('Error fetching all grades:', error);
             });
-        axios.get('https://localhost:7095/api/GradesDetails/1')
+        axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${1}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setGradesDetails(response.data);
@@ -338,73 +452,38 @@ const ControlPage = () => {
                 } else {
                     console.error('Unexpected response format:', response.data);
                 }
+                if (state.status === "Update") {
+                    const updatedGrades = response.data
+                        .filter(grade => grade.id === parseInt(data.theGrade))
+                        .map(grade => ({
+                            gradeDetailId: grade.id,
+                        }));
+                    setData(prevState => ({
+                        ...prevState,
+                        detailsOfExceptionalLetters: updatedGrades
+                    }));
+                }
+
+
             })
             .catch(error => {
                 console.error('Error fetching grades details:', error);
             });
 
 
-        // axios.get('https://localhost:7095/api/Prerequisites/1')
-        //     .then(response => {
-        //         if (Array.isArray(response.data)) {
-        //             setPrerequisites(response.data);
-        //         } else if (typeof response.data === 'object') {
-        //             setPrerequisites([response.data]);
-        //         } else {
-        //             console.error('Unexpected response format:', response.data);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching prerequisites:', error);
-        //     });
 
-        // axios.get('https://localhost:7095/api/PreviousQualification/1')
-        //     .then(response => {
-        //         if (Array.isArray(response.data)) {
-        //             setPreviousQualifications(response.data);
-        //         } else if (typeof response.data === 'object') {
-        //             setPreviousQualifications([response.data]);
-        //         } else {
-        //             console.error('Unexpected response format:', response.data);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching previous qualifications:', error);
-        //     });
-        // axios.get('https://localhost:7095/api/Level/1')
-        //     .then(response => {
-        //         if (Array.isArray(response.data)) {
-        //             setLevels(response.data);
-        //         } else if (typeof response.data === 'object') {
-        //             setLevels([response.data]);
-        //         } else {
-        //             console.error('Unexpected response format:', response.data);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching levels:', error);
-        //     });
-        // axios.get('https://localhost:7095/api/Semesters/1')
-        //     .then(response => {
-        //         if (Array.isArray(response.data)) {
-        //             setSemesters(response.data);
-        //         } else if (typeof response.data === 'object') {
-        //             setSemesters([response.data]);
-        //         } else {
-        //             console.error('Unexpected response format:', response.data);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching semesters:', error);
-        //     });
-    }, []);
+    }, [state.status, data.theGrade]);
+
+
 
     const handleSelectChangeFirstReduction = (e) => {
         const { value } = e.target;
-        setData(prevData => ({
-            ...prevData,
-            firstReductionEstimatesForFailureTimes: value
-        }));
+        if (state.status === "Update" || state.status === "add") {
+            setData(prevData => ({
+                ...prevData,
+                firstReductionEstimatesForFailureTimes: value
+            }));
+        }
     };
     const handleSelectChangeSeconedReduction = (e) => {
         const { value } = e.target;
@@ -429,11 +508,11 @@ const ControlPage = () => {
             ...prevData,
             failureEstimatesInTheLists: selectedOptions
         }));
+
     };
     const handleSelectChangeEstimatesNotDefinedInTheLists = (e) => {
         const selectedOptions = Array.from(e.target.selectedOptions, option => ({
             gradeId: parseInt(option.value),
-            controlId: 0
         }));
         setData(prevData => ({
             ...prevData,
@@ -443,7 +522,6 @@ const ControlPage = () => {
     const handleSelectChangeACaseOfAbsenceInTheDetailedGrades = (e) => {
         const selectedOptions = Array.from(e.target.selectedOptions, option => ({
             gradeDetailId: option.value,
-            controlId: 0,
         }));
         setData(prevData => ({
             ...prevData,
@@ -453,7 +531,6 @@ const ControlPage = () => {
     const handleSelectChangeDetailsOfExceptionalLetters = (e) => {
         const selectedOptions = Array.from(e.target.selectedOptions, option => ({
             gradeDetailId: option.value,
-            controlId: 0,
         }));
         setData(prevData => ({
             ...prevData,
@@ -487,18 +564,27 @@ const ControlPage = () => {
     useEffect(() => {
         updateData();
     }, [selectedGrades, gradeInput]);
+
+    useEffect(() => {
+        if (state.status === "Get" && GetData.detailsOfTheoreticalFailingGradesNav) {
+            const selectedGrades = GetData.detailsOfTheoreticalFailingGradesNav.map(grade => grade.gradeDetailId);
+            setSelectedGrades(selectedGrades);
+            setGradeInput(GetData.detailsOfTheoreticalFailingGradesNav[0]?.value || ""); // Set grade input to the first grade's value
+        }
+    }, [state.status, GetData]);
+
     const handleSelectChangeEstimateDeprivationBeforeTheExamId = (e) => {
         const { value } = e.target;
         setData(prevData => ({
             ...prevData,
-            estimateDeprivationBeforeTheExamId: value
+            estimateDeprivationBeforeTheExam: value
         }));
     };
     const handleSelectChangeEstimateDeprivationAfterTheExamId = (e) => {
         const { value } = e.target;
         setData(prevData => ({
             ...prevData,
-            estimateDeprivationAfterTheExamId: value
+            estimateDeprivationAfterTheExam: value
         }));
     };
     const handleSelectChangeASuccessRatingDoesNotAddHours = (e) => {
@@ -518,71 +604,60 @@ const ControlPage = () => {
         }));
     };
 
+    function handleClose() {
+        dispatch({ type: 'Get' });
+        setData((prevState) => ({ ...prevState, err: [], validationErrors: {} })); // Clear errors on close
+    }
+    const handleInputChangeVali = (e) => {
+        const { name, value } = e.target;
+        const isValid = !isNaN(value) && parseInt(value) >= 0;
+
+        setData(prevState => ({
+            ...prevState,
+            [name]: value,
+            validationErrors: {
+                ...prevState.validationErrors,
+                [name]: isValid ? '' : 'القيمة غير صالحة'
+            }
+        }));
+    }
+
+    const handleInputFocus = (e) => {
+        const { name } = e.target;
+
+        setData(prevState => ({
+            ...prevState,
+            validationErrors: {
+                ...prevState.validationErrors,
+                [name]: ''
+            }
+        }));
+    }
 
 
 
-
-
-
-    // const handlePlusIconClick = () => {
-    //     if (selectedValue) {
-    //         const newSection = {
-    //             id: sections.length +1,   //elmafrod +1
-    //             value: selectedValue,
-    //         };
-    //         setSections([...sections, newSection]);
-
-
-    //             setData((prevData) => ({
-    //                 ...prevData,
-    //                 exceptionalLetterGrades: [
-    //                     ...prevData.exceptionalLetterGrades,
-    //                     {
-    //                         gradeId: sections.length + 1,
-    //                         controlId: 0,
-    //                         value: selectedValue,
-    //                     }
-    //                 ]
-    //             }));
-
-    //     }
-    // };
-    // const handleRemoveSection = (id) => {
-    //     // Filter out the removed section from the sections array
-    //     const updatedSections = sections.filter((section) => section.id !== id);
-    //     setSections(updatedSections);
-
-    //     // Find the index of the section to remove in exceptionalLetterGrades array
-    //     const indexToRemove = sections.findIndex((section) => section.id === id);
-
-    //     // Update the exceptionalLetterGrades array by filtering out the element at indexToRemove
-    //     setData((prevData) => ({
-    //         ...prevData,
-    //         exceptionalLetterGrades: prevData.exceptionalLetterGrades.filter((_, index) => index !== indexToRemove)
-    //     }));
-    // };
-
-
-    // const handlePlusIconClick = () => {
-    //     const newSection = {
-    //         id: sections.length + 1,
-    //         selectedValue: selectedValue,
-    //     };
-    //     setSections([...sections, newSection]);
-    // };
-
-    // const handleRemoveSection = (id) => {
-    //     const updatedSections = sections.filter((section) => section.id !== id);
-    //     setSections(updatedSections);
-    // };
     return (
         <Fragment>
             <div className="container " dir="rtl">
                 <div className="row mt-3">
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
-                        <h2 style={{ color: "red" }}>برنامج : التثقيف بالفن</h2>
+                        <h2 style={{ color: "red" }}        >      برنامج :  التربيه الفنيه
+</h2>
                         <br />
+                        {data.err && data.err.length > 0 && (
+                            <div className="col-md-12 mb-3 w-25 m-auto alert alert-danger">
+                                <ul
+                                    className="fw-semibold fs-5 text-center"
+                                    style={{ listStyleType: "none", padding: 0, margin: 0 }}
+                                >
+                                    {data.err.map((error, index) => (
+                                        <li key={index}>{error.message}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
                         <div className="inputs-card  ">
 
                             <div className="card-body">
@@ -603,7 +678,9 @@ const ControlPage = () => {
                                                                 name="subtractFromTheDiscountRate"
                                                                 onChange={(e) => {
                                                                     setData({ ...data, subtractFromTheDiscountRate: parseInt(e.target.value) })
+                                                                    handleInputChangeVali(e)
                                                                 }}
+                                                                onFocus={handleInputFocus}
                                                                 value={data.subtractFromTheDiscountRate}
                                                             />
                                                         </div>}
@@ -615,6 +692,11 @@ const ControlPage = () => {
                                                                 id="subtractFromTheDiscountRate"
                                                                 placeholder={data.subtractFromTheDiscountRate} />
                                                         }
+                                                        {data.validationErrors.subtractFromTheDiscountRate && (
+                                                            <div className="text-danger">
+                                                                {data.validationErrors.subtractFromTheDiscountRate}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                     <div className="col-1"><p className="fw-semibold fs-5">درجة</p></div>
                                                 </div>
@@ -634,45 +716,70 @@ const ControlPage = () => {
                                                                         <p className="fw-semibold fs-5">ألاولي</p>
                                                                     </div>
                                                                     <div className="col-lg-5">
-                                                                        {(state.status !== "Get") && <select className="form-select custom-select-start"
-                                                                            aria-label="Select an option"
-                                                                            id="firstReductionEstimatesForFailureTimes"
-                                                                            value={data.firstReductionEstimatesForFailureTimes}
-                                                                            onChange={handleSelectChangeFirstReduction}
-                                                                        >
-                                                                            <option selected disabled> </option>
-                                                                            {allGrades.map((grade) => (
-                                                                                <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
-                                                                            ))}
-                                                                        </select>}
-                                                                        {((state.status === "Get")) &&
-                                                                            <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="firstReductionEstimatesForFailureTimes" id="firstReductionEstimatesForFailureTimes" placeholder={data.firstReductionEstimatesForFailureTimes} />
-                                                                        }
+                                                                        {(state.status !== "Get") && (
+                                                                            <>
+                                                                                <select className="form-select custom-select-start"
+                                                                                    aria-label="Select an option"
+                                                                                    id="firstReductionEstimatesForFailureTimes"
+                                                                                    value={data.firstReductionEstimatesForFailureTimes}
+                                                                                    onChange={(e) => {
+                                                                                        handleSelectChangeFirstReduction(e);
+                                                                                        handleInputChangeVali(e); // Call handleInputChange here
+                                                                                    }}
+                                                                                    onFocus={handleInputFocus}
+                                                                                >
+                                                                                    <option selected disabled> </option>
+                                                                                    {allGrades.map((grade) => (
+                                                                                        <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
+                                                                                    ))}
+                                                                                </select>
+                                                                                {data.validationErrors.firstReductionEstimatesForFailureTimes && (
+                                                                                    <div className="text-danger">
+                                                                                        {data.validationErrors.firstReductionEstimatesForFailureTimes}
+                                                                                    </div>
+                                                                                )}
+                                                                            </>
+                                                                        )}
+                                                                        {(state.status === "Get") && (
+                                                                            <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="firstReductionEstimatesForFailureTimes" id="firstReductionEstimatesForFailureTimes" placeholder={GetData.firstReductionEstimatesForFailureTimes} />
+                                                                        )}
                                                                     </div>
                                                                     <div className="col-5">
                                                                         <div className="row">
                                                                             <div className="col-12">
-                                                                                {(state.status !== "Get") && <div class="input-group">
-                                                                                    <input
-                                                                                        type="number"
-                                                                                        className="form-control"
-                                                                                        id="percentageForFristGrade"
-                                                                                        name="percentageForFristGrade"
-                                                                                        onChange={(e) => {
-                                                                                            setData({ ...data, percentageForFristGrade: parseInt(e.target.value) })
-                                                                                        }}
-                                                                                        value={data.percentageForFristGrade}
-                                                                                    />
-                                                                                    <div className="input-group-append mx-1">
-                                                                                        <span className="fw-semibold fs-5">%</span>
-                                                                                    </div>
-                                                                                </div>}
+                                                                                {(state.status !== "Get") && (
+                                                                                    <>
+                                                                                        <div className="input-group">
+                                                                                            <input
+                                                                                                type="number"
+                                                                                                className="form-control"
+                                                                                                id="percentageForFristGrade"
+                                                                                                name="percentageForFristGrade"
+                                                                                                onChange={(e) => {
+                                                                                                    handleInputChangeVali(e);
+                                                                                                    setData({ ...data, percentageForFristGrade: parseInt(e.target.value) });
+                                                                                                }}
+                                                                                                onFocus={handleInputFocus}
+                                                                                                value={data.percentageForFristGrade}
+                                                                                            />
+                                                                                            <div className="input-group-append mx-1">
+                                                                                                <span className="fw-semibold fs-5">%</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {data.validationErrors.percentageForFristGrade && (
+                                                                                            <div className="text-danger">
+                                                                                                {data.validationErrors.percentageForFristGrade}
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </>
+                                                                                )}
                                                                                 {((state.status === "Get")) &&
                                                                                     <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="percentageForFristGrade" id="percentageForFristGrade" placeholder={data.percentageForFristGrade} />
                                                                                 }
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
 
 
                                                                 </div>
@@ -687,16 +794,24 @@ const ControlPage = () => {
                                                                             aria-label="Select an option"
                                                                             id="secondReductionEstimatesForFailureTimes"
                                                                             value={data.secondReductionEstimatesForFailureTimes}
-                                                                            onChange={handleSelectChangeSeconedReduction}
-                                                                        >
+                                                                            onChange={(e) => {
+                                                                                handleSelectChangeSeconedReduction(e);
+                                                                                handleInputChangeVali(e); // Call handleInputChange here
+                                                                            }}
+                                                                            onFocus={handleInputFocus}                                                                        >
                                                                             <option selected disabled> </option>
                                                                             {allGrades.map((grade) => (
                                                                                 <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
                                                                             ))}
                                                                         </select>}
                                                                         {((state.status === "Get")) &&
-                                                                            <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="secondReductionEstimatesForFailureTimes" id="secondReductionEstimatesForFailureTimes" placeholder={data.secondReductionEstimatesForFailureTimes} />
+                                                                            <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="secondReductionEstimatesForFailureTimes" id="secondReductionEstimatesForFailureTimes" placeholder={GetData.secondReductionEstimatesForFailureTimes} />
                                                                         }
+                                                                        {data.validationErrors.secondReductionEstimatesForFailureTimes && (
+                                                                            <div className="text-danger">
+                                                                                {data.validationErrors.secondReductionEstimatesForFailureTimes}
+                                                                            </div>
+                                                                        )}
                                                                     </div>
                                                                     <div className="col-5">
                                                                         <div className="row">
@@ -708,9 +823,11 @@ const ControlPage = () => {
                                                                                         id="percentageForSecondGrade"
                                                                                         name="percentageForSecondGrade"
                                                                                         onChange={(e) => {
-                                                                                            setData({ ...data, percentageForSecondGrade: parseInt(e.target.value) })
+                                                                                            handleInputChangeVali(e);
+                                                                                            setData({ ...data, percentageForSecondGrade: parseInt(e.target.value) });
                                                                                         }}
                                                                                         value={data.percentageForSecondGrade}
+                                                                                        onFocus={handleInputFocus} // Add onFocus here
                                                                                     />
                                                                                     <div className="input-group-append mx-1">
                                                                                         <span className="fw-semibold fs-5">%</span>
@@ -719,13 +836,17 @@ const ControlPage = () => {
                                                                                 {((state.status === "Get")) &&
                                                                                     <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="percentageForSecondGrade" id="percentageForSecondGrade" placeholder={data.percentageForSecondGrade} />
                                                                                 }
+                                                                                {data.validationErrors.percentageForSecondGrade && (
+                                                                                    <div className="text-danger">
+                                                                                        {data.validationErrors.percentageForSecondGrade}
+                                                                                    </div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-
                                                                 </div>
                                                             </div>
+
                                                             <div className="col-md-4">
                                                                 <div className="row">
                                                                     <div className="col-lg-4">
@@ -737,7 +858,11 @@ const ControlPage = () => {
                                                                             name="thirdReductionEstimatesForFailureTimes"
                                                                             id="thirdReductionEstimatesForFailureTimes"
                                                                             value={data.thirdReductionEstimatesForFailureTimes}
-                                                                            onChange={handleSelectChangeThirdReduction}
+                                                                            onChange={(e) => {
+                                                                                handleSelectChangeThirdReduction(e);
+                                                                                handleInputChangeVali(e); // Call handleInputChange here
+                                                                            }}
+                                                                            onFocus={handleInputFocus}
                                                                         >
                                                                             <option selected disabled> </option>
                                                                             {allGrades.map((grade) => (
@@ -745,8 +870,13 @@ const ControlPage = () => {
                                                                             ))}
                                                                         </select>}
                                                                         {((state.status === "Get")) &&
-                                                                            <input className={`form m-1 mt-2 col-lg-10 ${styles['bold-and-large-text-input']}`} disabled type="text" name="thirdReductionEstimatesForFailureTimes" id="thirdReductionEstimatesForFailureTimes" placeholder={data.thirdReductionEstimatesForFailureTimes} />
+                                                                            <input className={`form m-1 mt-2 col-lg-10 ${styles['bold-and-large-text-input']}`} disabled type="text" name="thirdReductionEstimatesForFailureTimes" id="thirdReductionEstimatesForFailureTimes" placeholder={GetData.thirdReductionEstimatesForFailureTimes} />
                                                                         }
+                                                                        {data.validationErrors.thirdReductionEstimatesForFailureTimes && (
+                                                                            <div className="text-danger">
+                                                                                {data.validationErrors.thirdReductionEstimatesForFailureTimes}
+                                                                            </div>
+                                                                        )}
                                                                     </div>
                                                                     <div className="col-4">
                                                                         <div className="row">
@@ -758,9 +888,11 @@ const ControlPage = () => {
                                                                                         id="percentageForThirdGrade"
                                                                                         name="percentageForThirdGrade"
                                                                                         onChange={(e) => {
-                                                                                            setData({ ...data, percentageForThirdGrade: parseInt(e.target.value) })
+                                                                                            handleInputChangeVali(e);
+                                                                                            setData({ ...data, percentageForThirdGrade: parseInt(e.target.value) });
                                                                                         }}
                                                                                         value={data.percentageForThirdGrade}
+                                                                                        onFocus={handleInputFocus}
                                                                                     />
                                                                                     <div className="input-group-append mx-1">
                                                                                         <span className="fw-semibold fs-5">%</span>
@@ -769,6 +901,11 @@ const ControlPage = () => {
                                                                                 {((state.status === "Get")) &&
                                                                                     <input className={`form m-1 mt-2 col-lg-10 ${styles['bold-and-large-text-input']}`} disabled type="text" name="percentageForThirdGrade" id="percentageForThirdGrade" placeholder={data.percentageForThirdGrade} />
                                                                                 }
+                                                                                {data.validationErrors.percentageForThirdGrade && (
+                                                                                    <div className="text-danger">
+                                                                                        {data.validationErrors.percentageForThirdGrade}
+                                                                                    </div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -790,13 +927,17 @@ const ControlPage = () => {
                                                         value={true}
                                                         onChange={(e) => {
                                                             setData({ ...data, exceptionToDiscountEstimates: e.target.checked })
-                                                        }} />}
+
+                                                        }}
+
+                                                    />}
                                                     {(state.status == "Get") && <div class="form-check form-switch">
                                                         <input className="form-check-input mt-2 fs-5" type="checkbox"
                                                             id="exceptionToDiscountEstimates"
                                                             disabled
                                                             checked={data.exceptionToDiscountEstimates === true} />
                                                     </div>}
+
                                                     <label className="fw-semibold fs-5 form-check-label mx-5 mt-0" htmlFor="exceptionToDiscountEstimates"> استثناء من تقديرات التخفيض تقدير fc</label>
                                                 </div>
                                             </div>
@@ -817,9 +958,13 @@ const ControlPage = () => {
                                                         الدرجة
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        {(state.status !== "Get") && <select className="form-select custom-select-start" id="theGrade" name="theGrade" onChange={(e) => {
-                                                            setData({ ...data, theGrade: parseInt(e.target.value) })
-                                                        }}>
+                                                        {(state.status !== "Get") && <select className="form-select custom-select-start" id="theGrade" name="theGrade"
+                                                            onChange={(e) => {
+                                                                setData({ ...data, theGrade: parseInt(e.target.value) })
+                                                                handleInputChangeVali(e)
+                                                            }}
+                                                            onFocus={handleInputFocus}
+                                                        >
                                                             <option selected disabled></option>
                                                             <option value={0} selected={data.theGrade === 0}>تقريب</option>
                                                             <option value={1} selected={data.theGrade === 1}>جبر</option>
@@ -828,15 +973,21 @@ const ControlPage = () => {
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="theGrade" id="theGrade" placeholder={Options.theGrade[data.theGrade]} />
                                                         }
+                                                        {data.validationErrors.theGrade && (
+                                                            <div className="text-danger">
+                                                                {data.validationErrors.theGrade}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="col-lg-12">
                                                 <div className="form-check form-check-inline d-flex">
-                                                    {(state.status !== "Get") && <input className="form-check-input fs-5" type="checkbox" id="placementOfStudentsInTheCourse" name="placementOfStudentsInTheCourse" checked={data.placementOfStudentsInTheCourse} value={true} onChange={(e) => {
-                                                        setData({ ...data, placementOfStudentsInTheCourse: e.target.checked })
-                                                    }} />}
+                                                    {(state.status !== "Get") && <input className="form-check-input fs-5" type="checkbox" id="placementOfStudentsInTheCourse" name="placementOfStudentsInTheCourse" checked={data.placementOfStudentsInTheCourse} value={true}
+                                                        onChange={(e) => {
+                                                            setData({ ...data, placementOfStudentsInTheCourse: e.target.checked })
+                                                        }} />}
                                                     {(state.status == "Get") && <div class="form-check form-switch">
                                                         <input className="form-check-input mt-2 fs-5" type="checkbox" id="placementOfStudentsInTheCourse" disabled checked={data.placementOfStudentsInTheCourse === true} />
                                                     </div>}
@@ -853,7 +1004,12 @@ const ControlPage = () => {
                                                             id="estimatingTheTheoreticalFailure"
                                                             name="estimatingTheTheoreticalFailure"
                                                             value={data.estimatingTheTheoreticalFailure}
-                                                            onChange={handleSelectChangeEstimatingTheTheoreticalFailure}
+
+                                                            onChange={(e) => {
+                                                                handleSelectChangeEstimatingTheTheoreticalFailure(e);
+                                                                handleInputChangeVali(e); // Call handleInputChange here
+                                                            }}
+                                                            onFocus={handleInputFocus}
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
@@ -861,8 +1017,13 @@ const ControlPage = () => {
                                                             ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimatingTheTheoreticalFailure" id="estimatingTheTheoreticalFailure" placeholder={data.estimatingTheTheoreticalFailure} />
+                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimatingTheTheoreticalFailure" id="estimatingTheTheoreticalFailure" placeholder={GetData.estimatingTheTheoreticalFailure} />
                                                         }
+                                                        {data.validationErrors.estimatingTheTheoreticalFailure && (
+                                                            <div className="text-danger">
+                                                                {data.validationErrors.estimatingTheTheoreticalFailure}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -881,14 +1042,17 @@ const ControlPage = () => {
                                                             id="failureEstimatesInTheLists"
                                                             multiple
                                                             onChange={handleSelectChangeFailureEstimatesInTheLists}
+
+                                                            
                                                         >
                                                             {allGrades.map(grade => (
                                                                 <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
                                                             ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="failureEstimatesInTheLists" id="failureEstimatesInTheLists" placeholder={data.failureEstimatesInTheLists} />
+                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="failureEstimatesInTheLists" id="failureEstimatesInTheLists" placeholder={GetData.failureEstimatesInTheLists} />
                                                         }
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -927,6 +1091,7 @@ const ControlPage = () => {
                                                         {(state.status !== "Get") && <select className="form-select custom-select-start fs-5"
                                                             id="detailsOfTheoreticalFailingGradesNav"
                                                             onChange={handleSelectChangeOfTheoreticalFailingGradesNav}
+
                                                             multiple>
                                                             {gradesDetails.map(detail => (
                                                                 <option key={detail.id} value={detail.id}>
@@ -935,8 +1100,12 @@ const ControlPage = () => {
                                                             ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="detailsOfTheoreticalFailingGradesNav" id="detailsOfTheoreticalFailingGradesNav" placeholder={data.detailsOfTheoreticalFailingGradesNav} />
+                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="detailsOfTheoreticalFailingGradesNav" id="detailsOfTheoreticalFailingGradesNav" placeholder={selectedGrades.map(gradeId => {
+                                                                const selectedGrade = gradesDetails.find(detail => detail.id === gradeId);
+                                                                return selectedGrade ? selectedGrade.theDetails : "";
+                                                            }).join(", ")} />
                                                         }
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -948,16 +1117,20 @@ const ControlPage = () => {
                                                         </label>
                                                         <div className="col-lg-4">
                                                             <input
+                                                            name="gradeThatSelected"
+                                                            id="gradeThatSelected"
                                                                 type="number"
                                                                 className="form-control fs-5"
                                                                 value={gradeInput}
                                                                 onChange={handleInputChange}
                                                                 disabled={state.status === "Get"}
+                                                            
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                             }
+
 
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
@@ -1083,7 +1256,7 @@ const ControlPage = () => {
                                                         </div>}
                                                         {((state.status === "Get")) &&
                                                             <input className={`form m-1 col-lg-8
-                                                             mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="allDetailOrNo" id="allDetailOrNo" placeholder={data.allDetailOrNo === true ? "كلها" : "ايا منها"} />
+                                                             mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="allDetailOrNo" id="allDetailOrNo" placeholder={GetData.allDetailOrNo === true ? "كلها" : "ايا منها"} />
                                                         }
                                                     </div>
 
@@ -1140,9 +1313,6 @@ const ControlPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            {/* 
-                                            harbotha b3den  */}
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="exceptionalLetterGrades">
@@ -1218,130 +1388,6 @@ const ControlPage = () => {
                                                 </div>
                                             </div>
 
-
-                                            {/* <div className="col-xl-12">
-                                                <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="exceptionalLetterGrades">
-                                                        تقديرات الحرف الاستثنائية
-                                                    </label>
-                                                    <div className="col-lg-2">
-                                                        {(state.status !== "Get") && (
-                                                            <select className="form-select fs-5 custom-select-start" id="exceptionalLetterGrades" onChange={handleSelectChange} value={selectedValue}>
-                                                                <option selected disabled>  </option>
-                                                                <option value="أ">أ</option>
-                                                                <option value="ب">ب</option>
-                                                            </select>
-                                                        )}
-
-                                                        {(state.status === "Get") && (
-                                                            <div>
-                                                                {data.exceptionalLetterGrades.map((grade, index) => (
-                                                                    <input
-                                                                        className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled
-                                                                        key={index}
-                                                                        type="text"
-                                                                        value={grade.value}
-                                                                    />
-                                                                ))}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-1">
-                                                        {(state.status !== "Get") && (
-                                                            <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={handlePlusIconClick}>
-                                                                <span className="input-group-text">
-                                                                    <i className="fa-solid fa-plus fw-bold fs-5"></i>
-                                                                </span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    {sections.map((section) => (
-                                                        <div className="col-md-4" key={section.id}>
-                                                            {(state.status !== "Get") && (
-                                                                <div className="form-group row">
-                                                                    <div className="col-lg-5">
-                                                                        <div className="input-group" style={{ marginBottom: state.status === "Get" ? "0" : "1rem" }}>
-                                                                            <input
-                                                                                type="text"
-                                                                                className="form-control mt-2 "
-                                                                                style={{ textAlign: "center" }}
-                                                                                value={section.value}
-                                                                                disabled
-                                                                            />
-                                                                            <input
-                                                                                type="text"
-                                                                                className="form-control mt-2"
-                                                                                placeholder="ادخل قيمة"
-                                                                                value={customValues[section.id] || ""}
-                                                                                onChange={(event) => handleCustomInputChange(event, section.id)}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-md-3">
-                                                                        <div className="input-group-append mt-2" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id)}>
-                                                                            <span className="input-group-text">
-                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div> */}
-                                            {/* شششششششششششششششششششششششششش */}
-
-                                            {/* 
-                                            <div className="col-xl-12">
-                                                <div className="form-group mb-3 row">
-                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="exceptionalLetterGrades">
-                                                        تقديرات الحرف الاستثنائية
-                                                    </label>
-                                                    <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="exceptionalLetterGrades" onChange={handleSelectChange} value={selectedValue}>
-                                                            <option selected disabled>  </option>
-                                                            <option value="أ">أ</option>
-                                                            <option value="ب">ب</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-1">
-                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={handlePlusIconClick}>
-                                                            <span className="input-group-text">
-                                                                <i className="fa-solid fa-plus fw-bold fs-5"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    {sections.map((section) => (
-                                                        <div className="col-md-2" key={section.id}>
-                                                            <span className={`border ${styles.border}`}>
-                                                                <div className="form-group row">
-                                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label">
-                                                                        {section.selectedValue}
-                                                                    </label>
-                                                                    <div className="col-lg-4">
-                                                                        <div className="input-group">
-                                                                            <input
-                                                                                type="text"
-                                                                                className="form-control"
-                                                                                style={{ textAlign: "center" }}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-md-3">
-                                                                        <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={() => handleRemoveSection(section.id)}>
-                                                                            <span className="input-group-text">
-                                                                                <i className="fa-regular fa-xmark fw-bold fs-5"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div> */}
-                                            {/* //////////////////////////////////////// */}
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="estimatesNotDefinedInTheLists">
@@ -1409,7 +1455,12 @@ const ControlPage = () => {
                                                             id="estimateDeprivationBeforeTheExamId"
                                                             name="estimateDeprivationBeforeTheExamId"
                                                             value={data.estimateDeprivationBeforeTheExamId}
-                                                            onChange={handleSelectChangeEstimateDeprivationBeforeTheExamId}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeEstimateDeprivationBeforeTheExamId(e);
+                                                                handleInputChangeVali(e); // Call handleInputChange here
+                                                            }}
+                                                            
+                                                            onFocus={handleInputFocus}
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
@@ -1417,8 +1468,13 @@ const ControlPage = () => {
                                                             ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationBeforeTheExamId" id="estimateDeprivationBeforeTheExamId" placeholder={data.estimateDeprivationBeforeTheExamId} />
+                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationBeforeTheExamId" id="estimateDeprivationBeforeTheExamId" placeholder={GetData.estimateDeprivationBeforeTheExam} />
                                                         }
+                                                        {data.validationErrors.estimateDeprivationBeforeTheExamId && (
+                                                            <div className="text-danger">
+                                                                {data.validationErrors.estimateDeprivationBeforeTheExamId}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1432,7 +1488,12 @@ const ControlPage = () => {
                                                             id="estimateDeprivationAfterTheExamId"
                                                             name="estimateDeprivationAfterTheExamId"
                                                             value={data.estimateDeprivationAfterTheExamId}
-                                                            onChange={handleSelectChangeEstimateDeprivationAfterTheExamId}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeEstimateDeprivationAfterTheExamId(e);
+                                                                handleInputChangeVali(e); // Call handleInputChange here
+                                                            }}
+                                                           
+                                                            onFocus={handleInputFocus}
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
@@ -1440,12 +1501,18 @@ const ControlPage = () => {
                                                             ))}
                                                         </select>}
                                                         {((state.status === "Get")) &&
-                                                            <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationAfterTheExamId" id="estimateDeprivationAfterTheExamId" placeholder={data.estimateDeprivationAfterTheExamId} />
+                                                            <input className={`form m-1 col-lg-10 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="estimateDeprivationAfterTheExamId" id="estimateDeprivationAfterTheExamId" placeholder={GetData.estimateDeprivationAfterTheExam} />
                                                         }
-
+                                                        {data.validationErrors.estimateDeprivationAfterTheExamId && (
+                                                            <div className="text-danger">
+                                                                {data.validationErrors.estimateDeprivationAfterTheExamId}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="aSuccessRatingDoesNotAddHours">
@@ -1471,7 +1538,6 @@ const ControlPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div className="row justify-content-center text-center">
 
 
@@ -1479,7 +1545,7 @@ const ControlPage = () => {
                                                     {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                                                         <i className="fa-regular fa-bookmark"></i> حفظ
                                                     </button>}
-                                                    {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
+                                                    {(state.status !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={handleClose}>
                                                         <i className="fa-solid fa-lock"></i> غلق
                                                     </button>}
                                                     {
@@ -1508,6 +1574,7 @@ const ControlPage = () => {
 
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>

@@ -1,16 +1,18 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { removeAuthUser } from "../../helpers/storage.jsx";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./index.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 const HeaderPage = () => {
+  const navigate = useNavigate();
   const logout = async () => {
     try {
-      await axios.post("http://localhost:4000/auth/logout" );
+      await axios.post("https://localhost:7095/api/Accounts/Logout" );
       removeAuthUser();
-      navigate("/login"); 
+      navigate("/"); 
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -29,11 +31,10 @@ const HeaderPage = () => {
               <p>العام الاكاديمى 2023-2024 - الفصل الدراسي الأول</p>
             </div>
             <div className={`${styles["header-icon"]} col-md-2   `}>
-              <Link to="/">
-                <button className="border border-transparent  rounded-2 p-2">
+                <button onClick={logout} className="border border-transparent  rounded-2 p-2">
                   <img src="..\src\assets\imgs\box-arrow-left.svg" alt="" />
                 </button>
-              </Link>
+              
             </div>
           </div>
         </div>

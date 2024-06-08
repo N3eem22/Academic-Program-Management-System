@@ -19,7 +19,7 @@ const LogFiles = () => {
           <div className="col-md-2"></div>
           <div className="col-md-10">
             <h2 style={{ color: "red", paddingBottom: "15px" }}>
-              ملفات السجل{" "}
+           ادارة ملفات السجل
             </h2>
             <div className="card  ">
               <div className="card-header">

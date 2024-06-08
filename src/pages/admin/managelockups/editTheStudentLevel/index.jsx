@@ -10,7 +10,7 @@ function EditTheStudentLevel() {
   return (
     <div className="App">
       <DataTable  apiUri={`https://localhost:7095/api/EditTheStudentLevel?UniversityId=${universityId}`}
-        apiUriPut = {(id,value) => `https://localhost:7095/api/EditTheStudentLevel/${id}?updatedEditTheStudentLevel=${value}`}
+        apiUriPut = {(id,value) =>` https://localhost:7095/api/EditTheStudentLevel/${id}?updatedEditTheStudentLevel=${value}`}
         apiUriDelete={(id) => `https://localhost:7095/api/EditTheStudentLevel/${id}`}
         apiUriPost={`https://localhost:7095/api/EditTheStudentLevel`}
         nameOfLU={nameOfLU}
