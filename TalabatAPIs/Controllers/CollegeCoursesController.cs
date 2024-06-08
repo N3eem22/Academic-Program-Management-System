@@ -36,10 +36,36 @@ namespace Grad.APIs.Controllers
         {
             var spec = new CollegeCoursesReqwithFacultySpecifications(FacultyId);
             var collegeCourses = await _unitOfWork.Repository<CollegeCourses>().GetAllWithSpecAsync(spec);
-            var collegeCourseDTOs = _mapper.Map<IEnumerable<CollegeCourses>, IEnumerable<CollegeCoursesDTO>>(collegeCourses);
+
+            var collegeCourseDTOs = new List<CollegeCoursesDTO>();
+
+            foreach (var course in collegeCourses)
+            {
+                // تحويل الأرقام العربية وتعيينها مباشرة في كائنات CollegeCoursesDTO
+                var courseDTO = new CollegeCoursesDTO
+                {
+                    Id = course.Id,
+                    CourseNameInArabic = course.CourseNameInArabic,
+                    CourseNameInEnglish = course.CourseNameInEnglish,
+                    Sub_CourseNameInArabic = course.Sub_CourseNameInArabic,
+                    Sub_CourseNameInEnglish = course.Sub_CourseNameInEnglish,
+                    CourseCodeInArabic = ConvertIntToArabicNumber(course.CourseCodeInArabic),
+                    CourseCodeInEnglish = course.CourseCodeInEnglish,
+                    Sub_CourseCodeInArabic = ConvertIntToArabicNumber(course.Sub_CourseCodeInArabic),
+                    Sub_CourseCodeInEnglish = course.Sub_CourseCodeInEnglish,
+                    CourseNickname = course.CourseNickname,
+                    ContentSummaryInArabic = course.ContentSummaryInArabic,
+                    ContentSummaryInEnglish = course.ContentSummaryInEnglish,
+                    FacultyId = course.FacultyId,
+
+                    Faculty = course.Faculty.FacultyName
+                };
+
+                collegeCourseDTOs.Add(courseDTO);       }
+
             return Ok(collegeCourseDTOs);
         }
-        
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CollegeCoursesDTO), 200)]
         [ProducesResponseType(typeof(ApiResponse), 404)]
@@ -197,6 +223,18 @@ namespace Grad.APIs.Controllers
 
             // تحويل النص الناتج إلى عدد صحيح
             return int.Parse(latinNumber);
+        }
+        private string ConvertIntToArabicNumber(int number)
+        {
+            Dictionary<char, char> arabicNumbers = new Dictionary<char, char>
+    {
+        {'0', '٠'}, {'1', '١'}, {'2', '٢'}, {'3', '٣'}, {'4', '٤'},
+        {'5', '٥'}, {'6', '٦'}, {'7', '٧'}, {'8', '٨'}, {'9', '٩'}
+    };
+
+            string arabicNumber = string.Concat(number.ToString().Select(c => arabicNumbers.ContainsKey(c) ? arabicNumbers[c].ToString() : c.ToString()));
+
+            return arabicNumber;
         }
 
 
