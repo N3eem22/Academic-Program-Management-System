@@ -68,7 +68,7 @@ const EstimatesPage = () => {
     event.preventDefault();
     axios
       .post("https://localhost:7095/api/Program_TheGrade", {
-        prog_InfoId:programInfoId,
+        prog_InfoId: programInfoId,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -92,14 +92,15 @@ const EstimatesPage = () => {
 
   const handleUpdate = (event) => {
     event.preventDefault();
+
     // if (!selectedRow) {
     //   alert("Please select a row to update");
     //   return;
     // }
-    // console.log(levelid);
+    console.log(programInfoId);
     axios
       .put(`https://localhost:7095/api/Program_TheGrade/${selectedRow.id}`, {
-        prog_InfoId: programInfoId,
+        prog_InfoId: 17,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -176,7 +177,7 @@ const EstimatesPage = () => {
               setShow(false);
                 console.log(err);
             });
-  }, []);
+  }, [ , theGradeId]);
 
   return (
     <Fragment>
@@ -193,7 +194,6 @@ const EstimatesPage = () => {
                   <div className="form-validation">
                     <form className="form-valide" method="post">
                       <div className="row">
-                        <div className="col-xl-6 ">
                           <div className=" d-flex">
                             <div className="col-md-4 ">
                               <div className="form-group mb-3 row">
@@ -230,7 +230,7 @@ const EstimatesPage = () => {
                             </div>
 
                             <div />
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                               <div className="form-group row">
                                 <label
                                   className="col-lg-5 col-form-label"
@@ -372,7 +372,6 @@ const EstimatesPage = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
                       </div>
                     </form>
                   </div>

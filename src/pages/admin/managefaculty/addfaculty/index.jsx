@@ -1,47 +1,32 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const UpdateUniversity = () => {
+const Addfaculty = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); 
-
-  const [updateUni, setUpdateUni] = useState({
-    name: "",
-    location: "",
+  const [Faculty, setFaculty] = useState({
+    facultyName: "",
+    universityId: "",
     loading: false,
     err: [],
   });
 
-  useEffect(() => {
-    axios
-      .get(`https://localhost:7095/api/University/${id}`)
-      .then((response) => {
-        const { name, location } = response.data;
-        console.log(response);
-        setUpdateUni({ ...updateUni, name : name, location  : location});
-      })
-      .catch((error) => {
-        console.error("Error fetching university data:", error);
-      });
-  }, [id]); 
-
-  const handleUpdateUniversity = (e) => {
+  const handleAddfaculty = (e) => {
     e.preventDefault();
-    setUpdateUni({ ...updateUni, loading: true, err: [] });
+    setFaculty({ ...Faculty, loading: true, err: [] });
     axios
-      .put(`https://localhost:7095/api/University/${id}`, {
-        name: updateUni.name,
-        location: updateUni.location,
+      .post("https://localhost:7095/api/Faculty", {
+        facultyName: Faculty.facultyName,
+        universityId: Faculty.universityId,
       })
       .then(() => {
-        setUpdateUni({ ...updateUni, loading: false, err: [] });
-        navigate("/manageuni");
+        setFaculty({ ...Faculty, loading: false, err: [] });
+        navigate("/managefaculty");
       })
       .catch((err) => {
-        setUpdateUni({
-          ...updateUni,
+        setFaculty({
+          ...Faculty,
           loading: false,
           err: [{ message: err.response.data.message }],
         });
@@ -62,13 +47,13 @@ const UpdateUniversity = () => {
           width: "40%",
         }}
       >
-        {updateUni.err && updateUni.err.length > 0 && (
+        {Faculty.err && Faculty.err.length > 0 && (
           <div className="col-md-4 m-auto  alert alert-danger">
             <ul
               className="fw-semibold fs-5"
               style={{ listStyleType: "none", padding: 0, margin: 0 }}
             >
-              {updateUni.err.map((error, index) => (
+              {Faculty.err.map((error, index) => (
                 <li key={index}>{error.message}</li>
               ))}
             </ul>
@@ -85,7 +70,7 @@ const UpdateUniversity = () => {
                     className="col-lg-3 fw-semibold fs-5 col-form-label"
                     htmlFor="universityName"
                   >
-                    اسم الجامعة
+                    اسم الكليه
                   </label>
                   <div className="col-lg-5 ">
                     <div className="input-group">
@@ -93,9 +78,12 @@ const UpdateUniversity = () => {
                         type="text"
                         className="form-control"
                         id="universityName"
-                        value={updateUni.name}
+                        value={Faculty.facultyName}
                         onChange={(e) =>
-                          setUpdateUni({ ...updateUni, name: e.target.value })
+                          setFaculty({
+                            ...Faculty,
+                            facultyName: e.target.value,
+                          })
                         }
                       />
                     </div>
@@ -110,7 +98,7 @@ const UpdateUniversity = () => {
                     className="col-lg-3 fw-semibold fs-5 col-form-label"
                     htmlFor="location"
                   >
-                    الموقع
+                    University Id
                   </label>
                   <div className="col-lg-5 ">
                     <div className="input-group">
@@ -118,11 +106,11 @@ const UpdateUniversity = () => {
                         type="text"
                         className="form-control"
                         id="location"
-                        value={updateUni.location}
+                        value={Faculty.universityId}
                         onChange={(e) =>
-                          setUpdateUni({
-                            ...updateUni,
-                            location: e.target.value,
+                          setFaculty({
+                            ...Faculty,
+                            universityId: e.target.value,
                           })
                         }
                       />
@@ -136,10 +124,10 @@ const UpdateUniversity = () => {
                 <div className="col-5 m-auto">
                   <button
                     type="button"
-                    onClick={handleUpdateUniversity}
+                    onClick={handleAddfaculty}
                     className="px-4 mt-3 fw-semibold fs-5 btn btn-primary"
                   >
-                    تعديل
+                    إضافة
                   </button>
                 </div>
               </div>
@@ -151,4 +139,4 @@ const UpdateUniversity = () => {
   );
 };
 
-export { UpdateUniversity };
+export { Addfaculty };

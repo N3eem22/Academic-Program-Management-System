@@ -1,20 +1,32 @@
-import React from 'react';
+import React , {useEffect, useState }from  'react';
 import { DataTable } from '../../../../components/dataTable';
+import { getAuthUser } from "../../../../helpers/storage";
 
 function Semesters() {
-  const universityId = 1;
+  // const universityId = 1;
     const nameOfLU= 'semesters';
     const property = 'الفصل الدراسي';
     
+    
+
+    const authUser = getAuthUser();
+    const [universityId, setuniversityId] = useState(null);
+    
+    useEffect(() => {
+      setuniversityId(authUser.universityId)
+    }, []);
 
   return (
     <div className="App">
-      <DataTable  apiUri={`https://localhost:7095/api/Semesters?UniversityId=${universityId}`}
+       { universityId && 
+   <DataTable     universityId ={universityId}
+ apiUri={      (universityId) =>
+`https://localhost:7095/api/Semesters?UniversityId=${universityId}`}
         apiUriPut = {(id,value) => `https://localhost:7095/api/Semesters/${id}?updatedSemester=${value}`}
         apiUriDelete={(id) => `https://localhost:7095/api/Semesters/${id}`}
         apiUriPost={`https://localhost:7095/api/Semesters`}
         nameOfLU={nameOfLU}
-        property= {property}/>
+        property= {property}/>}
        
     </div>
   );

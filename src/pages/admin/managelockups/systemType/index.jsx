@@ -1,20 +1,32 @@
-import React from 'react';
+import React , {useEffect, useState }from  'react';
 import { DataTable } from '../../../../components/dataTable';
+import { getAuthUser } from "../../../../helpers/storage";
 
 function SystemType() {
-  const universityId = 1;
+  // const universityId = 1;
     const nameOfLU= 'systemName';
     const property = 'نوع النظام';
     
+    
+
+    const authUser = getAuthUser();
+    const [universityId, setuniversityId] = useState(null);
+    
+    useEffect(() => {
+      setuniversityId(authUser.universityId)
+    }, []);
 
   return (
     <div className="App">
-      <DataTable  apiUri={`https://localhost:7095/api/SystemType?UniversityId=${universityId}`}
+         { universityId && 
+   <DataTable      universityId ={universityId}
+ apiUri={    (universityId) =>
+`https://localhost:7095/api/SystemType?UniversityId=${universityId}`}
         apiUriPut = {(id,value) => `https://localhost:7095/api/SystemType/${id}?updatedSystemName=${value}`}
         apiUriDelete={(id) => `https://localhost:7095/api/SystemType/${id}`}
         apiUriPost={`https://localhost:7095/api/SystemType`}
         nameOfLU={nameOfLU}
-        property= {property}/>
+        property= {property}/>}
        
     </div>
   );

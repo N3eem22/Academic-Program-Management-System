@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 
+
 const ProgramComponent = ({onProgramId}) => {
     const [search, setSearch] = useState("");
     const [programs, setPrograms] = useState([]);
@@ -60,8 +61,9 @@ const ProgramComponent = ({onProgramId}) => {
     };
 
     return (
-        <div className="col-md-10">
+        <div className="col-md-12">
             <div className="input-group mb-3">
+                <div className="col-md-8">
                 <input 
                     type="text" 
                     aria-label="البرامج" 
@@ -69,6 +71,8 @@ const ProgramComponent = ({onProgramId}) => {
                     onChange={(e) => setSearch(e.target.value)} 
                     value={search}
                 />
+                </div>
+                <div className='col-md-4 '>
                 <button 
                     className="btn btn-primary" 
                     style={{ borderRadius: '50px' , width : "25px"   }} 
@@ -86,10 +90,12 @@ const ProgramComponent = ({onProgramId}) => {
                 >
                     <i className="fas fa-plus  "></i>
                 </button>
+                </div>
             </div>
-            <div className="mb-3">
+            <div className="mb-4  ">
                 {programs.map((program) => (
-                    <div 
+                    <div className="mb-4 border shadow-sm p-3  bg-body-tertiary rounded"
+                  
                         key={program.id} 
                         onClick={() => handleProgramClick(program.id)}
                     >

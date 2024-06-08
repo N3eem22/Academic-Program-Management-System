@@ -67,6 +67,7 @@ const AddGraduation = ({ data }) => {
     console.log(options);
     if (name === "semestersTobePssed" || name === "levelsTobePassed") {
       selectedValues = options.map(option => ({
+
         [`${name === "semestersTobePssed" ? "semesterId" : "levelId"}`]: parseInt(option.value),
         graduationId: 0
       }));
@@ -928,6 +929,7 @@ const AddGraduation = ({ data }) => {
                         </div>
                       </div>
                     </div>
+
                     <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
                       {(state.status !== "Get") && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
                         <i className="fa-regular fa-bookmark"></i> حفظ
@@ -938,7 +940,6 @@ const AddGraduation = ({ data }) => {
 
                       <button className={`tn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
                         dispatch({ type: "Update" });
-
                         setGlobalState({ ...globalState, State: "Update" });
                       }}>
                         <i className="fa-solid fa-lock-open"></i> تعديل

@@ -171,7 +171,6 @@ const GeneralestimatesPage = () => {
                   <div className="form-validation">
                     <form className="form-valide" method="post">
                       <div className="row">
-                        <div className="col-xl-6 ">
                           <div className=" d-flex">
                             <div className="col-md-4 ">
                               <div className="form-group mb-3 row">
@@ -208,7 +207,7 @@ const GeneralestimatesPage = () => {
                             </div>
 
                             <div />
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                               <div className="form-group row">
                                 <label
                                   className="col-lg-5 col-form-label"
@@ -350,7 +349,6 @@ const GeneralestimatesPage = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
                       </div>
                     </form>
                   </div>

@@ -15,7 +15,7 @@ import { UpdateUsersPage } from "./pages/superadmin/manageusers/updateusers";
 import { ManageUniPage } from "./pages/superadmin/manageuni";
 import { ManageFacultyPage } from "./pages/admin/managefaculty";
 import { UpdatefacultyPage } from "./pages/admin/managefaculty/updatefaculty";
-import { ControlsPage } from "./pages/controls";
+import { ControlsPage } from "./pages/admin/managelockups/controls";
 import { CoursesPage } from "./pages/programs/edit/courses";
 import { GpaPage } from "./pages/programs/edit/gpa";
 import { ControlPage } from "./pages/programs/edit/control";
@@ -57,6 +57,7 @@ import { EditTheStudentLevel } from "./pages/admin/managelockups/editTheStudentL
 import { Semesters } from "./pages/admin/managelockups/semesters";
 import { GradesDetails } from "./pages/admin/managelockups/gradesDetails";
 import { EquivalentGrade } from "./pages/admin/managelockups/equivalentGrade";
+import { Addfaculty } from "./pages/admin/managefaculty/addfaculty";
 
 
 function App() {
@@ -117,6 +118,7 @@ function App() {
               <Route path="/gradesdetails" element={<GradesDetails />}/>
               <Route path="/equivalent" element={<EquivalentGrade />}/>
               <Route path="/controls" element={<ControlsPage />} />
+              <Route path="/addfaculty" element={<Addfaculty/>} />
 
             </Route>
 
