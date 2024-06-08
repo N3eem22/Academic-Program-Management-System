@@ -341,7 +341,7 @@ const AddGraduation = ({ data }) => {
                               id="value"
                               name="value"
                               value={graduation.value || ''}
-                              placeholder="Value"
+                              placeholder="القيمة"
                             />
                            
                           </div>
@@ -413,53 +413,7 @@ const AddGraduation = ({ data }) => {
                       </div>
 
 
-                      <div className="form-group mt-4 d-flex">
-                        <div className="col-md-3">
-                          <h5></h5>
-                          <label className="form-check-label fw-semibold fs-5" htmlFor="successInEveryCourse">
-                            النجاح فى جميع المقررات التى درسها{" "}
-                          </label>
-                        </div>
-                        <div className="col-md-4">
-                          <input
-                            onChange={(e) => {
-                              setgraduation({ ...graduation, successInEveryCourse: false });
-                              setgraduation((prevState) => ({
-                                ...prevState,
-                                successInEveryCourse: false,
-                                validationErrors: { ...prevState.validationErrors, successInEveryCourse: '' }
-                              }));
-                            }}
-                            className="form-check-input ms-3"
-                            type="radio"
-                            name="successInEveryCourse"
-                            id="successInEveryCourse"
-                            value={false}
-                            checked={graduation.successInEveryCourse === false}
-                          />
-                          <label className="form-check-label fw-semibold fs-6" htmlFor="successInEveryCourse">
-                            عدم التاكد من النجاح
-                          </label>
-
-                          <input
-                            onChange={(e) => { setgraduation({ ...graduation, successInEveryCourse: true }); }}
-                            className="form-check-input mx-3 me-5"
-                            type="radio"
-                            name="successInEveryCourse"
-                            id="successInEveryCourse"
-                            value={true}
-                            checked={graduation.successInEveryCourse === true}
-                          />
-                          <label className="form-check-label fw-semibold fs-6" htmlFor="successInEveryCourse">
-                            التاكد من النجاح
-                          </label>
-                        </div>
-                        {graduation.validationErrors.successInEveryCourse && (
-                          <div className="text-danger">
-                            {graduation.validationErrors.successInEveryCourse}
-                          </div>
-                        )}
-                      </div>
+                    
 
 
                       <div className="form-group mt-4 d-flex">

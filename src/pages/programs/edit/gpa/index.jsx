@@ -191,7 +191,8 @@ const GpaPage = () => {
                     calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage: resp.data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
                     showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal: resp.data.showingTheSemesterAndCumulativeGradeInTheStudentGradesPortal,
                     howToCalculateTheSemesterAverage: resp.data.howToCalculateTheSemesterAverage,
-                    gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount
+                    gadesOfEstimatesThatDoesNotCount: resp.data.gadesOfEstimatesThatDoesNotCount ,
+                    utmostGrade : resp.data.utmostGrade
                 });
                 setGetData(resp.data);
                 console.log(resp.data);
@@ -353,17 +354,11 @@ const GpaPage = () => {
                     "calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage": data.calculatingFailureTimesAfterTheFirstTimeInTheSemesterAverage,
                     "howToCalculateTheSemesterAverage": data.howToCalculateTheSemesterAverage,
                     "gadesOfEstimatesThatDoesNotCount": data.gadesOfEstimatesThatDoesNotCount,
-                });
-                dispatch({ type: 'Get' });
+                }).then((resp)=>{      dispatch({ type: 'Get' }); console.log(resp);}).catch((err)=>console.log(err));
+          
             }
 
-            // Logging the response data for debugging
-            //console.log(dataToSend);
-            console.log('Response:', res.data);
-            if (res.status === 200) {
-                dispatch({ type: 'Get' });
-                console.log(state);
-            }
+           
         } catch (err) {
             setData({
                 ...data,
@@ -371,33 +366,33 @@ const GpaPage = () => {
             }); // You can handle the error based on your application needs
         }
     }
-    const validateInputs = () => {
-        const errors = {};
-        if (!data.utmostGrade) errors.utmostGrade = "يجب عليك ادخال هذه القيمه";
-        if (!data.changingCourses) errors.changingCourses = "يجب عليك ادخال هذه القيمه";
-        if (!data.someOfGrades) errors.someOfGrades = "يجب عليك ادخال هذه القيمه";
-        if (!data.howToCalculateTheRatio) errors.howToCalculateTheRatio = "يجب عليك ادخال هذه القيمه";
-        if (!data.theNnumberOfDigitsRroundingTheRate) errors.theNnumberOfDigitsRroundingTheRate = "يجب عليك ادخال هذه القيمه";
-        if (!data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess) errors.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess = "يجب عليك ادخال هذه القيمه";
-        if (!data.deleteFailedCoursesAfterSuccess) errors.deleteFailedCoursesAfterSuccess = "يجب عليك ادخال هذه القيمه";
-        if (!data.calculateTheCumulativeEstimate) errors.calculateTheCumulativeEstimate = "يجب عليك ادخال هذه القيمه";
-        if (!data.maximumCumulativeGPA) errors.maximumCumulativeGPA = "يجب عليك ادخال هذه القيمه";
-        if (!data.howToCalculateTheRate) errors.howToCalculateTheRate = "يجب عليك ادخال هذه القيمه";
-        if (!data.numberOfDigitsRoundingTheRatio) errors.numberOfDigitsRoundingTheRatio = "يجب عليك ادخال هذه القيمه";
-        if (!data.theNnumberOfDigitsRroundingTheRate) errors.theNnumberOfDigitsRroundingTheRate = "يجب عليك ادخال هذه القيمه";
-        if (!data.calculateTermRate) errors.calculateTermRate = "يجب عليك ادخال هذه القيمه";
-        if (!data.theNumberOfDigitsRoundinPoints) errors.theNumberOfDigitsRoundinPoints = "يجب عليك ادخال هذه القيمه";
+    // const validateInputs = () => {
+    //     const errors = {};
+    //     if (!data.utmostGrade) errors.utmostGrade = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.changingCourses) errors.changingCourses = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.someOfGrades) errors.someOfGrades = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.howToCalculateTheRatio) errors.howToCalculateTheRatio = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.theNnumberOfDigitsRroundingTheRate) errors.theNnumberOfDigitsRroundingTheRate = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess) errors.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.deleteFailedCoursesAfterSuccess) errors.deleteFailedCoursesAfterSuccess = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.calculateTheCumulativeEstimate) errors.calculateTheCumulativeEstimate = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.maximumCumulativeGPA) errors.maximumCumulativeGPA = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.howToCalculateTheRate) errors.howToCalculateTheRate = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.numberOfDigitsRoundingTheRatio) errors.numberOfDigitsRoundingTheRatio = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.theNnumberOfDigitsRroundingTheRate) errors.theNnumberOfDigitsRroundingTheRate = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.calculateTermRate) errors.calculateTermRate = "يجب عليك ادخال هذه القيمه";
+    //     if (!data.theNumberOfDigitsRoundinPoints) errors.theNumberOfDigitsRoundinPoints = "يجب عليك ادخال هذه القيمه";
         
-        return errors;
-    }
+    //     return errors;
+    // }
     function submit(e) {
         console.log(data);
         e.preventDefault();
-        const validationErrors = validateInputs();
-        if (Object.keys(validationErrors).length > 0) {
-            setData((prevState) => ({ ...prevState, validationErrors }));
-            return;
-        }
+      //  const validationErrors = validateInputs();
+        // if (Object.keys(validationErrors).length > 0) {
+        //     setData((prevState) => ({ ...prevState, validationErrors }));
+        //     return;
+        // }
         sendDataToApi();
     }
 
@@ -444,11 +439,11 @@ const GpaPage = () => {
                                                     <div className="col-lg-5">
                                                         {(state.status !== "Get") && <div className="form-group mb-3 row">
                                                             <div className="col-lg-3">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="higher" value="الاعلى" onChange={handleRadioChange} />
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="higher" value="الاعلى" onChange={handleRadioChange} checked = {data.improvingCourses === 0} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="higher">الاعلي </label>
                                                             </div>
                                                             <div className="col-lg-3">
-                                                                <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="lower" value="الاخير" onChange={handleRadioChange} />
+                                                                <input className="form-check-input m-1 mt-2" type="radio" name="improveCourses" id="lower" value="الاخير" onChange={handleRadioChange} checked = {data.improvingCourses === 1} />
                                                                 <label className="form-check-label fw-semibold fs-5" htmlFor="lower">الاخير</label>
                                                             </div>
                                                         </div>}
@@ -456,7 +451,7 @@ const GpaPage = () => {
                                                             <input className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="utmostGrade" id="utmostGrade" placeholder={data.improvingCourses === 0 ? "الاعلي" : "الاخير"} />
                                                         }
                                                     </div>
-                                                    {showCheckbox1 && (
+                                                    {(state.status !== "Get") &&showCheckbox1 && (
                                                         <div className="col-3">
                                                             <div className="form-check form-check-inline d-flex">
                                                                 <input className="form-check-input mt-2 fs-5" type="checkbox" id="KeepFailing" value="تسجيل المقرر في الترم الصيفى" />
@@ -464,7 +459,7 @@ const GpaPage = () => {
                                                             </div>
                                                         </div>
                                                     )}
-                                                    {showCheckbox2 && (
+                                                    {(state.status !== "Get")&&showCheckbox2 && (
                                                         <div className="col-3">
                                                             <div className="form-check form-check-inline d-flex">
                                                                 <input className="form-check-input mt-2 fs-5" type="checkbox" id="keepSuccess" value="تسجيل المقرر في الترم الصيفى" />
@@ -496,7 +491,8 @@ const GpaPage = () => {
                                                             <option disabled></option>
                                                             {grades && grades.map((grade, index) => (
                                                                 <option key={index} value={grade.id} selected={data.utmostGrade === grade.id}>
-                                                                    {grade.theGrade}
+                                                                    {grade.theGrade} {data.utmostGrade === grade.theGrade ? setData({...data , utmostGrade :parseInt(grade.id)  }) : ""}
+                                                            
                                                                 </option>
                                                             ))}
                                                         </select>
@@ -1107,10 +1103,10 @@ const GpaPage = () => {
                                                     <div className="col-lg-3">
                                                         {(state.status !== "Get") && <select className="form-select fs-5 custom-select-start" id="calculateTermRate" onChange={(e) => {
                                                             setData({ ...data, howToCalculateTheSemesterAverage: parseInt(e.target.value) })
-                                                            setData(prevState => ({
-                                                                ...prevState,
-                                                                validationErrors: { ...prevState.validationErrors, calculateTermRate: '' }
-                                                            }));
+                                                            // setData(prevState => ({
+                                                            //     ...prevState,
+                                                            //     validationErrors: { ...prevState.validationErrors, calculateTermRate: '' }
+                                                            // }));
                                                         }}>
                                                             <option selected disabled>  </option>
                                                             <option value={0} selected={data.howToCalculateTheSemesterAverage === 0}>بالقسمة علي الساعات الفعلية  </option>
@@ -1120,11 +1116,11 @@ const GpaPage = () => {
                                                         {((state.status === "Get")) &&
                                                             <input style={{ width: '220%' }} className={`form m-1 mt-2 ${styles['bold-and-large-text-input']}`} disabled type="text" name="howToCalculateTheSemesterAverage" id="howToCalculateTheSemesterAverage" placeholder={Options.howToCalculateTheRate[data.howToCalculateTheSemesterAverage]} />
                                                         }
-                                                        {data.validationErrors.calculateTermRate && (
+                                                        {/* {data.validationErrors.calculateTermRate && (
                                                             <div className="text-danger">
                                                                 {data.validationErrors.calculateTermRate}
                                                             </div>
-                                                        )}
+                                                        )} */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1142,7 +1138,7 @@ const GpaPage = () => {
                                                     </button>}
                                                     {
                                                         (state.status !== "Add" && state.status === "Get") &&
-                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Update" }) }}>
+                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="submit" onClick={() => { dispatch({ type: "Update" }); }}>
                                                             <i className="fa-solid fa-lock-open"></i> تعديل
                                                         </button>
                                                     }

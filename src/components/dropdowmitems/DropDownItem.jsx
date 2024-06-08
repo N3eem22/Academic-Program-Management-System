@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGlobalState } from "./Context";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 const DropDownItem = ({ index }) => {
   const { globalState, setGlobalState } = useGlobalState();
@@ -47,7 +47,8 @@ const DropDownItem = ({ index }) => {
           updateGlobalState("yearValue", e.target.value);
         }}
       ></input>
-      <button
+      <button 
+      className="btn btn-danger"
         onClick={() => {
           const temp = [...globalState];
           temp.splice(index, 1);
