@@ -42,6 +42,8 @@ const ProgramsComp = () => {
 };
   const [state , dispatch] = useReducer(reducer,initialState);
   const [programInfo, setProgramInfo] = useState([{}]);
+  const [programInfoId, setProgramInfoId] = useState();
+
   const ProgramId = 7;
   const inputRefs = useRef([]);
   const [academicDegree, setAcademicDegree] = useState([]);
@@ -102,7 +104,7 @@ const ProgramsComp = () => {
         if (state.status === "Get") {
           const fetchData =async (programId) =>{
         
-            const res = await axios.get(`https://localhost:7095/api/ProgramInformation/${3}`,
+            const res = await axios.get(`https://localhost:7095/api/ProgramInformation/${7}`,
             ).then( (resp)=> { 
               setProgramInfo([resp.data][0]);
             }).catch((err)=>{
@@ -365,9 +367,9 @@ const ProgramsComp = () => {
       }
     },[ state]);
 
-    // useEffect(() => {
-    //   console.log(programInfo)
-    // }, [programInfo]);
+      useEffect(() => {
+        console.log(programInfo)
+      }, [programInfo]);
   // const handleInputChange = (index, fieldName, value) => {
   //   const updatedProgramInfo = [...programInfo];
     // if (Array.isArray(updatedProgramInfo[index][fieldName])) {
@@ -421,7 +423,7 @@ const ProgramsComp = () => {
     setProgramInfo(updatedProgramInfo);
   };
   const handleDelete = (id) => {
-    axios.delete(`https://localhost:7095/api/ProgramInformation/48`)
+    axios.delete(`https://localhost:7095/api/ProgramInformation/3`)
       .then(() => {
         console.log('Deletion successful');
         setProgramInfo(programInfo.filter(programInfo => programInfo.id !== id));
@@ -484,11 +486,12 @@ const ProgramsComp = () => {
        };
   useEffect(() => { 
     const fetchData =async (programId) =>{
-            const res = await axios.get(`https://localhost:7095/api/ProgramInformation/${3}`).then( (resp)=> {
+            const res = await axios.get(`https://localhost:7095/api/ProgramInformation/${7}`).then( (resp)=> {
               setProgramInfo(resp.data);
+              setProgramInfoId(resp.data.id);
                 dispatch({ type: 'Get'});
               console.log(resp.data);
-            }).catch((err)=>{
+            }).catch((err)=>{   
                 dispatch({ type: 'Add' }); 
                 console.log(err);
             });
@@ -505,13 +508,14 @@ fetchData(ProgramId);
 
   const sendDataToApi = async () => {
     try {
-        setProgramInfo({...programInfo , programId : 7, FacultyId:1  })
+        setProgramInfo({...programInfo , programId : 8, FacultyId:1  })
         const dataToSend = { programInfo }; 
+        console.log(programInfo);
         const ProgramReq = programInfo[0]
         if (state.status === "Add") {
           console.log(ProgramReq);
             const res = await axios.post( `https://localhost:7095/api/ProgramInformation` ,{
-              "programsId": 3,
+              "programsId": 8,
               "programNameInArabic": ProgramReq.programNameInArabic,
               "programNameInEnglish": ProgramReq.programNameInEnglish,
               "majorNameInArabic":  ProgramReq.majorNameInArabic,
@@ -534,10 +538,10 @@ fetchData(ProgramId);
               "additionalRegistrationHours": ProgramReq.additionalRegistrationHours,
               "eligibleHoursforProjectRegistration": ProgramReq.eligibleHoursforProjectRegistration,
               "projectHours":  ProgramReq.projectHours,
-              "burdanCalculationId": ProgramReq.burdanCalculationId,
+              "burdanCalculationId": 1,
               "excludingTheBudgetTermWhenCalculatingTheGPA": ProgramReq.excludingTheBudgetTermWhenCalculatingTheGPA,
               "passingTheElectiveGroupBasedOnId": ProgramReq.passingTheElectiveGroupBasedOnId,
-              "prerequisitesProgramsId":  ProgramReq.prerequisitesProgramsId,
+              "prerequisitesProgramsId":  7,
               "editTheStudentLevelId": ProgramReq.editTheStudentLevelId,
               "allowingTheRegistrationOfaSpecificNumberOfElectiveCoursesDuringTheYear":  ProgramReq.allowingTheRegistrationOfaSpecificNumberOfElectiveCoursesDuringTheYear,
               "failureTimesForWarning":  ProgramReq.failureTimesForWarning,
@@ -565,7 +569,8 @@ fetchData(ProgramId);
               "pI_DetailedGradesToBeAnnounced": ProgramReq.pI_DetailedGradesToBeAnnounce,
             } ).then((resp)=> {
               console.log(resp);
-              setProgramInfo(resp.data[0]);
+              setProgramInfo(resp.data);
+              dispatch({ type: 'Get' });
             }).catch((err)=>{
               console.log(err);
             });
@@ -573,8 +578,8 @@ fetchData(ProgramId);
         }
          else if (state.status === "Update") {
           console.log(programInfo);
-            const res = await axios.put( `https://localhost:7095/api/ProgramInformation/${48}`, {
-              "programsId": 3,
+            const res = await axios.put( `https://localhost:7095/api/ProgramInformation/${3}`, {
+              "programsId": 7,
               "programNameInArabic": programInfo[0].programNameInArabic,
               "programNameInEnglish": programInfo[0].programNameInEnglish,
               "majorNameInArabic":  programInfo[0].majorNameInArabic,
@@ -677,77 +682,79 @@ function submit(e) {
                 <form className="inputs mb-3 py-3 fs-5" onSubmit={submit}>
                 {Object.keys(programInfo).map((key, index) => (
                     <div key={index}>   
-                      <div className="form-floating mb-3">
+            <div className="form mb-3">
+               <label htmlFor="programNameInArabic">اسم البرنامج باللغة العربية</label>
                         <input
                         required
                          disabled = {state.status === "Get"}
                          ref={(el) => (inputRefs.current[key] = el)}
                          type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].programNameInArabic || ''}
                           onChange={(e) => handleInputChange(key, 'programNameInArabic', e.target.value)}
                         />
-                        <label htmlFor="">اسم البرنامج باللغة العربية</label>
                       </div>
-                      <div className="form-floating mb-3">
+                      <div className=" form mb-3">
+                        <label htmlFor="programNameInEnglish">اسم البرنامج باللغة الانجليزية</label>
                         <input
                         required
                          disabled = {state.status === "Get"}
                          ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].programNameInEnglish || ''}
                           onChange={(e) => handleInputChange(key, 'programNameInEnglish', e.target.value)}
                         />
-                        <label htmlFor="">اسم البرنامج باللغة الانجليزية</label>
                       </div>  
-                      <div className="form-floating mb-3">
+                      <div className="form mb-3">
+                         <label htmlFor="majorNameInArabic">اسم التخصص باللغة العربية</label>
                         <input
                         required
                         disabled = {state.status === "Get"}
                         ref={(el) => (inputRefs.current[key] = el)}
                         type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].majorNameInArabic || ''}
                           onChange={(e) => handleInputChange(key, 'majorNameInArabic', e.target.value)}
                         />
-                        <label htmlFor="">اسم التخصص باللغة العربية</label>
                       </div>
-                      <div className="form-floating mb-3">
+                      <div className="form mb-3">
+            <label htmlFor="majorNameInEnglish">اسم التخصص باللغة الانجليزية</label>
                         <input
                         required
                           disabled = {state.status === "Get"}
                           ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].majorNameInEnglish || ''}
                           onChange={(e) => handleInputChange(key, 'majorNameInEnglish', e.target.value)}
                         />
-                        <label htmlFor="">اسم التخصص باللغة الانجليزية</label>
                       </div>    
-<div class="form-floating mb-3">
+<div class="form mb-3">
+<label htmlFor="">كود البرنامج</label>
+
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-type="text" class="form-control text-end" placeholder=""
+type="text" class="form-control text-end w-75" placeholder=""
 value={programInfo[key].programCode || ''}
 onChange={(e) => handleInputChange(key, 'programCode', parseInt(e.target.value))}/>
-<label htmlFor="">كود البرنامج</label>
 </div>
 <div className="dropdowns ">
 <label htmlFor="facultyId">المعهد</label>
 <select 
  disabled = {state.status === "Get"}
  ref={(el) => (inputRefs.current[key] = el)}
- className="form-select form-select-lg mb-3 py-2"
+ className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].facultyId || ''}
-                          onChange={(e) => handleInputChange(key, 'facultyId', parseInt(e.target.value))}>
+                       onChange={(e) => handleInputChange(key, 'facultyId', parseInt(e.target.value))}>
+     <option disabled></option>
 <option>{faculties.facultyName}</option>
 </select>
 
@@ -757,10 +764,11 @@ onChange={(e) => handleInputChange(key, 'programCode', parseInt(e.target.value))
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].academicDegreeId || ''}
                           onChange={(e) => handleInputChange(key, 'academicDegreeId', parseInt(e.target.value))} >
+  <option disabled></option>
 {academicDegree.map((degree) => (
 <option key={degree.id} value={degree.id}>{degree.academicDegreeName}</option>
 ))}
@@ -768,92 +776,94 @@ className="form-select form-select-lg mb-3 py-2"
 
 </div>
 </div>
-<div class="form-floating mb-3">
+<div class="form mb-3">
+  <label htmlFor="nameInCertificate" >المسمى في الشهادة</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
            type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].nameInCertificate || ''}
                           onChange={(e) => handleInputChange(key, 'nameInCertificate', e.target.value)} />
-<label htmlFor="" >المسمى في الشهادة</label>
 </div>
-<div class="form-floating mb-3">
+<div class="form mb-3">
+<label htmlFor="nameInCertificateInEnglish" >المسمى في الشهادة باللغة الانجليزية</label>
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].nameInCertificateInEnglish || ''}
                           onChange={(e) => handleInputChange(key, 'nameInCertificateInEnglish', e.target.value)} />
-<label htmlFor="" >المسمى في الشهادة باللغة الانجليزية</label>
 </div>
-<div class="form-floating mb-3 fw-primary">
+<div class="form mb-3">
+<label htmlFor="beginningOfTheProgram">بداية تطبيق البرنامج</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="date"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].beginningOfTheProgram || ''}
                           onChange={(e) => handleInputChange(key, 'beginningOfTheProgram', e.target.value)}/>
-<label htmlFor="">بداية تطبيق البرنامج</label>
 </div>
-<div class="form-floating mb-3">
+<div class="form mb-3">
+  <label htmlFor="endOfTheProgram" dir="rtl">نهاية تطبيق البرنامج</label>
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="date"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].endOfTheProgram || ''}
                           onChange={(e) => handleInputChange(key, 'endOfTheProgram', e.target.value)}/>
-<label htmlFor="" dir="rtl">نهاية تطبيق البرنامج</label>
 </div>
 <div className="dropdown">
 <label htmlFor="systemTypeId"> نوع النظام</label>
 <select
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].systemTypeId || ''}
                           onChange={(e) => handleInputChange(key,'systemTypeId',parseInt(e.target.value))}>
+ <option disabled></option>
  {systemType.map((type) => (
 <option key={type.id} value={type.id}>{type.systemName}</option>
 ))}
 </select>
 </div>
-<div class="form-floating mb-3">
+<div class="form mb-3">
+<label htmlFor="institutionCode">كود المؤسسة</label>
+
 <input
 required 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="number"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].institutionCode || ''}
                           onChange={(e) => handleInputChange(key,'institutionCode',parseInt( e.target.value))}
                           />
-<label htmlFor="">كود المؤسسة</label>
 </div>
-<div class="form-floating mb-3 position-relative ">
+<div class="form mb-3 ">
+<label htmlFor="teamCode" >كود الفرقة</label>
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="number"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].teamCode || ''}
                           onChange={(e) => handleInputChange(key, 'teamCode', parseInt(e.target.value))}/>
-<label htmlFor="" class="position-absolute ms-100% " >كود الفرقة</label>
 </div>
 </div>
 ))}
@@ -874,134 +884,132 @@ ref={(el) => (inputRefs.current[key] = el)}
     <form className="inputs mb-3 py-3 fs-5 " onSubmit={submit}>
     {Object.keys(programInfo).map((key, index) => (
         <div key={index}>
-    <div class="form-floating mb-3 ">
+    <div class="form mb-3 ">
+    <label htmlFor="creditHours" >الساعات المعتمدة</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].creditHours || ''}
                           onChange={(e) => handleInputChange(key, 'creditHours', parseInt(e.target.value))} />
-<label htmlFor="" class="">الساعات المعتمدة</label>
 </div>
 <div className=" mb-3">
 <h4 className="fw-5">تقسيم الساعات </h4>
 </div>
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
   <label htmlFor="mandatory_ProjectHours" > الاجبارى - المشروع</label>
-
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].mandatory_ProjectHours || ''}
                           onChange={(e) => handleInputChange(key, 'mandatory_ProjectHours', parseInt(e.target.value))} />
 </div> 
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
 <label htmlFor="optionalHours">الاختيارى</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].optionalHours || ''}
                           onChange={(e) => handleInputChange(key, 'optionalHours', parseInt(e.target.value))} />
-<label htmlFor="" class="">الاختيارى</label>
 </div> 
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
 <label htmlFor="freeHours">الحرة</label>
-
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].freeHours || ''}
                           onChange={(e) => handleInputChange(key, 'freeHours', parseInt(e.target.value))} />
 </div>
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
+<label htmlFor="additionalRegistrationHours">ساعات التسجيل الاضافية</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].additionalRegistrationHours || ''}
                           onChange={(e) => handleInputChange(key,'additionalRegistrationHours', parseInt(e.target.value))} />
-<label htmlFor="">ساعات التسجيل الاضافية</label>
 </div>   
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
+<label htmlFor="eligibleHoursforProjectRegistration">الساعات المؤهلة لتسجيل المشروع</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].eligibleHoursforProjectRegistration || ''}
                           onChange={(e) => handleInputChange(key, 'eligibleHoursforProjectRegistration', parseInt(e.target.value))} />
-<label htmlFor="">الساعات المؤهلة لتسجيل المشروع</label>
 </div>  
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
+<label htmlFor="projectHours">ساعات المشروع	</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].projectHours|| ''}
                           onChange={(e) => handleInputChange(key, 'projectHours' ,parseInt( e.target.value))} />
-<label htmlFor="">ساعات المشروع	</label>
 </div>  
 <div className="dropdown">
 <label htmlFor="burdanCalculationId">حساب العبء</label>
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].burdanCalculationId || ''}
                           onChange={(e) => handleInputChange(key, 'burdanCalculationId', parseInt(e.target.value))}>
+<option disabled></option>
 {burdenCalculation.map((burden) => (
 <option key={burden.id} value={burden.id}>{burden.burdenCalculationAS}</option>
 ))}
 </select>
 </div>
-<div class="form-check py-3">
+<div class="form-check py-3 position-relative">
+<label class="form-check-label" htmlFor="excludingTheBudgetTermWhenCalculatingTheGPA" for="flexCheckDefault">
+استثناء ترم الموازنة عند حساب العبء
+</label>
 <input
-required
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
 checked={programInfo[key].excludingTheBudgetTermWhenCalculatingTheGPA || false}
 onChange={(e) => handleInputChange(key, 'excludingTheBudgetTermWhenCalculatingTheGPA', e.target.checked)}
 />
-<label class="form-check-label" for="flexCheckDefault">
-استثناء ترم الموازنة عند حساب العبء
-</label>
 </div>
 <div className="dropdown">
 <label htmlFor="passingTheElectiveGroupBasedOnId">اجتياز المجموعه الاختياريه بناءا علي</label>
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].passingTheElectiveGroupBasedOnId || ''}
                           onChange={(e) => handleInputChange(key, 'passingTheElectiveGroupBasedOnId', parseInt(e.target.value))}>
+<option disabled></option>
 {passingTheElectiveGroupBasedOn.map((passing) => (
 <option key={passing.id} value={passing.id} >{passing.passingTheElectiveGroup}</option>
 ))}
@@ -1012,10 +1020,11 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           // value={programInfo[key].prerequisitesProgramsId || ''}
                           onChange={(e) => handleInputChange(key, "prerequisitesProgramsId", parseInt(e.target.value))}>
+<option disabled></option>
 {prerequisites.map((prereqs) => (
 <option key={prereqs.id} value={prereqs.id} >{prereqs.prerequisite}</option>
 ))}
@@ -1026,7 +1035,7 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select  
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           multiple
                           // value={programInfo[key].pI_DivisionTypes || ''}
@@ -1049,10 +1058,11 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].editTheStudentLevelId || ''}
                           onChange={(e) => handleInputChange(key, 'editTheStudentLevelId', parseInt(e.target.value))}>
+<option disabled></option>
 {editTheStudentLevel.map((Slevel) => (
 <option key={Slevel.id} value={Slevel.id}>{Slevel.editTheStudentLevel}</option>
 ))}
@@ -1078,39 +1088,40 @@ ref={(el) => (inputRefs.current[key] = el)}
     <form className="inputs mb-3 py-3 fs-5 " onSubmit={submit}>
     {Object.keys(programInfo).map((key, index) => (
         <div key={index}>
-    <div class="form-floating mb-3 ">
+    <div class="form mb-3 ">
+    <label htmlFor="failureTimesForWarning" >مرات الرسوب للإنذار</label>
 <input
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].failureTimesForWarning|| ''}
                           onChange={(e) => handleInputChange(key, 'failureTimesForWarning', parseInt(e.target.value))} />
-<label htmlFor="" class="">مرات الرسوب للإنذار</label>
 </div>
-<div class="form-floating mb-3">
+<div class="form mb-3">
+<label htmlFor="failureTimesForRe_Enrollment">مرات الرسوب لإعادة القيد</label>
 <input 
 required
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
                           type="text"
-                          className="form-control text-end"
+                          className="form-control text-end w-75"
                           placeholder=""
                           value={programInfo[key].failureTimesForRe_Enrollment|| ''}
                           onChange={(e) => handleInputChange(key, 'failureTimesForRe_Enrollment',parseInt (e.target.value))} />
-<label htmlFor="">مرات الرسوب لإعادة القيد</label>
 </div>
 <div className="dropdrown">
 <label htmlFor="blockingProofOfRegistrationId">حجب إثبات القيد</label>
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           // value={programInfo[key].blockingProofOfRegistrationId || ''}
                           onChange={(e) => handleInputChange(key, 'blockingProofOfRegistrationId', parseInt(e.target.value))}>
+<option disabled></option>
 {blockProof.map((blockP) => (
 <option key={blockP.id} value={blockP.id}>{blockP.reasonsOfBlocking}</option>
 ))}
@@ -1140,10 +1151,11 @@ ref={(el) => (inputRefs.current[key] = el)}
  <select
     disabled = {state.status === "Get"}
     ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].typeOfFinancialStatementInTheProgramId || ''}
                           onChange={(e) => handleInputChange(key, 'typeOfFinancialStatementInTheProgramId', parseInt(e.target.value))}>
+<option disabled></option>
 {financial.map((statement) => (
 <option key={statement.id} value={statement.id}>{statement.theType}</option>
 ))}
@@ -1154,10 +1166,11 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].typeOfProgramFeesId || ''}
                           onChange={(e) => handleInputChange(key, 'typeOfProgramFeesId',parseInt (e.target.value))}>
+<option disabled></option>
 {programFees.map((programfee) => (
 <option key={programfee.id} value={programfee.id}>{programfee.typeOfFees}</option>
 ))}
@@ -1168,10 +1181,11 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select
     disabled = {state.status === "Get"}
     ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].typeOfSummerFeesId || ''}
                           onChange={(e) => handleInputChange(key, 'typeOfSummerFeesId', parseInt(e.target.value))}>
+<option disabled></option>
 {summerFees.map((summerfee) => (
 <option key={summerfee.id} value={summerfee.id}>{summerfee.theTypeOfSummerFees}</option>
 ))}
@@ -1182,7 +1196,7 @@ ref={(el) => (inputRefs.current[key] = el)}
 <select 
     disabled = {state.status === "Get"}
     ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           multiple
                           // value={programInfo[key].pI_EstimatesOfCourseFeeExemptions || ''}
@@ -1201,11 +1215,11 @@ value={grade.id}
 ))}
 </select>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 required
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
@@ -1216,11 +1230,11 @@ onChange={(e) => handleInputChange(key, 'calculatingaSpecialRegistrationFeeForaC
 إحتساب رسوم تسجيل خاصه للمقرر فى حالة تقدير سابق للمقرر غير مكتمل
 </label>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 required
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
@@ -1251,15 +1265,14 @@ onChange={(e) => handleInputChange(key, 'bookFeeIsCalculatedForTheFirstTimeOfReg
     <form className="inputs mb-3 py-3 fs-5 " onSubmit={submit}>
     {Object.keys(programInfo).map((key, index) => (
 <div key={index}>
-<div class="form-floating mb-3 ">
-<label htmlFor="result" >النتيجة  </label>
+<div class="form mb-3 ">
+<label htmlFor="result" >النتيجة</label>
 <input
 required
 disabled = {state.status === "Get"}
 type="text"
-class=" form-control text-end fs-4" 
+className=" form-control text-end w-75" 
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-control text-end"
 value={programInfo[key].result|| ''}
 onChange={(e) => handleInputChange(key, 'result',e.target.value)} />
 </div>
@@ -1268,10 +1281,11 @@ onChange={(e) => handleInputChange(key, 'result',e.target.value)} />
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].theResultAppearsId || ''}
                           onChange={(e) => handleInputChange(key, 'theResultAppearsId', parseInt (e.target.value))}>
+<option disabled></option>
 {resultAppears.map((resultA) => (
 <option key={resultA.id} value={resultA.id}>{resultA.resultAppears}</option>
 ))}
@@ -1282,10 +1296,11 @@ className="form-select form-select-lg mb-3 py-2"
 <select 
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].theResultToTheGuidId || ''}
                           onChange={(e) => handleInputChange(key, 'theResultToTheGuidId', parseInt (e.target.value))}>
+<option disabled></option>
 {resultAppears.map((result) => (
 <option key={result.id} value={result.id}>{result.resultAppears}</option>
 ))}
@@ -1296,19 +1311,20 @@ className="form-select form-select-lg mb-3 py-2"
 <select
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].reasonForBlockingRegistrationId || ''}
                           onChange={(e) => handleInputChange(key, 'reasonForBlockingRegistrationId', parseInt(e.target.value))}>
+<option disabled></option>
 {blockRegister.map((Bregister) => (
 <option key={Bregister.id} value={Bregister.id}>{Bregister.theReasonForBlockingRegistration}</option>
 ))}
 </select>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
@@ -1319,11 +1335,11 @@ onChange={(e) => handleInputChange(key, 'linkingTheAppearanceOfDocumentsToTheRea
 ربط ظهور الوثائق بسبب حجب التسجيل
 </label>
 </div>
-<div class="form-check py-2">
+<div class="form-check py-2 position-relative">
 <input
 
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
@@ -1334,11 +1350,11 @@ onChange={(e) => handleInputChange(key, 'linkingTheAppearanceOfTheExaminationSch
 ربط ظهور جدول الامتحانات بسداد الرسوم
 </label>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 
 disabled = {state.status === "Get"}
-class="form-check-input"
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-dark"
 type="checkbox"
 id="flexCheckDefault"
 ref={(el) => (inputRefs.current[key] = el)}
@@ -1349,27 +1365,27 @@ onChange={(e) => handleInputChange(key, 'registrationOfCoursesOfferedToStudentsF
 تسجيل المقررات المطروحة للطالب من نفس الفصل الحالى فقط بمدخل الطالب فقط
 </label>
 </div>
-<div class="form-floating mb-3 ">
+<div class="form mb-3 ">
+<label className="mt-3" htmlFor="numberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects" >عدد مرات الرسوب لإلزام تسجيل مواد الرسوب الاجباريه</label>
 <input 
 required
 disabled = {state.status === "Get"}
 type="number"
-class=" form-control text-end fs-4" 
+className=" form-control text-end fs-4  w-75" 
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-control text-end"
 value={programInfo[key].numberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects|| ''}
 onChange={(e) => handleInputChange(key, 'numberOfFailureTimesToRequireRegistrationOfCompulsoryFailureSubjects', parseInt(e.target.value))} />
-<label htmlFor="" class="">عدد مرات الرسوب لإلزام تسجيل مواد الرسوب الاجباريه</label>
 </div>
 <div className="dropdown">
 <label htmlFor="theReasonForHiddingTheResultId">سبب حجب النتيجة</label>
 <select
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-                          className="form-select form-select-lg mb-3 py-2"
+                          className="form-select form-select-lg mb-3 py-2 w-75"
                           aria-label=".form-select-lg example"
                           value={programInfo[key].theReasonForHiddingTheResultId || ''}
                           onChange={(e) => handleInputChange(key, 'theReasonForHiddingTheResultId', parseInt(e.target.value))}>
+<option disabled></option>
 {hidingResult.map((bresult) => (
 <option key={bresult.id} value={bresult.id}>{bresult.theReasonForBlockingAcademicResult}</option>
 ))}
@@ -1377,11 +1393,11 @@ ref={(el) => (inputRefs.current[key] = el)}
 </div>
 <div className="div">
 
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 
 disabled = {state.status === "Get"}
-class="form-check-input border border-primary" 
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-primary" 
 type="radio" 
 name="theQuestionnaireIsIncluded"
 id="theQuestionnaireIsIncluded"
@@ -1392,10 +1408,10 @@ onChange={(e) => handleInputChange(key, 'theQuestionnaireIsIncluded', true)}/>
 متضمن الاستبيان العام 
 </label>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 disabled = {state.status === "Get"}
-class="form-check-input border border-primary" 
+class="form-check-input position-absolute top-50 start-50 translate-middle border border-primary" 
 type="radio" 
 name="theQuestionnaireIsIncluded" 
 id="theQuestionnaireIsIncluded"
@@ -1412,7 +1428,7 @@ onChange={(e) => handleInputChange(key, 'theQuestionnaireIsIncluded', false)}/>
 <select
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
 aria-label=".form-select-lg example"
 multiple
 // value={programInfo[key].pI_AllGradesSummerEstimates || []}
@@ -1431,10 +1447,10 @@ handleInputChange(key, 'pI_AllGradesSummerEstimates', selectedValues);
 </div>
 {programInfo[key].theQuestionnaireIsIncluded === true && 
 (<div className="">
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input 
 disabled = {state.status === "Get"}
-class="form-check-input border border-primary" 
+class="form-check-input border position-absolute top-50 start-50 translate-middle border-primary" 
 type="radio" 
 name="questionnaire"
 id="questionnaire"
@@ -1445,10 +1461,10 @@ onChange={(e) => handleInputChange(key, 'questionnaire', true )}/>
 استبيان النظام الداخلى
 </label>
 </div>
-<div class="form-check py-2">
+<div class="form-check position-relative py-2">
 <input
 disabled = {state.status === "Get"}
-class="form-check-input border border-primary" 
+class="form-check-input border position-absolute top-50 start-50 translate-middle border-primary" 
 type="radio"
 name="questionnaire"
  id="questionnaire" 
@@ -1465,7 +1481,7 @@ onChange={(e) => handleInputChange(key, 'questionnaire', false)}/>
 <select
 disabled = {state.status === "Get"}
 ref={(el) => (inputRefs.current[key] = el)}
-className="form-select form-select-lg mb-3 py-2"
+className="form-select form-select-lg mb-3 py-2 w-75"
 aria-label=".form-select-lg example"
 multiple
 // value={programInfo[key].pI_DetailedGradesToBeAnnounced || []}
