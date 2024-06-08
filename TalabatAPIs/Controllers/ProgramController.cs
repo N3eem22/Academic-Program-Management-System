@@ -49,7 +49,7 @@ namespace Grad.APIs.Controllers
         [ProducesResponseType(typeof(ApiResponse), 404)]
         public async Task<ActionResult<ProgramDTO>> GetProgramById(int id)
         {
-            var spec = new ProgramSpec(id);
+            var spec = new ProgramSpec(id , null);
             var program = await _unitOfWork.Repository<Programs>().GetAllWithSpecAsync(spec);
             if (program.Count == 0)
                 return NotFound(new ApiResponse(404));
@@ -57,6 +57,20 @@ namespace Grad.APIs.Controllers
             return Ok(programDto);
         }
 
+        [HttpGet("search")]
+        [ProducesResponseType(typeof(IEnumerable<ProgramDTO>), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 404)]
+        public async Task<ActionResult<IEnumerable<ProgramDTO>>> SearchProgramsByNameAndFaculty([FromQuery] string? search, [FromQuery] int facultyId)
+        {
+            await Console.Out.WriteLineAsync(facultyId + " ssssssss " + search);
+            var spec = new ProgramSpec(facultyId , search);
+            var programs = await _unitOfWork.Repository<Programs>().GetAllWithSpecAsync(spec);
+            if (programs.Count == 0)
+                return NotFound(new ApiResponse(404));
+
+            var programDtos = _mapper.Map<IEnumerable<Programs>, IEnumerable<ProgramDTO>>(programs);
+            return Ok(programDtos);
+        }
 
         [HttpPost]
         public async Task<ActionResult<ProgramReqDTO>> AddProgram(ProgramReqDTO programRequest)
@@ -90,7 +104,7 @@ namespace Grad.APIs.Controllers
             {
                 _mapper.Map(programRequest, programToUpdate);
                 _unitOfWork.Repository<Programs>().Update(programToUpdate);
-                var result = await _unitOfWork.CompleteAsync() > 0;
+                var result = await _unitOfWork.CompleteAsync(User) > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500, message));
             }

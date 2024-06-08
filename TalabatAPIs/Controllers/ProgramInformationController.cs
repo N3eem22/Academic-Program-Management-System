@@ -55,16 +55,16 @@ namespace Grad.APIs.Controllers
 
             var spec = new ProgramInformationSpec(id);
             var programInformation = await _unitOfWork.Repository<ProgramInformation>().GetAllWithSpecAsync(spec);
-            if(programInformation.Count == 0)
+            if (programInformation.Count == 0)
             {
                 return NotFound(new ApiResponse(404, $"Program not found."));
 
             }
-            await _dbcontext.Set<PI_DivisionType>().Include(p=>p.DivisionType).ToListAsync();
-            await _dbcontext.Set<PI_EstimatesOfCourseFeeExemption>().Include(p=>p.AllGrades).ToListAsync();
+            await _dbcontext.Set<PI_DivisionType>().Include(p => p.DivisionType).ToListAsync();
+            await _dbcontext.Set<PI_EstimatesOfCourseFeeExemption>().Include(p => p.AllGrades).ToListAsync();
             await _dbcontext.Set<PI_DetailedGradesToBeAnnounced>().Include(p => p.GradesDetails).ToListAsync();
-            await _dbcontext.Set<PI_AllGradesSummerEstimate>().Include(p=>p.AllGrades).ToListAsync();
-            var programInformationDTO = _mapper.Map<IEnumerable<ProgramInformation>,IEnumerable<ProgramInformationDTO>>(programInformation);
+            await _dbcontext.Set<PI_AllGradesSummerEstimate>().Include(p => p.AllGrades).ToListAsync();
+            var programInformationDTO = _mapper.Map<IEnumerable<ProgramInformation>, IEnumerable<ProgramInformationDTO>>(programInformation);
             return Ok(programInformationDTO);
         }
 
@@ -106,7 +106,7 @@ namespace Grad.APIs.Controllers
             if (preValidationResult != null) return preValidationResult;
             try
             {
-                
+
                 await UpdatePI_DivisionType(id);
                 await UpdatePI_EstimatesOfCourseFeeExemption(id);
                 await UpdatePI_DetailedGradesToBeAnnounced(id);
@@ -245,7 +245,7 @@ namespace Grad.APIs.Controllers
                         return NotFound(new ApiResponse(404, $"BurdanCalculation with ID {programInformationRequest.BurdanCalculationId} not found."));
                     }
                 }
-               
+
             }
             if (programInformationRequest.EditTheStudentLevelId != null)
             {
@@ -371,9 +371,9 @@ namespace Grad.APIs.Controllers
 
             foreach (var DevisionType in programInformationRequest.pI_DivisionTypes)
             {
-                if (DevisionType.DivisionTypeId != null) 
+                if (DevisionType.DivisionTypeId != null)
                 {
-                    var DivisionExists = await _unitOfWork.Repository<DivisionType>().GetByIdAsync(DevisionType.DivisionTypeId) ;
+                    var DivisionExists = await _unitOfWork.Repository<DivisionType>().GetByIdAsync(DevisionType.DivisionTypeId);
                     if (DivisionExists != null)
                     {
                         if (DivisionExists.IsDeleted == true)

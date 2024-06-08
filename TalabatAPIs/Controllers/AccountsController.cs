@@ -29,14 +29,16 @@ namespace Talabat.APIs.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IdentityHelper _identityHelper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AccountsController(IdentityHelper identityHelper, IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        public AccountsController(IdentityHelper identityHelper, IMapper mapper, UserManager<AppUser> manager, SignInManager<AppUser> signInManager, ITokenService tokenService, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _manager = manager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _identityHelper = identityHelper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost("Register")]
@@ -100,8 +102,71 @@ namespace Talabat.APIs.Controllers
             {
                 return Unauthorized(new ApiResponse(401, "تصريح غير صحيح"));
             }
-
+           
             var userRoles = await _manager.GetRolesAsync(user);
+            if (model.Role == "User")
+            {
+                var facultyId = _identityHelper.GetUserFaculties(user.Id).FirstOrDefault();
+                var UniId = _identityHelper.GetUserUniversities(user.Id).FirstOrDefault();
+
+                if (facultyId != null && UniId !=null)
+                {
+                    var facultyEntity = await _unitOfWork.Repository<Faculty>().GetByIdAsync(facultyId);
+                    var UniEntity = await _unitOfWork.Repository<University>().GetByIdAsync(UniId);
+                    if (facultyEntity != null)
+                    {
+                        var facultyName = facultyEntity.FacultyName;
+                        var UniName = UniEntity.Id;
+                        return Ok(new
+                        {
+                            Email = user.Email,
+                            Token = await _tokenService.CreateTokenAsync(user, _manager),
+                            UserRole = userRoles.FirstOrDefault(),
+                            FacultyName = facultyName ,
+                            UniversityId = UniId
+                        });
+                    }
+                    else
+                    {
+                        return NotFound("Faculty not found.");
+                    }
+                }
+                else
+                {
+                    return NotFound("User faculties not found.");
+                }
+            }
+
+            else if(model.Role == "Admin")
+            {
+                var UniId = _identityHelper.GetUserUniversities(user.Id).FirstOrDefault();
+
+                if ( UniId != null)
+                {
+                    var UniEntity = await _unitOfWork.Repository<University>().GetByIdAsync(UniId);
+                    if (UniEntity != null)
+                    {
+                        
+                        var UniName = UniEntity.Id;
+                        return Ok(new
+                        {
+                            Email = user.Email,
+                            Token = await _tokenService.CreateTokenAsync(user, _manager),
+                            UserRole = userRoles.FirstOrDefault(),
+                            UniversityId = UniId
+                        });
+                    }
+                    else
+                    {
+                        return NotFound("Faculty not found.");
+                    }
+                }
+                else
+                {
+                    return NotFound("User faculties not found.");
+                }
+            }
+  
             return Ok(new UserDto()
             {
                 DisplayName = user.DisplayName,

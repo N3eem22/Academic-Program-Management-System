@@ -94,23 +94,12 @@ namespace Grad.APIs.Controllers
                 {
                     return NotFound(new ApiResponse(404, $"Prerequisite Course with ID {prereqCourse.PreRequisiteCourseId} not found."));
                 }
-                var courseExists = await _unitOfWork.Repository<CourseInformation>().GetByIdAsync(prereqCourse.CourseInfoId) != null;
-                if (!courseExists)
-                {
-                    return NotFound(new ApiResponse(404, $"Course with ID {prereqCourse.CourseInfoId} not found."));
-                }
+              
             }
             // Courses and Grades Details checks
             foreach (var gradeDetail in courseInfoDTO.CoursesandGradesDetails)
             {
-                if (gradeDetail.CourseInfoId.HasValue) 
-                {
-                    var courseExists = await _unitOfWork.Repository<CourseInformation>().GetByIdAsync(gradeDetail.CourseInfoId.Value) != null;
-                    if (!courseExists)
-                    {
-                        return NotFound(new ApiResponse(404, $"Course with ID {gradeDetail.CourseInfoId} not found."));
-                    }
-                }
+               
                
 
                 if (gradeDetail.GradeDetailsId.HasValue) // Check if GradeDetailsId is not null
@@ -131,11 +120,7 @@ namespace Grad.APIs.Controllers
                 {
                     return NotFound(new ApiResponse(404, $"Hours with ID {coursesAndHours.HourId} not found."));
                 }
-                var courseExists = await _unitOfWork.Repository<CourseInformation>().GetByIdAsync(coursesAndHours.CourseInfoId) != null;
-                if (!courseExists)
-                {
-                    return NotFound(new ApiResponse(404, $"Course with ID {coursesAndHours.CourseInfoId} not found."));
-                }
+          
             }
 
 

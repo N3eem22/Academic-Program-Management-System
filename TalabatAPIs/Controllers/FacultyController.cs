@@ -51,6 +51,34 @@ namespace Grad.APIs.Controllers
                 var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
                 return Ok(facultyDTO);
             }
+            if (role == "Admin")
+            {
+                var userIdd = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var UniId = _IdentityHelper.GetUserUniversities(userIdd).FirstOrDefault();
+
+                if (UniId != null)
+                {
+                    var UniEntity = await _unitOfWork.Repository<University>().GetAllAsync();
+                    if (UniEntity != null)
+                    {
+
+                        var specs = new FacultywithUniSpecifications(UniId);
+                        var Unies = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(specs);
+                        var UniDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(Unies);
+
+                        return Ok(UniDTO);
+                    }
+                    else
+                    {
+                        return NotFound("Faculty not found.");
+                    }
+                }
+               
+                var specWithUNiID = new FacultywithUniSpecifications(UniversityId);
+                var faculty = await _unitOfWork.Repository<Faculty>().GetAllWithSpecAsync(specWithUNiID);
+                var facultyDTO = _mapper.Map<IEnumerable<Faculty>, IEnumerable<FacultyDTO>>(faculty);
+                return Ok(facultyDTO);
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userFaculties = _IdentityHelper.GetUserFaculties(userId);
             if (!userFaculties.Any())
@@ -70,7 +98,7 @@ namespace Grad.APIs.Controllers
         [ProducesResponseType(typeof(ApiResponse), 404)]
         public async Task<ActionResult<FacultyDTO>> GetFacultyById(int id)
         {
-            var spec = new FacultywithUniSpecifications(id);
+            var spec = new FacultySpecifications(id);
             var faculty = await _unitOfWork.Repository<Faculty>().GetEntityWithSpecAsync(spec);
             if (faculty == null)
                 return NotFound(new ApiResponse(404));
@@ -87,7 +115,7 @@ namespace Grad.APIs.Controllers
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var faculty = _unitOfWork.Repository<Faculty>().Add(_mapper.Map<FacultyReq, Faculty>(facultyReq));
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Done : AppMessage.Error;
             return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
         }
@@ -105,7 +133,7 @@ namespace Grad.APIs.Controllers
             {
                 faculty.FacultyName = updatedFacultyName;
                 _unitOfWork.Repository<Faculty>().Update(faculty);
-                var result = await _unitOfWork.CompleteAsync() > 0;
+                var result = await _unitOfWork.CompleteAsync(User) > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
             }
@@ -119,7 +147,7 @@ namespace Grad.APIs.Controllers
             if (faculty == null)
                 return NotFound(new ApiResponse(404));
             await _unitOfWork.Repository<Faculty>().softDelete(id);
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
         }

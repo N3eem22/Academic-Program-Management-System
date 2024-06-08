@@ -64,7 +64,7 @@ namespace Grad.APIs.Controllers
                 return StatusCode(409, new ApiResponse(409));
 
             var hour = _unitOfWork.Repository<Hours>().Add(_mapper.Map<HoursReq, Hours>(hourDTO));
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             string message = result ? AppMessage.Done : AppMessage.Error;
 
@@ -86,7 +86,7 @@ namespace Grad.APIs.Controllers
             {
                 hour.HoursName = updatedHour;
                 _unitOfWork.Repository<Hours>().Update(hour);
-                bool result = await _unitOfWork.CompleteAsync() > 0;
+                bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
                 string message = result ? AppMessage.Updated : AppMessage.Error;
 
@@ -105,7 +105,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             await _unitOfWork.Repository<Hours>().softDelete(id);
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;
 
