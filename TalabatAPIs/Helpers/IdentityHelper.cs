@@ -8,7 +8,7 @@ namespace Grad.APIs.Helpers
 {
     public class IdentityHelper
     {
-        private readonly GradContext _dbContext;
+            private readonly GradContext _dbContext;
 
         public IdentityHelper(GradContext dbContext)
         {

@@ -62,7 +62,7 @@ namespace Grad.APIs.Controllers
                 return StatusCode(409, new ApiResponse(409));
 
             var semester = _unitOfWork.Repository<Semesters>().Add(_mapper.Map<SemestersReq, Semesters>(semesterDTO));
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             string message = result ? AppMessage.Done : AppMessage.Error;
 
@@ -84,7 +84,7 @@ namespace Grad.APIs.Controllers
             {
                 semester.semesters = updatedSemester;
                 _unitOfWork.Repository<Semesters>().Update(semester);
-                bool result = await _unitOfWork.CompleteAsync() > 0;
+                bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
                 string message = result ? AppMessage.Updated : AppMessage.Error;
 
@@ -103,7 +103,7 @@ namespace Grad.APIs.Controllers
                 return NotFound(new ApiResponse(404));
 
             await _unitOfWork.Repository<Semesters>().softDelete(id);
-            bool result = await _unitOfWork.CompleteAsync() > 0;
+            bool result = await _unitOfWork.CompleteAsync(User) > 0;
 
             string message = result ? AppMessage.Deleted : AppMessage.Error;
 

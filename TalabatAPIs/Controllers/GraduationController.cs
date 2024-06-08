@@ -64,10 +64,11 @@ namespace Grad.APIs.Controllers
         }
   
         [HttpPost]
-        public async Task<ActionResult<GraduationReq>> AddGraduation(GraduationReq graduationReq)
+        public async Task<ActionResult<GraduationReq>> AddGraduation( GraduationReq graduationReq)
         {
             bool exists = await _unitOfWork.Repository<Graduation>().ExistAsync(
                  x => x.ProgramId == graduationReq.ProgramId && x.IsDeleted == false);
+            await Console.Out.WriteLineAsync("Program  :  " + graduationReq.ProgramId + " < ");
             if (exists)
             {
                 return StatusCode(409, new ApiResponse(409));

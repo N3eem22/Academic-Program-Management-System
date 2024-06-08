@@ -30,6 +30,14 @@ namespace Talabat.APIs.Exstentions
             });
 
 
+            Services.AddScoped<TestHelper>();
+
+            Services.AddScoped<TestHelper>(sp =>
+            {
+                var dbContext = sp.GetRequiredService<GradContext>();
+                return new TestHelper(dbContext);
+            });
+
 
 
             Services.AddAutoMapper(typeof(MappingProfiles));

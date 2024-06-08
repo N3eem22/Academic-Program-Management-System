@@ -59,7 +59,7 @@ namespace Grad.APIs.Controllers
             if (exists)
                 return StatusCode(409, new ApiResponse(409));
             var gradesDetails = _unitOfWork.Repository<GradesDetails>().Add(_mapper.Map<GradesDetailsReq, GradesDetails>(gradesDetailsReq));
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Done : AppMessage.Error;
             return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
         }
@@ -77,7 +77,7 @@ namespace Grad.APIs.Controllers
             {
                 gradesDetails.TheDetails = updatedTheDetails;
                 _unitOfWork.Repository<GradesDetails>().Update(gradesDetails);
-                var result = await _unitOfWork.CompleteAsync() > 0;
+                var result = await _unitOfWork.CompleteAsync(User) > 0;
                 var message = result ? AppMessage.Updated : AppMessage.Error;
                 return result ? Ok(new { Message = message }) : BadRequest(new ApiResponse(500));
             }
@@ -91,7 +91,7 @@ namespace Grad.APIs.Controllers
             if (gradesDetails == null)
                 return NotFound(new ApiResponse(404));
             await _unitOfWork.Repository<GradesDetails>().softDelete(id);
-            var result = await _unitOfWork.CompleteAsync() > 0;
+            var result = await _unitOfWork.CompleteAsync(User) > 0;
             var message = result ? AppMessage.Deleted : AppMessage.Error;
             return result ? Ok(new { Message = message }) : StatusCode(500, new { error = AppMessage.Error });
         }

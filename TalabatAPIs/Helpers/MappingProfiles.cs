@@ -109,22 +109,27 @@ namespace Talabat.APIs.Helpers
 
             #region ProgramInformation
             CreateMap<ProgramInformation, ProgramInformationDTO>()
-                .ForMember(d => d.AcademicDegree, O => O.MapFrom(s => s.AcademicDegree.AcademicDegreeName))
-                .ForMember(d => d.SystemType, O => O.MapFrom(s => s.SystemType.SystemName))
-                .ForMember(d => d.BurdenCalculation, O => O.MapFrom(s => s.BurdenCalculation.BurdenCalculationAS))
-                .ForMember(d => d.PassingTheElectiveGroupBasedOn, O => O.MapFrom(s => s.PassingTheElectiveGroupBasedOn.PassingTheElectiveGroup))
-                .ForMember(d => d.PrerequisitesPrograms, o => o.MapFrom(s => s.PrerequisitesPrograms.ProgramNameInArabic))
-                .ForMember(d => d.EditTheStudentLevel, O => O.MapFrom(s => s.EditTheStudentLevel.editTheStudentLevel))
-                .ForMember(d => d.BlockingProofOfRegistration, O => O.MapFrom(s => s.BlockingProofOfRegistration.ReasonsOfBlocking))
-                .ForMember(d => d.TypeOfFinancialStatementInTheProgram, O => O.MapFrom(s => s.TypeOfFinancialStatementInTheProgram.TheType))
-                .ForMember(d => d.TypeOfProgramFees, O => O.MapFrom(s => s.TypeOfProgramFees.TypeOfFees))
-                .ForMember(d => d.TypeOfSummerFees, O => O.MapFrom(s => s.TypeOfSummerFees.TheTypeOfSummerFees))
-                .ForMember(d => d.TheResultAppears, O => O.MapFrom(s => s.TheResultAppears.ResultAppears))
-                .ForMember(d => d.TheResultToTheGuid, O => O.MapFrom(s => s.TheResultToTheGuid.ResultAppears))
-                .ForMember(d => d.ReasonForBlockingRegistration, O => O.MapFrom(s => s.ReasonForBlockingRegistration.TheReasonForBlockingRegistration))
-                .ForMember(d => d.TheReasonForHiddingTheResult, O => O.MapFrom(s => s.TheReasonForHiddingTheResult.TheReasonForBlockingAcademicResult))
-                .ForMember(d => d.Institue, o => o.MapFrom(s => s.Institue.FacultyName));
-                //.ForMember(D => D.pI_AllGradesSummerEstimates, o => o.MapFrom(s => string.Join(",", s.pI_AllGradesSummerEstimates.Select(gl => gl.AllGrades))));
+                .ForMember(d => d.AcademicDegreeId, O => O.MapFrom(s => s.AcademicDegree.AcademicDegreeName))
+                .ForMember(d => d.SystemTypeId, O => O.MapFrom(s => s.SystemType.SystemName))
+                .ForMember(d => d.BurdanCalculationId, O => O.MapFrom(s => s.BurdenCalculation.BurdenCalculationAS))
+                .ForMember(d => d.PassingTheElectiveGroupBasedOnId, O => O.MapFrom(s => s.PassingTheElectiveGroupBasedOn.PassingTheElectiveGroup))
+                .ForMember(d => d.PrerequisitesProgramsId, o => o.MapFrom(s => s.PrerequisitesPrograms.ProgramNameInArabic))
+                .ForMember(d => d.EditTheStudentLevelId, O => O.MapFrom(s => s.EditTheStudentLevel.editTheStudentLevel))
+                .ForMember(d => d.BlockingProofOfRegistrationId, O => O.MapFrom(s => s.BlockingProofOfRegistration.ReasonsOfBlocking))
+                .ForMember(d => d.TypeOfFinancialStatementInTheProgramId, O => O.MapFrom(s => s.TypeOfFinancialStatementInTheProgram.TheType))
+                .ForMember(d => d.TypeOfProgramFeesId, O => O.MapFrom(s => s.TypeOfProgramFees.TypeOfFees))
+                .ForMember(d => d.TypeOfSummerFeesId, O => O.MapFrom(s => s.TypeOfSummerFees.TheTypeOfSummerFees))
+                .ForMember(d => d.TheResultAppearsId, O => O.MapFrom(s => s.TheResultAppears.ResultAppears))
+                .ForMember(d => d.TheResultToTheGuidId, O => O.MapFrom(s => s.TheResultToTheGuid.ResultAppears))
+                .ForMember(d => d.ReasonForBlockingRegistrationId, O => O.MapFrom(s => s.ReasonForBlockingRegistration.TheReasonForBlockingRegistration))
+                .ForMember(d => d.TheReasonForHiddingTheResultId, O => O.MapFrom(s => s.TheReasonForHiddingTheResult.TheReasonForBlockingAcademicResult))
+                .ForMember(d => d.FacultyId, o => o.MapFrom(s => s.Institue.FacultyName))
+                .ForMember(D => D.pI_DivisionTypes, o => o.MapFrom(s => string.Join(",", s.pI_DivisionTypes.Select(gl => gl.DivisionType.Division_Type))))
+                .ForMember(D => D.PI_EstimatesOfCourseFeeExemptions, o => o.MapFrom(s => string.Join(",", s.PI_EstimatesOfCourseFeeExemptions.Select(gl => gl.AllGrades.TheGrade))))
+                .ForMember(D => D.pI_DetailedGradesToBeAnnounced, o => o.MapFrom(s => string.Join(",", s.pI_DetailedGradesToBeAnnounced.Select(gl => gl.GradesDetails.TheDetails))))
+                .ForMember(D => D.pI_AllGradesSummerEstimates, o => o.MapFrom(s => string.Join(",", s.pI_AllGradesSummerEstimates.Select(gl => gl.AllGrades.TheGrade)))).ReverseMap();
+
+
 
 
             CreateMap<PI_DivisionType, PI_DivisionTypeDTO>()

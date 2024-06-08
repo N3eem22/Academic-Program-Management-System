@@ -11,7 +11,7 @@ namespace Grad.APIs.DTO.Lockups_Dto
         public string CourseNameInEnglish { get; set; }
 
         [Required(ErrorMessage = "الكود الخاص بالدورة بالعربية مطلوب")]
-        public int CourseCodeInArabic { get; set; }
+        public string CourseCodeInArabic { get; set; }
 
         [Required(ErrorMessage = "الكود الخاص بالدورة بالإنجليزية مطلوب")]
         public int CourseCodeInEnglish { get; set; }
@@ -22,7 +22,7 @@ namespace Grad.APIs.DTO.Lockups_Dto
         [StringLength(50, MinimumLength = 3, ErrorMessage = "يجب أن يكون الاسم الفرعي بين 3 و 50 حرفًا")]
         public string Sub_CourseNameInEnglish { get; set; }
 
-        public int? Sub_CourseCodeInArabic { get; set; }
+        public string? Sub_CourseCodeInArabic { get; set; }
 
         public int? Sub_CourseCodeInEnglish { get; set; }
 
