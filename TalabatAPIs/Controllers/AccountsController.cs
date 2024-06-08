@@ -166,11 +166,7 @@ namespace Talabat.APIs.Controllers
                     return NotFound("User faculties not found.");
                 }
             }
-            else
-            {
-                return BadRequest("Invalid role.");
-            }
-
+  
             return Ok(new UserDto()
             {
                 DisplayName = user.DisplayName,

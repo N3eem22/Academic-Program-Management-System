@@ -17,7 +17,7 @@ namespace Grad.Core.Specifications.Enities_Spec
         }
 
 
-        public FacultywithUniSpecifications(int id) : base(p => p.Id == id && !p.IsDeleted)
+        public FacultywithUniSpecifications(int id) : base(p => p.UniversityId == id && !p.IsDeleted)
         {
             Includes.Add(G => G.University);
 
