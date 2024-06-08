@@ -25,13 +25,11 @@ function reducer(state, action) {
 }
 const GraduationPage = () => {
   const initialState = {
-    status: '',
+    status: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  const initialStates = {
-  }
+  const initialStates = {};
   const [globalState, setGlobalState] = useState(initialStates);
-
 
   const [graduation, setgraduation] = useState({
     programId: 48,
@@ -49,79 +47,69 @@ const GraduationPage = () => {
     rateBase: null,
     comparingCumulativeAverageForEachYear: false,
     theMinimumGradeForTheCourseId: null,
-    levelsTobePassed: [],
-    semestersTobePssed: [],
-    averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
+    graduationLevels: "",
+    graduationSemesters: "",
+    averageValues: [
+      {
+        value: 0,
+        yearValue: 0,
+        graduationId: 0,
+        equivalentGradeId: 1,
+        allGradesId: 3,
+      },
+    ],
   });
   useEffect(() => {
     console.log(globalState);
     console.log(globalState.State);
 
-    dispatch({ type: `${globalState.State}` })
+    dispatch({ type: `${globalState.State}` });
     if (globalState.State === "Get") {
-      const fetchData = axios.get(`https://localhost:7095/api/Graduation/48`)
+      const fetchData = axios
+        .get(`https://localhost:7095/api/Graduation/48`)
         .then((res) => {
           console.log(res.data);
-          setgraduation(res.data)
-
-
-        }
-        )
-        .catch(
-          (err) => {
-            console.log(err);
-
-          });
-
-
-
+          setgraduation(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     //console.log(globalState);
   }, [globalState]);
   useEffect(() => {
     console.log(state.status);
 
-
     //console.log(globalState);
   }, [state]);
   useEffect(() => {
     // console.log(data.improvingCourses);
-    // console.log(data.changingCourses);  
+    // console.log(data.changingCourses);
     // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
-    const fetchData = axios.get(`https://localhost:7095/api/Graduation/48`)
+    const fetchData = axios
+      .get(`https://localhost:7095/api/Graduation/48`)
       .then((res) => {
         console.log(res.data);
-        setgraduation(res.data)
-        setGlobalState({ ...globalState, State: "Get" })
-        dispatch({ type: 'Get' });
-
-      }
-      )
-      .catch(
-        (err) => {
-          console.log(err);
-          dispatch({ type: 'Add' });
-          console.log(state.status)
-        });
-
+        setgraduation(res.data);
+        setGlobalState({ ...globalState, State: "Get" });
+        dispatch({ type: "Get" });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({ type: "Add" });
+        console.log(state.status);
+      });
 
     //console.log(globalState);
   }, []);
 
-
-
   return (
     <Fragment>
       <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>
-        {
-          (state && (state.status === "Add" || state.status === "Update")) &&
+        {state && (state.status === "Add" || state.status === "Update") && (
           <AddGraduation data={graduation} />
-        }
-        {
-          (state && (state.status === "Get")) &&
-
-          <GetGraduation data={graduation} />
-        }
+        )}
+        {state && state.status === "Get" && <GetGraduation data={graduation} />}
       </GlobalStateContext.Provider>
     </Fragment>
   );

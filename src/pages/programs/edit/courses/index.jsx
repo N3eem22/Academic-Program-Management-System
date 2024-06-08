@@ -69,6 +69,7 @@ const CoursesPage = () => {
             previousQualification: value
         }));
     };
+    const [errors, setErrors] = useState({});
     const [selectedValue, setSelectedValue] = useState("");
     const [customValues, setCustomValues] = useState({});
     const [sections, setSections] = useState([]);
@@ -153,11 +154,39 @@ const CoursesPage = () => {
         }
     }
     function submit(e) {
-        console.log(data);
         e.preventDefault();
+        const newErrors = {};
+
+        if (!data.courseId) newErrors.courseId = "هذه القيمة مطلوبة";
+        if (!data.semesterId) newErrors.semesterId = "هذه القيمة مطلوبة";
+        if (!data.levelId) newErrors.levelId = "هذه القيمة مطلوبة";
+        if (!data.coursesAndHours.length) newErrors.coursesAndHours = "هذه القيمة مطلوبة";
+        if (!data.coursesandGradesDetails.length) newErrors.coursesandGradesDetails = "هذه القيمة مطلوبة";
+        if (!data.maximumGrade) newErrors.maximumGrade = "هذه القيمة مطلوبة";
+        if (!data.courseTypeId) newErrors.courseTypeId = "هذه القيمة مطلوبة";
+        if (!data.prerequisiteId) newErrors.prerequisiteId = "هذه القيمة مطلوبة";
+        if (!data.previousQualification) newErrors.previousQualification = "هذه القيمة مطلوبة";
+        if (!data.linkRegistrationToHours) newErrors.linkRegistrationToHours = "هذه القيمة مطلوبة";
+        if (!data.partOneCourse) newErrors.partOneCourse = "هذه القيمة مطلوبة";
+        if (!data.preRequisiteCourses) newErrors.preRequisiteCourses = "هذه القيمة مطلوبة";
+        if (!data.concurrentCourses) newErrors.concurrentCourses = "هذه القيمة مطلوبة";
+        if (!data.firstReductionEstimatesForFailureTimes) newErrors.firstReductionEstimatesForFailureTimes = "هذه القيمة مطلوبة";
+        if (!data.percentageForFristGrade) newErrors.percentageForFristGrade = "هذه القيمة مطلوبة";
+        if (!data.secondReductionEstimatesForFailureTimes) newErrors.secondReductionEstimatesForFailureTimes = "هذه القيمة مطلوبة";
+        if (!data.percentageForSecondGrade) newErrors.percentageForSecondGrade = "هذه القيمة مطلوبة";
+        if (!data.thirdReductionEstimatesForFailureTimes) newErrors.thirdReductionEstimatesForFailureTimes = "هذه القيمة مطلوبة";
+        if (!data.percentageForThirdGrade) newErrors.percentageForThirdGrade = "هذه القيمة مطلوبة";
+        if (!data.successRate) newErrors.successRate = "هذه القيمة مطلوبة";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
         sendDataToApi();
     }
+
+
     const handleSelectChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedValue(selectedValue);
@@ -402,20 +431,20 @@ const CoursesPage = () => {
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
                         <h2 style={{ color: "red" }}      >        برنامج :  التربيه الفنيه
-</h2>
+                        </h2>
                         <br />
                         {data.err && data.err.length > 0 && (
-                                    <div className="col-md-12 mb-3 w-25 m-auto alert alert-danger">
-                                        <ul
-                                            className="fw-semibold fs-5 text-center"
-                                            style={{ listStyleType: "none", padding: 0, margin: 0 }}
-                                        >
-                                            {data.err.map((error, index) => (
-                                                <li key={index}>{error.message}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
+                            <div className="col-md-12 mb-3 w-25 m-auto alert alert-danger">
+                                <ul
+                                    className="fw-semibold fs-5 text-center"
+                                    style={{ listStyleType: "none", padding: 0, margin: 0 }}
+                                >
+                                    {data.err.map((error, index) => (
+                                        <li key={index}>{error.message}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                         <div className="inputs-card  ">
 
                             <div className="card-body">
@@ -428,8 +457,8 @@ const CoursesPage = () => {
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="courseId">
                                                         كود المقرر
                                                     </label>
-                                                    <div class="col-lg-6 input-with-icon">
-                                                        <div class="input-group">
+                                                    <div className="col-lg-6 input-with-icon">
+                                                        <div className="input-group">
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
@@ -437,6 +466,7 @@ const CoursesPage = () => {
                                                                 name="courseId"
                                                                 onChange={(e) => {
                                                                     setData({ ...data, courseId: e.target.value });
+                                                                    setErrors({ ...errors, courseId: '' });
                                                                 }}
                                                                 value={data.courseId}
                                                             />
@@ -445,12 +475,12 @@ const CoursesPage = () => {
                                                                     <i className="fa-solid fa-magnifying-glass"></i>
                                                                 </span>
                                                             </div>
-                                                            <div className="error-message mt-2 me-2" style={{ color: "red" }}></div>
-
                                                         </div>
+                                                        {errors.courseId && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.courseId}</div>}
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="courseNameInArabic">
@@ -510,25 +540,26 @@ const CoursesPage = () => {
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4 fw-semibold fs-5 col-form-label"
-                                                        htmlFor="semesterId"
-                                                    >
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="semesterId">
                                                         الفصل الدراسي
                                                     </label>
                                                     <div className="col-lg-6">
-                                                        <select className="form-select semesterId"
+                                                        <select
+                                                            className="form-select semesterId"
                                                             aria-label="semesterId"
                                                             id="semesterId"
                                                             value={data.semesterId}
-                                                            onChange={handleSelectChangeSemesterId}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeSemesterId(e);
+                                                                setErrors({ ...errors, semesterId: '' });
+                                                            }}
                                                         >
                                                             <option selected disabled></option>
                                                             {semesters.map((semester) => (
                                                                 <option key={semester.id} value={semester.id}>{semester.semesters}</option>
                                                             ))}
-
                                                         </select>
+                                                        {errors.semesterId && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.semesterId}</div>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -543,18 +574,20 @@ const CoursesPage = () => {
                                                             aria-label="Select an option"
                                                             id="levelId"
                                                             value={data.levelId}
-                                                            onChange={handleSelectChangeLevelId}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeLevelId(e);
+                                                                setErrors({ ...errors, levelId: '' });
+                                                            }}
                                                         >
                                                             <option selected disabled></option>
                                                             {levels.map((level) => (
                                                                 <option key={level.id} value={level.id}>{level.levels}</option>
                                                             ))}
-
                                                         </select>
+                                                        {errors.levelId && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.levelId}</div>}
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div className="col-xl-12">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="coursesAndHours">
@@ -564,13 +597,17 @@ const CoursesPage = () => {
                                                         <select
                                                             className="form-select fs-5 custom-select-start"
                                                             id="coursesAndHours"
-                                                            onChange={handleSelectChangeCoursesAndHours}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeCoursesAndHours(e);
+                                                                setErrors({ ...errors, coursesAndHours: '' });
+                                                            }}
                                                         >
                                                             <option selected disabled> </option>
                                                             {hoursOptions.map(hour => (
                                                                 <option key={hour.id} value={hour.id}>{hour.hoursName}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.coursesAndHours && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.coursesAndHours}</div>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -580,7 +617,14 @@ const CoursesPage = () => {
                                                         الدرجات التفصيلية للمقرر
                                                     </label>
                                                     <div className="col-lg-2">
-                                                        <select className="form-select fs-5 custom-select-start" id="coursesandGradesDetails" onChange={handleSelectChange}>
+                                                        <select
+                                                            className="form-select fs-5 custom-select-start"
+                                                            id="coursesandGradesDetails"
+                                                            onChange={(e) => {
+                                                                handleSelectChange(e);
+                                                                setErrors({ ...errors, coursesandGradesDetails: '' });
+                                                            }}
+                                                        >
                                                             <option selected disabled> </option>
                                                             {gradesDetails.map(detail => (
                                                                 <option key={detail.id} value={detail.id}>
@@ -588,6 +632,8 @@ const CoursesPage = () => {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                        {errors.coursesandGradesDetails && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.coursesandGradesDetails}</div>}
+
                                                     </div>
                                                     <div className="col-md-1">
                                                         <div className="input-group-append mt-1" style={{ display: "flex", cursor: "pointer" }} onClick={handlePlusIconClick}>
@@ -719,28 +765,27 @@ const CoursesPage = () => {
 
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
-                                                    <label
-                                                        className="col-lg-4 fw-semibold fs-5 col-form-label"
-                                                        htmlFor="maximumGrade"
-                                                    >
+                                                    <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="maximumGrade">
                                                         الدرجة العظمى للمقرر
                                                     </label>
                                                     <div className="col-lg-3">
-
                                                         <input
                                                             type="text"
                                                             className="form-control"
                                                             id="maximumGrade"
                                                             name="maximumGrade"
+
                                                             onChange={(e) => {
                                                                 setData({ ...data, maximumGrade: parseInt(e.target.value) })
+                                                                setErrors({ ...errors, maximumGrade: '' });
                                                             }}
                                                             value={data.maximumGrade}
-
                                                         />
+                                                        {errors.maximumGrade && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.maximumGrade}</div>}
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-2 fw-semibold fs-5 col-form-label" htmlFor="courseTypeId">
@@ -751,16 +796,22 @@ const CoursesPage = () => {
                                                             className="form-select custom-select-start"
                                                             aria-label="Select an option"
                                                             id="courseTypeId"
-                                                            onChange={handleSelectChangeCourseTypeId}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeCourseTypeId(e);
+                                                                setErrors({ ...errors, courseTypeId: '' });
+                                                            }}
+
                                                         >
                                                             <option selected disabled> </option>
                                                             {courseTypes.map(type => (
                                                                 <option key={type.id} value={type.id}>{type.courseType}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.courseTypeId && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.courseTypeId}</div>}
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="prerequisiteId">
@@ -773,7 +824,10 @@ const CoursesPage = () => {
                                                             id="prerequisiteId"
                                                             name="prerequisiteId"
                                                             value={data.prerequisiteId}
-                                                            onChange={handleChangepreRequisiteCourses}
+                                                            onChange={(e) => {
+                                                                handleChangepreRequisiteCourses(e);
+                                                                setErrors({ ...errors, prerequisiteId: '' });
+                                                            }}
                                                         >
                                                             <option disabled value=""></option>
                                                             {prerequisites.map(prerequisite => (
@@ -782,9 +836,11 @@ const CoursesPage = () => {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                        {errors.prerequisiteId && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.prerequisiteId}</div>}
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div className="mt-4 col-xl-6">
                                                 <div className="form-group mb-3 row">
                                                     <label className="col-lg-4 fw-semibold fs-5 col-form-label" htmlFor="previousQualification">
@@ -797,7 +853,11 @@ const CoursesPage = () => {
                                                             id="previousQualification"
                                                             name="previousQualification"
                                                             value={data.previousQualification}
-                                                            onChange={handleChangePreviousQualification}
+                                                            onChange={(e) => {
+                                                                handleChangePreviousQualification(e);
+                                                                setErrors({ ...errors, previousQualification: '' });
+                                                            }}
+
                                                         >
                                                             <option disabled value="">اختر المؤهل السابق</option>
                                                             {previousQualifications.map(qualification => (
@@ -806,6 +866,7 @@ const CoursesPage = () => {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                        {errors.previousQualification && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.previousQualification}</div>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -820,12 +881,15 @@ const CoursesPage = () => {
                                                             className="form-control"
                                                             id="linkRegistrationToHours"
                                                             name="linkRegistrationToHours"
+
                                                             onChange={(e) => {
                                                                 setData({ ...data, linkRegistrationToHours: parseInt(e.target.value) })
+                                                                setErrors({ ...errors, linkRegistrationToHours: '' });
                                                             }}
                                                             value={data.linkRegistrationToHours}
 
                                                         />
+                                                        {errors.linkRegistrationToHours&& <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.linkRegistrationToHours}</div>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -844,9 +908,12 @@ const CoursesPage = () => {
                                                                 name="partOneCourse"
                                                                 onChange={(e) => {
                                                                     setData({ ...data, partOneCourse: parseInt(e.target.value) })
+                                                                    setErrors({ ...errors, partOneCourse: '' });
                                                                 }}
                                                                 value={data.partOneCourse}
                                                             />
+                                                            {errors.partOneCourse && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.partOneCourse}</div>}
+
                                                             <div className="input-group-append" style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={handleSearchPartOne}>
                                                                 <span className="input-group-text">
                                                                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -881,16 +948,18 @@ const CoursesPage = () => {
                                                                 className="form-control"
                                                                 id="preRequisiteCourses"
                                                                 name="preRequisiteCourses"
-
-
+                                                                
                                                                 onChange={handleChangepreRequisiteCourses}
                                                             />
+
+
                                                             <div className="input-group-append" style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={handleSearchPreRequisiteCourses}>
                                                                 <span className="input-group-text">
                                                                     <i className="fa-solid fa-magnifying-glass"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
+
                                                         {data.preRequisiteCoursesMessage && (
                                                             <p className="message fw-semibold fs-5" style={{ color: data.preRequisiteCoursesMessage === 'لا يوجد مقررات' ? 'red' : '' }}>
                                                                 {data.preRequisiteCoursesMessage}
@@ -916,10 +985,13 @@ const CoursesPage = () => {
                                                             name="numberOfPreviousPreRequisiteCourses"
                                                             onChange={(e) => {
                                                                 setData({ ...data, numberOfPreviousPreRequisiteCourses: parseInt(e.target.value) })
+                                                                setErrors({ ...errors, numberOfPreviousPreRequisiteCourses: '' });
                                                             }}
                                                             value={data.numberOfPreviousPreRequisiteCourses}
 
                                                         />
+                                                        {errors.numberOfPreviousPreRequisiteCourses && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.numberOfPreviousPreRequisiteCourses}</div>}
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -938,9 +1010,12 @@ const CoursesPage = () => {
                                                                 name="concurrentCourses"
                                                                 onChange={(e) => {
                                                                     setData({ ...data, concurrentCourses: parseInt(e.target.value) })
+                                                                    setErrors({ ...errors, concurrentCourses: '' });
                                                                 }}
                                                                 value={data.concurrentCourses}
                                                             />
+                                                            {errors.concurrentCourses && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.concurrentCourses}</div>}
+
                                                             <div className="input-group-append" style={{ display: "flex", alignItems: "center", cursor: "pointer" }} onClick={handleSearchConcurrentCourses}>
                                                                 <span className="input-group-text">
                                                                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -976,13 +1051,17 @@ const CoursesPage = () => {
                                                             aria-label="Select an option"
                                                             id="firstReductionEstimatesForFailureTimes"
                                                             value={data.firstReductionEstimatesForFailureTimes}
-                                                            onChange={handleSelectChangeFirstReduction}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeFirstReduction(e);
+                                                                setErrors({ ...errors, firstReductionEstimatesForFailureTimes: '' });
+                                                            }}
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
                                                                 <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.firstReductionEstimatesForFailureTimes && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.firstReductionEstimatesForFailureTimes}</div>}
                                                     </div>
                                                     <div className="col-lg-1">
                                                         <div className="d-flex align-items-center">
@@ -995,10 +1074,15 @@ const CoursesPage = () => {
                                                                 style={{ textAlign: "center" }}
                                                                 onChange={(e) => {
                                                                     setData({ ...data, percentageForFristGrade: parseInt(e.target.value) })
+                                                                    setErrors({ ...errors, percentageForFristGrade: '' });
+
                                                                 }}
                                                                 value={data.percentageForFristGrade}
                                                             />
+
                                                             <p className="mb-0 me-2 fs-5 fw-semibold">%</p>
+                                                            {errors.percentageForFristGrade && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.percentageForFristGrade}</div>}
+
                                                         </div>
                                                     </div>
 
@@ -1015,13 +1099,18 @@ const CoursesPage = () => {
                                                             aria-label="Select an option"
                                                             id="secondReductionEstimatesForFailureTimes"
                                                             value={data.secondReductionEstimatesForFailureTimes}
-                                                            onChange={handleSelectChangeSeconedReduction}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeSeconedReduction(e);
+                                                                setErrors({ ...errors, secondReductionEstimatesForFailureTimes: '' });
+                                                            }}
+
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
                                                                 <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.concurrentCourses && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.concurrentCourses}</div>}
                                                     </div>
                                                     <div className="col-lg-1">
                                                         <div className="d-flex align-items-center">
@@ -1034,10 +1123,14 @@ const CoursesPage = () => {
                                                                 style={{ textAlign: "center" }}
                                                                 onChange={(e) => {
                                                                     setData({ ...data, percentageForSecondGrade: parseInt(e.target.value) })
+                                                                    setErrors({ ...errors, percentageForSecondGrade: '' });
+
                                                                 }}
                                                                 value={data.percentageForSecondGrade}
                                                             />
                                                             <p className="mb-0 me-2 fs-5 fw-semibold">%</p>
+                                                            {errors.percentageForSecondGrade && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.percentageForSecondGrade}</div>}
+
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-1">
@@ -1052,13 +1145,17 @@ const CoursesPage = () => {
                                                         <select className="form-select custom-select-start"
                                                             id="thirdReductionEstimatesForFailureTimes"
                                                             value={data.thirdReductionEstimatesForFailureTimes}
-                                                            onChange={handleSelectChangeThirdReduction}
+                                                            onChange={(e) => {
+                                                                handleSelectChangeThirdReduction(e);
+                                                                setErrors({ ...errors, thirdReductionEstimatesForFailureTimes: '' });
+                                                            }}
                                                         >
                                                             <option selected disabled> </option>
                                                             {allGrades.map((grade) => (
                                                                 <option key={grade.id} value={grade.id}>{grade.theGrade}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.concurrentCourses && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.concurrentCourses}</div>}
                                                     </div>
                                                     <div className="col-lg-1">
                                                         <div className="d-flex align-items-center">
@@ -1071,10 +1168,13 @@ const CoursesPage = () => {
                                                                 style={{ textAlign: "center" }}
                                                                 onChange={(e) => {
                                                                     setData({ ...data, percentageForThirdGrade: parseInt(e.target.value) })
+                                                                    setErrors({ ...errors, percentageForThirdGrade: '' });
+
                                                                 }}
                                                                 value={data.percentageForThirdGrade}
                                                             />
                                                             <p className="mb-0 me-2 fs-5 fw-semibold">%</p>
+                                                            {errors.percentageForThirdGrade && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.percentageForThirdGrade}</div>}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1087,12 +1187,14 @@ const CoursesPage = () => {
                                                     <div className="col-lg-6">
                                                         <select className="form-select" aria-label="Select an option" id="successRate" onChange={(e) => {
                                                             setData({ ...data, successRate: parseInt(e.target.value) })
+                                                            setErrors({ ...errors, successRate: '' });
                                                         }}>
                                                             <option className="fs-5 fw-semibold" selected disabled></option>
                                                             {Array.from({ length: 51 }, (_, index) => (
                                                                 <option className="fs-5 fw-semibold" key={index} value={index + 50}>{index + 50}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.successRate && <div className="error-message mt-2 me-2" style={{ color: "red" }}>{errors.successRate}</div>}
                                                     </div>
                                                 </div>
                                             </div>

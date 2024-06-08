@@ -288,7 +288,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </Link>
               )}
-              {isUser &&   show && (
+              {isUser &&   (
                 <Link
                   className="navbar-brand fs-5 fw-semibold"
                   to={`/Levelsuser/${12}`}
@@ -306,7 +306,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </Link>
               )}
-              {isUser && show &&  (
+              {isUser &&  (
                 <a className="navbar-brand" href={`/estimates/${12}`}>
                   <button
                     type="button"
@@ -321,7 +321,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser && show && (
+              {isUser &&  (
                 <a className="navbar-brand" href= {`/academicload/${12}`}>
                   <button
                     type="button"
@@ -336,7 +336,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser && show && (
+              {isUser &&  (
                 <a className="navbar-brand" href={`/courses/${12}`}>
                   <button
                     type="button"
@@ -351,7 +351,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser && show &&   (
+              {isUser &&    (
                 <a className="navbar-brand" href= {`/gpa/${12}`}>
                   <button
                     type="button"
@@ -366,7 +366,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&  show && (
+              {isUser &&   (
                 <a className="navbar-brand" href= {`/control/${12}`}>
                   <button
                     type="button"
@@ -381,7 +381,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser && show &&  (
+              {isUser &&   (
                 <a className="navbar-brand" href=  {`/graduation/${12}`}>
                   <button
                     type="button"
@@ -396,7 +396,7 @@ const [ProgramId, setProgramId] = useState(null);
                   </button>
                 </a>
               )}
-              {isUser &&  show && (
+              {isUser &&   (
                 <a className="navbar-brand" href= {`/Generalestimates/${12}`}>
                   <button
                     type="button"

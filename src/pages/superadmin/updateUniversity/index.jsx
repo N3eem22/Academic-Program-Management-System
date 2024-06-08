@@ -19,7 +19,8 @@ const UpdateUniversity = () => {
       .get(`https://localhost:7095/api/University/${id}`)
       .then((response) => {
         const { name, location } = response.data;
-        setUpdateUni({ ...updateUni, name, location });
+        console.log(response);
+        setUpdateUni({ ...updateUni, name : name, location  : location});
       })
       .catch((error) => {
         console.error("Error fetching university data:", error);

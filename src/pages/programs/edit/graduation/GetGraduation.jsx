@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment  ,useReducer} from "react";
+import React, { useEffect, useState, Fragment, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
@@ -7,20 +7,20 @@ import { useGlobalState } from "./index";
 import Context from "../../../../components/dropdowmitems/Context";
 
 
-const GetGraduation = ({data}) => {
-const [graduation , setGraduation] = useState([]);
-useEffect(() => {
+const GetGraduation = ({ data }) => {
+  const [graduation, setGraduation] = useState([]);
+  useEffect(() => {
 
-      setGraduation(data);
-      //console.log(globalState);
-    }, [data]);
-    useEffect(() => {
+    setGraduation(data);
+    //console.log(globalState);
+  }, [data]);
+  useEffect(() => {
 
-       console.log(graduation);
-      
-      }, [graduation]);
-      const { globalState, setGlobalState } = useGlobalState();
-    
+    console.log(graduation);
+
+  }, [graduation]);
+  const { globalState, setGlobalState } = useGlobalState();
+
   return (
     <Fragment>
       <div className="container " dir="rtl">
@@ -35,34 +35,34 @@ useEffect(() => {
                     className="form-valide"
                     action=""
                     method="post"
-                   
+
                   >
                     <div className="row">
                       <div className="col-lg-6 ">
                         <div className="form-group d-flex">
                           <div className="my-3 ">
-                           
-                          {
-  graduation.ratio && (
-    <label
-      className="form-check-label fw-semibold fs-5 me-4"
-      htmlFor="value"
-    >
-      نسبه
-    </label>
-  )
-}
 
-{
-  graduation.rate && (
-    <label
-      className="form-check-label fw-semibold fs-5 me-4"
-      htmlFor="value"
-    >
-      معدل
-    </label>
-  )
-}
+                            {
+                              graduation.ratio && (
+                                <label
+                                  className="form-check-label fw-semibold fs-5 me-4"
+                                  htmlFor="value"
+                                >
+                                  نسبه
+                                </label>
+                              )
+                            }
+
+                            {
+                              graduation.rate && (
+                                <label
+                                  className="form-check-label fw-semibold fs-5 me-4"
+                                  htmlFor="value"
+                                >
+                                  معدل
+                                </label>
+                              )
+                            }
 
 
                             <label
@@ -102,11 +102,11 @@ useEffect(() => {
                             type="text"
                             name="compulsoryCourses"
                             id="compulsoryCourses"
-                            value={graduation.compulsoryCourses === true ? "التاكد من النجاح" : "عدم التاكد من النجاح" }
+                            value={graduation.compulsoryCourses === true ? "التاكد من النجاح" : "عدم التاكد من النجاح"}
                             //placeholder={graduation.compulsoryCourses === true ? "التاكد من النجاح" : "عدم التاكد من النجاح" }
                             disabled
                           />
-                          
+
                         </div>
                       </div>
 
@@ -122,13 +122,13 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4">
                           <input
-                            className={`form m-1 mt-2 `}                            
+                            className={`form m-1 mt-2 `}
                             type="text"
                             name="successInEveryCourse"
                             id="successInEveryCourse"
-                            value={graduation.successInEveryCourse === true ? "التاكد من النجاح" : "عدم التاكد من النجاح" }
+                            value={graduation.successInEveryCourse === true ? "التاكد من النجاح" : "عدم التاكد من النجاح"}
                             disabled
-                          />               
+                          />
                         </div>
                       </div>
 
@@ -143,16 +143,16 @@ useEffect(() => {
                         </div>
                         <div className="col-md-6">
                           <input
-                          style={{ width: '60%' }} 
+                            style={{ width: '60%' }}
 
-                           className={`form m-1 mt-2 ]}`}
+                            className={`form m-1 mt-2 ]}`}
                             type="text"
                             name="passingMilitaryEducation"
                             id="passingMilitaryEducation"
                             disabled
-                            value={graduation.passingMilitaryEducation === true ? "التأكد من اجتياز التربية العسكرية": " عدم التأكد من اجتياز التربية العسكرية"}
+                            value={graduation.passingMilitaryEducation === true ? "التأكد من اجتياز التربية العسكرية" : " عدم التأكد من اجتياز التربية العسكرية"}
                           />
-                        
+
                         </div>
                       </div>
 
@@ -167,8 +167,8 @@ useEffect(() => {
                         </div>
                         <div className="col-md-9">
                           <input
-                           style={{ width: '30%' }} 
-                           className={`form m-1 mt-2  `}
+                            style={{ width: '30%' }}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="summerTraining"
                             disabled
@@ -189,20 +189,20 @@ useEffect(() => {
                         </div>
                         <div className="col-md-3">
                           <div className="input-group mb-3 ">
-                          <select
+                            <select
                               className="form-select"
                               id="verifyPaymentOfFees"
                               name="verifyPaymentOfFees"
                               disabled
-                              >
-                              <option  selected = {graduation.verifyPaymentOfFees === true} >
+                            >
+                              <option selected={graduation.verifyPaymentOfFees === true} >
                                 ضرورة سداد الرسوم قبل التخرج
                               </option>
-                              <option  selected = {graduation.verifyPaymentOfFees === false}>
+                              <option selected={graduation.verifyPaymentOfFees === false}>
                                 عدم ضرورة سداد الرسوم قبل التخرج
                               </option>
                             </select>
-                             
+
                           </div>
                         </div>
                       </div>
@@ -222,10 +222,10 @@ useEffect(() => {
                               id="makeSureToPassTheOptionalGroups"
                               name="makeSureToPassTheOptionalGroups"
                               disabled                              >
-                              <option  selected={graduation.makeSureToPassTheOptionalGroups === 0 } >
+                              <option selected={graduation.makeSureToPassTheOptionalGroups === 0} >
                                 المجموعات التي درس منها الطالب{" "}
                               </option>
-                              <option   selected={graduation.makeSureToPassTheOptionalGroups === 1 } >
+                              <option selected={graduation.makeSureToPassTheOptionalGroups === 1} >
                                 كل المجموعات الاختياريه{" "}
                               </option>
                             </select>
@@ -245,13 +245,13 @@ useEffect(() => {
                         </div>
                         <div className="col-md-4">
                           <input
-                             className={`form m-1 mt-2  `}
+                            className={`form m-1 mt-2  `}
                             type="text"
                             name="determineTheRankBasedOn"
                             id="determineTheRankBasedOn"
-                            value={graduation.determineTheRankBasedOn === true ? "المعدل": "النسبه"}
+                            value={graduation.determineTheRankBasedOn === true ? "المعدل" : "النسبه"}
                             disabled
-                            />
+                          />
                         </div>
                       </div>
                       <div className="form-group  mt-4 d-flex ">
@@ -266,33 +266,33 @@ useEffect(() => {
                             id="rateBase"
                             value={graduation.rateBase === 0 ? "الفصلى" : "التراكمى"}
                             disabled
-                          />                         
+                          />
                         </div>
                       </div>
 
                       <div className="form-group  mt-2 d-flex  ">
-                 
-                              <label
-                                className="col-form-label"
-                                htmlFor="val-number"
-                              >
-                                قيمة المعدل/النسبه للمرتبة
-                              </label>
-                            <div className="input-group mb-3 ">
-                            {data.averageValues.map((value, index) => (
-        <div key={index}>
-          <p>السنوي : {value.yearValue}</p>
-          <p>التراكمي: {value.value}</p>
-          <p>الدرجه: {value.grades}</p>
-        </div>
-      ))}
 
+                        <label
+                          className="col-form-label"
+                          htmlFor="val-number"
+                        >
+                          قيمة المعدل/النسبه للمرتبة
+                        </label>
+                        <div className="input-group mb-3 ">
+                          {data.averageValues.map((value, index) => (
+                            <div key={index}>
+                              <p>السنوي : {value.yearValue}</p>
+                              <p>التراكمي: {value.value}</p>
+                              <p>الدرجه: {value.grades}</p>
                             </div>
-                      </div>
-                
-                  
+                          ))}
 
-                  
+                        </div>
+                      </div>
+
+
+
+
 
                       <div className="form-group  mt-2 d-flex ">
                         <input
@@ -327,12 +327,12 @@ useEffect(() => {
 
                           <div className="col-md-2  my-2 ">
                             <input
-                            value={graduation.studyYears === null ? 0 : graduation.studyYears}
-                            type="text"
-                            disabled
-                            className="form-control "
-                            name="studyYears"
-                            id="studyYears"
+                              value={graduation.studyYears === null ? 0 : graduation.studyYears}
+                              type="text"
+                              disabled
+                              className="form-control "
+                              name="studyYears"
+                              id="studyYears"
                             />
                           </div>
                         </div>
@@ -357,7 +357,7 @@ useEffect(() => {
                             id="successInEveryCourse"
                             disabled
                           />
-                          
+
                         </div>
                       </div>
 
@@ -371,8 +371,8 @@ useEffect(() => {
                           </label>
                         </div>
                         <div className="col-md-2 ">
-            
-                          
+
+
                           <input
                             value={graduation.graduationLevels}
                             className={`form m-1 mt-2  `}
@@ -394,8 +394,8 @@ useEffect(() => {
                           </label>
                         </div>
                         <div className="col-md-2 ">
-                        
-                              <input
+
+                          <input
                             value={graduation.graduationSemesters}
                             className={`form m-1 mt-2  `}
                             type="text"
@@ -418,42 +418,42 @@ useEffect(() => {
                         </div>
                         <div className="col-md-1">
                           <div className="input-group mb-3 ">
-                    
-                        <input
-                            value={graduation.theMinimumGradeForTheCourse}
-                            className={`form m-1 mt-2  `}
-                            type="text"
-                            name="semestersTobePssed"
-                            id="semestersTobePssed"
-                            disabled
-                          />
+
+                            <input
+                              value={graduation.theMinimumGradeForTheCourse}
+                              className={`form m-1 mt-2  `}
+                              type="text"
+                              name="semestersTobePssed"
+                              id="semestersTobePssed"
+                              disabled
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="btns  d-flex justify-content-center align-items-center  mx-5 py-3">
-                                                    {  globalState.State !== "Get" && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
-                                                        <i className="fa-regular fa-bookmark"></i> حفظ
-                                                    </button>}
-                                                    { (globalState.State !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=> {dispatch({type : "Get"})}}>
-                                                        <i className="fa-solid fa-lock"></i> غلق
-                                                    </button>}
-                                                   
-                                                        <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={()=>{
-                                                        
-                                                        setGlobalState({...globalState , State : "Update"});
-                                                        }}>
-                                                        <i className="fa-solid fa-lock-open"></i> تعديل
-                                                         </button>
-                                                                                  
-                                                  </div>
-                                                </form>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                      {globalState.State !== "Get" && <button className={`btn fs-4 fw-semibold px-4 text-white ${styles.save}`} type="submit">
+                        <i className="fa-regular fa-bookmark"></i> حفظ
+                      </button>}
+                      {(globalState.State !== "Get") && <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => { dispatch({ type: "Get" }) }}>
+                        <i className="fa-solid fa-lock"></i> غلق
+                      </button>}
+
+                      <button className={`btn fs-4 mx-3 fw-semibold px-4 text-white ${styles.save}`} type="button" onClick={() => {
+
+                        setGlobalState({ ...globalState, State: "Update" });
+                      }}>
+                        <i className="fa-solid fa-lock-open"></i> تعديل
+                      </button>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Fragment>
   );
 };

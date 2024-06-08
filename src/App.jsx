@@ -84,7 +84,15 @@ function App() {
               <Route path="/managefaculty" element={<ManageFacultyPage />} />
               <Route path="/updatefaculty/:id"  element={<UpdateFacultyWrapper />}  />
               <Route path="/dataTable" element={<DataTable />} />
+
+       
+              <Route
+                path="/updatefaculty/:id"
+                element={<UpdateFacultyWrapper />}
+              />
+
               <Route path="/updatefaculty/:id"element={<UpdateFacultyWrapper />}    />
+
               <Route path="/summer" element={<SummerFees />} />
       
               <Route path="/degree" element={<TheAcademicDegree />} />
@@ -111,7 +119,6 @@ function App() {
               <Route path="/equivalent" element={<EquivalentGrade />}/>
               <Route path="/controls" element={<ControlsPage />} />
               <Route path="/addfaculty" element={<Addfaculty/>} />
-
 
             </Route>
 
