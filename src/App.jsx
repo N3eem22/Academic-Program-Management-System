@@ -80,7 +80,6 @@ function App() {
                 element={<UpdateFacultyWrapper />}
               />
               <Route path="/dataTable" element={<DataTable />} />
-              <Route path="/programs" element={<ProgramsComp />} />
               <Route path="/logFiles" element={<LogFiles />} />
               <Route
                 path="/updatefaculty/:id"
@@ -139,6 +138,7 @@ function App() {
             <Route element={<User />}>
               <Route path="/control" element={<ControlPage />} />
               <Route path="/homeuser" element={<HomeUserPage />} />
+              <Route path="/programs" element={<ProgramsComp />} />
 
               <Route
                 path="/Generalestimates"
