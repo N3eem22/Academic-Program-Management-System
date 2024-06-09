@@ -4,7 +4,7 @@ import { getAuthUser } from "../../../../helpers/storage";
 
 function TheResultAppears() {
   // const universityId = 1;
-    const nameOfLU= 'ResultAppears';
+    const nameOfLU= 'resultAppears';
     const property = 'ظهور النتيجة';
     
     

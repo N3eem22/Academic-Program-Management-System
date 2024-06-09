@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
 import axios from "axios";
+import { getAuthUser } from "../../../../helpers/storage";
+import { useParams } from "react-router-dom";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -23,6 +25,16 @@ function reducer(state, action) {
 }
 
 const ControlPage = () => {
+    const Id = useParams();
+const [programID, setProgramId] = useState("");
+ const [programInfoId, setProgramInfoId] = useState("");
+
+  
+
+  const auth = getAuthUser();
+  useEffect(() => {
+  console.log(programID);
+  }, [ programID]);
     const ProgramId = 1002;
     const initialState = {
         status: '',
@@ -74,13 +86,22 @@ const ControlPage = () => {
         validationErrors: {}
     });
     useEffect(() => {
-
-        console.log(data);
-    }, [data]);
+        setProgramId(Id.id);
+        axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
+    
+                .then((resp) => {
+                  setProgramInfoId(resp.data.Id)
+                    console.log(resp);
+                })
+                .catch((err) => {
+                  setShow(false);
+                    console.log(err);
+                });
+      }, [ ,data ,programID ]);
 
     useEffect(() => {
         const fetchData = async (programId) => {
-            const res = await axios.get(`https://localhost:7095/api/control/${1002}`).then((resp) => {
+            const res = await axios.get(`https://localhost:7095/api/control/${programID}`).then((resp) => {
                 dispatch({ type: 'Get' });
                 setData({
                     ...data, subtractFromTheDiscountRate: resp.data.subtractFromTheDiscountRate,
@@ -136,7 +157,7 @@ const ControlPage = () => {
             const dataToSend = { controlReq: data };
             if (state.status === "Add") {
                 const res = await axios.post('https://localhost:7095/api/Control', {
-                    programId: 1002,
+                    programId: programInfoId,
                     subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
                     exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
                     firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
@@ -168,8 +189,8 @@ const ControlPage = () => {
                 });
             }
             else if (state.status === "Update") {
-                const res = await axios.put(`https://localhost:7095/api/Control/${1}`, {
-                    programId: 1002,
+                const res = await axios.put(`https://localhost:7095/api/Control/${programInfoId}`, {
+                    programId: programInfoId,
                     subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
                     exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
                     firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
@@ -204,7 +225,7 @@ const ControlPage = () => {
                 console.log('Response:', res);
                 if (res.status === 200) {
                     dispatch({ type: 'Get' });
-                    const getRes = await axios.get(`https://localhost:7095/api/control/${1002}`);
+                    const getRes = await axios.get(`https://localhost:7095/api/control/${programInfoId}`);
                     const updatedData = getRes.data;
                     setData({
                         ...data,
@@ -427,7 +448,7 @@ const ControlPage = () => {
 
 
     useEffect(() => {
-        axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`)
+        axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${auth.universityId}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setAllGrades(response.data);
@@ -443,7 +464,7 @@ const ControlPage = () => {
             .catch(error => {
                 console.error('Error fetching all grades:', error);
             });
-        axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${1}`)
+        axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${auth.universityId}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setGradesDetails(response.data);

@@ -4,7 +4,7 @@ import { getAuthUser } from "../../../../helpers/storage";
 
 function TheAcademicDegree() {
   // const universityId = 1;
-    const nameOfLU= 'AcademicDegreeName';
+    const nameOfLU= 'academicDegreeName';
     const property = ' الدرجة العلمية  ';
 
 const authUser = getAuthUser();

@@ -5,6 +5,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { TablePage } from "../../../../components/tables";
 import { headers3 } from "../../../../helpers/headers";
 import axios from "axios";
+import { getAuthUser } from "../../../../helpers/storage";
+import { useParams } from "react-router-dom";
 
 const AcademicloadPage = () => {
   let [reload, setReload] = useState(false);
@@ -16,14 +18,16 @@ const AcademicloadPage = () => {
     useState("");
   let [reregistrationHours, setReregistrationHours] = useState("");
   let [academicNoticeHours, setAcademicNoticeHours] = useState("");
-
+  const authUser = getAuthUser();
   let [data, setData] = useState([]);
   let [semesters, setSemesters] = useState([]);
   let [SemestersId, setSemestersId] = useState([]);
-
+  const Id = useParams();
+  const [programID, setProgramId] = useState("");
   async function getSemestersfromapi() {
+ 
     let { data } = await axios.get(
-      "https://localhost:7095/api/Semesters?UniversityId"
+      `https://localhost:7095/api/Semesters?UniversityId=${authUser.universityId}`
     );
     setSemesters(data.results);
     setSemesters(data);
@@ -38,7 +42,7 @@ const AcademicloadPage = () => {
   let [levelid, setLevelid] = useState([]);
   async function getAcademicLevelfromapi() {
     let { data } = await axios.get(
-      "https://localhost:7095/api/Level?UniversityId"
+      `https://localhost:7095/api/Level?UniversityId=${authUser.universityId}`
     );
     setLevel(data.results);
     setLevel(data);
@@ -49,11 +53,24 @@ const AcademicloadPage = () => {
   // useEffect(() => {
   //   console.log(data);
   // }, [data]);
+  const [programInfoId, setProgramInfoId] = useState("");
+
+  useEffect(() => {
+    axios.get(`https://localhost:7095/api/ProgramInformation/${Id.id}`)
+
+            .then((resp) => {
+              setProgramInfoId(resp.data.Id)
+            })
+            .catch((err) => {
+              setShow(false);
+                console.log(err);
+            });
+  }, [ , level , levelid]);
   useEffect(() => {
     getSemestersfromapi();
     getAcademicLevelfromapi();
     axios
-      .get("https://localhost:7095/api/AcademicLoadAccordingToLevel/17")
+      .get(`https://localhost:7095/api/AcademicLoadAccordingToLevel/${programInfoId}`)
       .then((res) => {
         setData(res.data);
       })
@@ -67,7 +84,7 @@ const AcademicloadPage = () => {
     event.preventDefault();
     axios
       .post("https://localhost:7095/api/AcademicLoadAccordingToLevel", {
-        prog_InfoId: 17,
+        prog_InfoId: programInfoId,
         levelId: parseInt(levelid),
         semestersId: parseInt(SemestersId),
         minimumHours: parseInt(minimumHours),
@@ -95,7 +112,7 @@ const AcademicloadPage = () => {
       .put(
         `https://localhost:7095/api/AcademicLoadAccordingToLevel/${selectedRow.id}`,
         {
-          prog_InfoId: 17,
+          prog_InfoId: programInfoId,
           levelId: parseInt(levelid),
           semestersId: parseInt(SemestersId),
           minimumHours: parseInt(minimumHours),

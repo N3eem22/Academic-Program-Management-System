@@ -5,6 +5,7 @@ import { createContext, useContext } from "react";
 import axios from "axios";
 import { AddGraduation } from "./AddGraduation";
 import { GetGraduation } from "./GetGraduation";
+import { useParams } from "react-router-dom";
 const GlobalStateContext = createContext();
 
 function reducer(state, action) {
@@ -55,7 +56,7 @@ const GraduationPage = () => {
         yearValue: 0,
         graduationId: 0,
         equivalentGradeId: 1,
-        allGradesId: 3,
+        allGradesId: 1,
       },
     ],
   });
@@ -77,19 +78,36 @@ const GraduationPage = () => {
     }
     //console.log(globalState);
   }, [globalState]);
+  
   useEffect(() => {
     console.log(state.status);
 
     //console.log(globalState);
   }, [state]);
+  const Id = useParams();
+const [programID, setProgramId] = useState("");
+ const [programInfoId, setProgramInfoId] = useState("");
   useEffect(() => {
-    // console.log(data.improvingCourses);
-    // console.log(data.changingCourses);
-    // console.log(typeof data.maximumNumberOfAdditionsToFailedCoursesWithoutSuccess);
-    const fetchData = axios
-      .get(`https://localhost:7095/api/Graduation/48`)
+    setProgramId(Id.id);
+    axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
+
+            .then((resp) => {
+              
+              setProgramInfoId(resp.data.Id)
+              if (programInfoId === null) {
+               setGlobalState()
+              }
+                console.log(resp);
+            })
+            .catch((err) => {
+              setGlobalState({ ...globalState, State: "Add" });
+                console.log(err);
+            });
+  }, [  ,programID ]);
+  useEffect(() => {
+   if (globalState.state === "Get" ||globalState.state === "Update"  ){ const fetchData = axios
+      .get(`https://localhost:7095/api/Graduation/${programInfoId}`)
       .then((res) => {
-        console.log(res.data);
         setgraduation(res.data);
         setGlobalState({ ...globalState, State: "Get" });
         dispatch({ type: "Get" });
@@ -98,9 +116,8 @@ const GraduationPage = () => {
         console.log(err);
         dispatch({ type: "Add" });
         console.log(state.status);
-      });
+      });}
 
-    //console.log(globalState);
   }, []);
 
   return (

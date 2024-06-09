@@ -146,24 +146,20 @@ const UpdateUsersPage = () => {
     formData.append("university", updateusers.universities);
     formData.append("role", updateusers.role);
     console.log(updateusers.faculties);
-    axios
-      .put(`https://localhost:7095/api/Users/Update?id=${id}`, formData , {
-        headers: {
-          token: auth.token,
-          "Content-Type": "multipart/form-data",
-        },
-      })
+    axios .put(`https://localhost:7095/api/Users/Update?id=${id}`,{
+      id: id,
+      email: updateusers.email,
+      displayName: updateusers.displayName  ,
+      phoneNumber: updateusers.phoneNumber ,
+      role: updateusers.role,
+      faculties: updateusers.faculties,
+      universities: updateusers.universities,
 
-      .put(`https://localhost:7095/api/Users/Update?id=${id}`, {
-        id: id,
-        email: updateusers.email,
-        displayName: updateusers.displayName  ,
-        phoneNumber: updateusers.phoneNumber ,
-        role: updateusers.role,
-        faculties: updateusers.faculties,
-        universities: updateusers.universities,
-
-      } )
+    } ,{
+      headers: {
+        'Authorization': `Bearer ${auth.token}`
+      }
+    })
       .then((resp) => {
        
         

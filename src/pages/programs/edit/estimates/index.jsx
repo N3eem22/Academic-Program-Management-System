@@ -7,6 +7,7 @@ import { TablePage } from "../../../../components/tables";
 import { headers2 } from "../../../../helpers/headers";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { getAuthUser } from "../../../../helpers/storage";
 
 const EstimatesPage = () => {
   let [reload, setReload] = useState(false);
@@ -18,11 +19,6 @@ const EstimatesPage = () => {
   let [theGrade, setTheGrade] = useState([]);
   let [theGradeId, setTheGradeId] = useState([]);
   let [data, setData] = useState([]);
-  const {id} = useParams() ;
-  useEffect(() => {
-    console.log(id);;
-  }, [id]);
-
   async function getgradesfromapi() {
     let { data } = await axios.get("https://localhost:7095/api/AllGrades?2");
     setTheGrade(data);
@@ -36,10 +32,10 @@ const EstimatesPage = () => {
 
   let [equivalentEstimate, setequivalentEstimate] = useState([]);
   let [equivalentEstimateId, setequivalentEstimateId] = useState([]);
-
+const auth = getAuthUser();
   async function getgraduationEstimatefromapi() {
     let { data } = await axios.get(
-      "https://localhost:7095/api/EquivalentGrade?UniversityId=2"
+      `https://localhost:7095/api/EquivalentGrade?UniversityId=${auth.universityId}`  
     );
     console.log(data);
     setgraduationEstimate(data);
@@ -93,10 +89,7 @@ const EstimatesPage = () => {
   const handleUpdate = (event) => {
     event.preventDefault();
 
-    // if (!selectedRow) {
-    //   alert("Please select a row to update");
-    //   return;
-    // }
+  
     console.log(programInfoId);
     axios
       .put(`https://localhost:7095/api/Program_TheGrade/${selectedRow.id}`, {
@@ -162,12 +155,14 @@ const EstimatesPage = () => {
         console.error("Error data:", er.response.data);
       });
   };
-
-  const [programInfoId, setProgramInfoId] = useState("");
+const Id = useParams();
+const [programID, setProgramId] = useState("");
+ const [programInfoId, setProgramInfoId] = useState("");
 
   
   useEffect(() => {
-    axios.get(`https://localhost:7095/api/ProgramInformation/${id}`)
+    setProgramId(Id.id);
+    axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
 
             .then((resp) => {
               setProgramInfoId(resp.data.Id)
@@ -177,7 +172,10 @@ const EstimatesPage = () => {
               setShow(false);
                 console.log(err);
             });
-  }, [ , theGradeId]);
+  }, [ , theGradeId ,programID ]);
+  useEffect(() => {
+  console.log(programID);
+  }, [ programID]);
 
   return (
     <Fragment>
