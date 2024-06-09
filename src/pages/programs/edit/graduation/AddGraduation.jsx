@@ -5,8 +5,6 @@ import styles from "./index.module.scss";
 import axios from "axios";
 import { useGlobalState } from "./index";
 import Context from "../../../../components/dropdowmitems/Context";
-import { useParams } from "react-router-dom";
-import { getAuthUser } from "../../../../helpers/storage";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -59,22 +57,8 @@ const AddGraduation = ({ data }) => {
 
     averageValues: [{ value: 0, yearValue: 0, graduationId: 0, equivalentGradeId: 1, allGradesId: 3 }]
   });
-  const auth  = getAuthUser();
-  const Id = useParams();
-  const [programID, setProgramId] = useState("");
-   const [programInfoId, setProgramInfoId] = useState("");
-  useEffect(() => {
-    setProgramId(Id.id);
-    axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
 
-            .then((resp) => {
-              setProgramInfoId(resp.data.Id)
-                console.log(resp);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-  }, [ , programID , graduation ]);
+
 
   const handleChange = (event) => {
     const { name, selectedOptions } = event.target;
@@ -136,10 +120,12 @@ const AddGraduation = ({ data }) => {
     }
   }, [graduation.theMinimumGradeForTheCourseId, grades]);
 
+
   useEffect(() => {
 
-    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${auth.universityId}`).then((res) => { console.log(res.data); setGrades(res.data) });
-    const fetchLevels = axios.get(`https://localhost:7095/api/Level?UniversityId=${auth.universityId}`).then((res) => {
+    const fetchGrades = axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`).then((res) => { console.log(res.data); setGrades(res.data) });
+    const fetchLevels = axios.get('https://localhost:7095/api/Level?UniversityId=1')
+      .then((res) => {
         console.log(res.data);
         setLevels(res.data);
 
@@ -160,7 +146,7 @@ const AddGraduation = ({ data }) => {
         }
       });
 
-    const fetchSemesters = axios.get(`https://localhost:7095/api/Semesters?UniversityId=${auth.universityId}`)
+    const fetchSemesters = axios.get('https://localhost:7095/api/Semesters?UniversityId=1')
       .then((res) => {
         console.log(res.data);
         setSemss(res.data);
@@ -188,13 +174,12 @@ const AddGraduation = ({ data }) => {
     console.log(graduation);
 
   }, [graduation]);
-
   async function sendDataToApi() {
 
     const dataToSend = { graduationReq: graduation };
     console.log("Sending request with payload:", dataToSend);
     await axios.post(`https://localhost:7095/api/Graduation`, {
-      ProgramId: programInfoId,
+      ProgramId: graduation.programId,
       rate: graduation.rate,
       ratio: graduation.ratio,
       value: graduation.value,
@@ -220,8 +205,8 @@ const AddGraduation = ({ data }) => {
 
     const dataToSend = { graduationReq: graduation };
     console.log("Sending request with payload:", dataToSend);
-    await axios.put(`https://localhost:7095/api/Graduation/${programInfoId}`, {
-      ProgramId:programInfoId,
+    await axios.put(`https://localhost:7095/api/Graduation/${49}`, {
+      ProgramId: graduation.programId,
       rate: graduation.rate,
       ratio: graduation.ratio,
       value: graduation.value,

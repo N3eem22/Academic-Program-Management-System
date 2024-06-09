@@ -25,7 +25,7 @@ const LevelsPage = () => {
   useEffect(() => {
     getLevel();
     axios
-      .get("https://localhost:7095/api/ProgramLevels/17")
+      .get("https://localhost:7095/api/ProgramLevels/48")
       .then((res) => {
         setData(res.data);
       })
@@ -40,7 +40,7 @@ const LevelsPage = () => {
     console.log(levelid);
     axios
       .post("https://localhost:7095/api/ProgramLevels", {
-        prog_InfoId: 17,
+        prog_InfoId: 48,
         theLevelId: levelid,
         minimumHours: minhours,
         maximumHours: maxhours,
@@ -67,7 +67,7 @@ const LevelsPage = () => {
     // console.log(levelid);
     axios
       .put(`https://localhost:7095/api/ProgramLevels/${selectedRow.id}`, {
-        prog_InfoId: 17,
+        prog_InfoId: 48,
         theLevelId: levelid,
         minimumHours: minhours,
         maximumHours: maxhours,

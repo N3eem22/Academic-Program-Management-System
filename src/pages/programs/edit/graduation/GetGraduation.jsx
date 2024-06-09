@@ -279,7 +279,7 @@ const GetGraduation = ({ data }) => {
                           قيمة المعدل/النسبه للمرتبة
                         </label>
                         <div className="input-group mb-3 ">
-                          { (globalState.State === "Get") &&data.averageValues.map((value, index) => (
+                          {data.averageValues.map((value, index) => (
                             <div key={index}>
                               <p>السنوي : {value.yearValue}</p>
                               <p>التراكمي: {value.value}</p>

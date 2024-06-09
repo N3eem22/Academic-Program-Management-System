@@ -4,8 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./index.module.scss";
 import axios from "axios";
-import { getAuthUser } from "../../../../helpers/storage";
-import { useParams } from "react-router-dom";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -25,16 +23,6 @@ function reducer(state, action) {
 }
 
 const ControlPage = () => {
-    const Id = useParams();
-const [programID, setProgramId] = useState("");
- const [programInfoId, setProgramInfoId] = useState("");
-
-  
-
-  const auth = getAuthUser();
-  useEffect(() => {
-  console.log(programID);
-  }, [ programID]);
     const ProgramId = 1002;
     const initialState = {
         status: '',
@@ -51,7 +39,7 @@ const [programID, setProgramId] = useState("");
     const [GetData, setGetData] = useState([]);
     const [data, setData] = useState({
 
-        programId: 1002,
+        programId: 48,
         subtractFromTheDiscountRate: "",
         exceptionToDiscountEstimates: false,
         firstReductionEstimatesForFailureTimes: "",
@@ -86,22 +74,13 @@ const [programID, setProgramId] = useState("");
         validationErrors: {}
     });
     useEffect(() => {
-        setProgramId(Id.id);
-        axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
-    
-                .then((resp) => {
-                  setProgramInfoId(resp.data.Id)
-                    console.log(resp);
-                })
-                .catch((err) => {
-                  setShow(false);
-                    console.log(err);
-                });
-      }, [ ,data ,programID ]);
+
+        console.log(data);
+    }, [data]);
 
     useEffect(() => {
         const fetchData = async (programId) => {
-            const res = await axios.get(`https://localhost:7095/api/control/${programID}`).then((resp) => {
+            const res = await axios.get(`https://localhost:7095/api/control/${48}`).then((resp) => {
                 dispatch({ type: 'Get' });
                 setData({
                     ...data, subtractFromTheDiscountRate: resp.data.subtractFromTheDiscountRate,
@@ -157,7 +136,7 @@ const [programID, setProgramId] = useState("");
             const dataToSend = { controlReq: data };
             if (state.status === "Add") {
                 const res = await axios.post('https://localhost:7095/api/Control', {
-                    programId: programInfoId,
+                    programId: 48,
                     subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
                     exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
                     firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
@@ -189,8 +168,8 @@ const [programID, setProgramId] = useState("");
                 });
             }
             else if (state.status === "Update") {
-                const res = await axios.put(`https://localhost:7095/api/Control/${programInfoId}`, {
-                    programId: programInfoId,
+                const res = await axios.put(`https://localhost:7095/api/Control/${1}`, {
+                    programId: 48,
                     subtractFromTheDiscountRate: data.subtractFromTheDiscountRate,
                     exceptionToDiscountEstimates: data.exceptionToDiscountEstimates,
                     firstReductionEstimatesForFailureTimes: data.firstReductionEstimatesForFailureTimes,
@@ -225,7 +204,7 @@ const [programID, setProgramId] = useState("");
                 console.log('Response:', res);
                 if (res.status === 200) {
                     dispatch({ type: 'Get' });
-                    const getRes = await axios.get(`https://localhost:7095/api/control/${programInfoId}`);
+                    const getRes = await axios.get(`https://localhost:7095/api/control/${48}`);
                     const updatedData = getRes.data;
                     setData({
                         ...data,
@@ -270,27 +249,27 @@ const [programID, setProgramId] = useState("");
         }
     }
     const validateInputs = () => {
-        const errors = {};
-        if (!data.subtractFromTheDiscountRate) errors.subtractFromTheDiscountRate = "يجب عليك ادخال هذه القيمه";
-        if (!data.firstReductionEstimatesForFailureTimes) errors.firstReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
-        if (!data.percentageForFristGrade) errors.percentageForFristGrade = "يجب عليك ادخال هذه القيمه";
-        if (!data.secondReductionEstimatesForFailureTimes) errors.secondReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
-        if (!data.percentageForSecondGrade) errors.percentageForSecondGrade = "يجب عليك ادخال هذه القيمه";
-        if (!data.thirdReductionEstimatesForFailureTimes) errors.thirdReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
-        if (!data.percentageForThirdGrade) errors.percentageForThirdGrade = "يجب عليك ادخال هذه القيمه";
-        if (!data.theGrade) errors.theGrade = "يجب عليك ادخال هذه القيمه";
-        if (!data.estimateDeprivationBeforeTheExamId) errors.estimateDeprivationBeforeTheExamId = "يجب عليك ادخال هذه القيمه";
-        if (!data.estimateDeprivationAfterTheExamId) errors.estimateDeprivationAfterTheExamId = "يجب عليك ادخال هذه القيمه";
+        // const errors = {};
+        // if (!data.subtractFromTheDiscountRate) errors.subtractFromTheDiscountRate = "يجب عليك ادخال هذه القيمه";
+        // if (!data.firstReductionEstimatesForFailureTimes) errors.firstReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        // if (!data.percentageForFristGrade) errors.percentageForFristGrade = "يجب عليك ادخال هذه القيمه";
+        // if (!data.secondReductionEstimatesForFailureTimes) errors.secondReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        // if (!data.percentageForSecondGrade) errors.percentageForSecondGrade = "يجب عليك ادخال هذه القيمه";
+        // if (!data.thirdReductionEstimatesForFailureTimes) errors.thirdReductionEstimatesForFailureTimes = "يجب عليك ادخال هذه القيمه";
+        // if (!data.percentageForThirdGrade) errors.percentageForThirdGrade = "يجب عليك ادخال هذه القيمه";
+        // if (!data.theGrade) errors.theGrade = "يجب عليك ادخال هذه القيمه";
+        // if (!data.estimateDeprivationBeforeTheExamId) errors.estimateDeprivationBeforeTheExamId = "يجب عليك ادخال هذه القيمه";
+        // if (!data.estimateDeprivationAfterTheExamId) errors.estimateDeprivationAfterTheExamId = "يجب عليك ادخال هذه القيمه";
     
-        return errors;
+        // return errors;
     }
     function submit(e) {
         e.preventDefault();
-        const validationErrors = validateInputs();
-        if (Object.keys(validationErrors).length > 0) {
-            setData((prevState) => ({ ...prevState, validationErrors }));
-            return;
-        }
+      //  const validationErrors = validateInputs();
+        // if (Object.keys(validationErrors).length > 0) {
+        //     setData((prevState) => ({ ...prevState, validationErrors }));
+        //     return;
+        // }
         sendDataToApi();
     }
     const [allGrades, setAllGrades] = useState([]);
@@ -448,7 +427,7 @@ const [programID, setProgramId] = useState("");
 
 
     useEffect(() => {
-        axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${auth.universityId}`)
+        axios.get(`https://localhost:7095/api/AllGrades?UniversityId=${1}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setAllGrades(response.data);
@@ -464,7 +443,7 @@ const [programID, setProgramId] = useState("");
             .catch(error => {
                 console.error('Error fetching all grades:', error);
             });
-        axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${auth.universityId}`)
+        axios.get(`https://localhost:7095/api/GradesDetails?UniversityId=${1}`)
             .then(response => {
                 if (Array.isArray(response.data)) {
                     setGradesDetails(response.data);
@@ -742,7 +721,7 @@ const [programID, setProgramId] = useState("");
                                                                                 <select className="form-select custom-select-start"
                                                                                     aria-label="Select an option"
                                                                                     id="firstReductionEstimatesForFailureTimes"
-                                                                                    value={data.firstReductionEstimatesForFailureTimes}
+                                                                                    //value={data.firstReductionEstimatesForFailureTimes}
                                                                                     onChange={(e) => {
                                                                                         handleSelectChangeFirstReduction(e);
                                                                                         handleInputChangeVali(e); // Call handleInputChange here

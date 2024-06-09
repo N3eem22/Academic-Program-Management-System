@@ -7,7 +7,6 @@ import { TablePage } from "../../../../components/tables";
 import { headers2 } from "../../../../helpers/headers";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getAuthUser } from "../../../../helpers/storage";
 
 const EstimatesPage = () => {
   let [reload, setReload] = useState(false);
@@ -19,6 +18,11 @@ const EstimatesPage = () => {
   let [theGrade, setTheGrade] = useState([]);
   let [theGradeId, setTheGradeId] = useState([]);
   let [data, setData] = useState([]);
+  const {id} = useParams() ;
+  useEffect(() => {
+    console.log(id);;
+  }, [id]);
+
   async function getgradesfromapi() {
     let { data } = await axios.get("https://localhost:7095/api/AllGrades?2");
     setTheGrade(data);
@@ -32,10 +36,10 @@ const EstimatesPage = () => {
 
   let [equivalentEstimate, setequivalentEstimate] = useState([]);
   let [equivalentEstimateId, setequivalentEstimateId] = useState([]);
-const auth = getAuthUser();
+
   async function getgraduationEstimatefromapi() {
     let { data } = await axios.get(
-      `https://localhost:7095/api/EquivalentGrade?UniversityId=${auth.universityId}`  
+      "https://localhost:7095/api/EquivalentGrade?UniversityId=1"
     );
     console.log(data);
     setgraduationEstimate(data);
@@ -49,7 +53,7 @@ const auth = getAuthUser();
     getgradesfromapi();
     getgraduationEstimatefromapi();
     axios
-      .get(`https://localhost:7095/api/Program_TheGrade/${17}`)
+      .get(`https://localhost:7095/api/Program_TheGrade/${48}`)
       .then((res) => {
         console.log(res);
         setData(res.data);
@@ -64,7 +68,7 @@ const auth = getAuthUser();
     event.preventDefault();
     axios
       .post("https://localhost:7095/api/Program_TheGrade", {
-        prog_InfoId: programInfoId,
+        prog_InfoId: 48,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -93,7 +97,7 @@ const auth = getAuthUser();
     console.log(programInfoId);
     axios
       .put(`https://localhost:7095/api/Program_TheGrade/${selectedRow.id}`, {
-        prog_InfoId: 17,
+        prog_InfoId: 48,
         theGradeId: theGradeId,
         equivalentEstimateId: equivalentEstimateId,
         thePercentageFrom: thePercentageFrom,
@@ -155,27 +159,11 @@ const auth = getAuthUser();
         console.error("Error data:", er.response.data);
       });
   };
-const Id = useParams();
-const [programID, setProgramId] = useState("");
- const [programInfoId, setProgramInfoId] = useState("");
+
+  const [programInfoId, setProgramInfoId] = useState("");
 
   
-  useEffect(() => {
-    setProgramId(Id.id);
-    axios.get(`https://localhost:7095/api/ProgramInformation/${programID}`)
 
-            .then((resp) => {
-              setProgramInfoId(resp.data.Id)
-                console.log(resp);
-            })
-            .catch((err) => {
-              setShow(false);
-                console.log(err);
-            });
-  }, [ , theGradeId ,programID ]);
-  useEffect(() => {
-  console.log(programID);
-  }, [ programID]);
 
   return (
     <Fragment>
@@ -184,7 +172,7 @@ const [programID, setProgramId] = useState("");
           <div className="col-md-2"></div>
           <div className="col-md-10">
             <h2 style={{ color: "red", paddingBottom: "15px" }}>
-            برنامج :  التربيه الفنيه
+            برنامج :   الهندسه
             </h2>
             <div className="inputs-card  ">
               <div className="col-md-6 ">
