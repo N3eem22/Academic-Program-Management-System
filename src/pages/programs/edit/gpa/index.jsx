@@ -161,7 +161,7 @@ const GpaPage = () => {
 
     useEffect(() => {
         const fetchData = async (programId) => {
-            const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${48}`).then((resp) => {
+            const res = await axios.get(`https://localhost:7095/api/CumulativeAverage/${5}`).then((resp) => {
                 dispatch({ type: 'Get' });
                 setData({
                     ...data,
