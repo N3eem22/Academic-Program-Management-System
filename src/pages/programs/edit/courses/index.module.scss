@@ -1,0 +1,14 @@
+@import "../../../../sass/main.scss";
+.border {
+    display: block;
+    border: 1px solid #000;
+    padding: 3px;
+    border-radius: 5px;
+    text-align: center;
+}
+.save {
+    background-color: $color-main-dark;
+}
+.save:hover {
+    background-color: lighten($color-main-dark, 10%); 
+}

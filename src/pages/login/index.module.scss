@@ -1,0 +1,23 @@
+@import "../../sass/main.scss";
+
+.button {
+  background-color: $color-main-dark;
+  font-size: 12px;
+  border-radius: 12px;
+  border: transparent;
+  color: white;
+  width: 100px;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.radio {
+  display: flex;
+  justify-content: space-between;
+
+  .form-check {
+    margin-right: 10px; // Adjust margin as needed
+  }
+}
+

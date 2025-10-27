@@ -1,0 +1,15 @@
+
+  @import "../../sass/main.scss";
+.save {
+    background-color: $color-main-dark;
+}
+.save:hover {
+    background-color: lighten($color-main-dark, 10%); 
+}
+.bold-and-large-text-input {
+    font-weight: bold; /* Makes the text bold */
+    font-size: 16px; /* Sets the font size to 16 pixels */
+}
+.rtl {
+    direction: rtl;
+}

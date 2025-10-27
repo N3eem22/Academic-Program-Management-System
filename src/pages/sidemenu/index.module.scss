@@ -1,0 +1,41 @@
+@import "../../sass/main.scss";
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../sass/variables.scss"  ;
+.sideMenu {
+  position: absolute;
+  top: 75px;
+  right: 0;
+  bottom: 0;
+  width: 15%;
+  height: fit-content;
+  background-color: $color-main-dark;
+  color: #fff !important;
+  padding: 10px;
+  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 0px 0px 20px;
+  font-size: medium;
+
+  .menuItem {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff !important;
+    text-decoration: none !important; // Remove decoration from links
+    &:hover {
+      background-color: rgb(156, 156, 156);
+    }
+
+    a { // Style the link inside .menuItem
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+  }
+
+  .active {
+    background-color: rgb(156, 156, 156);
+  }
+}

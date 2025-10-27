@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+.header {
+  background-color: #19355a;
+  display: flex;
+  color: white;
+  padding: 10px;
+  margin-bottom: 3px;
+}
+
+.header-content {
+  text-align: center;
+}
+
+.header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-left: 50px;
+  border-radius: 25px;
+}/*# sourceMappingURL=index.module.css.map */
